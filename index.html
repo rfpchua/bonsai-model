@@ -164,6 +164,17 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 .foot b{color:var(--ink)}
 #stamp{font-size:.68rem;color:var(--mut);margin-top:14px;border-top:1px solid var(--line);padding-top:8px}
 
+/* ---------- Night-only caption (v7.13 — decor trio, indicative) ----------
+   Short, unobtrusive note near the top of the view (where the glazing reads in the
+   default foyer-standing camera) — surfaces the black-mirror glare risk as indicative
+   only; the physical mock-up (lighting-design.md §B4) is the real check. */
+.capnote{position:absolute;top:54px;left:50%;transform:translateX(-50%);z-index:5;
+  background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);
+  backdrop-filter:blur(8px);color:var(--mut);font-size:.72rem;font-weight:600;padding:5px 12px;
+  pointer-events:none;white-space:nowrap;max-width:88vw;text-align:center}
+.capnote[hidden]{display:none}
+@media(max-width:700px){ .capnote{top:118px;font-size:.68rem;white-space:normal} }
+
 /* ---------- wiring layer legend chip (visible only while the Wiring layer is on) ---------- */
 #wireLegend{position:absolute;right:10px;bottom:calc(var(--vb-bottom,52px) + 8px);z-index:5;
   background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);
@@ -337,6 +348,8 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     </div>
   </div>
 
+  <div id="nightCaption" class="capnote" hidden>indicative only — glare confirmed at the night mock-up</div>
+
   <div id="sbBackdrop" hidden></div>
   <aside id="sidebar" aria-label="Controls menu" aria-hidden="true">
     <div id="sbHead">
@@ -382,7 +395,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <b>Dining seated</b> — near-front-on via the right pane, eye 1.20 m<br>
       <b>Living seated</b> — near-front-on via the left pane, eye 1.20 m</p>
 
-      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70% · mobile sidebar + compact toolbar + wiring bottom sheet · wiring defaults Plan 2) · single source of truth: model-spec.json (embedded)</div>
+      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70% · mobile sidebar + compact toolbar + wiring bottom sheet · wiring defaults Plan 2) · night scene (decor trio, indicative) · single source of truth: model-spec.json (embedded)</div>
     </div>
   </aside>
 
@@ -420,6 +433,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     </div>
     <div id="drawerBody">
       <p class="hint" style="margin-top:8px">How much light each face of the tree collects in a day (<b>DLI</b>, mol/m²/day) — measured daylight baseline plus the placed fixtures. Bands from the tree-care fact base: light that falls short <i>thins</i> a face; only a face held near zero long-term goes bare.</p>
+      <p class="hint" id="nightVerdictNote" hidden><b>Night:</b> these bands score Part A's daytime grow lighting (08:00–18:00) — unaffected by the decorative uplights currently shown.</p>
       <label class="tg"><input type="checkbox" id="overlayChk"> Colour the pads by verdict (overlay)</label>
       <div style="overflow-x:auto"><table class="vt" id="verdictTable">
         <thead><tr><th>Pad</th><th>Foyer face</th><th>Worst face</th><th>Verdict</th></tr></thead>
@@ -2896,6 +2910,66 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     "top_z": 1.8,
     "note": "rests on the pool floor through the perforated sheet (2026-07-23 ruling)"
    }
+  },
+  {
+   "id": "decorL",
+   "label": "decor uplight L · pole spare head (night, indicative)",
+   "pos": [
+    1.2,
+    0.45,
+    0.45
+   ],
+   "aim": [
+    0.1,
+    -0.1,
+    0.9
+   ],
+   "beam_deg": 30,
+   "role": "decorative",
+   "cct": 2700,
+   "mcst": false,
+   "status": "ESTIMATE",
+   "note": "pole L's spare 3rd head-exit (lighting-design.md §A4c); aimed at trunk pt T5. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b, confirmed 2026-07-25)"
+  },
+  {
+   "id": "decorR",
+   "label": "decor uplight R · pole spare head, mirrored (night, indicative)",
+   "pos": [
+    -1.2,
+    0.45,
+    0.45
+   ],
+   "aim": [
+    -0.2,
+    -0.1,
+    1.15
+   ],
+   "beam_deg": 30,
+   "role": "decorative",
+   "cct": 2700,
+   "mcst": false,
+   "status": "ESTIMATE",
+   "note": "pole R's spare 3rd head-exit, mirrored; aimed at trunk pt T6. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b, confirmed 2026-07-25)"
+  },
+  {
+   "id": "decorC",
+   "label": "decor uplight C · pebble-mounted, courtyard side (night, indicative)",
+   "pos": [
+    0.05,
+    -0.35,
+    0.05
+   ],
+   "aim": [
+    0.0,
+    0.0,
+    1.6
+   ],
+   "beam_deg": 40,
+   "role": "decorative",
+   "cct": 2700,
+   "mcst": false,
+   "status": "ESTIMATE",
+   "note": "new surface-mounted base among the pebbles, courtyard side, aimed up the main trunk toward the apex — the hero uplight. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b, confirmed 2026-07-25)"
   }
  ],
  "frame": {
@@ -3212,7 +3286,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   }
  },
  "wiring": {
-  "tag": "ESTIMATE 2026-07-25 - routes per lighting-design.md D2; tap positions pending electrician visit + manhole photo; DALI pair shares every run; 'internal' style = cable inside the pole tube (A4c: deck gland entry, internal rise, exits under head clamps); strips tap off pole L's internal cable via rear-facing exits (0.29 / 0.55) - short lateral jumps along the sill face/ledge; TWO selectable plans (owner 2026-07-25): wiring1 two-tap vs wiring2 all-from-top single-circuit",
+  "tag": "ESTIMATE 2026-07-25 - routes per lighting-design.md D2; tap positions pending electrician visit + manhole photo; DALI pair shares every run; 'internal' style = cable inside the pole tube (A4c: deck gland entry, internal rise, exits under head clamps); strips tap off pole L's internal cable via rear-facing exits (0.29 / 0.55) - short lateral jumps along the sill face/ledge; TWO selectable plans (owner 2026-07-25): wiring1 two-tap vs wiring2 all-from-top single-circuit. Decorative trio wired 2026-07-25: decorL/decorR ride the existing pole-L/pole-R internal risers (an added via-point at 0.45, the spare 3rd head-exit — no new route); decorC gets its own solid run from JB-L, under the cover sheet, no new penetration. The decorative trio is its own DALI zone/group (independent night-scene switching; control topology only, per Part C - the physical wiring/circuit topology above is unchanged by that)",
   "default": "wiring2",
   "options": [
    {
@@ -3450,8 +3524,8 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorative base uplights (future)",
-      "style": "dashed",
+      "serves": "decorC - base uplight, courtyard side (night scene, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "style": "solid",
       "points": [
        [
         0.7,
@@ -3459,21 +3533,31 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         -0.12
        ],
        [
-        0.0,
-        -0.4,
-        -0.1
+        0.3,
+        -0.35,
+        -0.08
+       ],
+       [
+        0.05,
+        -0.35,
+        0.05
        ]
       ]
      },
      {
       "circuit": "L",
-      "serves": "inside pole L - rise to head B (0.8) and head A (1.4)",
+      "serves": "inside pole L - rise to decorL's spare 3rd head-exit (0.45), head B (0.8) and head A (1.4)",
       "style": "internal",
       "points": [
        [
         1.2,
         0.52,
         0.05
+       ],
+       [
+        1.2,
+        0.45,
+        0.45
        ],
        [
         1.2,
@@ -3489,13 +3573,18 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "inside pole R - rise to head A (1.4) and head B (1.45)",
+      "serves": "inside pole R - rise to decorR's spare 3rd head-exit (0.45), head A (1.4) and head B (1.45)",
       "style": "internal",
       "points": [
        [
         -1.2,
         0.52,
         0.05
+       ],
+       [
+        -1.2,
+        0.45,
+        0.45
        ],
        [
         -1.2,
@@ -3803,8 +3892,8 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorative base uplights (future)",
-      "style": "dashed",
+      "serves": "decorC - base uplight, courtyard side (night scene, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "style": "solid",
       "points": [
        [
         0.7,
@@ -3812,21 +3901,31 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         -0.12
        ],
        [
-        0.0,
-        -0.4,
-        -0.1
+        0.3,
+        -0.35,
+        -0.08
+       ],
+       [
+        0.05,
+        -0.35,
+        0.05
        ]
       ]
      },
      {
       "circuit": "L",
-      "serves": "inside pole L - rise to head B (0.8) and head A (1.4)",
+      "serves": "inside pole L - rise to decorL's spare 3rd head-exit (0.45), head B (0.8) and head A (1.4)",
       "style": "internal",
       "points": [
        [
         1.2,
         0.52,
         0.05
+       ],
+       [
+        1.2,
+        0.45,
+        0.45
        ],
        [
         1.2,
@@ -3842,13 +3941,18 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "inside pole R - rise to head A (1.4) and head B (1.45)",
+      "serves": "inside pole R - rise to decorR's spare 3rd head-exit (0.45), head A (1.4) and head B (1.45)",
       "style": "internal",
       "points": [
        [
         -1.2,
         0.52,
         0.05
+       ],
+       [
+        -1.2,
+        0.45,
+        0.45
        ],
        [
         -1.2,
@@ -3918,7 +4022,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   {"id":"lumascape_q4","brand":"Lumascape","model":"Quadralux Q4 LS9142","lumens":4980,"beams":[30,45,65],"cct":3000,"cri":null,"watts":48,"role":"grow","verified":true,"notes":"Marine-grade casting, DALI-2, IP66/67; sits at the bottom of the required band"},
   {"id":"lumascape_q2","brand":"Lumascape","model":"Quadralux Q2 LS9122","lumens":3300,"beams":[30,45,65],"cct":3000,"cri":null,"watts":33,"role":"grow","verified":true,"notes":"Beam options assumed same family optics as Q4 — confirm"},
   {"id":"iguzzini_palco","brand":"iGuzzini","model":"Palco InOut","lumens":6200,"beams":[48],"cct":3000,"cri":null,"watts":58,"role":"grow","verified":true,"notes":"Best optical/dimensional match; the coastal warranty in writing is the gate"},
-  {"id":"iguzzini_newfo","brand":"iGuzzini","model":"Newfo InOut 125","lumens":2570,"beams":[52],"cct":3000,"cri":90,"watts":24,"role":"decorative","verified":true,"notes":"CRI 90 suits the decorative part of the scheme"},
+  {"id":"iguzzini_newfo","brand":"iGuzzini","model":"Newfo InOut 125","lumens":2570,"beams":[52],"cct":3000,"cri":90,"watts":24,"role":"decorative","verified":true,"notes":"CRI 90 suits the decorative part of the scheme; candidate for decorC (night-lighting-scheme.md §1b) — catalogue entry is 3000K, a 2700K SKU is UNVERIFIED, confirm at RFQ before treating as default"},
   {"id":"targetti_dart_maxi","brand":"Targetti","model":"DART Maxi 1E3958DA","lumens":5194,"beams":[28],"cct":3000,"cri":null,"watts":68.9,"role":"grow","verified":true,"notes":"Factory cataphoresis; substantial body for a shallow soffit"},
   {"id":"targetti_dart_medium","brand":"Targetti","model":"DART Medium 1E3934DA","lumens":4145,"beams":[48],"cct":3000,"cri":null,"watts":33.2,"role":"grow","verified":true,"notes":""},
   {"id":"targetti_dart_small","brand":"Targetti","model":"DART Round Small 1E3977DA","lumens":1477,"beams":[48],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":true,"notes":""},
@@ -3931,7 +4035,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   {"id":"weef_flc220","brand":"WE-EF","model":"FLC220","lumens":2800,"beams":[30,45],"cct":3000,"cri":null,"watts":26,"role":"grow","verified":false,"notes":"Corrosion benchmark; no Singapore entity; beam options not recorded — placeholder, confirm"},
   {"id":"cs_gwl_re340","brand":"CS","model":"GWL-RE340 horticultural","lumens":10000,"ppf_direct":150,"beams":[60],"cct":3200,"cri":75,"watts":100,"role":"grow","verified":false,"notes":"Datasheet ~20% optimistic — engine uses ~150 µmol/s DIRECT; IP65 below the IP66 site minimum; 60° too wide for the soffit role (ask for 30°); DALI driver suffix ELG-100-48DA UNVERIFIED"},
   {"id":"underscore_linear","brand":"iGuzzini","model":"Underscore InOut linear (2 m sill strip)","lumens":2000,"beams":[60],"cct":3000,"cri":90,"watts":null,"role":"linear","verified":false,"notes":"~1,000 lm/m over 2 m — ESTIMATE; the asymmetric optic decides success (without it ~85% misses the tree)"},
-  {"id":"generic_decor","brand":"Generic","model":"Decorative uplight (allowance)","lumens":800,"beams":[30],"cct":2700,"cri":null,"watts":null,"role":"decorative","verified":false,"notes":"Allowance-grade placeholder, no product selected"}
+  {"id":"generic_decor","brand":"Generic","model":"Decorative uplight (allowance)","lumens":800,"beams":[30],"cct":2700,"cri":90,"watts":null,"role":"decorative","verified":false,"notes":"Allowance-grade placeholder, no product selected — CRI90 assumed per §B2's mandatory colour-rendering minimum, not a spec'd figure. Default product for decorL/decorR/decorC pending the §B4 night mock-up (night-lighting-scheme.md §1b)"}
  ]
 }
 </script>
@@ -3972,7 +4076,12 @@ const POSMETA = {
   strip:   {disp:'(c) centre-pane sill strip',          short:'sill strip', mcst:false},
   strip2:  {disp:'(c) sill strip 2 — low on the sill-wall face', short:'sill strip 2 · low on sill', mcst:false},
   poleL:   {disp:'(d) window pole L',                   short:'pole L',     mcst:false},
-  poleR:   {disp:'(d) window pole R',                   short:'pole R',     mcst:false}
+  poleR:   {disp:'(d) window pole R',                   short:'pole R',     mcst:false},
+  /* decorative trio (Part B, night scene — added 2026-07-25, night-lighting-scheme.md §1b).
+     Ground-level courtyard fixtures, "own ground" per mcst-approval.md line 26 — no MCST. */
+  decorL:  {disp:'decor uplight L — pole spare head (night, indicative)', short:'decor L', mcst:false},
+  decorR:  {disp:'decor uplight R — pole spare head (night, indicative)', short:'decor R', mcst:false},
+  decorC:  {disp:'decor uplight C — pebble-mounted (night, indicative)',  short:'decor C', mcst:false}
 };
 /* presentational mount offsets (VISUAL body only — photometry, wash wedge and verdicts
    all stay at the spec §4 position). The bay face is FLUSH (owner final ruling,
@@ -3988,7 +4097,11 @@ const DEFAULT_PRODUCT={
   soffitL:['lumascape_q4',30],soffitR:['lumascape_q4',30],
   wireL:['targetti_dart_medium',48], wireR:['targetti_dart_medium',48],
   strip:['underscore_linear',60], strip2:['underscore_linear',60],
-  poleL:['targetti_dart_medium',48], poleR:['targetti_dart_medium',48]
+  poleL:['targetti_dart_medium',48], poleR:['targetti_dart_medium',48],
+  /* decorative trio default product: the verified-2700K library placeholder — iguzzini_newfo
+     is a named candidate for decorC (night-lighting-scheme.md §1b) but its 2700K SKU is
+     UNVERIFIED (catalogue entry is 3000K), so it is NOT wired in as a default here */
+  decorL:['generic_decor',30], decorR:['generic_decor',30], decorC:['generic_decor',30]
 };
 /* short product names for the position chips (full name rides on hover) */
 const PRODUCT_ABBREV={
@@ -4886,6 +4999,11 @@ function computeVerdicts(){
       if(!po.relevant[a.id]) return;
       let dli=DAYLIGHT[a.id][bi];
       placed.forEach(function(light){
+        /* Part B (decorative, night) is never scored against the §1 survival bands — it's
+           judged by eye at the §B4 mock-up, not by mol/m²/day (night-lighting-scheme.md §1b).
+           Excluding it here (rather than gating by condition) keeps the verdict headline
+           byte-identical in Day AND Night, regardless of which set is currently on screen. */
+        if(light.lib.role==='decorative') return;
         let ppfd=Photometry.ppfdAt(light,pe,a.n);
         if(ppfd>0){
           /* simple occlusion: another pad centre near the fixture->pad line attenuates 60%
@@ -5064,6 +5182,9 @@ function addLight(libId, posId, opts){
     headB: !!opts.headB,
     beam:beam, dim:1,
     hours: lib.role==='decorative' ? 4 : 10,
+    /* render-layer visibility only (night-lighting-scheme.md §3b point 2) — grow set shows
+       in Day, decorative trio shows in Night. Never gates dim/hours/computeVerdicts. */
+    visibleInCondition: lib.role==='decorative' ? 'night' : 'day',
     color:cctColor(lib.cct),
     group:new THREE.Group(), spot:null, cone:null, handle:null, label:null
   };
@@ -5956,16 +6077,33 @@ function applyCondition(){
      exceeds the approved level: ≤3 defaults render EXACTLY as approved (g=1), all
      11 render at the same total energy, redistributed. Photoreal tone-mapping
      exposure also eases with g^0.25 for extra headroom. Verdict arithmetic never
-     reads any of these values. */
-  const S=placed.reduce(function(a,l){ return a+((l.dim>0.001)?(l.lib.lumens*l.dim)/4500:0); },0);
-  const SREF=3.5;
+     reads any of these values.
+     v7.13 (night scene, decor trio): S and the per-light render loop below now only
+     count lights whose visibleInCondition matches the active condition — grow's large
+     lumens must not govern Night's exposure (and vice versa). SREF itself also
+     switches: SREF_DAY is unchanged (tuned to the grow default trio); SREF_NIGHT is
+     sized to the decorative default trio (3 × generic_decor's 800 lm) so Night's
+     exposure calibrates to what's actually glowing, not to the (hidden) grow scheme. */
+  const SREF_DAY=3.5;
+  const SREF_NIGHT=3*(800/4500);   /* ≈0.53 — default decorative trio (generic_decor, 800 lm each) at dim=1 */
+  const SREF=night?SREF_NIGHT:SREF_DAY;
+  const S=placed.reduce(function(a,l){
+    if(l.visibleInCondition!==condition) return a;
+    return a+((l.dim>0.001)?(l.lib.lumens*l.dim)/4500:0);
+  },0);
   const g=SREF/Math.max(S,SREF);
   renderer.toneMappingExposure = (night?0.95:1.05)*Math.pow(g,0.25);
   placed.forEach(function(l,idx){
-    const on=l.dim>0.001;
+    const visibleNow=l.visibleInCondition===condition;   /* grow shows in Day, decorative in Night */
+    const on=visibleNow && l.dim>0.001;
     const base=(l.lib.lumens*l.dim)/4500;
+    /* decorative cosmetic multiplier (visual only, alongside the existing linear ×2.2 term) —
+       the 800 lm placeholder would otherwise read at roughly a fifth of the grow trio's
+       brightness at the same dim; boosts it to a visible warm glow against the night sky.
+       Touches ONLY the THREE.js SpotLight intensity/cone uniform, never Photometry.ppfdAt(). */
+    const decorMult = l.lib.role==='decorative' ? 3 : 1;
     const inten=base*(night?2.2:1.5)*(photo?1:0.8)*g
-      *(l.form==='linear'?2.2:1);   /* strip visual boost so its wash reads (calibration, not physics) */
+      *(l.form==='linear'?2.2:1)*decorMult;   /* strip visual boost so its wash reads (calibration, not physics) */
     l.spot.visible=on;
     if(l.subSpots){                 /* strip: energy split across the 3-spot row */
       l.spot.intensity=inten/3;
@@ -5975,11 +6113,15 @@ function applyCondition(){
     }
     l.spot.castShadow = photo && idx<4;
     if(l.coneMat) l.coneMat.uniforms.uInt.value = on&&showBeams ?
-      Math.min(0.7, 0.14+base*0.28)*(night?1.0:0.75)*g*(l.form==='linear'?1.6:1) : 0;
+      Math.min(0.7, 0.14+base*0.28)*(night?1.0:0.75)*g*(l.form==='linear'?1.6:1)*decorMult : 0;
     if(l.cone) l.cone.visible = on&&showBeams;
     l.faceMesh.material.color.copy(l.color).multiplyScalar(on? (0.4+0.6*l.dim):0.08);
     l.halo.material.opacity=(on&&!schem)? (night?0.85:0.35)*l.dim : 0;
   });
+  /* Night-only captions (v7.13) — verdict-drawer scope note + the indicative-glare note
+     near the top of the view. Both are display-only; neither touches computeVerdicts(). */
+  const nvEl=document.getElementById('nightVerdictNote'); if(nvEl) nvEl.hidden=!night;
+  const capEl=document.getElementById('nightCaption'); if(capEl) capEl.hidden=!night;
 }
 
 function applyMode(){
@@ -6371,6 +6513,15 @@ function padFaceAim(id){                     /* the pad's foyer (+y) face, from 
 }
 addLight('targetti_dart_medium','poleL',{beam:48, headB:true, headZ:0.80, aim:padFaceAim('L2')});
 addLight('targetti_dart_medium','poleR',{beam:48, headB:true, headZ:1.45, aim:padFaceAim('T3')});
+/* decorative trio (Part B, night scene — v7.13, night-lighting-scheme.md §1b): placed by
+   default alongside the grow set so Night "just shows" them with no manual add-light step —
+   applyCondition()'s visibleInCondition gate is what actually keeps them hidden in Day and
+   the grow set hidden in Night; computeVerdicts() excludes them from DLI scoring entirely
+   (role==='decorative'), so their presence here cannot move a Day or Night verdict headline. */
+['decorL','decorR','decorC'].forEach(function(pos){
+  const d=DEFAULT_PRODUCT[pos];
+  addLight(d[0], pos, {beam:d[1]});
+});
 $('overlayChk').checked=true;
 initWhatIf();
 selectedUid=placed.length?placed[0].uid:null;
