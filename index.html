@@ -395,7 +395,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <b>Dining seated</b> — near-front-on via the right pane, eye 1.20 m<br>
       <b>Living seated</b> — near-front-on via the left pane, eye 1.20 m</p>
 
-      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70% · mobile sidebar + compact toolbar + wiring bottom sheet · wiring defaults Plan 2) · night scene (cross-key ground trio, indicative) · single source of truth: model-spec.json (embedded)</div>
+      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70% · mobile sidebar + compact toolbar + wiring bottom sheet · wiring defaults Plan 2) · night scene (cross-key ground trio, indicative) · sill strips w/ feeds · single source of truth: model-spec.json (embedded)</div>
     </div>
   </aside>
 
@@ -5267,6 +5267,10 @@ function formOf(lib){
 }
 const housingMat=new THREE.MeshStandardMaterial({color:0x2e3134, roughness:0.55, metalness:0.45});
 const yokeMat=new THREE.MeshStandardMaterial({color:0x24272a, roughness:0.5, metalness:0.55});
+/* anodised-graphite aluminium extrusion — shared by BOTH sill strips (v7.15: was
+   strip-only, promoted to a shared material so strip2 reads as the same real hardware
+   family rather than the generic dark housingMat every other fixture body uses) */
+const aluMat=new THREE.MeshStandardMaterial({color:0x3f4549, metalness:0.75, roughness:0.4});
 
 /* orientation helpers — keep the WIDE axis horizontal (no roll) */
 function beamBasisQuat(dirW){            /* local −Y = beam direction, local X horizontal */
@@ -5329,10 +5333,9 @@ function buildBodyGroup(light){
        z toward the foyer) and mounted FLAT by updateLightObjects (a surface-mounted
        extrusion is fixed; only the LED face is angled). VISUAL mount only — the
        photometric position stays spec §4. */
-    const alu=new THREE.MeshStandardMaterial({color:0x3f4549, metalness:0.75, roughness:0.4});  /* anodised graphite — pops against the pale ledge */
-    const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.05,0.045), alu);
+    const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.05,0.045), aluMat);
     body.castShadow=true; g.add(body);
-    const foot=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.006,0.055), alu);   /* base flange on the ledge */
+    const foot=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.006,0.055), aluMat);   /* base flange on the ledge */
     foot.position.set(0,-0.028,0); g.add(foot);
     faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.94,0.03), new THREE.MeshBasicMaterial({color:light.color}));
     /* emissive face on the upper-courtyard bevel: +z normal rotated to ≈(0,+up,−courtyard),
@@ -5340,6 +5343,20 @@ function buildBodyGroup(light){
     faceMesh.rotation.x=Math.PI*0.72;
     faceMesh.position.set(0, 0.014, -0.020);
     g.add(faceMesh);
+  } else if(light.form==='linear' && light.posId==='strip2'){
+    /* sill strip 2 (v7.15): a real linear LED profile, same anodised-aluminium family as
+       strip (aluMat, shared) rather than the generic dark housingMat every other body
+       uses — but surface-mounted FLUSH against the sill-wall's flat courtyard face
+       (house.bay_window_face, owner ruling), not resting on a ledge, so it gets small
+       standoff blocks bridging channel-to-wall instead of strip's foot flange. */
+    const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.05,0.04), aluMat);
+    body.castShadow=true; g.add(body);
+    [-0.85, 0.85].forEach(function(sx){
+      const standoff=new THREE.Mesh(new THREE.BoxGeometry(0.02,0.02,0.018), yokeMat);
+      standoff.position.set(sx, 0, -0.029); g.add(standoff);   /* -z: toward the wall behind */
+    });
+    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.92,0.022), new THREE.MeshBasicMaterial({color:light.color}));
+    faceMesh.position.z=0.021; g.add(faceMesh);
   } else if(light.form==='linear'){
     g.add(new THREE.Mesh(new THREE.BoxGeometry(2.0,0.05,0.04), housingMat));   /* extrusion */
     faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.92,0.022), new THREE.MeshBasicMaterial({color:light.color}));
@@ -5443,6 +5460,9 @@ function addLight(libId, posId, opts){
   rebuildLightsList();
   computeVerdicts();
   applyMode();
+  syncStripWireStyle();   /* v7.15 — no-op unless posId is 'strip'/'strip2'; hooked here
+                              (not one specific UI control) so it stays correct regardless
+                              of which flow added the light (checkbox, Advanced, tune-panel) */
   return light;
 }
 
@@ -5459,6 +5479,7 @@ function removeLight(uid){
   }
   if(selectedUid===uid) selectedUid=placed.length?placed[placed.length-1].uid:null;
   refreshLightbar(); rebuildLightsList(); computeVerdicts(); applyMode();
+  syncStripWireStyle();   /* v7.15 — see addLight() note */
 }
 
 function updateLightObjects(light){
@@ -6080,6 +6101,19 @@ function renderVerdictUI(){
 const wireGroup=new THREE.Group(); wireGroup.visible=false; scene.add(wireGroup);
 const wiringPlans=[];            /* [{id,label,note,group}] — one subgroup per wiring option */
 let activeWiringPlan=null;
+/* v7.15 (sill-strip render round): strip/strip2 wiring runs are built TWICE — once solid,
+   once dashed, both attached to their plan's group — and toggled by placement state via
+   syncStripWireStyle(). One entry per {posId × plan}, so 4 entries total (strip/strip2 ×
+   wiring1/wiring2). This is the only wiring style that changes at runtime; every other
+   run's style stays exactly as authored in the spec JSON. */
+const stripWireEntries=[];       /* [{posId, solidGroup, dashedGroup}] */
+function syncStripWireStyle(){
+  stripWireEntries.forEach(function(e){
+    const on=placed.some(function(l){ return l.posId===e.posId; });
+    e.solidGroup.visible=on;
+    e.dashedGroup.visible=!on;
+  });
+}
 function setWiringPlan(id){      /* cheap switch: both plans are built once, visibility toggles */
   activeWiringPlan=id;
   wiringPlans.forEach(function(p){ p.group.visible=(p.id===id); });
@@ -6135,27 +6169,59 @@ function setWiringPlan(id){      /* cheap switch: both plans are built once, vis
       }
       /* solid runs: fat tube along the polyline (crisp corners via per-segment curves) +
          glow halo + x-ray pass — sized to read at phone scale (owner: old thin tubes
-         were too hard to see) */
+         were too hard to see).
+         v7.15: strip/strip2 runs build into their OWN group (`dest`) rather than `pg`
+         directly, because they get a placement-driven solid<->dashed toggle (see below);
+         every other run keeps building straight into `pg`, unchanged. */
+      const isStripRun=/^strip/.test(run.serves||'');
+      const dest=isStripRun ? new THREE.Group() : pg;
       const path=new THREE.CurvePath();
       for(let i=0;i<pts.length-1;i++) path.add(new THREE.LineCurve3(pts[i], pts[i+1]));
       const segs=Math.max(12,(pts.length-1)*10);
       const tube=new THREE.TubeGeometry(path, segs, 0.02, 8, false);
       const m=new THREE.Mesh(tube, solidMat[run.circuit]||solidMat.H);
-      pg.add(m);
+      dest.add(m);
       const halo=new THREE.Mesh(new THREE.TubeGeometry(path, segs, 0.036, 8, false),
         haloMat[run.circuit]||haloMat.H);
-      halo.renderOrder=890; pg.add(halo);
+      halo.renderOrder=890; dest.add(halo);
       const mx=new THREE.Mesh(tube, xrayMat[run.circuit]||xrayMat.H);
-      mx.renderOrder=900; pg.add(mx);
-      /* pole-tap rear exits (owner 2026-07-25): the strip feeds leave pole L through
-         rear-facing exits at z 0.55 / 0.29 — mark each feed's start with a small
-         L-ring node sphere (solid + x-ray) so the tap point reads */
-      if(/^strip/.test(run.serves||'')){
+      mx.renderOrder=900; dest.add(mx);
+      if(isStripRun){
+        /* pole-tap rear exit (owner 2026-07-25): the strip feeds leave pole L through
+           rear-facing exits at z 0.55 / 0.29 — mark the START of the run (the pole's
+           exit hole) with a small sphere node (solid + x-ray) so the tap point reads */
         const ng=new THREE.SphereGeometry(0.028,12,10);
         const nm=new THREE.Mesh(ng, solidMat[run.circuit]||solidMat.L);
-        nm.position.copy(pts[0]); pg.add(nm);
+        nm.position.copy(pts[0]); dest.add(nm);
         const nx=new THREE.Mesh(ng, xrayMat[run.circuit]||xrayMat.L);
-        nx.position.copy(pts[0]); nx.renderOrder=900; pg.add(nx);
+        nx.position.copy(pts[0]); nx.renderOrder=900; dest.add(nx);
+        /* power-entry node (v7.15, owner request): the strip's OWN feed end — the gland/
+           driver-tail into its end cap — marked with a small cube, matching the
+           junction-box marker's shape language (junctions use a 0.07 cube; this is the
+           lighter "gland" version at 0.045, since it's an entry point, not a full JB) */
+        const eg=new THREE.BoxGeometry(0.045,0.045,0.045);
+        const em=new THREE.Mesh(eg, solidMat[run.circuit]||solidMat.L);
+        em.position.copy(pts[pts.length-1]); dest.add(em);
+        const ex=new THREE.Mesh(eg, xrayMat[run.circuit]||xrayMat.L);
+        ex.position.copy(pts[pts.length-1]); ex.renderOrder=900; dest.add(ex);
+        /* v7.15 style rule: this run (built above, into `dest`) renders SOLID while the
+           strip is placed; a DASHED twin along the same polyline renders while it is
+           not — matching the legend's existing dashed=future/not-in-use convention.
+           syncStripWireStyle() toggles which one is visible; called on every add/remove
+           of a light at posId 'strip'/'strip2', from any UI path (checkbox, Advanced
+           add-flow, tune-panel remove) since the toggle lives in addLight()/removeLight()
+           themselves rather than one specific control. */
+        const dash=0.07, gap=0.05;
+        const dg=new THREE.BufferGeometry().setFromPoints(pts);
+        const dashedGrp=new THREE.Group();
+        const dln=new THREE.Line(dg, new THREE.LineDashedMaterial({color:col, dashSize:dash, gapSize:gap}));
+        dln.computeLineDistances(); dashedGrp.add(dln);
+        const dlx=new THREE.Line(dg, new THREE.LineDashedMaterial({color:col, dashSize:dash, gapSize:gap,
+          transparent:true, opacity:0.45, depthTest:false, depthWrite:false}));
+        dlx.computeLineDistances(); dlx.renderOrder=900; dashedGrp.add(dlx);
+        pg.add(dest); pg.add(dashedGrp);
+        const posId=(run.serves.match(/^strip2?/)||['strip'])[0];
+        stripWireEntries.push({posId:posId, solidGroup:dest, dashedGroup:dashedGrp});
       }
     });
     /* taps = spheres, junctions = cubes; labels ride the existing text-sprite system
@@ -6202,6 +6268,7 @@ function setWiringPlan(id){      /* cheap switch: both plans are built once, vis
     ? WD.default : (wiringPlans[0]&&wiringPlans[0].id);
   if(sel && !sel.hidden) sel.value=def;
   setWiringPlan(def);
+  syncStripWireStyle();   /* v7.15 initial state — correct even before any lights are placed */
 })();
 
 /* ============================== modes & conditions ============================== */
