@@ -395,7 +395,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <b>Dining seated</b> — near-front-on via the right pane, eye 1.20 m<br>
       <b>Living seated</b> — near-front-on via the left pane, eye 1.20 m</p>
 
-      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70% · mobile sidebar + compact toolbar + wiring bottom sheet · wiring defaults Plan 2) · night scene (decor trio, indicative) · single source of truth: model-spec.json (embedded)</div>
+      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70% · mobile sidebar + compact toolbar + wiring bottom sheet · wiring defaults Plan 2) · night scene (cross-key ground trio, indicative) · single source of truth: model-spec.json (embedded)</div>
     </div>
   </aside>
 
@@ -2912,8 +2912,68 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    }
   },
   {
+   "id": "decorA",
+   "label": "decor key A · dining view (night, indicative)",
+   "pos": [
+    0.85,
+    0.3,
+    0.05
+   ],
+   "aim": [
+    0.0,
+    0.0,
+    1.2
+   ],
+   "beam_deg": 30,
+   "role": "decorative",
+   "cct": 2700,
+   "mcst": false,
+   "status": "ESTIMATE",
+   "note": "cross-key ground layout (owner ruling 2026-07-25: courtyard + dining are equal-primary night views) — the dining view's KEY light, and decorB's rim. Surface-mounted on the perforated cover sheet. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+  },
+  {
+   "id": "decorB",
+   "label": "decor key B · courtyard view (night, indicative)",
+   "pos": [
+    -0.75,
+    -0.4,
+    0.05
+   ],
+   "aim": [
+    -0.05,
+    -0.15,
+    1.2
+   ],
+   "beam_deg": 36,
+   "role": "decorative",
+   "cct": 2700,
+   "mcst": false,
+   "status": "ESTIMATE",
+   "note": "cross-key ground layout (owner ruling 2026-07-25) — the courtyard view's KEY light, and decorA's rim. Surface-mounted on the perforated cover sheet. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+  },
+  {
+   "id": "decorF",
+   "label": "decor fill · cascade (night, indicative)",
+   "pos": [
+    -0.6,
+    0.35,
+    0.05
+   ],
+   "aim": [
+    -0.5,
+    0.3,
+    0.9
+   ],
+   "beam_deg": 55,
+   "role": "decorative",
+   "cct": 2700,
+   "mcst": false,
+   "status": "ESTIMATE",
+   "note": "cross-key ground layout (owner ruling 2026-07-25) — low FILL light softening the shadow the two keys leave on the cascade skirt (L4/L6). Surface-mounted on the perforated cover sheet. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+  },
+  {
    "id": "decorL",
-   "label": "decor uplight L · pole spare head (night, indicative)",
+   "label": "decor uplight L (alt · pole spare)",
    "pos": [
     1.2,
     0.45,
@@ -2925,15 +2985,15 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     0.9
    ],
    "beam_deg": 30,
-   "role": "decorative",
+   "role": "decorative_alt",
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "pole L's spare 3rd head-exit (lighting-design.md §A4c); aimed at trunk pt T5. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b, confirmed 2026-07-25)"
+   "note": "pole L's spare 3rd head-exit (lighting-design.md §A4c); aimed at trunk pt T5. Demoted to an OPTIONAL ALTERNATE 2026-07-25 (owner cross-key ruling put decorA/decorB/decorF in the default night set instead) — still placeable from the sidebar, not auto-placed. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
   },
   {
    "id": "decorR",
-   "label": "decor uplight R · pole spare head, mirrored (night, indicative)",
+   "label": "decor uplight R (alt · pole spare)",
    "pos": [
     -1.2,
     0.45,
@@ -2945,31 +3005,31 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     1.15
    ],
    "beam_deg": 30,
-   "role": "decorative",
+   "role": "decorative_alt",
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "pole R's spare 3rd head-exit, mirrored; aimed at trunk pt T6. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b, confirmed 2026-07-25)"
+   "note": "pole R's spare 3rd head-exit, mirrored; aimed at trunk pt T6. Demoted to an OPTIONAL ALTERNATE 2026-07-25 (owner cross-key ruling put decorA/decorB/decorF in the default night set instead) — still placeable from the sidebar, not auto-placed. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
   },
   {
-   "id": "decorC",
-   "label": "decor uplight C · pebble-mounted, courtyard side (night, indicative)",
+   "id": "decorG",
+   "label": "decor fill · courtyard (optional 4th)",
    "pos": [
-    0.05,
+    0.6,
     -0.35,
     0.05
    ],
    "aim": [
-    0.0,
-    0.0,
-    1.6
+    0.35,
+    -0.15,
+    1.0
    ],
-   "beam_deg": 40,
-   "role": "decorative",
+   "beam_deg": 50,
+   "role": "decorative_alt",
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "new surface-mounted base among the pebbles, courtyard side, aimed up the main trunk toward the apex — the hero uplight. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b, confirmed 2026-07-25)"
+   "note": "optional 4th light, owner-approved addition to the cross-key layout 2026-07-25 — tests whether the courtyard view's shadow quadrant (no fill in the 3-light decorA/decorB/decorF layout) needs a second fill into the living-side rear canopy undersides. Surface-mounted on the cover sheet. NOT auto-placed — placeable from the sidebar with one tap, like the other alternates. The §B4 night mock-up decides 3-vs-4 by eye"
   }
  ],
  "frame": {
@@ -3286,7 +3346,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   }
  },
  "wiring": {
-  "tag": "ESTIMATE 2026-07-25 - routes per lighting-design.md D2; tap positions pending electrician visit + manhole photo; DALI pair shares every run; 'internal' style = cable inside the pole tube (A4c: deck gland entry, internal rise, exits under head clamps); strips tap off pole L's internal cable via rear-facing exits (0.29 / 0.55) - short lateral jumps along the sill face/ledge; TWO selectable plans (owner 2026-07-25): wiring1 two-tap vs wiring2 all-from-top single-circuit. Decorative trio wired 2026-07-25: decorL/decorR ride the existing pole-L/pole-R internal risers (an added via-point at 0.45, the spare 3rd head-exit — no new route); decorC gets its own solid run from JB-L, under the cover sheet, no new penetration. The decorative trio is its own DALI zone/group (independent night-scene switching; control topology only, per Part C - the physical wiring/circuit topology above is unchanged by that)",
+  "tag": "ESTIMATE 2026-07-25 - routes per lighting-design.md D2; tap positions pending electrician visit + manhole photo; DALI pair shares every run; 'internal' style = cable inside the pole tube (A4c: deck gland entry, internal rise, exits under head clamps); strips tap off pole L's internal cable via rear-facing exits (0.29 / 0.55) - short lateral jumps along the sill face/ledge; TWO selectable plans (owner 2026-07-25): wiring1 two-tap vs wiring2 all-from-top single-circuit. Decorative wiring, cross-key rework 2026-07-25 (owner ruling: courtyard + dining are equal-primary night views): decorA/decorB/decorF (the default night set - two keys + one fill) each get their own solid run from JB-L, under the cover sheet, no new penetration; decorL/decorR (now role decorative_alt, optional alternates, not auto-placed) still ride the pole-L/pole-R internal risers via the added 0.45 via-point - no new route. Owner-approved addition 2026-07-25: decorG, an optional 4th fill for the courtyard view's shadow quadrant (role decorative_alt, not auto-placed) - dashed JB-L run in both plans, matching the legend's future/optional convention (solid = the default trio, dashed = optional). The decorative layer is its own DALI zone/group (independent night-scene switching; control topology only, per Part C - the physical wiring/circuit topology above is unchanged by that)",
   "default": "wiring2",
   "options": [
    {
@@ -3524,7 +3584,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorC - base uplight, courtyard side (night scene, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorA - key uplight, dining view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -3533,12 +3593,78 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         -0.12
        ],
        [
+        0.8,
+        0.0,
+        -0.08
+       ],
+       [
+        0.85,
         0.3,
+        0.05
+       ]
+      ]
+     },
+     {
+      "circuit": "L",
+      "serves": "decorB - key uplight, courtyard view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "style": "solid",
+      "points": [
+       [
+        0.7,
+        -0.3,
+        -0.12
+       ],
+       [
+        0.0,
+        -0.35,
+        -0.1
+       ],
+       [
+        -0.75,
+        -0.4,
+        0.05
+       ]
+      ]
+     },
+     {
+      "circuit": "L",
+      "serves": "decorF - fill uplight, cascade (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "style": "solid",
+      "points": [
+       [
+        0.7,
+        -0.3,
+        -0.12
+       ],
+       [
+        0.0,
+        0.05,
+        -0.08
+       ],
+       [
+        -0.6,
+        0.35,
+        0.05
+       ]
+      ]
+     },
+     {
+      "circuit": "L",
+      "serves": "decorG - optional 4th fill, courtyard shadow quadrant (owner-approved addition 2026-07-25; under the cover sheet, no new penetration; OPTIONAL - mock-up decides 3-vs-4)",
+      "style": "dashed",
+      "points": [
+       [
+        0.7,
+        -0.3,
+        -0.12
+       ],
+       [
+        0.65,
         -0.35,
         -0.08
        ],
        [
-        0.05,
+        0.6,
         -0.35,
         0.05
        ]
@@ -3546,7 +3672,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "inside pole L - rise to decorL's spare 3rd head-exit (0.45), head B (0.8) and head A (1.4)",
+      "serves": "inside pole L - rise to the alt decor exit (0.45), head B (0.8) and head A (1.4)",
       "style": "internal",
       "points": [
        [
@@ -3573,7 +3699,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "inside pole R - rise to decorR's spare 3rd head-exit (0.45), head A (1.4) and head B (1.45)",
+      "serves": "inside pole R - rise to the alt decor exit (0.45), head A (1.4) and head B (1.45)",
       "style": "internal",
       "points": [
        [
@@ -3892,7 +4018,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorC - base uplight, courtyard side (night scene, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorA - key uplight, dining view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -3901,12 +4027,78 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         -0.12
        ],
        [
+        0.8,
+        0.0,
+        -0.08
+       ],
+       [
+        0.85,
         0.3,
+        0.05
+       ]
+      ]
+     },
+     {
+      "circuit": "L",
+      "serves": "decorB - key uplight, courtyard view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "style": "solid",
+      "points": [
+       [
+        0.7,
+        -0.3,
+        -0.12
+       ],
+       [
+        0.0,
+        -0.35,
+        -0.1
+       ],
+       [
+        -0.75,
+        -0.4,
+        0.05
+       ]
+      ]
+     },
+     {
+      "circuit": "L",
+      "serves": "decorF - fill uplight, cascade (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "style": "solid",
+      "points": [
+       [
+        0.7,
+        -0.3,
+        -0.12
+       ],
+       [
+        0.0,
+        0.05,
+        -0.08
+       ],
+       [
+        -0.6,
+        0.35,
+        0.05
+       ]
+      ]
+     },
+     {
+      "circuit": "L",
+      "serves": "decorG - optional 4th fill, courtyard shadow quadrant (owner-approved addition 2026-07-25; under the cover sheet, no new penetration; OPTIONAL - mock-up decides 3-vs-4)",
+      "style": "dashed",
+      "points": [
+       [
+        0.7,
+        -0.3,
+        -0.12
+       ],
+       [
+        0.65,
         -0.35,
         -0.08
        ],
        [
-        0.05,
+        0.6,
         -0.35,
         0.05
        ]
@@ -3914,7 +4106,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "inside pole L - rise to decorL's spare 3rd head-exit (0.45), head B (0.8) and head A (1.4)",
+      "serves": "inside pole L - rise to the alt decor exit (0.45), head B (0.8) and head A (1.4)",
       "style": "internal",
       "points": [
        [
@@ -3941,7 +4133,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "inside pole R - rise to decorR's spare 3rd head-exit (0.45), head A (1.4) and head B (1.45)",
+      "serves": "inside pole R - rise to the alt decor exit (0.45), head A (1.4) and head B (1.45)",
       "style": "internal",
       "points": [
        [
@@ -4077,11 +4269,19 @@ const POSMETA = {
   strip2:  {disp:'(c) sill strip 2 — low on the sill-wall face', short:'sill strip 2 · low on sill', mcst:false},
   poleL:   {disp:'(d) window pole L',                   short:'pole L',     mcst:false},
   poleR:   {disp:'(d) window pole R',                   short:'pole R',     mcst:false},
-  /* decorative trio (Part B, night scene — added 2026-07-25, night-lighting-scheme.md §1b).
-     Ground-level courtyard fixtures, "own ground" per mcst-approval.md line 26 — no MCST. */
-  decorL:  {disp:'decor uplight L — pole spare head (night, indicative)', short:'decor L', mcst:false},
-  decorR:  {disp:'decor uplight R — pole spare head (night, indicative)', short:'decor R', mcst:false},
-  decorC:  {disp:'decor uplight C — pebble-mounted (night, indicative)',  short:'decor C', mcst:false}
+  /* decorative layer (Part B, night scene — cross-key ground rework v7.14, 2026-07-25,
+     owner ruling: courtyard + dining are equal-primary night views). Ground-level
+     courtyard fixtures, "own ground" per mcst-approval.md line 26 — no MCST.
+     decorA/decorB/decorF = the default night set (2 keys + 1 fill); decorL/decorR =
+     optional alternates (pole spare exits), demoted out of the default set this round. */
+  decorA:  {disp:'decor key A — dining view (night, indicative)',    short:'decor A · dining key',    mcst:false},
+  decorB:  {disp:'decor key B — courtyard view (night, indicative)', short:'decor B · courtyard key', mcst:false},
+  decorF:  {disp:'decor fill — cascade (night, indicative)',         short:'decor F · fill',          mcst:false},
+  decorL:  {disp:'decor uplight L (alt · pole spare) (night, indicative)', short:'decor L · alt', mcst:false},
+  decorR:  {disp:'decor uplight R (alt · pole spare) (night, indicative)', short:'decor R · alt', mcst:false},
+  /* owner-approved addition, same day: decorG, an optional 4th (courtyard shadow-quadrant
+     fill) — role decorative_alt like decorL/decorR, not auto-placed. */
+  decorG:  {disp:'decor fill — courtyard (alt · optional 4th) (night, indicative)', short:'decor G · alt · optional 4th', mcst:false}
 };
 /* presentational mount offsets (VISUAL body only — photometry, wash wedge and verdicts
    all stay at the spec §4 position). The bay face is FLUSH (owner final ruling,
@@ -4098,10 +4298,12 @@ const DEFAULT_PRODUCT={
   wireL:['targetti_dart_medium',48], wireR:['targetti_dart_medium',48],
   strip:['underscore_linear',60], strip2:['underscore_linear',60],
   poleL:['targetti_dart_medium',48], poleR:['targetti_dart_medium',48],
-  /* decorative trio default product: the verified-2700K library placeholder — iguzzini_newfo
-     is a named candidate for decorC (night-lighting-scheme.md §1b) but its 2700K SKU is
-     UNVERIFIED (catalogue entry is 3000K), so it is NOT wired in as a default here */
-  decorL:['generic_decor',30], decorR:['generic_decor',30], decorC:['generic_decor',30]
+  /* decorative default product: the verified-2700K library placeholder — iguzzini_newfo
+     remains a named candidate (night-lighting-scheme.md §1b) but its 2700K SKU is
+     UNVERIFIED (catalogue entry is 3000K), so it is NOT wired in as a default here.
+     Beam angles match each position's spec beam_deg (cross-key rework v7.14). */
+  decorA:['generic_decor',30], decorB:['generic_decor',36], decorF:['generic_decor',55],
+  decorL:['generic_decor',30], decorR:['generic_decor',30], decorG:['generic_decor',50]
 };
 /* short product names for the position chips (full name rides on hover) */
 const PRODUCT_ABBREV={
@@ -4999,11 +5201,12 @@ function computeVerdicts(){
       if(!po.relevant[a.id]) return;
       let dli=DAYLIGHT[a.id][bi];
       placed.forEach(function(light){
-        /* Part B (decorative, night) is never scored against the §1 survival bands — it's
-           judged by eye at the §B4 mock-up, not by mol/m²/day (night-lighting-scheme.md §1b).
+        /* Part B (decorative — both the default cross-key ground set and the pole-spare
+           "_alt" positions) is never scored against the §1 survival bands — it's judged
+           by eye at the §B4 mock-up, not by mol/m²/day (night-lighting-scheme.md §1b).
            Excluding it here (rather than gating by condition) keeps the verdict headline
            byte-identical in Day AND Night, regardless of which set is currently on screen. */
-        if(light.lib.role==='decorative') return;
+        if(light.isDecor) return;
         let ppfd=Photometry.ppfdAt(light,pe,a.n);
         if(ppfd>0){
           /* simple occlusion: another pad centre near the fixture->pad line attenuates 60%
@@ -5173,6 +5376,12 @@ function addLight(libId, posId, opts){
   if(!lib||!sf) return null;
   const beam = opts.beam!=null ? opts.beam :
     lib.beams.reduce(function(best,b){ return Math.abs(b-sf.beam_deg)<Math.abs(best-sf.beam_deg)?b:best; }, lib.beams[0]);
+  /* decorative POSITION, not product (v7.14 cross-key rework): decorA/decorB/decorF
+     (role "decorative", the default night set) and decorL/decorR (role "decorative_alt",
+     optional pole-spare alternates) both count — driven by the SPEC position's role, not
+     by whatever product happens to be assigned, so night-only visibility and DLI exclusion
+     stay correct even if a different product is picked for one of these positions. */
+  const decorPos = (sf.role==='decorative' || sf.role==='decorative_alt');
   const light={
     uid:uidSeq++, lib:lib, posId:posId,
     /* multi-head poles (owner 2026-07-25, fixtures[].multi_head): head B is its own
@@ -5180,11 +5389,12 @@ function addLight(libId, posId, opts){
     posSpec: opts.headB? [sf.pos[0], sf.pos[1], (opts.headZ!=null?opts.headZ:1.0)] : sf.pos.slice(),
     aimSpec: opts.aim? opts.aim.slice() : sf.aim.slice(),
     headB: !!opts.headB,
-    beam:beam, dim:1,
+    beam:beam, dim: (opts.dim!=null ? opts.dim : 1),
     hours: lib.role==='decorative' ? 4 : 10,
     /* render-layer visibility only (night-lighting-scheme.md §3b point 2) — grow set shows
-       in Day, decorative trio shows in Night. Never gates dim/hours/computeVerdicts. */
-    visibleInCondition: lib.role==='decorative' ? 'night' : 'day',
+       in Day, decorative positions show in Night. Never gates dim/hours/computeVerdicts. */
+    visibleInCondition: decorPos ? 'night' : 'day',
+    isDecor: decorPos,          /* verdict-exclusion + cosmetic-boost flag, see computeVerdicts()/applyCondition() */
     color:cctColor(lib.cct),
     group:new THREE.Group(), spot:null, cone:null, handle:null, label:null
   };
@@ -6078,14 +6288,17 @@ function applyCondition(){
      11 render at the same total energy, redistributed. Photoreal tone-mapping
      exposure also eases with g^0.25 for extra headroom. Verdict arithmetic never
      reads any of these values.
-     v7.13 (night scene, decor trio): S and the per-light render loop below now only
-     count lights whose visibleInCondition matches the active condition — grow's large
-     lumens must not govern Night's exposure (and vice versa). SREF itself also
+     v7.13/v7.14 (night scene, cross-key rework): S and the per-light render loop below
+     now only count lights whose visibleInCondition matches the active condition — grow's
+     large lumens must not govern Night's exposure (and vice versa). SREF itself also
      switches: SREF_DAY is unchanged (tuned to the grow default trio); SREF_NIGHT is
-     sized to the decorative default trio (3 × generic_decor's 800 lm) so Night's
-     exposure calibrates to what's actually glowing, not to the (hidden) grow scheme. */
+     sized to the v7.14 default night set (decorA/decorB/decorF, generic_decor 800 lm
+     each) AT THEIR DEFAULT DIMS (1.0/0.9/0.4 — the key/key/fill hierarchy), not decorL/
+     decorR (optional alternates, excluded from this calibration on purpose) — so Night's
+     exposure calibrates to what's actually glowing by default, not to the hidden grow
+     scheme or to alternates nobody has placed. */
   const SREF_DAY=3.5;
-  const SREF_NIGHT=3*(800/4500);   /* ≈0.53 — default decorative trio (generic_decor, 800 lm each) at dim=1 */
+  const SREF_NIGHT=800*(1.0+0.9+0.4)/4500;   /* ≈0.409 — decorA(1.0)+decorB(0.9)+decorF(0.4) × 800 lm */
   const SREF=night?SREF_NIGHT:SREF_DAY;
   const S=placed.reduce(function(a,l){
     if(l.visibleInCondition!==condition) return a;
@@ -6100,8 +6313,10 @@ function applyCondition(){
     /* decorative cosmetic multiplier (visual only, alongside the existing linear ×2.2 term) —
        the 800 lm placeholder would otherwise read at roughly a fifth of the grow trio's
        brightness at the same dim; boosts it to a visible warm glow against the night sky.
-       Touches ONLY the THREE.js SpotLight intensity/cone uniform, never Photometry.ppfdAt(). */
-    const decorMult = l.lib.role==='decorative' ? 3 : 1;
+       Position-driven (l.isDecor), so it applies equally to the default cross-key set and
+       the "_alt" pole-spare positions if one is manually placed. Touches ONLY the THREE.js
+       SpotLight intensity/cone uniform, never Photometry.ppfdAt(). */
+    const decorMult = l.isDecor ? 3 : 1;
     const inten=base*(night?2.2:1.5)*(photo?1:0.8)*g
       *(l.form==='linear'?2.2:1)*decorMult;   /* strip visual boost so its wash reads (calibration, not physics) */
     l.spot.visible=on;
@@ -6513,14 +6728,21 @@ function padFaceAim(id){                     /* the pad's foyer (+y) face, from 
 }
 addLight('targetti_dart_medium','poleL',{beam:48, headB:true, headZ:0.80, aim:padFaceAim('L2')});
 addLight('targetti_dart_medium','poleR',{beam:48, headB:true, headZ:1.45, aim:padFaceAim('T3')});
-/* decorative trio (Part B, night scene — v7.13, night-lighting-scheme.md §1b): placed by
-   default alongside the grow set so Night "just shows" them with no manual add-light step —
+/* decorative default night set — cross-key ground layout (v7.14, 2026-07-25, owner ruling:
+   courtyard + dining are equal-primary night views). decorA/decorB/decorF placed by default
+   alongside the grow set so Night "just shows" them with no manual add-light step —
    applyCondition()'s visibleInCondition gate is what actually keeps them hidden in Day and
-   the grow set hidden in Night; computeVerdicts() excludes them from DLI scoring entirely
-   (role==='decorative'), so their presence here cannot move a Day or Night verdict headline. */
-['decorL','decorR','decorC'].forEach(function(pos){
-  const d=DEFAULT_PRODUCT[pos];
-  addLight(d[0], pos, {beam:d[1]});
+   the grow set hidden in Night; computeVerdicts() excludes every decorative position from
+   DLI scoring entirely (light.isDecor), so their presence here cannot move a Day or Night
+   verdict headline. Default dims set the key/key/fill intensity hierarchy from
+   night-lighting-scheme.md / model-spec.md §4b — tunable via DALI at commissioning.
+   decorL/decorR (pole-spare alternates) and decorG (optional 4th — owner-approved
+   2026-07-25, tests whether the courtyard view's shadow quadrant needs a second fill;
+   §B4 mock-up decides 3-vs-4), all role decorative_alt, are deliberately NOT placed
+   here — they stay available from the Advanced add-flow, off by default. */
+[['decorA',1.0], ['decorB',0.9], ['decorF',0.4]].forEach(function(entry){
+  const pos=entry[0], dim=entry[1], d=DEFAULT_PRODUCT[pos];
+  addLight(d[0], pos, {beam:d[1], dim:dim});
 });
 $('overlayChk').checked=true;
 initWhatIf();
