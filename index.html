@@ -176,9 +176,28 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 #wirePlanNote{font-size:.64rem;color:var(--mut);line-height:1.4;margin:0 0 5px;
   border-bottom:1px solid var(--line);padding-bottom:5px}
 #wirePlanNote[hidden]{display:none}
-@media(max-width:700px){ #wirePlanSel{min-height:40px} }
+@media(max-width:700px){ #wirePlanSel{min-height:44px} }
 #wireLegend .swH{background:#ff2fd6}
 #wireLegend .swL{background:#8a2fff}
+
+/* ---------- mobile compact toolbar + wiring bottom sheet (≤700px only, v7.12 2026-07-25
+   mobile round). Desktop's #topbar / #wireLegend panel are untouched — every rule that
+   actually SHOWS these elements lives inside the narrow-screen media query further down;
+   up here they default to hidden/off so nothing here can affect the >700px layout. ---------- */
+#mtoolbar{display:none}
+.mchip{display:flex;align-items:center;justify-content:center;gap:4px;min-width:44px;min-height:44px;
+  padding:4px 10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--mut);
+  font:inherit;font-size:10px;font-weight:700;letter-spacing:.01em;cursor:pointer;box-shadow:var(--shadow);
+  backdrop-filter:blur(8px);flex:none;box-sizing:border-box;white-space:nowrap}
+.mchip.stack{flex-direction:column;gap:2px;min-width:46px;padding:5px 6px;font-size:9px}
+.mchip.iconOnly{width:44px;padding:0}
+.mchip.small{width:40px;min-width:40px;padding:0;font-size:13px;font-weight:800}
+.mchip .ci{width:17px;height:17px;flex:none;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.mchip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.mchip:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+#wireSheetHandle,#wireSheetClose,#wireScrim,#wireSummaryBar{display:none}
+#wireScrim[hidden],#wireSummaryBar[hidden]{display:none}
 
 /* ---------- viewpoint buttons (offset above the drawer) ---------- */
 #viewbar{position:absolute;bottom:var(--vb-bottom,52px);left:50%;transform:translateX(-50%);z-index:5;
@@ -188,22 +207,58 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   box-shadow:var(--shadow);backdrop-filter:blur(8px)}
 #viewbar button.on,#viewbar button:hover{border-color:var(--acc);color:var(--acc)}
 
-/* ---------- narrow screens (phone) — ≥40 px touch targets, ⋯ overflow for layers ---------- */
+/* ---------- narrow screens (phone) — ≥44 px touch targets, compact 2-row icon toolbar,
+   wiring panel -> bottom sheet, viewpoint row scrolls internally (v7.12 2026-07-25) ---------- */
 @media(max-width:700px){
-  .seg button{padding:12px 10px;font-size:.74rem;min-height:42px;box-sizing:border-box}
-  #moreBtn{display:block;min-height:42px}
-  #layerSeg{display:none}
-  #topbar.more-open #layerSeg{display:flex;flex-direction:column;position:absolute;
-    top:calc(100% + 6px);right:0;min-width:132px}
-  #topbar.more-open #layerSeg button{text-align:left;min-height:44px}
+  #topbar{display:none}   /* replaced below by #mtoolbar — desktop's seg/moreBtn/layerSeg never render here */
+
+  #mtoolbar{display:flex;flex-direction:column;gap:6px;position:absolute;top:10px;left:62px;right:10px;z-index:6}
+  #mrow1,#mrow2{display:flex;gap:6px;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none}
+  #mrow1::-webkit-scrollbar,#mrow2::-webkit-scrollbar{display:none}
+  #mrow1{position:relative}
+  #mMoreMenu{display:flex;flex-direction:column;gap:6px;position:absolute;top:50px;right:0;z-index:7;
+    min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;
+    box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+  #mMoreMenu[hidden]{display:none}
+  #mMoreMenu .mchip{width:100%;justify-content:flex-start}
+  #mWirePlanGroup{display:flex;gap:4px}
+  #mWirePlanGroup[hidden]{display:none}
+
   label.lchk{min-height:40px;padding:8px 5px;font-size:.8rem}
   label.lchk input{width:18px;height:18px}
   button.chipname{font-size:.8rem;padding:6px 5px}
   #drawerBar{min-height:44px;padding:8px 12px}
   #drawerToggle{width:40px;height:34px}
-  #viewbar{left:8px;right:8px;transform:none;max-width:none}  /* left:50% caps shrink-to-fit at half the viewport */
-  #viewbar button{padding:12px 12px;font-size:.72rem;min-height:42px;box-sizing:border-box}
   #drawerBanner{max-width:52%}
+
+  /* viewpoint row (§C): one horizontally-scrolling row, never wraps — no page overflow */
+  #viewbar{left:8px;right:8px;transform:none;max-width:none;flex-wrap:nowrap;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;justify-content:flex-start}
+  #viewbar::-webkit-scrollbar{display:none}
+  #viewbar button{padding:12px 14px;font-size:.72rem;min-height:44px;box-sizing:border-box;flex:none}
+
+  /* wiring panel -> bottom sheet (§B). Same #wireLegend element as desktop (same content,
+     same JS-populated plan selector + note), just repositioned/animated as a sheet; the
+     collapsed one-line trigger is the new #wireSummaryBar. */
+  #wireLegend{position:fixed;left:0;right:0;bottom:0;top:auto;max-width:none;width:100%;
+    border-radius:16px 16px 0 0;box-sizing:border-box;max-height:70vh;overflow-y:auto;
+    scrollbar-width:thin;font-size:.76rem;line-height:1.55;
+    padding:8px 16px calc(16px + env(safe-area-inset-bottom,0px));
+    transform:translateY(100%);transition:transform .28s ease;z-index:11}
+  #wireLegend.sheetOpen{transform:translateY(0)}
+  #wireSheetHandle{display:block;width:40px;height:5px;border-radius:3px;background:var(--line);
+    margin:2px auto 10px}
+  #wireSheetClose{display:block;position:absolute;top:8px;right:10px;width:36px;height:36px;
+    border:1px solid var(--line);border-radius:9px;background:var(--card-solid);color:var(--mut);
+    font:inherit;font-size:1rem;cursor:pointer;z-index:1}
+  #wireScrim{display:block;position:fixed;inset:0;background:rgba(12,17,13,.42);z-index:10}
+  #wireScrim[hidden]{display:none}
+  #wireSummaryBar{display:flex;align-items:center;position:absolute;left:10px;right:10px;
+    bottom:var(--wsum-bottom,104px);z-index:5;min-height:44px;padding:0 14px;border:1px solid var(--line);
+    border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:.8rem;
+    font-weight:650;box-shadow:var(--shadow);backdrop-filter:blur(8px);cursor:pointer;text-align:left}
+  #wireSummaryBar[hidden]{display:none}
 }
 </style>
 
@@ -228,6 +283,57 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <button id="labelsBtn" class="on">Labels</button>
       <button id="pebblesBtn" class="on">Pebbles</button>
       <button id="wiringBtn">Wiring</button>
+    </div>
+  </div>
+
+  <!-- compact 2-row icon toolbar — mobile widths only (≤700px); desktop keeps #topbar
+       above unchanged. Same underlying state (fidelity/condition/beams/labels/pebbles/
+       wiring/wiring-plan) as the desktop chips — every chip here mirrors a desktop
+       control 1:1 so both stay in sync regardless of viewport width. -->
+  <div id="mtoolbar" role="toolbar" aria-label="View controls">
+    <div id="mrow1" role="group" aria-label="Fidelity and condition">
+      <button id="mModeSchem" class="mchip stack" aria-label="Schematic mode" title="Schematic — flat diagram">
+        <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        <span>Sch</span>
+      </button>
+      <button id="mModeDiagram" class="mchip stack on" aria-label="Diagram mode" title="Diagram — default 3D view">
+        <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+        <span>Diag</span>
+      </button>
+      <button id="mModePhoto" class="mchip stack" aria-label="Photoreal mode" title="Photoreal — rendered view">
+        <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5.5-5.5L9 17"/></svg>
+        <span>Photo</span>
+      </button>
+      <button id="mCondBtn" class="mchip iconOnly" aria-label="Currently day — tap for night" aria-pressed="false" title="Day (tap for night)">
+        <svg id="mCondIconSun" class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <svg id="mCondIconMoon" class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+      <button id="mMoreBtn" class="mchip iconOnly" aria-label="More controls" aria-expanded="false" title="More">
+        <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+      </button>
+      <div id="mMoreMenu" hidden role="menu" aria-label="More controls">
+        <button id="mPebblesBtn" class="mchip on" role="menuitem" aria-label="Toggle pebbles" aria-pressed="true" title="Pebbles">
+          <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="8" cy="15" rx="5" ry="3"/><ellipse cx="16" cy="10" rx="4" ry="2.6"/></svg>
+          <span>Pebbles</span>
+        </button>
+      </div>
+    </div>
+    <div id="mrow2" role="group" aria-label="Layers">
+      <button id="mBeamsBtn" class="mchip on" aria-label="Toggle beams" aria-pressed="true" title="Beams">
+        <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg>
+        <span>Beams</span>
+      </button>
+      <button id="mWiringBtn" class="mchip" aria-label="Toggle wiring overlay" aria-pressed="false" title="Wiring">
+        <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+        <span>Wiring</span>
+      </button>
+      <button id="mLabelsBtn" class="mchip on" aria-label="Toggle labels" aria-pressed="true" title="Labels">
+        <span style="font-size:13px;font-weight:800">Aa</span>
+      </button>
+      <div id="mWirePlanGroup" hidden role="group" aria-label="Wiring plan">
+        <button id="mPlan1Btn" class="mchip small" aria-label="Wiring plan 1" aria-pressed="false" title="Wiring plan 1">①</button>
+        <button id="mPlan2Btn" class="mchip small" aria-label="Wiring plan 2" aria-pressed="false" title="Wiring plan 2">②</button>
+      </div>
     </div>
   </div>
 
@@ -276,7 +382,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <b>Dining seated</b> — near-front-on via the right pane, eye 1.20 m<br>
       <b>Living seated</b> — near-front-on via the left pane, eye 1.20 m</p>
 
-      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70%) · single source of truth: model-spec.json (embedded)</div>
+      <div id="stamp">v7 · 2026-07-25 (flush bay face · strip2 · measured trunk · §3a slide+flip what-ifs · twin-head poles to pool floor · perforated cover w/ real cutouts · translucent pebble field 50–70% · mobile sidebar + compact toolbar + wiring bottom sheet · wiring defaults Plan 2) · single source of truth: model-spec.json (embedded)</div>
     </div>
   </aside>
 
@@ -285,13 +391,19 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     <div id="lightsList"></div>
   </div>
 
-  <div id="wireLegend" hidden aria-label="Wiring layer legend">
+  <div id="wireLegend" hidden aria-label="Wiring layer legend" role="dialog" aria-modal="false">
+    <div id="wireSheetHandle" aria-hidden="true"></div>
+    <button id="wireSheetClose" aria-label="Close wiring details">✕</button>
     <select id="wirePlanSel" aria-label="Wiring plan"></select>
     <div id="wirePlanNote" hidden></div>
     <span class="sw swH"></span>high ring · <span class="sw swL"></span>low ring
     · dashed = future · thin dashed along a pole = inside the tube · <b>●</b> on pole L = strip-feed exit
     · DALI pair rides every run · <b>ESTIMATE pre-electrician</b>
   </div>
+  <div id="wireScrim" hidden></div>
+  <button id="wireSummaryBar" hidden aria-haspopup="dialog" aria-expanded="false">
+    <span id="wireSummaryText">⚡ Wiring</span>
+  </button>
 
   <div id="viewbar">
     <button data-view="foyer_standing">Foyer standing</button>
@@ -3101,7 +3213,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
  },
  "wiring": {
   "tag": "ESTIMATE 2026-07-25 - routes per lighting-design.md D2; tap positions pending electrician visit + manhole photo; DALI pair shares every run; 'internal' style = cable inside the pole tube (A4c: deck gland entry, internal rise, exits under head clamps); strips tap off pole L's internal cable via rear-facing exits (0.29 / 0.55) - short lateral jumps along the sill face/ledge; TWO selectable plans (owner 2026-07-25): wiring1 two-tap vs wiring2 all-from-top single-circuit",
-  "default": "wiring1",
+  "default": "wiring2",
   "options": [
    {
     "id": "wiring1",
@@ -5570,6 +5682,10 @@ const drawerEl=$('drawer'), drawerBanner=$('drawerBanner'), padChips=$('padChips
       vtBody=$('verdictTable').querySelector('tbody');
 function updateDrawerOffset(){
   document.documentElement.style.setProperty('--vb-bottom',(drawerEl.offsetHeight+10)+'px');
+  /* mobile wiring summary bar (§B) docks just above the viewbar row, whatever its height */
+  const vb=document.getElementById('viewbar');
+  if(vb) document.documentElement.style.setProperty('--wsum-bottom',
+    (drawerEl.offsetHeight+10+vb.offsetHeight+8)+'px');
 }
 $('drawerBar').addEventListener('click', function(){
   drawerEl.classList.toggle('open');
@@ -5739,8 +5855,18 @@ function setWiringPlan(id){      /* cheap switch: both plans are built once, vis
       sel.appendChild(o);
     });
     sel.hidden=(wiringPlans.length<2);
-    sel.addEventListener('change', function(){ setWiringPlan(sel.value); });
+    sel.addEventListener('change', function(){ chooseWiringPlan(sel.value); });
   }
+  /* mobile "① ②" plan chips (row 2) — same two plans, tagged by their real spec ids
+     so this stays correct even if the spec's id/order ever changes */
+  const mp1=document.getElementById('mPlan1Btn'), mp2=document.getElementById('mPlan2Btn');
+  [[mp1,wiringPlans[0]],[mp2,wiringPlans[1]]].forEach(function(pair){
+    const btn=pair[0], plan=pair[1];
+    if(!btn || !plan) return;
+    btn.dataset.plan=plan.id;
+    btn.title=plan.label; btn.setAttribute('aria-label',plan.label);
+    btn.addEventListener('click', function(){ chooseWiringPlan(plan.id); });
+  });
   const def=(WD.default && wiringPlans.some(function(p){return p.id===WD.default;}))
     ? WD.default : (wiringPlans[0]&&wiringPlans[0].id);
   if(sel && !sel.hidden) sel.value=def;
@@ -5753,6 +5879,28 @@ let condition='day';          /* day | night */
 let showBeams=true, showLabels=true, showOverlay=true;   /* overlay ON by default (owner 2026-07-25) */
 let showPebbles=true;   /* pebble field ON by default — pure display toggle, no spec/verdict impact */
 let showWiring=false;   /* wiring layer OFF by default (spec §4a) — pure display toggle */
+let currentViewId='free';   /* last-chosen viewpoint id — declared up front so saveUIState can read it any time */
+
+/* ---------- UI persistence (§D, v7.12 2026-07-25) ----------
+   ONE key holds mode/day-night/layer-visibility/wiring-plan/last-viewpoint. Deliberately
+   EXCLUDES the §3a slide/flip what-if state and the light-set checkboxes (spec instr.).
+   Every access is try/catch'd — the claude.ai artifact iframe sandbox throws on
+   localStorage access, and persistence there is a nice-to-have, not a requirement. */
+const UI_STORAGE_KEY='bonsai3d.ui.v1';
+function loadUIState(){
+  try{ const raw=localStorage.getItem(UI_STORAGE_KEY); return raw?JSON.parse(raw):null; }
+  catch(e){ return null; }
+}
+function saveUIState(){
+  try{
+    localStorage.setItem(UI_STORAGE_KEY, JSON.stringify({
+      mode:fidelity, condition:condition, beams:showBeams, labels:showLabels,
+      pebbles:showPebbles, wiring:showWiring, wiringPlan:activeWiringPlan,
+      viewpoint:currentViewId
+    }));
+  }catch(e){ /* sandboxed iframe or storage disabled — best-effort only */ }
+}
+const storedUI=loadUIState();
 
 function pageIsDark(){        /* used ONLY by schematic mode (a drawing on the page background) */
   const dt=document.documentElement.getAttribute('data-theme');
@@ -5860,21 +6008,62 @@ function applyMode(){
   applyCondition();
 }
 
-/* toggle wiring */
+/* ---------- mode / condition / layer toggles ----------
+   Every control below exists TWICE in the DOM — once as the desktop chip (#modeSchem
+   etc., inside #topbar) and once as the mobile icon chip (#mModeSchem etc., inside
+   #mtoolbar, v7.12 2026-07-25) — CSS shows exactly one set per breakpoint, but BOTH
+   sets are live in the page at once, so every state-changing function here updates
+   ALL mirrors together (a `[el]` pair or a `.mchip`+desktop id lookup), keeping them
+   in sync however the viewport is resized. */
 function seg(onBtn,offBtn,cb){
   $(onBtn).addEventListener('click',function(){ $(onBtn).classList.add('on'); $(offBtn).classList.remove('on'); cb(true); });
   $(offBtn).addEventListener('click',function(){ $(offBtn).classList.add('on'); $(onBtn).classList.remove('on'); cb(false); });
 }
-[['modeSchem','schematic'],['modeDiagram','diagram'],['modePhoto','photo']].forEach(function(pair){
-  $(pair[0]).addEventListener('click',function(){
-    ['modeSchem','modeDiagram','modePhoto'].forEach(function(id){ $(id).classList.toggle('on', id===pair[0]); });
-    const was=fidelity; fidelity=pair[1]; applyMode();
-    if(fidelity==='schematic' && was!=='schematic') goToView('overview');   /* 3/4 iso, like the old artifact */
-  });
+const FID_PAIRS=[['modeSchem','schematic'],['modeDiagram','diagram'],['modePhoto','photo'],
+  ['mModeSchem','schematic'],['mModeDiagram','diagram'],['mModePhoto','photo']];
+function selectFidelity(id){
+  const was=fidelity; fidelity=id;
+  FID_PAIRS.forEach(function(p){ const el=$(p[0]); if(el) el.classList.toggle('on', p[1]===id); });
+  applyMode();
+  if(id==='schematic' && was!=='schematic') goToView('overview');   /* 3/4 iso, like the old artifact */
+  saveUIState();
+}
+FID_PAIRS.forEach(function(p){
+  const el=$(p[0]); if(el) el.addEventListener('click', function(){ selectFidelity(p[1]); });
 });
-seg('condDay','condNight', function(day){ condition=day?'day':'night'; applyCondition(); });
-$('beamsBtn').addEventListener('click',function(){ showBeams=!showBeams; this.classList.toggle('on',showBeams); applyCondition(); });
-$('labelsBtn').addEventListener('click',function(){ showLabels=!showLabels; this.classList.toggle('on',showLabels); applyMode(); });
+function syncCondMobileIcon(day){
+  const btn=$('mCondBtn'); if(!btn) return;
+  btn.setAttribute('aria-pressed', day?'false':'true');
+  btn.setAttribute('aria-label', day?'Currently day — tap for night':'Currently night — tap for day');
+  btn.title = day? 'Day (tap for night)':'Night (tap for day)';
+  const sun=$('mCondIconSun'), moon=$('mCondIconMoon');
+  if(sun) sun.hidden=!day;
+  if(moon) moon.hidden=day;
+}
+function selectCondition(day){
+  condition=day?'day':'night';
+  $('condDay').classList.toggle('on', day); $('condNight').classList.toggle('on', !day);
+  syncCondMobileIcon(day);
+  applyCondition();
+  saveUIState();
+}
+$('condDay').addEventListener('click', function(){ selectCondition(true); });
+$('condNight').addEventListener('click', function(){ selectCondition(false); });
+$('mCondBtn') && $('mCondBtn').addEventListener('click', function(){ selectCondition(condition!=='day'); });
+function toggleBeams(){
+  showBeams=!showBeams;
+  [$('beamsBtn'),$('mBeamsBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showBeams); el.setAttribute('aria-pressed', showBeams?'true':'false'); } });
+  applyCondition(); saveUIState();
+}
+$('beamsBtn').addEventListener('click', toggleBeams);
+$('mBeamsBtn') && $('mBeamsBtn').addEventListener('click', toggleBeams);
+function toggleLabels(){
+  showLabels=!showLabels;
+  [$('labelsBtn'),$('mLabelsBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showLabels); el.setAttribute('aria-pressed', showLabels?'true':'false'); } });
+  applyMode(); saveUIState();
+}
+$('labelsBtn').addEventListener('click', toggleLabels);
+$('mLabelsBtn') && $('mLabelsBtn').addEventListener('click', toggleLabels);
 /* Wiring x-ray (owner 2026-07-25): while the Wiring layer is ON, the courtyard deck and
    the perforated cover sheet drop to ~0.3 opacity so the crawl-space and under-sheet
    runs read through them, and the pebbles auto-hide (they would blanket the under-sheet
@@ -5888,12 +6077,79 @@ function applyWiringXray(){
   });
   syncPebblesVisible();
 }
-$('pebblesBtn').addEventListener('click',function(){ showPebbles=!showPebbles; this.classList.toggle('on',showPebbles);
-  syncPebblesVisible(); });   /* Diagram+Photo only — Schematic hides houseGroup entirely (no-op) */
-$('wiringBtn').addEventListener('click',function(){ showWiring=!showWiring; this.classList.toggle('on',showWiring);
+function togglePebbles(){
+  showPebbles=!showPebbles;
+  [$('pebblesBtn'),$('mPebblesBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showPebbles); el.setAttribute('aria-pressed', showPebbles?'true':'false'); } });
+  syncPebblesVisible(); saveUIState();
+}   /* Diagram+Photo only — Schematic hides houseGroup entirely (no-op) */
+$('pebblesBtn').addEventListener('click', togglePebbles);
+$('mPebblesBtn') && $('mPebblesBtn').addEventListener('click', togglePebbles);
+/* wiring plan short label for the mobile summary bar (§B) — e.g. "⚡ Wiring 2 · one circuit" */
+function wiringShortLabel(id){
+  const SHORT={wiring1:'Wiring 1 · two taps', wiring2:'Wiring 2 · one circuit'};
+  if(SHORT[id]) return SHORT[id];
+  const p=wiringPlans.find(function(q){return q.id===id;});
+  return p ? (p.label||id) : 'Wiring';
+}
+function updateWireMobileUI(){
+  const grp=$('mWirePlanGroup'), bar=$('wireSummaryBar'), txt=$('wireSummaryText');
+  const multi=wiringPlans.length>1;
+  if(grp) grp.hidden=!(showWiring && multi);
+  if(bar){ bar.hidden=!showWiring; }
+  if(!showWiring) closeWireSheet();
+  if(txt) txt.textContent='⚡ '+wiringShortLabel(activeWiringPlan);
+  document.querySelectorAll('#mWirePlanGroup .mchip').forEach(function(el){
+    const on=el.dataset.plan===activeWiringPlan;
+    el.classList.toggle('on', on); el.setAttribute('aria-pressed', on?'true':'false');
+  });
+}
+function chooseWiringPlan(id){
+  setWiringPlan(id);
+  const sel=$('wirePlanSel'); if(sel) sel.value=id;
+  updateWireMobileUI();
+  saveUIState();
+}
+function toggleWiring(){
+  showWiring=!showWiring;
+  [$('wiringBtn'),$('mWiringBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showWiring); el.setAttribute('aria-pressed', showWiring?'true':'false'); } });
   wireGroup.visible=showWiring; $('wireLegend').hidden=!showWiring;
-  applyWiringXray(); });   /* all three modes; legend chip + floor x-ray ride the layer */
+  updateWireMobileUI();
+  applyWiringXray();
+  saveUIState();
+}   /* all three modes; legend chip + floor x-ray ride the layer */
+$('wiringBtn').addEventListener('click', toggleWiring);
+$('mWiringBtn') && $('mWiringBtn').addEventListener('click', toggleWiring);
 $('overlayChk').addEventListener('change',function(){ showOverlay=this.checked; padObjs.forEach(function(po){ po.shell.visible=showOverlay; }); });
+
+/* ---------- wiring bottom sheet (mobile only, §B) ----------
+   Desktop keeps the always-visible #wireLegend panel exactly as before. On mobile the
+   SAME element becomes a slide-up sheet (CSS in 00-head.html); this just opens/closes
+   it. Dismiss = close button, scrim tap, or swipe-down on the grab handle ONLY — no
+   swipe handler ever touches the canvas, so orbit gestures keep working untouched. */
+function openWireSheet(){
+  const legend=$('wireLegend'); if(legend) legend.classList.add('sheetOpen');
+  const scrim=$('wireScrim'); if(scrim) scrim.hidden=false;
+  const bar=$('wireSummaryBar'); if(bar) bar.setAttribute('aria-expanded','true');
+}
+function closeWireSheet(){
+  const legend=$('wireLegend'); if(legend) legend.classList.remove('sheetOpen');
+  const scrim=$('wireScrim'); if(scrim) scrim.hidden=true;
+  const bar=$('wireSummaryBar'); if(bar) bar.setAttribute('aria-expanded','false');
+}
+$('wireSummaryBar') && $('wireSummaryBar').addEventListener('click', openWireSheet);
+$('wireSheetClose') && $('wireSheetClose').addEventListener('click', closeWireSheet);
+$('wireScrim') && $('wireScrim').addEventListener('click', closeWireSheet);
+(function(){
+  const handle=$('wireSheetHandle'); if(!handle) return;
+  let startY=null;
+  handle.addEventListener('pointerdown', function(e){ startY=e.clientY; try{ handle.setPointerCapture(e.pointerId); }catch(err){} });
+  handle.addEventListener('pointermove', function(e){
+    if(startY==null) return;
+    if(e.clientY-startY>40){ closeWireSheet(); startY=null; }
+  });
+  handle.addEventListener('pointerup', function(){ startY=null; });
+  handle.addEventListener('pointercancel', function(){ startY=null; });
+})();
 /* ---------- hamburger menu / slide-in sidebar ----------
    ALL screen sizes: the light groups, what-if controls, advanced add-flow, assumptions
    badges and version stamp live in a left slide-in sidebar behind the ☰ button.
@@ -5928,9 +6184,16 @@ function setSidebar(open){
 menuBtn.addEventListener('click', function(){ setSidebar(!sidebarOpen); });
 $('sbClose').addEventListener('click', function(){ setSidebar(false); });
 sbBackdrop.addEventListener('click', function(){ setSidebar(false); });
-document.addEventListener('keydown', function(e){ if(e.key==='Escape' && sidebarOpen) setSidebar(false); });
+document.addEventListener('keydown', function(e){
+  if(e.key!=='Escape') return;
+  if(sidebarOpen) setSidebar(false);
+  const legend=$('wireLegend');
+  if(legend && legend.classList.contains('sheetOpen')) closeWireSheet();
+  if(mMoreMenu && !mMoreMenu.hidden) setMobileMore(false);
+});
 
-/* narrow screens: the Beams/Labels/Pebbles/Wiring cluster folds into the ⋯ popover */
+/* narrow screens (desktop >700px never sees this element): the Beams/Labels/Pebbles/
+   Wiring cluster folds into the ⋯ popover */
 const moreBtn=$('moreBtn'), topbarEl=$('topbar');
 function setMore(open){
   topbarEl.classList.toggle('more-open',open);
@@ -5940,6 +6203,23 @@ function setMore(open){
 moreBtn.addEventListener('click', function(){ setMore(!topbarEl.classList.contains('more-open')); });
 document.addEventListener('pointerdown', function(e){
   if(topbarEl.classList.contains('more-open') && !topbarEl.contains(e.target)) setMore(false);
+});
+
+/* mobile compact toolbar's own "…" more chip (§A) — holds Pebbles + any future overflow.
+   Separate element from the desktop moreBtn/layerSeg pair above (mobile hides #topbar
+   entirely), so it gets its own tiny open/close pair. */
+const mMoreBtn=$('mMoreBtn'), mMoreMenu=$('mMoreMenu');
+function setMobileMore(open){
+  if(!mMoreMenu || !mMoreBtn) return;
+  mMoreMenu.hidden=!open;
+  mMoreBtn.classList.toggle('on',open);
+  mMoreBtn.setAttribute('aria-expanded', open?'true':'false');
+}
+mMoreBtn && mMoreBtn.addEventListener('click', function(){ setMobileMore(mMoreMenu.hidden); });
+document.addEventListener('pointerdown', function(e){
+  if(mMoreMenu && !mMoreMenu.hidden && !mMoreMenu.contains(e.target) && e.target!==mMoreBtn && !(mMoreBtn && mMoreBtn.contains(e.target))){
+    setMobileMore(false);
+  }
 });
 
 /* theme watchers: only schematic mode's page-like background depends on the theme */
@@ -5966,7 +6246,9 @@ document.querySelectorAll('#viewbar button').forEach(function(b){
   b.addEventListener('click',function(){
     document.querySelectorAll('#viewbar button').forEach(function(x){x.classList.remove('on');});
     b.classList.add('on');
-    goToView(b.getAttribute('data-view'));
+    currentViewId=b.getAttribute('data-view');
+    goToView(currentViewId);
+    saveUIState();
   });
 });
 
@@ -6033,6 +6315,47 @@ canvas.addEventListener('pointercancel', function(){
   downPos=null;
 });
 
+/* ---------- apply stored UI state on load (§D) ----------
+   Runs once at startup, after buildWiring() has populated wiringPlans/activeWiringPlan
+   (spec default = wiring2, per the owner's 2026-07-25 ruling) and after the default
+   light set is placed. Falls back to today's hardcoded defaults for anything missing
+   or invalid in storage — including on a fresh visitor with nothing stored yet, or in
+   the claude.ai artifact sandbox where loadUIState() already returned null. */
+const VALID_VIEW_IDS=['foyer_standing','dining_seated','living_seated','free'];
+function restoreUIFromStorage(){
+  const s=storedUI||{};
+  const mode=(s.mode==='schematic'||s.mode==='diagram'||s.mode==='photo')?s.mode:fidelity;
+  fidelity=mode;
+  FID_PAIRS.forEach(function(p){ const el=$(p[0]); if(el) el.classList.toggle('on', p[1]===mode); });
+  const day=(s.condition!=='night');
+  condition=day?'day':'night';
+  $('condDay').classList.toggle('on', day); $('condNight').classList.toggle('on', !day);
+  syncCondMobileIcon(day);
+  showBeams   = (typeof s.beams==='boolean')   ? s.beams   : showBeams;
+  showLabels  = (typeof s.labels==='boolean')  ? s.labels  : showLabels;
+  showPebbles = (typeof s.pebbles==='boolean') ? s.pebbles : showPebbles;
+  showWiring  = (typeof s.wiring==='boolean')  ? s.wiring  : showWiring;
+  [['beamsBtn','mBeamsBtn',showBeams],['labelsBtn','mLabelsBtn',showLabels],
+   ['pebblesBtn','mPebblesBtn',showPebbles],['wiringBtn','mWiringBtn',showWiring]].forEach(function(t){
+    [$(t[0]),$(t[1])].forEach(function(el){ if(el){ el.classList.toggle('on', t[2]); el.setAttribute('aria-pressed', t[2]?'true':'false'); } });
+  });
+  wireGroup.visible=showWiring;
+  $('wireLegend').hidden=!showWiring;
+  if(s.wiringPlan && wiringPlans.some(function(p){return p.id===s.wiringPlan;})){
+    setWiringPlan(s.wiringPlan);
+    const sel=$('wirePlanSel'); if(sel) sel.value=s.wiringPlan;
+  }
+  updateWireMobileUI();
+  applyWiringXray();
+  applyMode();   /* applies fidelity + calls applyCondition() */
+  const vid=(s.viewpoint && VALID_VIEW_IDS.indexOf(s.viewpoint)>=0) ? s.viewpoint : 'free';
+  currentViewId=vid;
+  document.querySelectorAll('#viewbar button').forEach(function(b){
+    b.classList.toggle('on', b.getAttribute('data-view')===vid);
+  });
+  goToView(vid);
+}
+
 /* ============================== defaults (owner 2026-07-25) ==============================
    L flood + R flood + balcony centre + BOTH POLES, each pole carrying its clamp-on
    second head: pole L head B @0.80 m aimed at L2's foyer face; pole R head B @1.45 m
@@ -6053,9 +6376,8 @@ initWhatIf();
 selectedUid=placed.length?placed[0].uid:null;
 refreshLightbar(); refreshSelection();
 computeVerdicts();
-applyMode();
+restoreUIFromStorage();
 updateDrawerOffset();
-goToView('free');
 
 /* ============================== resize / loop ============================== */
 function resize(){
@@ -6068,6 +6390,7 @@ function resize(){
 window.addEventListener('resize', function(){
   resize();
   if(sidebarOpen) setSidebar(true);      /* re-evaluate overlay vs focus-shift on rotate/resize */
+  updateDrawerOffset();                  /* viewbar row height can change (wrap <-> scroll) on rotate */
 });
 resize();
 
