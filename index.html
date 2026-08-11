@@ -2718,7 +2718,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     -0.1,
     1.4
    ],
-   "beam_deg": 45
+   "beam_deg": 30
   },
   {
    "id": "Rflood",
@@ -2733,7 +2733,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     -0.1,
     1.4
    ],
-   "beam_deg": 45
+   "beam_deg": 30
   },
   {
    "id": "balc",
@@ -2748,7 +2748,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     -0.05,
     1.4
    ],
-   "beam_deg": 50
+   "beam_deg": 45
   },
   {
    "id": "balc2",
@@ -4220,6 +4220,8 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   {"id":"targetti_dart_small","brand":"Targetti","model":"DART Round Small 1E3977DA","lumens":1477,"beams":[48],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":true,"notes":""},
   {"id":"philips_bvp353_80_30","brand":"Philips","model":"UniFlood M BVP353 80 W 30°","lumens":6750,"beams":[30],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"notes":"Code 911401747413; dimming is DMX only — see lighting-design.md §C workaround"},
   {"id":"philips_bvp353_80_45","brand":"Philips","model":"UniFlood M BVP353 80 W 45°","lumens":6750,"beams":[45],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"notes":"Code 911401747503; lumens carried over from the 30° head — ESTIMATE"},
+  {"id":"philips_bvp353_60_30","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 30° DMX","lumens":4785,"beams":[30],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":true,"notes":"Code 911401747083 — the QUOTED soffit-flood tier (S$425/unit, LKH/Dennis 2026-08-03). Extruded aluminium, IP66, DMX/RDM only (no DALI — needs a DMX island or fixed-output on a DALI relay). Passes the glass-clearance gate (~103 mm swing). Corrosion: NO Marine Salt Painting for this family + no SG warranty corrosion cover regardless — self-insured (defensible in the sheltered well). Glare: no honeycomb louvre exists (directional shield only). 60 W not 80 W: no louvre loss to offset, sits in the 4,500-5,500 band, dims cleaner. Lumens = verified DMX figure (leaflet non-DMX L30/30° = 5,125)."},
+  {"id":"philips_bvp353_60_45","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 45°","lumens":5125,"beams":[45],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":false,"notes":"45° L30 variant for the wider balcony throw (design P7 = 40-48°); order code TBD, lumens carried from the leaflet L30/30° figure — ESTIMATE. Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only)."},
   {"id":"philips_bvp353_40_30","brand":"Philips","model":"UniFlood M BVP353 40 W 30° DMX","lumens":3040,"beams":[30],"cct":3000,"cri":80,"watts":40,"role":"grow","verified":true,"notes":"Code 911401746363; lumens scaled from the 80 W DMX head (6,070 lm) — ESTIMATE"},
   {"id":"lumenpulse_lb_large","brand":"Lumenpulse","model":"Lumenbeam Large","lumens":5673,"beams":[30,45],"cct":3000,"cri":null,"watts":50,"role":"grow","verified":false,"notes":"Singapore supply/price/lead time unverified; beam options not recorded in fixture-options.md — placeholder, confirm with supplier"},
   {"id":"lumenpulse_lb_medium","brand":"Lumenpulse","model":"Lumenbeam Medium","lumens":2714,"beams":[30,45],"cct":3000,"cri":null,"watts":28,"role":"grow","verified":false,"notes":"Singapore supply unverified; beam options placeholder — confirm"},
@@ -4292,9 +4294,9 @@ const BODY_MOUNT_OFFSET={ strip2:[0,-0.075,0] };
 const specFixById = {}; SPEC.fixtures.forEach(f=>{ specFixById[f.id]=f; });
 /* role-appropriate default product per position (owner-approved from the markup round) */
 const DEFAULT_PRODUCT={
-  Lflood:['lumascape_q4',45], Rflood:['lumascape_q4',45],
-  balc:['lumascape_q4',45],   balc2:['lumascape_q4',45],
-  soffitL:['lumascape_q4',30],soffitR:['lumascape_q4',30],
+  Lflood:['philips_bvp353_60_30',30], Rflood:['philips_bvp353_60_30',30],
+  balc:['philips_bvp353_60_45',45],   balc2:['philips_bvp353_60_45',45],
+  soffitL:['philips_bvp353_60_30',30],soffitR:['philips_bvp353_60_30',30],
   wireL:['targetti_dart_medium',48], wireR:['targetti_dart_medium',48],
   strip:['underscore_linear',60], strip2:['underscore_linear',60],
   poleL:['targetti_dart_medium',48], poleR:['targetti_dart_medium',48],
@@ -4310,6 +4312,7 @@ const PRODUCT_ABBREV={
   lumascape_q4:'Q4', lumascape_q2:'Q2',
   iguzzini_palco:'Palco', iguzzini_newfo:'Newfo',
   targetti_dart_maxi:'DART Mx', targetti_dart_medium:'DART Md', targetti_dart_small:'DART Sm',
+  philips_bvp353_60_30:'BVP 60W', philips_bvp353_60_45:'BVP 60W',
   philips_bvp353_80_30:'BVP 80W', philips_bvp353_80_45:'BVP 80W', philips_bvp353_40_30:'BVP 40W',
   lumenpulse_lb_large:'LB Lg', lumenpulse_lb_medium:'LB Md', lumenpulse_lb_small:'LB Sm',
   weef_flc220:'FLC220', cs_gwl_re340:'CS panel',
