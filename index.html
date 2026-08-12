@@ -2870,12 +2870,12 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    ],
    "beam_deg": 42,
    "multi_head": {
-    "max": 2,
-    "headB_z_range": [
+    "max": 3,
+    "head_z_range": [
      0.5,
      1.8
     ],
-    "note": "owner 2026-07-25 - clamp-on second head anywhere along the shaft"
+    "note": "owner 2026-07-25 - clamp-on 2nd/3rd head anywhere along the shaft; extended to 3 (head C) 2026-08-12 - optimised 2-head/3-head default positions in model-spec.md §4"
    },
    "shaft": {
     "base_z": -0.67,
@@ -2898,12 +2898,12 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    ],
    "beam_deg": 42,
    "multi_head": {
-    "max": 2,
-    "headB_z_range": [
+    "max": 3,
+    "head_z_range": [
      0.5,
      1.8
     ],
-    "note": "owner 2026-07-25 - clamp-on second head anywhere along the shaft"
+    "note": "owner 2026-07-25 - clamp-on 2nd/3rd head anywhere along the shaft; extended to 3 (head C) 2026-08-12 - optimised 2-head/3-head default positions in model-spec.md §4"
    },
    "shaft": {
     "base_z": -0.67,
@@ -5374,10 +5374,20 @@ function buildBodyGroup(light){
   return g;
 }
 
+/* clamp-on head z-range (owner 2026-07-25, extended to head C 2026-08-12): spec key
+   renamed head_z_range when the 3rd head landed — headB_z_range kept as a fallback so an
+   older cached spec blob still works. */
+function headZRange(sf){
+  return (sf.multi_head && (sf.multi_head.head_z_range || sf.multi_head.headB_z_range)) || [0.5,1.8];
+}
+/* "head A"/"head B"/"head C" label, purely cosmetic (posSpec z comes from opts.headZ
+   whenever it's supplied, independent of these flags — see addLight()) */
+function headLabel(l){ return l.headC?'head C':(l.headB?'head B':'head A'); }
+
 function addShaft(light, sf){
   /* mast extent from fixtures[].shaft (owner 2026-07-25: rests on the POOL FLOOR,
      rising through the perforated sheet); fallback: deck to the head-B clamp top */
-  const zr=(sf.multi_head&&sf.multi_head.headB_z_range)||[0.5,1.8];
+  const zr=headZRange(sf);
   const top=sf.shaft?sf.shaft.top_z:Math.max(zr[1], sf.pos[2]);
   const bot=sf.shaft?sf.shaft.base_z:0.05;
   const shaft=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.017,top-bot,10), housingMat);
@@ -5404,11 +5414,14 @@ function addLight(libId, posId, opts){
   const decorPos = (sf.role==='decorative' || sf.role==='decorative_alt');
   const light={
     uid:uidSeq++, lib:lib, posId:posId,
-    /* multi-head poles (owner 2026-07-25, fixtures[].multi_head): head B is its own
-       photometric light clamped anywhere along the shaft — (pole x, pole y, headZ) */
-    posSpec: opts.headB? [sf.pos[0], sf.pos[1], (opts.headZ!=null?opts.headZ:1.0)] : sf.pos.slice(),
+    /* multi-head poles (owner 2026-07-25, fixtures[].multi_head; 3rd head "head C" added
+       2026-08-12): ANY clamp-on head is its own photometric light positioned at
+       (pole x, pole y, headZ) — triggered by opts.headZ being supplied at all, independent
+       of the headB/headC flags below (those are cosmetic "which slot" labels only, so the
+       2-head/3-head config toggle can place head A itself at an optimised, non-spec z). */
+    posSpec: (opts.headZ!=null) ? [sf.pos[0], sf.pos[1], opts.headZ] : sf.pos.slice(),
     aimSpec: opts.aim? opts.aim.slice() : sf.aim.slice(),
-    headB: !!opts.headB,
+    headB: !!opts.headB, headC: !!opts.headC,
     beam:beam, dim: (opts.dim!=null ? opts.dim : 1),
     hours: lib.role==='decorative' ? 4 : 10,
     /* render-layer visibility only (night-lighting-scheme.md §3b point 2) — grow set shows
@@ -5453,7 +5466,7 @@ function addLight(libId, posId, opts){
   light.group.add(handle); light.handle=handle;
   /* label */
   const meta=POSMETA[posId]||{disp:posId,mcst:false};
-  const label=textSprite(lib.brand+' · '+meta.disp.replace(/ —.*$/,'')+(light.headB?' · head B':''), {fs:34,k:0.0013});
+  const label=textSprite(lib.brand+' · '+meta.disp.replace(/ —.*$/,'')+((light.headB||light.headC)?' · '+headLabel(light):''), {fs:34,k:0.0013});
   light.group.add(label); light.label=label;
   scene.add(light.group);
   placed.push(light);
@@ -5740,6 +5753,110 @@ function showFxSpec(){
 fxProduct.addEventListener('change', showFxSpec); showFxSpec();
 $('addBtn').addEventListener('click', function(){ addLight(fxProduct.value, fxPos.value); });
 
+/* ============================== pole head-count config (owner 2026-08-12) ==============================
+   2-heads-vs-3-heads-per-pole toggle. Each config defaults to a MATHEMATICALLY-OPTIMISED
+   head layout (same DLI/verdict engine as computeVerdicts() below, run offline against the
+   14-pad die-band risk against the SAME fixed background this model actually boots with —
+   Lflood+Rflood+balc, +strip/strip2 when that toggle is on — see model-spec.md §4 for the
+   run notes), constrained to ≥0.35 m z-spacing between heads on a pole so a 3-head pole
+   reads as low/mid/upper and a 2-head pole as low/upper (the UNCONSTRAINED optimum
+   clusters heads within a few cm of each other — same score, physically silly). Product
+   stays targetti_dart_medium/48° — the REAL product is pending quotes; this is geometry
+   only.
+
+   3 heads is NOT just "better margins" here — against the real default background, 2 heads
+   (4 total) cannot quite hold pad T1 above the die-band cutoff (best found: 0.99 DLI, just
+   under 1.0) while 3 heads reliably clears it (1.05). Confirmed with 900 random restarts.
+
+   A SEPARATE finding (owner follow-up, same day): the sill strip (posId 'strip'/'strip2')
+   was doing real work on the low-front pads (L1/L2/L6) — dropping it forces L6 into the
+   die band even after a full re-optimisation of the pole heads (geometrically unreachable
+   from two side poles at the SAME y as L6, same root cause as T4). So there are FOUR
+   default sets here, keyed by [headsPerPole][strip-on|nostrip] — whichever the sill strip
+   currently is. */
+const POLE_HEAD_DEFAULTS = {
+  2: {
+    strip: {
+      poleL: [ {z:1.7775, aim:[-0.4000,-0.2500,1.2700]}, {z:0.5000, aim:[0.9600,0.2950,0.6200]} ],
+      poleR: [ {z:1.8000, aim:[0.2800,-0.2000,1.4900]}, {z:1.4479, aim:[-0.0400,-0.1200,1.4000]} ]
+    },
+    nostrip: {
+      poleL: [ {z:1.7534, aim:[0.3400,0.0700,1.5000]}, {z:0.5000, aim:[0.3000,-0.1200,0.9400]} ],
+      poleR: [ {z:1.7300, aim:[-0.3800,0.3250,1.5800]}, {z:1.0856, aim:[-0.0600,0.2150,1.3200]} ]
+    }
+  },
+  3: {
+    strip: {
+      poleL: [ {z:1.7000, aim:[0.3800,0.3200,1.1500]}, {z:1.3483, aim:[-0.0500,-0.1750,1.5500]}, {z:0.5400, aim:[0.6700,0.1200,0.7000]} ],
+      poleR: [ {z:1.8000, aim:[0.3400,-0.1700,1.3500]}, {z:1.4491, aim:[0.2000,-0.1300,1.4100]}, {z:1.0849, aim:[-0.3700,0.2400,1.2500]} ]
+    },
+    nostrip: {
+      poleL: [ {z:1.8000, aim:[0.5700,0.3000,1.5100]}, {z:1.4483, aim:[-0.1300,0.0500,1.5200]}, {z:0.8889, aim:[0.6000,0.1500,0.4500]} ],
+      poleR: [ {z:1.8000, aim:[0.3700,0.0400,1.4800]}, {z:1.4512, aim:[-0.1000,0.0300,1.4000]}, {z:1.0600, aim:[0.7900,-0.1750,1.7500]} ]
+    }
+  }
+};
+let poleHeadConfig=3;   /* 2 | 3 — default 3 ("best life": fewer/shallower die-band and thins-band pads) */
+
+/* strip presence is read live off `placed` rather than tracked separately — one source of
+   truth, so a manual strip/strip2 checkbox edit can never desync from the pole defaults. */
+function currentStripOn(){ return placed.some(function(l){ return l.posId==='strip' || l.posId==='strip2'; }); }
+
+/* replace WHATEVER heads currently sit at a pole position with the optimised default for
+   the given head-count, matching the CURRENT strip state. No-op if the pole is off. */
+function placePoleDefault(posId, n){
+  const cfg=POLE_HEAD_DEFAULTS[n] && POLE_HEAD_DEFAULTS[n][currentStripOn()?'strip':'nostrip'] &&
+    POLE_HEAD_DEFAULTS[n][currentStripOn()?'strip':'nostrip'][posId];
+  if(!cfg) return;
+  const wasOpen=(popoverPos===posId);
+  placed.filter(function(l){return l.posId===posId;}).map(function(l){return l.uid;})
+    .forEach(function(uid){ removeLight(uid); });
+  const d=DEFAULT_PRODUCT[posId]||['targetti_dart_medium',48];
+  cfg.forEach(function(h,idx){
+    addLight(d[0], posId, {beam:d[1], headZ:h.z, aim:h.aim.slice(), headB:idx===1, headC:idx===2});
+  });
+  if(wasOpen){ popoverPos=posId; popover.hidden=false; }
+}
+
+/* the 2/3-head TOGGLE — re-places every pole that's currently ON at its new default.
+   Poles that are OFF stay off (this never turns a pole on by itself). */
+function applyPoleHeadConfig(n){
+  poleHeadConfig=n;
+  ['poleL','poleR'].forEach(function(pos){
+    if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, n);
+  });
+  refreshLightbar(); refreshPoleHeadUI();
+}
+
+/* the strip on/off TOGGLE — adds/removes BOTH strip fixtures together, then re-places any
+   currently-ON pole at the head-count default matching the NEW strip state (the strip vs
+   no-strip default layouts differ meaningfully, not just cosmetically — see above). */
+function setStripOn(on){
+  if(on===currentStripOn()) return;
+  if(on){
+    ['strip','strip2'].forEach(function(pos){
+      if(!placed.some(function(l){return l.posId===pos;})){
+        const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+      }
+    });
+  } else {
+    placed.filter(function(l){return l.posId==='strip'||l.posId==='strip2';}).map(function(l){return l.uid;})
+      .forEach(function(uid){ removeLight(uid); });
+  }
+  ['poleL','poleR'].forEach(function(pos){
+    if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
+  });
+  refreshLightbar(); refreshPoleHeadUI();
+}
+function refreshPoleHeadUI(){
+  const seg=document.getElementById('poleHeadsSeg');
+  if(seg) seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', +b.getAttribute('data-heads')===poleHeadConfig); });
+  const sseg=document.getElementById('stripSeg');
+  if(sseg){ const on=currentStripOn();
+    sseg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', (b.getAttribute('data-strip')==='on')===on); });
+  }
+}
+
 /* ---------- light toggle bar (the primary flow: presence = checkbox) ---------- */
 const lightbar=$('lightbar');
 const LIGHT_GROUPS=[
@@ -5766,6 +5883,32 @@ const LIGHT_GROUPS=[
     });
     lightbar.appendChild(g);
   });
+  /* pole head-count + strip on/off — sits right after 'd · poles' (owner 2026-08-12).
+     Switching either re-places any pole that's currently ON at that combo's optimised,
+     spaced default and recomputes the verdict live (see applyPoleHeadConfig/setStripOn). */
+  const phg=document.createElement('div'); phg.className='lgroup';
+  const phlab=document.createElement('span'); phlab.className='glabel'; phlab.textContent='pole heads'; phg.appendChild(phlab);
+  const heads=document.createElement('div'); heads.className='seg'; heads.id='poleHeadsSeg';
+  heads.setAttribute('role','group'); heads.setAttribute('aria-label','Heads per pole');
+  heads.innerHTML=
+    '<button data-heads="2" title="2 heads per pole — T1 falls just short of the die-band cutoff; cost-smart but not equal to 3">2 heads</button>'+
+    '<button data-heads="3" class="on" title="3 heads per pole — best life (default)">3 heads</button>';
+  phg.appendChild(heads);
+  const strip=document.createElement('div'); strip.className='seg'; strip.id='stripSeg'; strip.style.marginLeft='6px';
+  strip.setAttribute('role','group'); strip.setAttribute('aria-label','Sill strip');
+  strip.innerHTML=
+    '<button data-strip="off" class="on" title="sill strip off — matches current default; L6 falls into the die band, unreachable from the poles alone">strip off</button>'+
+    '<button data-strip="on" title="sill strip on — recovers L6 (thins band) and tightens L1/L2/M2/T3 margins">strip on</button>';
+  phg.appendChild(strip);
+  lightbar.appendChild(phg);
+  heads.addEventListener('click', function(e){
+    const b=e.target.closest('button[data-heads]'); if(!b) return;
+    applyPoleHeadConfig(+b.getAttribute('data-heads'));
+  });
+  strip.addEventListener('click', function(e){
+    const b=e.target.closest('button[data-strip]'); if(!b) return;
+    setStripOn(b.getAttribute('data-strip')==='on');
+  });
 })();
 function refreshLightbar(){
   lightbar.querySelectorAll('input[data-pos]').forEach(function(cb){
@@ -5782,7 +5925,7 @@ function refreshLightbar(){
         else
           pn.textContent=' · '+(PRODUCT_ABBREV[ls[0].lib.id]||ls[0].lib.model)+' '+ls[0].beam+'°'+
             (ls.length>1?' +'+(ls.length-1):'');
-        pn.parentElement.title=ls.map(function(x){return x.lib.brand+' '+x.lib.model+' ('+x.beam+'°)'+(x.headB?' · head B @'+x.posSpec[2].toFixed(2)+' m':'');}).join(' + ');
+        pn.parentElement.title=ls.map(function(x){return x.lib.brand+' '+x.lib.model+' ('+x.beam+'°)'+((x.headB||x.headC)?' · '+headLabel(x)+' @'+x.posSpec[2].toFixed(2)+' m':'');}).join(' + ');
       } else {
         pn.textContent='';
         pn.parentElement.title=(POSMETA[pos]||{}).disp+' — click to choose product / aim';
@@ -5794,12 +5937,13 @@ lightbar.addEventListener('change', function(e){
   const pos=e.target.getAttribute && e.target.getAttribute('data-pos');
   if(!pos) return;
   if(e.target.checked){
-    const d=DEFAULT_PRODUCT[pos]||['lumascape_q4',45];
-    addLight(d[0], pos, {beam:d[1]});
+    if(pos==='poleL'||pos==='poleR') placePoleDefault(pos, poleHeadConfig);
+    else { const d=DEFAULT_PRODUCT[pos]||['lumascape_q4',45]; addLight(d[0], pos, {beam:d[1]}); }
   } else {
     placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;})
       .forEach(function(uid){ removeLight(uid); });
   }
+  refreshPoleHeadUI();
 });
 lightbar.addEventListener('click', function(e){
   const btn=e.target.closest ? e.target.closest('[data-tune]') : null;
@@ -5807,8 +5951,9 @@ lightbar.addEventListener('click', function(e){
   e.preventDefault(); e.stopPropagation();     /* don't toggle the checkbox */
   const pos=btn.getAttribute('data-tune');
   if(!placed.some(function(l){return l.posId===pos;})){
-    const d=DEFAULT_PRODUCT[pos]||['lumascape_q4',45];   /* clicking an OFF chip's name turns it on, then tunes */
-    addLight(d[0], pos, {beam:d[1]});
+    /* clicking an OFF chip's name turns it on, then tunes — poles land on the current config's default */
+    if(pos==='poleL'||pos==='poleR'){ placePoleDefault(pos, poleHeadConfig); refreshPoleHeadUI(); }
+    else { const d=DEFAULT_PRODUCT[pos]||['lumascape_q4',45]; addLight(d[0], pos, {beam:d[1]}); }
   }
   openPopover(pos, btn);
 });
@@ -5931,11 +6076,14 @@ document.addEventListener('pointerdown', function(e){
 function swapProduct(uid, libId){
   const l=placed.find(function(x){return x.uid===uid;});
   if(!l || l.lib.id===libId) return;
+  /* always pass headZ (not just when headB/headC are set) — head A can carry an optimised,
+     non-spec z too (2/3-head config toggle), and re-supplying the CURRENT z here is a
+     no-op for anything that was still at its spec default, so this is safe either way. */
   const keep={posId:l.posId, aimSpec:l.aimSpec.slice(), dim:l.dim, hours:l.hours,
-              headB:l.headB, headZ:l.posSpec[2]};
+              headB:l.headB, headC:l.headC, headZ:l.posSpec[2]};
   const wasOpen=(popoverPos===keep.posId);
   removeLight(uid);
-  const nl=addLight(libId, keep.posId, keep.headB?{headB:true, headZ:keep.headZ}:undefined);
+  const nl=addLight(libId, keep.posId, {headB:keep.headB, headC:keep.headC, headZ:keep.headZ});
   if(nl){
     nl.aimSpec=keep.aimSpec; nl.dim=keep.dim; nl.hours=keep.hours;
     updateLightObjects(nl); computeVerdicts(); applyCondition(); refreshLightbar();
@@ -5954,7 +6102,7 @@ function cardEl(l){
   const dot='<span style="display:inline-block;width:10px;height:10px;border-radius:5px;background:#'+l.color.getHexString()+';flex:none"></span>';
   const isPoleCard=!!(specFixById[l.posId]&&specFixById[l.posId].multi_head);
   let head='<div class="lhead">'+dot+'<b>'+l.lib.brand+' '+l.lib.model+'</b>'+
-    (isPoleCard?'<span class="badge">'+(l.headB?'head B':'head A')+'</span>':'')+
+    (isPoleCard?'<span class="badge">'+headLabel(l)+'</span>':'')+
     (meta.mcst?'<span class="badge mcst">MCST</span>':'')+
     (l.lib.verified===false?'<span class="badge est">UNVER.</span>':'')+
     '<button class="ghost" data-del="'+l.uid+'">✕</button></div>';
@@ -5968,8 +6116,8 @@ function cardEl(l){
       l.lib.beams.map(function(b){return '<option value="'+b+'"'+(b===l.beam?' selected':'')+'>'+b+'°</option>';}).join('')+
       '</select></div>';
   } else rows+='<div class="lrow"><label>beam</label><span>'+l.beam+'° (fixed)</span></div>';
-  if(l.headB){
-    const zr2=(specFixById[l.posId].multi_head&&specFixById[l.posId].multi_head.headB_z_range)||[0.5,1.8];
+  if(isPoleCard){   /* any pole head's z is adjustable now — head A can sit off the spec default too */
+    const zr2=headZRange(specFixById[l.posId]);
     rows+='<div class="lrow"><label>height</label><input type="range" min="'+zr2[0]+'" max="'+zr2[1]+'" step="0.05" value="'+l.posSpec[2]+'" data-hz="'+l.uid+'"><output>'+l.posSpec[2].toFixed(2)+' m</output></div>';
   }
   rows+='<div class="lrow"><label>aim az</label><input type="range" min="-180" max="180" step="1" value="'+Math.round(ae.az)+'" data-az="'+l.uid+'"><output>'+Math.round(ae.az)+'°</output></div>';
@@ -5986,17 +6134,22 @@ function rebuildLightsList(){
   const ls=placed.filter(function(l){return l.posId===popoverPos;});
   if(!ls.length){ popoverPos=null; popover.hidden=true; return; }
   ls.forEach(function(l){ lightsList.appendChild(cardEl(l)); });
-  /* pole positions: "+ second head" clamp-on affordance (fixtures[].multi_head) */
+  /* pole positions: "+ second/third head" clamp-on affordance (fixtures[].multi_head).
+     Manual add-one-at-a-time; the 2/3-head config TOGGLE (near the pole chips) is the
+     normal path for landing on the optimised default layout in one click. */
   const sfp=specFixById[popoverPos];
-  if(sfp && sfp.multi_head && ls.length<(sfp.multi_head.max||2)){
+  const maxH=(sfp&&sfp.multi_head&&sfp.multi_head.max)||2;
+  if(sfp && sfp.multi_head && ls.length<maxH){
+    const slot=ls.length;               /* 1 present -> adding the 2nd (head B); 2 present -> 3rd (head C) */
+    const isC=slot>=2;
     const b=document.createElement('button');
     b.className='ghost'; b.style.margin='6px 0 2px'; b.style.width='100%';
-    b.textContent='+ second head (clamp-on, anywhere along the shaft)';
+    b.textContent=(isC?'+ third head':'+ second head')+' (clamp-on, anywhere along the shaft)';
     b.addEventListener('click', function(){
-      const zr=(sfp.multi_head.headB_z_range)||[0.5,1.8];
+      const zr=headZRange(sfp);
       const d=DEFAULT_PRODUCT[popoverPos]||['targetti_dart_medium',48];
       const midZ=Math.round(((zr[0]+zr[1])/2)*20)/20;
-      addLight(d[0], popoverPos, {beam:d[1], headB:true, headZ:midZ,
+      addLight(d[0], popoverPos, {beam:d[1], headB:!isC, headC:isC, headZ:midZ,
         aim:[sfp.aim[0], sfp.aim[1], Math.max(0.3, midZ-0.25)]});
     });
     lightsList.appendChild(b);
@@ -6783,21 +6936,18 @@ function restoreUIFromStorage(){
   goToView(vid);
 }
 
-/* ============================== defaults (owner 2026-07-25) ==============================
-   L flood + R flood + balcony centre + BOTH POLES, each pole carrying its clamp-on
-   second head: pole L head B @0.80 m aimed at L2's foyer face; pole R head B @1.45 m
-   aimed at T3's foyer face (both DART Medium 48°). Suspensions stay OFF — one
-   checkbox away in the light bar. Verdict overlay starts ON. */
-['Lflood','Rflood','balc','poleL','poleR'].forEach(function(pos){
+/* ============================== defaults (owner 2026-07-25; poles re-defaulted 2026-08-12) ==============================
+   L flood + R flood + balcony centre + BOTH POLES at the 3-head config's optimised, spaced
+   default (best life — see POLE_HEAD_DEFAULTS above and model-spec.md §4 for the run notes).
+   Sill strip stays OFF (unchanged shipped default — owner is leaning toward the no-strip
+   scheme), so poles land on the NO-STRIP default set; flip "strip on" in the sidebar to
+   compare. Suspensions stay OFF — one checkbox away in the light bar. Verdict overlay
+   starts ON. */
+['Lflood','Rflood','balc'].forEach(function(pos){
   const d=DEFAULT_PRODUCT[pos];
   addLight(d[0], pos, {beam:d[1]});
 });
-function padFaceAim(id){                     /* the pad's foyer (+y) face, from the §1 JSON */
-  const p=SPEC.pads.find(function(q){return q.id===id;});
-  return [p.x, p.y+p.dy/2, p.z];
-}
-addLight('targetti_dart_medium','poleL',{beam:48, headB:true, headZ:0.80, aim:padFaceAim('L2')});
-addLight('targetti_dart_medium','poleR',{beam:48, headB:true, headZ:1.45, aim:padFaceAim('T3')});
+['poleL','poleR'].forEach(function(pos){ placePoleDefault(pos, poleHeadConfig); });
 /* decorative default night set — cross-key ground layout (v7.14, 2026-07-25, owner ruling:
    courtyard + dining are equal-primary night views). decorA/decorB/decorF placed by default
    alongside the grow set so Night "just shows" them with no manual add-light step —
@@ -6817,7 +6967,7 @@ addLight('targetti_dart_medium','poleR',{beam:48, headB:true, headZ:1.45, aim:pa
 $('overlayChk').checked=true;
 initWhatIf();
 selectedUid=placed.length?placed[0].uid:null;
-refreshLightbar(); refreshSelection();
+refreshLightbar(); refreshSelection(); refreshPoleHeadUI();
 computeVerdicts();
 restoreUIFromStorage();
 updateDrawerOffset();
