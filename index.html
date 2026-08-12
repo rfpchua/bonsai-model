@@ -293,6 +293,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <button id="beamsBtn" class="on">Beams</button>
       <button id="labelsBtn" class="on">Labels</button>
       <button id="pebblesBtn" class="on">Pebbles</button>
+      <button id="bodiesBtn" class="on" title="Real-scale fixture bodies (dims_mm)">Bodies</button>
       <button id="wiringBtn">Wiring</button>
     </div>
   </div>
@@ -326,6 +327,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <button id="mPebblesBtn" class="mchip on" role="menuitem" aria-label="Toggle pebbles" aria-pressed="true" title="Pebbles">
           <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="8" cy="15" rx="5" ry="3"/><ellipse cx="16" cy="10" rx="4" ry="2.6"/></svg>
           <span>Pebbles</span>
+        </button>
+        <button id="mBodiesBtn" class="mchip on" role="menuitem" aria-label="Toggle real-scale fixture bodies" aria-pressed="true" title="Fixture bodies (real dims)">
+          <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="9" width="14" height="8" rx="1.5"/><path d="M9 9V6h6v3"/></svg>
+          <span>Bodies</span>
         </button>
       </div>
     </div>
@@ -4209,27 +4214,35 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 }</script>
 <script type="application/json" id="fixture-lib">
 {
- "source": "distilled from fixture-options.md (as_of 2026-07-23) — catalogue claims and allowances, no quotations; verify every order code before purchase",
+ "source": "distilled from fixture-options.md (as_of 2026-07-23) — catalogue claims and allowances, no quotations; verify every order code before purchase. dims_mm added 2026-08-12 from fixture-spec-index.md (as_of 2026-08-12, top-3-per-role datasheet index) — see each fixture's notes for the exact source and whether the number is a measured datasheet figure or a class-based placeholder.",
+ "dims_mm_convention": "box-like bodies (form 'rect'/'panel'): {h,w,d} in mm, h=height, w=width, d=front-to-back depth (the thin axis). round spots/pole-heads/decorative (form 'round'): {dia,len} in mm, dia=barrel diameter, len=overall length along the beam axis. linear strips (form 'linear'): {w,h,len_per_m:true} in mm, a CROSS-SECTION (w=depth into the wall/ledge, h=rise off the mounting surface) — the rendered run length is set by the site geometry (model-spec.json fixtures[].pos), not by the product's own section length.",
  "fixtures": [
-  {"id":"lumascape_q4","brand":"Lumascape","model":"Quadralux Q4 LS9142","lumens":4980,"beams":[30,45,65],"cct":3000,"cri":null,"watts":48,"role":"grow","verified":true,"notes":"Marine-grade casting, DALI-2, IP66/67; sits at the bottom of the required band"},
-  {"id":"lumascape_q2","brand":"Lumascape","model":"Quadralux Q2 LS9122","lumens":3300,"beams":[30,45,65],"cct":3000,"cri":null,"watts":33,"role":"grow","verified":true,"notes":"Beam options assumed same family optics as Q4 — confirm"},
-  {"id":"iguzzini_palco","brand":"iGuzzini","model":"Palco InOut","lumens":6200,"beams":[48],"cct":3000,"cri":null,"watts":58,"role":"grow","verified":true,"notes":"Best optical/dimensional match; the coastal warranty in writing is the gate"},
-  {"id":"iguzzini_newfo","brand":"iGuzzini","model":"Newfo InOut 125","lumens":2570,"beams":[52],"cct":3000,"cri":90,"watts":24,"role":"decorative","verified":true,"notes":"CRI 90 suits the decorative part of the scheme; candidate for decorC (night-lighting-scheme.md §1b) — catalogue entry is 3000K, a 2700K SKU is UNVERIFIED, confirm at RFQ before treating as default"},
-  {"id":"targetti_dart_maxi","brand":"Targetti","model":"DART Maxi 1E3958DA","lumens":5194,"beams":[28],"cct":3000,"cri":null,"watts":68.9,"role":"grow","verified":true,"notes":"Factory cataphoresis; substantial body for a shallow soffit"},
-  {"id":"targetti_dart_medium","brand":"Targetti","model":"DART Medium 1E3934DA","lumens":4145,"beams":[48],"cct":3000,"cri":null,"watts":33.2,"role":"grow","verified":true,"notes":""},
-  {"id":"targetti_dart_small","brand":"Targetti","model":"DART Round Small 1E3977DA","lumens":1477,"beams":[48],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":true,"notes":""},
-  {"id":"philips_bvp353_80_30","brand":"Philips","model":"UniFlood M BVP353 80 W 30°","lumens":6750,"beams":[30],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"notes":"Code 911401747413; dimming is DMX only — see lighting-design.md §C workaround"},
-  {"id":"philips_bvp353_80_45","brand":"Philips","model":"UniFlood M BVP353 80 W 45°","lumens":6750,"beams":[45],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"notes":"Code 911401747503; lumens carried over from the 30° head — ESTIMATE"},
-  {"id":"philips_bvp353_60_30","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 30° DMX","lumens":4785,"beams":[30],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":true,"notes":"Code 911401747083 — the QUOTED soffit-flood tier (S$425/unit, LKH/Dennis 2026-08-03). Extruded aluminium, IP66, DMX/RDM only (no DALI — needs a DMX island or fixed-output on a DALI relay). Passes the glass-clearance gate (~103 mm swing). Corrosion: NO Marine Salt Painting for this family + no SG warranty corrosion cover regardless — self-insured (defensible in the sheltered well). Glare: no honeycomb louvre exists (directional shield only). 60 W not 80 W: no louvre loss to offset, sits in the 4,500-5,500 band, dims cleaner. Lumens = verified DMX figure (leaflet non-DMX L30/30° = 5,125)."},
-  {"id":"philips_bvp353_60_45","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 45°","lumens":5125,"beams":[45],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":false,"notes":"45° L30 variant for the wider balcony throw (design P7 = 40-48°); order code TBD, lumens carried from the leaflet L30/30° figure — ESTIMATE. Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only)."},
-  {"id":"philips_bvp353_40_30","brand":"Philips","model":"UniFlood M BVP353 40 W 30° DMX","lumens":3040,"beams":[30],"cct":3000,"cri":80,"watts":40,"role":"grow","verified":true,"notes":"Code 911401746363; lumens scaled from the 80 W DMX head (6,070 lm) — ESTIMATE"},
-  {"id":"lumenpulse_lb_large","brand":"Lumenpulse","model":"Lumenbeam Large","lumens":5673,"beams":[30,45],"cct":3000,"cri":null,"watts":50,"role":"grow","verified":false,"notes":"Singapore supply/price/lead time unverified; beam options not recorded in fixture-options.md — placeholder, confirm with supplier"},
-  {"id":"lumenpulse_lb_medium","brand":"Lumenpulse","model":"Lumenbeam Medium","lumens":2714,"beams":[30,45],"cct":3000,"cri":null,"watts":28,"role":"grow","verified":false,"notes":"Singapore supply unverified; beam options placeholder — confirm"},
-  {"id":"lumenpulse_lb_small","brand":"Lumenpulse","model":"Lumenbeam Small","lumens":1419,"beams":[30,45],"cct":3000,"cri":null,"watts":14,"role":"grow","verified":false,"notes":"Singapore supply unverified; beam options placeholder — confirm"},
-  {"id":"weef_flc220","brand":"WE-EF","model":"FLC220","lumens":2800,"beams":[30,45],"cct":3000,"cri":null,"watts":26,"role":"grow","verified":false,"notes":"Corrosion benchmark; no Singapore entity; beam options not recorded — placeholder, confirm"},
-  {"id":"cs_gwl_re340","brand":"CS","model":"GWL-RE340 horticultural","lumens":10000,"ppf_direct":150,"beams":[60],"cct":3200,"cri":75,"watts":100,"role":"grow","verified":false,"notes":"Datasheet ~20% optimistic — engine uses ~150 µmol/s DIRECT; IP65 below the IP66 site minimum; 60° too wide for the soffit role (ask for 30°); DALI driver suffix ELG-100-48DA UNVERIFIED"},
-  {"id":"underscore_linear","brand":"iGuzzini","model":"Underscore InOut linear (2 m sill strip)","lumens":2000,"beams":[60],"cct":3000,"cri":90,"watts":null,"role":"linear","verified":false,"notes":"~1,000 lm/m over 2 m — ESTIMATE; the asymmetric optic decides success (without it ~85% misses the tree)"},
-  {"id":"generic_decor","brand":"Generic","model":"Decorative uplight (allowance)","lumens":800,"beams":[30],"cct":2700,"cri":90,"watts":null,"role":"decorative","verified":false,"notes":"Allowance-grade placeholder, no product selected — CRI90 assumed per §B2's mandatory colour-rendering minimum, not a spec'd figure. Default product for decorL/decorR/decorC pending the §B4 night mock-up (night-lighting-scheme.md §1b)"}
+  {"id":"lumascape_q4","brand":"Lumascape","model":"Quadralux Q4 LS9142","lumens":4980,"beams":[30,45,65],"cct":3000,"cri":null,"watts":48,"role":"grow","verified":true,"dims_mm":{"w":330,"h":228,"d":68},"notes":"Marine-grade casting, DALI-2, IP66/67; sits at the bottom of the required band. Dims: fixture-spec-index.md Role 1 footnote — 330×228×68mm, 3.2kg (`Lumascape-Q4-LS9142-datasheet.pdf`) — RFQ'd but NOT top-3 for this role (superseded by the Philips/iGuzzini/Ligman shortlist)."},
+  {"id":"lumascape_q2","brand":"Lumascape","model":"Quadralux Q2 LS9122","lumens":3300,"beams":[30,45,65],"cct":3000,"cri":null,"watts":33,"role":"grow","verified":true,"dims_mm":{"w":235,"h":228,"d":68},"notes":"Beam options assumed same family optics as Q4 — confirm. Dims: fixture-spec-index.md Role 2 top-3 #1 (pole-head switch pick) — 228×235×68mm body + 68–130mm bracket (bracket excluded from the body box), 2.4 kg, DALI-2 (`Lumascape-Q2-LS9122-datasheet.pdf`)."},
+  {"id":"iguzzini_palco","brand":"iGuzzini","model":"Palco InOut EF51.04 (Ø153, 3.EF51.704.0)","lumens":6200,"beams":[48],"cct":3000,"cri":null,"watts":58,"role":"grow","verified":true,"dims_mm":{"dia":153,"len":300},"notes":"Best optical/dimensional match; the coastal warranty in writing is the gate. Dims: fixture-spec-index.md Role 1 top-3 #3 (DALI-2 alternate, QUOTED S$1,087/unit) — datasheet gives ~300×276×Ø153mm, 6.56 kg; rendered as a plain cylinder dia=153mm len=300mm — the 276mm figure is the bracket/mounting swing width, omitted from this body approximation (`iGuzzini-EF51-datasheet.pdf`)."},
+  {"id":"iguzzini_newfo","brand":"iGuzzini","model":"Newfo InOut 125","lumens":2570,"beams":[52],"cct":3000,"cri":90,"watts":24,"role":"decorative","verified":true,"dims_mm":{"dia":125,"len":110},"notes":"CRI 90 suits the decorative part of the scheme; candidate for decorC (night-lighting-scheme.md §1b) — catalogue entry is 3000K, a 2700K SKU is UNVERIFIED, confirm at RFQ before treating as default. Dims: PLACEHOLDER — fixture-spec-index.md Role 4 top-3 #3 lists H×W×D+weight as 'Not confirmed'; sized from class (iGuzzini InOut round decorative-uplight family; '125' is iGuzzini's nominal ~125mm size class). Verify against a real Newfo InOut 125 datasheet before use."},
+  {"id":"targetti_dart_maxi","brand":"Targetti","model":"DART Maxi 1E3958DA","lumens":5194,"beams":[28],"cct":3000,"cri":null,"watts":68.9,"role":"grow","verified":true,"dims_mm":{"dia":170,"len":260},"notes":"Factory cataphoresis; substantial body for a shallow soffit. Dims: PLACEHOLDER — Targetti DART is not covered by fixture-spec-index.md (its top-3 shortlist is Ligman/Philips/iGuzzini for this role); sized from class (compact adjustable spot/projector), scaled up for the 68.9W Maxi tier. Verify against Targetti's own DART datasheet."},
+  {"id":"targetti_dart_medium","brand":"Targetti","model":"DART Medium 1E3934DA","lumens":4145,"beams":[48],"cct":3000,"cri":null,"watts":33.2,"role":"grow","verified":true,"dims_mm":{"dia":140,"len":210},"notes":"Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), 33.2W Medium tier. This is the product actually placed by default at wireL/wireR/poleL/poleR (model-src/40-app.js DEFAULT_PRODUCT) — verify against Targetti's own DART datasheet before order."},
+  {"id":"targetti_dart_small","brand":"Targetti","model":"DART Round Small 1E3977DA","lumens":1477,"beams":[48],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":true,"dims_mm":{"dia":110,"len":160},"notes":"Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), smallest DART tier, wattage not published. Verify against Targetti's own DART datasheet."},
+  {"id":"philips_bvp353_80_30","brand":"Philips","model":"UniFlood M BVP353 80 W 30°","lumens":6750,"beams":[30],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":160,"w":150,"d":320},"notes":"Code 911401747413; dimming is DMX only — see lighting-design.md §C workaround. Dims: PLACEHOLDER (extrapolated) — fixture-spec-index.md only verifies dims for the 60W L30 Mono tier (see philips_bvp353_60_30); this 80W tier is not separately dimensioned there, so its box is scaled up ~8% from the verified 60W housing. Confirm against Philips' own 80W leaflet before use."},
+  {"id":"philips_bvp353_80_45","brand":"Philips","model":"UniFlood M BVP353 80 W 45°","lumens":6750,"beams":[45],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":160,"w":150,"d":320},"notes":"Code 911401747503; lumens carried over from the 30° head — ESTIMATE. Dims: PLACEHOLDER (extrapolated), same housing assumption as philips_bvp353_80_30 — see that entry's note."},
+  {"id":"philips_bvp353_60_30","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 30° DMX","lumens":4785,"beams":[30],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":293},"notes":"Code 911401747083 — the QUOTED soffit-flood tier (S$425/unit, LKH/Dennis 2026-08-03). Extruded aluminium, IP66, DMX/RDM only (no DALI — needs a DMX island or fixed-output on a DALI relay). Passes the glass-clearance gate (~103 mm swing). Corrosion: NO Marine Salt Painting for this family + no SG warranty corrosion cover regardless — self-insured (defensible in the sheltered well). Glare: no honeycomb louvre exists (directional shield only). 60 W not 80 W: no louvre loss to offset, sits in the 4,500-5,500 band, dims cleaner. Lumens = verified DMX figure (leaflet non-DMX L30/30° = 5,125). Dims: REAL, fixture-spec-index.md Role 1 top-3 #2 (front-runner, gate-verified) — 150(H)×140(W)×293(D)mm, 3.65 kg, verified off the install manual's 'BVP353 L30 Mono' row (`Philips-BVP353-leaflet.pdf` + install drawing). This is the product actually placed by default at Lflood/Rflood/soffitL/soffitR (model-src/40-app.js DEFAULT_PRODUCT)."},
+  {"id":"philips_bvp353_60_45","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 45°","lumens":5125,"beams":[45],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":293},"notes":"45° L30 variant for the wider balcony throw (design P7 = 40-48°); order code TBD, lumens carried from the leaflet L30/30° figure — ESTIMATE. Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only). Dims: REAL — same BVP353 L30 Mono G2 housing as the verified 30° tier (fixture-spec-index.md Role 1 #2), 150(H)×140(W)×293(D)mm, 3.65 kg; only the internal optic differs between the 30°/45° SKUs, not the housing. This is the product actually placed by default at balc/balc2 (model-src/40-app.js DEFAULT_PRODUCT)."},
+  {"id":"philips_bvp353_40_30","brand":"Philips","model":"UniFlood M BVP353 40 W 30° DMX","lumens":3040,"beams":[30],"cct":3000,"cri":80,"watts":40,"role":"grow","verified":true,"dims_mm":{"h":135,"w":125,"d":250},"notes":"Code 911401746363; lumens scaled from the 80 W DMX head (6,070 lm) — ESTIMATE. Dims: PLACEHOLDER (extrapolated smaller) — fixture-spec-index.md only verifies the 60W L30 Mono tier; this 40W tier's box is scaled down from that verified housing. Confirm against Philips' own 40W leaflet before use."},
+  {"id":"lumenpulse_lb_large","brand":"Lumenpulse","model":"Lumenbeam Large","lumens":5673,"beams":[30,45],"cct":3000,"cri":null,"watts":50,"role":"grow","verified":false,"dims_mm":{"dia":160,"len":280},"notes":"Singapore supply/price/lead time unverified; beam options not recorded in fixture-options.md — placeholder, confirm with supplier. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact spot/projector), 50W Large tier."},
+  {"id":"lumenpulse_lb_medium","brand":"Lumenpulse","model":"Lumenbeam Medium","lumens":2714,"beams":[30,45],"cct":3000,"cri":null,"watts":28,"role":"grow","verified":false,"dims_mm":{"dia":120,"len":210},"notes":"Singapore supply unverified; beam options placeholder — confirm. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class, 28W Medium tier."},
+  {"id":"lumenpulse_lb_small","brand":"Lumenpulse","model":"Lumenbeam Small","lumens":1419,"beams":[30,45],"cct":3000,"cri":null,"watts":14,"role":"grow","verified":false,"dims_mm":{"dia":90,"len":150},"notes":"Singapore supply unverified; beam options placeholder — confirm. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class, 14W Small tier."},
+  {"id":"weef_flc220","brand":"WE-EF","model":"FLC220","lumens":2800,"beams":[30,45],"cct":3000,"cri":null,"watts":26,"role":"grow","verified":false,"dims_mm":{"dia":130,"len":220},"notes":"Corrosion benchmark; no Singapore entity; beam options not recorded — placeholder, confirm. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (26W compact projector)."},
+  {"id":"cs_gwl_re340","brand":"CS","model":"GWL-RE340 horticultural","lumens":10000,"ppf_direct":150,"beams":[60],"cct":3200,"cri":75,"watts":100,"role":"grow","verified":false,"dims_mm":{"h":145,"w":340,"d":65},"notes":"Datasheet ~20% optimistic — engine uses ~150 µmol/s DIRECT; IP65 below the IP66 site minimum; 60° too wide for the soffit role (ask for 30°); DALI driver suffix ELG-100-48DA UNVERIFIED. Dims: REAL, GWL-RE340 horticultural-panel datasheet — 340×145×65mm — already the source for this fixture's hardcoded body geometry in 40-app.js prior to this pass; now promoted into a proper dims_mm field."},
+  {"id":"underscore_linear","brand":"iGuzzini","model":"Underscore InOut linear (2 m sill strip)","lumens":2000,"beams":[60],"cct":3000,"cri":90,"watts":null,"role":"linear","verified":false,"dims_mm":{"w":45,"h":24,"len_per_m":true},"notes":"~1,000 lm/m over 2 m — ESTIMATE; the asymmetric optic decides success (without it ~85% misses the tree). Dims: PLACEHOLDER — this exact iGuzzini Underscore product is not covered by fixture-spec-index.md (its Role 3 top-3 shortlist is Lumascape L3 / Linea Light Paseo / LED Linear FUSION — none of which is Underscore); cross-section sized from that class (slim linear grazer). This is the product actually placed by default at strip/strip2 (model-src/40-app.js DEFAULT_PRODUCT) — verify before ordering."},
+  {"id":"generic_decor","brand":"Generic","model":"Decorative uplight (allowance)","lumens":800,"beams":[30],"cct":2700,"cri":90,"watts":null,"role":"decorative","verified":false,"dims_mm":{"dia":90,"len":95},"notes":"Allowance-grade placeholder, no product selected — CRI90 assumed per §B2's mandatory colour-rendering minimum, not a spec'd figure. Default product for decorA/decorB/decorF/decorL/decorR/decorG pending the §B4 night mock-up (night-lighting-scheme.md §1b). Dims: PLACEHOLDER — sized as a rough midpoint of the Role 4 top-3 in fixture-spec-index.md (Ginko Ø54×58mm / Platek ~Ø230mm implied / Newfo 'not confirmed'). Swap for ll_ginko20 or platek_sunm once the decorative product is picked."},
+  {"id":"ligman_quantum1","brand":"Ligman","model":"Quantum 1 QA-50001","lumens":4532,"beams":[21,28,44,75],"cct":3000,"cri":80,"watts":38,"role":"grow","verified":true,"dims_mm":{"dia":230,"len":308},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — value pick for Role 1 (grow floods) top-3 #1 AND fallback for Role 2 (pole heads) top-3 #3 (same product family, both roles). 3,868–4,532 lm across N/M/W/VW optics (this entry uses the top of range); 2700/3000/4000K SKUs (this entry defaults 3000K). Gaps: DALI is generic, NOT DALI-2 certified (Ligman absent from the DALI Alliance database); stainless hardware is 304, not the 316 this coastal site wants. RFQ sent to Delight, awaiting. Dims: REAL — datasheet gives 308×244×218mm (incl. bracket), 3.7 kg; rendered as a round body dia=230mm (averaged from the 244×218mm cross-section, since the housing isn't a perfect cylinder) len=308mm (`Ligman-Quantum1-QA-50001-datasheet.pdf`)."},
+  {"id":"simes_stage_s1386","brand":"Simes","model":"STAGE Round Pole S.1386","lumens":3300,"beams":[14,30,54],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":false,"dims_mm":{"dia":150,"len":296},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 2 (pole heads) top-3 #2, best-documented marine/DALI challenger. Lumens (2,716–3,885, this entry uses the midpoint), CCT range (2700–4000K) and CRI (~90) are cited in the index from a separate internal sweep, not from this datasheet directly — treat as lower-confidence than the dims. No full spec sheet or IES exists as a static file (Simes gates it behind a JS configurator); SG channel and true fastener grade (steel+coating vs 316) both unconfirmed. RFQ sent to Delight, awaiting. Dims: REAL (verified — supersedes an earlier 4.31kg sweep estimate) — mounting drawing gives 296×185×Ø150/145mm body, Ø72mm base, 3.8 kg; rendered as a round body dia=150mm (top of the Ø150/145mm range) len=296mm — the 185mm figure (likely swing/width incl. yoke) and the Ø72mm base foot are omitted from this plain-cylinder approximation (`Simes-STAGE-S1386-mounting.pdf`)."},
+  {"id":"lumascape_l3","brand":"Lumascape","model":"Linealux L3 LS9032 (5W/ft ASHRAE SKU)","lumens":4450,"beams":[60],"cct":3000,"cri":80,"watts":null,"role":"linear","verified":false,"dims_mm":{"w":60,"h":42,"len_per_m":true},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 3 (sill strip) top-3 #1, switch pick with integral DALI-2. Genuine Asymmetric Left/Right (AL/AR) optic — the beams:[60] figure here is a nominal placeholder for the UI's symmetric beam-angle field only, not the real optic. Lumens figure (4,450) is from the datasheet's 4ft/12W-ft example section — order the 5W/ft ASHRAE SKU instead (~16.4 W/m; doesn't map cleanly to the schema's single 'watts' field, left null). Sections come in 610/908/1,206mm (2/3/4ft) lengths; 2.8 kg for a 4ft section. RFQ to LuxLight pending; confirm the current hardware is genuinely DALI-2 (an older datasheet said generic 'DALI' only). Dims: cross-section is an APPROXIMATION — the datasheet gives section lengths + a 42×60–75mm mounting-bracket footprint, but does not separately dimension the extrusion's own cross-section; this entry uses the bracket footprint (w=60mm, h=42mm) as a proxy. Verify against a physical sample or a fuller datasheet before treating as exact (`Lumascape-LinealuxL3-LS9032-datasheet.pdf`)."},
+  {"id":"linea_light_paseo","brand":"Linea Light","model":"Paseo_L Anti-glare 94022M07","lumens":568,"beams":[50],"cct":2700,"cri":80,"watts":15,"role":"linear","verified":true,"dims_mm":{"w":39,"h":24,"len_per_m":true},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 3 (sill strip) top-3 #2, secondary hold. 1,208 lm source but only 568 lm DELIVERED per 1.15m section (LOR 47%) — this entry uses the delivered figure; ~15W over that section (37 lm/W). Genuine Asymmetric Wallwasher optic verified — the beams:[50] figure here is a nominal placeholder for the UI's symmetric beam-angle field only. DALI-2/1-10V needs a SEPARATE external controller (driver not included, e.g. code 83333). No RFQ initiated yet. Lower output than the L3 pick — multiple sections would be needed to cover the 1.9m run, stacking cost. Dims: REAL — 1,152×39×24mm profile (cross-section w=39mm, h=24mm), 0.89 kg for that section; UV-resistant polycarbonate, 'MARINE GRADE' badge on the datasheet. Filed in Files/manuals/, not the main specs folder — no IES saved (linealight.com public datasheet)."},
+  {"id":"led_linear_fusion","brand":"LED Linear","model":"FUSION IP67","lumens":null,"beams":[15],"cct":3000,"cri":86,"watts":null,"role":"linear","verified":false,"dims_mm":{"w":38.6,"h":28,"len_per_m":true},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 3 (sill strip) top-3 #3, retired to fallback. Not on the datasheet at the target 15 W/m tier — lumens/watts left null. 15°×15° nano optics (HC engine) — the beams:[15] figure reflects the real narrow symmetric optic (this one is NOT asymmetric, unlike L3/Paseo). CRI flagged: the datasheet's 'Product Information' panel claims CRI>90 but its own Electrical & Output Data table lists CRI/R9 = 86/18 for every wattage tier — this entry uses the table figure (86) as the more reliable one; get it in writing before treating as CRI90-class. No driver included — needs an external DALI-2-certified CV driver, no published pairing. Weight not published anywhere on the sheet. RFQ to Luci awaiting, low priority. Dims: REAL — modular 210/211mm segments to custom length; symmetric cross-section 38.6×28mm (an asymmetric variant is 35.6mm — not used here) (`LEDLinear-FUSION-IP67-spec.pdf` + brochure)."},
+  {"id":"ll_ginko20","brand":"L&L Luce&Light","model":"Ginko 2.0","lumens":374,"beams":[17,34,45],"cct":2700,"cri":90,"watts":7,"role":"decorative","verified":true,"dims_mm":{"dia":54,"len":58},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 4 (decorative uplights) top-3 #1, current keep pick. 374 lm on the 7W/17° SKU (this entry's default) / 284 lm on the alt 5W/34° SKU; 45° SKU also exists. CRI >90 verified, R9 not published anywhere. Casambi-ONLY control — NOT DALI (bridge via casambi-bt-hass → Home Assistant, or a Casambi EN1612/CBU-DCS gateway onto the DALI-2 bus). Anticorodal 6082 body + genuine AISI 316L bracket, >1,500h salt spray. RFQ folded into the multi-role LuxLight/Lumascape request, pending. Dims: REAL (manufacturer-published) but from the public range PDF only — Ø54×58mm compact surface uplight. No primary datasheet or IES file exists anywhere on Drive for this SKU; the manufacturer only issues them through a 'Generate code → Download' web configurator that hasn't been run yet (lucelight.it public range PDF). Weight not published."},
+  {"id":"platek_sunm","brand":"Platek","model":"Sun M (88 40 313)","lumens":3640,"beams":[26],"cct":3000,"cri":80,"watts":null,"role":"decorative","verified":true,"dims_mm":{"dia":230,"len":110},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 4 (decorative uplights) top-3 #2, re-slotted from the flood role (fails the glass-clearance gate there). 3,640 lm system (5,000 lm LED source), RS 26° rotationally symmetric optic. CRI is datasheet-confirmed at 80, NOT the 90 Platek's own marketing implies — its glare accessories are a visor/anti-glare grille, not the snoot+honeycomb pairing Ginko offers. DALI control. Die-cast EN44300 low-copper aluminium, A4 stainless screws, galvanic anodizing + 2-step epoxy/polyester paint. QUOTED S$1,525/unit (3× = S$4,986.75 incl. GST, ref 20260730-01, Illum-Tec, 30 Jul). Net 2.9 kg, gross 3.4kg shipping. Dims: PARTIAL — diameter is REAL (Ø230mm, matches the visor/anti-glare-grille/concentrating-tube accessory diameters given on the datasheet), but the dimension diagram itself carries NO numeric H/W/D callouts, so the len=110mm figure here is a PLACEHOLDER (typical compact-uplight height-to-diameter ratio, ~0.48×dia) — verify against a physical unit or a fuller drawing before treating as exact (`Platek-SUNM-datasheet.pdf` + revised quote)."}
  ]
 }
 </script>
@@ -4316,7 +4329,10 @@ const PRODUCT_ABBREV={
   philips_bvp353_80_30:'BVP 80W', philips_bvp353_80_45:'BVP 80W', philips_bvp353_40_30:'BVP 40W',
   lumenpulse_lb_large:'LB Lg', lumenpulse_lb_medium:'LB Md', lumenpulse_lb_small:'LB Sm',
   weef_flc220:'FLC220', cs_gwl_re340:'CS panel',
-  underscore_linear:'U-score', generic_decor:'decor'
+  underscore_linear:'U-score', generic_decor:'decor',
+  /* fixture-spec-index.md top-3 additions, 2026-08-12 */
+  ligman_quantum1:'Ligman Q1', simes_stage_s1386:'Simes STAGE', lumascape_l3:'L3',
+  linea_light_paseo:'Paseo', led_linear_fusion:'FUSION', ll_ginko20:'Ginko 2.0', platek_sunm:'Sun M'
 };
 
 /* CCT -> display colour */
@@ -5255,19 +5271,33 @@ function makeConeMaterial(color){
 
 function libById(id){ return FIXLIB.find(function(f){return f.id===id;}); }
 
-/* ---------- fixture FORM FACTORS (owner round) ----------
-   rect  = flood housings — Philips UniFlood M BVP353 80 W as the standard
-           (348 mm long × 140 mm wide × 149 mm tall, fixture-options.md), yoke mount;
-           Lumascape Quadralux shares the flat flood form
+/* ---------- fixture FORM FACTORS (owner round; unchanged by the 2026-08-12 dims_mm pass —
+   this classification drives the PHOTOMETRY dispersion shape (Photometry.ppfdAt / the
+   visible beam cone in updateLightObjects), which is out of scope this pass. Only the
+   BODY geometry sizing below (buildBodyGroup) now reads real dims_mm per product. ----------
+   rect  = box-like flood housings — yoke mount. Was previously keyed only off the
+           Philips UniFlood M BVP353 80 W's box (348×140×149mm, fixture-options.md);
+           Lumascape Quadralux shares the flat flood form. FIX 2026-08-12: the 60W L30
+           Mono tier (philips_bvp353_60_30/60_45) — the product actually PLACED by
+           default at every flood position (DEFAULT_PRODUCT) — was missing from this
+           list, so the real front-runner flood was rendering as a generic round
+           cylinder body instead of its true ~150×140×293mm box. Added below.
    panel = CS-GWL-RE340 horticultural panel, 340×145×65 mm per its datasheet
-   linear= 2.0 m aluminium extrusion on the sill (~40×50 mm section)
-   round = cylindrical projectors (Targetti DART, Lumenpulse, WE-EF, iGuzzini, generic) */
-const RECT_PRODUCTS={lumascape_q4:1, lumascape_q2:1, philips_bvp353_80_30:1, philips_bvp353_80_45:1, philips_bvp353_40_30:1};
+   linear= aluminium extrusion on the sill; cross-section from dims_mm, run length from
+           the site geometry (see buildBodyGroup)
+   round = cylindrical projectors/pole-heads/decorative uplights (Targetti DART,
+           Lumenpulse, WE-EF, iGuzzini, Ligman, Simes, L&L Ginko, Platek, generic) */
+const RECT_PRODUCTS={lumascape_q4:1, lumascape_q2:1, philips_bvp353_80_30:1, philips_bvp353_80_45:1,
+  philips_bvp353_40_30:1, philips_bvp353_60_30:1, philips_bvp353_60_45:1};
 function formOf(lib){
   if(lib.role==='linear') return 'linear';
   if(lib.id==='cs_gwl_re340') return 'panel';
   return RECT_PRODUCTS[lib.id] ? 'rect' : 'round';
 }
+/* mm -> m, with an optional class fallback when dims_mm (or a specific key) is absent —
+   should not trigger now that every library product carries dims_mm (2026-08-12 pass),
+   but keeps buildBodyGroup() safe against a future product added without one. */
+function mmToM(v, fallback){ return (v!=null) ? v/1000 : fallback; }
 const housingMat=new THREE.MeshStandardMaterial({color:0x2e3134, roughness:0.55, metalness:0.45});
 const yokeMat=new THREE.MeshStandardMaterial({color:0x24272a, roughness:0.5, metalness:0.55});
 /* anodised-graphite aluminium extrusion — shared by BOTH sill strips (v7.15: was
@@ -5313,62 +5343,80 @@ function linearWashGeometry(len, hl0, hw0, hl1, hw1){
   return g;
 }
 
-/* fixture body per form factor; the emissive face plate lives inside the group */
+/* fixture body per form factor; the emissive face plate lives inside the group.
+   2026-08-12 — TO-SCALE PASS: every box/cylinder below now sizes itself from the
+   product's own dims_mm (30-fixture-lib.json, mm -> m via mmToM), so e.g. the Philips
+   flood reads as its real ~0.15×0.14×0.29 m box and a compact pole-head reads as its
+   real ~Ø0.14-0.23 m barrel — not the one-size-fits-all placeholder this body used
+   before. dims_mm is absent only if a future product is added without one; the
+   original hardcoded numbers stay as that fallback so nothing breaks. */
 function buildBodyGroup(light){
   const g=new THREE.Group();
+  const D=light.lib.dims_mm;
   let faceMesh;
   if(light.form==='rect'){
-    g.add(new THREE.Mesh(new THREE.BoxGeometry(0.348,0.149,0.140), housingMat));
-    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(0.30,0.112), new THREE.MeshBasicMaterial({color:light.color}));
-    faceMesh.position.z=0.0705; g.add(faceMesh);
-    const armG=new THREE.BoxGeometry(0.016,0.21,0.02);                 /* stirrup yoke */
-    const a1=new THREE.Mesh(armG,yokeMat); a1.position.set(-0.19,0.045,-0.01); g.add(a1);
-    const a2=new THREE.Mesh(armG,yokeMat); a2.position.set( 0.19,0.045,-0.01); g.add(a2);
-    const bar=new THREE.Mesh(new THREE.BoxGeometry(0.40,0.016,0.02), yokeMat); bar.position.set(0,0.15,-0.01); g.add(bar);
+    const bw=mmToM(D&&D.w,0.348), bh=mmToM(D&&D.h,0.149), bd=mmToM(D&&D.d,0.140);
+    g.add(new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bd), housingMat));
+    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(bw*0.86,bh*0.75), new THREE.MeshBasicMaterial({color:light.color}));
+    faceMesh.position.z=bd/2+0.0005; g.add(faceMesh);
+    const armG=new THREE.BoxGeometry(0.016,bh*1.41,0.02);               /* stirrup yoke, scaled to the box */
+    const a1=new THREE.Mesh(armG,yokeMat); a1.position.set(-bw*0.546,bh*0.302,-0.01); g.add(a1);
+    const a2=new THREE.Mesh(armG,yokeMat); a2.position.set( bw*0.546,bh*0.302,-0.01); g.add(a2);
+    const bar=new THREE.Mesh(new THREE.BoxGeometry(bw*1.15,0.016,0.02), yokeMat); bar.position.set(0,bh*1.01,-0.01); g.add(bar);
   } else if(light.form==='panel'){
-    g.add(new THREE.Mesh(new THREE.BoxGeometry(0.340,0.145,0.065), housingMat));
-    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(0.30,0.115), new THREE.MeshBasicMaterial({color:light.color}));
-    faceMesh.position.z=0.0335; g.add(faceMesh);
-    const bar=new THREE.Mesh(new THREE.BoxGeometry(0.38,0.014,0.014), yokeMat); bar.position.set(0,0.10,-0.025); g.add(bar);
+    const bw=mmToM(D&&D.w,0.340), bh=mmToM(D&&D.h,0.145), bd=mmToM(D&&D.d,0.065);
+    g.add(new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bd), housingMat));
+    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(bw*0.88,bh*0.79), new THREE.MeshBasicMaterial({color:light.color}));
+    faceMesh.position.z=bd/2+0.0005; g.add(faceMesh);
+    const bar=new THREE.Mesh(new THREE.BoxGeometry(bw*1.12,0.014,0.014), yokeMat); bar.position.set(0,bh*0.69,-bd*0.385); g.add(bar);
   } else if(light.form==='linear' && light.posId==='strip'){
-    /* sill strip 1 (OWNER 2026-07-25): a chunky 2 m aluminium profile that visibly SITS
+    /* sill strip 1 (OWNER 2026-07-25): a chunky aluminium profile that visibly SITS
        on the window ledge — built in WORLD-aligned local axes (x along the bay, y up,
        z toward the foyer) and mounted FLAT by updateLightObjects (a surface-mounted
        extrusion is fixed; only the LED face is angled). VISUAL mount only — the
-       photometric position stays spec §4. */
-    const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.05,0.045), aluMat);
+       photometric position stays spec §4. Run length (2.0 m) is the SITE geometry
+       (~1.9 m spec target), not the product's own section length; only the
+       cross-section (h=rise off the ledge, w=depth toward the glass) comes from
+       dims_mm — see 30-fixture-lib.json's dims_mm_convention note. */
+    const cw=mmToM(D&&D.h,0.05), cd=mmToM(D&&D.w,0.045);
+    const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,cw,cd), aluMat);
     body.castShadow=true; g.add(body);
-    const foot=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.006,0.055), aluMat);   /* base flange on the ledge */
-    foot.position.set(0,-0.028,0); g.add(foot);
-    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.94,0.03), new THREE.MeshBasicMaterial({color:light.color}));
+    const foot=new THREE.Mesh(new THREE.BoxGeometry(2.0,cw*0.12,cd*1.22), aluMat);   /* base flange on the ledge */
+    foot.position.set(0,-cw*0.56,0); g.add(foot);
+    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.94,cw*0.6), new THREE.MeshBasicMaterial({color:light.color}));
     /* emissive face on the upper-courtyard bevel: +z normal rotated to ≈(0,+up,−courtyard),
        matching the §4 aim direction (up + into the tree) */
     faceMesh.rotation.x=Math.PI*0.72;
-    faceMesh.position.set(0, 0.014, -0.020);
+    faceMesh.position.set(0, cw*0.28, -cd*0.44);
     g.add(faceMesh);
   } else if(light.form==='linear' && light.posId==='strip2'){
     /* sill strip 2 (v7.15): a real linear LED profile, same anodised-aluminium family as
        strip (aluMat, shared) rather than the generic dark housingMat every other body
        uses — but surface-mounted FLUSH against the sill-wall's flat courtyard face
        (house.bay_window_face, owner ruling), not resting on a ledge, so it gets small
-       standoff blocks bridging channel-to-wall instead of strip's foot flange. */
-    const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.05,0.04), aluMat);
+       standoff blocks bridging channel-to-wall instead of strip's foot flange. Cross-
+       section from dims_mm, same convention as strip above. */
+    const cw=mmToM(D&&D.h,0.05), cd=mmToM(D&&D.w,0.04);
+    const body=new THREE.Mesh(new THREE.BoxGeometry(2.0,cw,cd), aluMat);
     body.castShadow=true; g.add(body);
     [-0.85, 0.85].forEach(function(sx){
       const standoff=new THREE.Mesh(new THREE.BoxGeometry(0.02,0.02,0.018), yokeMat);
-      standoff.position.set(sx, 0, -0.029); g.add(standoff);   /* -z: toward the wall behind */
+      standoff.position.set(sx, 0, -cd*0.725); g.add(standoff);   /* -z: toward the wall behind */
     });
-    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.92,0.022), new THREE.MeshBasicMaterial({color:light.color}));
-    faceMesh.position.z=0.021; g.add(faceMesh);
+    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.92,cw*0.44), new THREE.MeshBasicMaterial({color:light.color}));
+    faceMesh.position.z=cd*0.525; g.add(faceMesh);
   } else if(light.form==='linear'){
-    g.add(new THREE.Mesh(new THREE.BoxGeometry(2.0,0.05,0.04), housingMat));   /* extrusion */
-    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.92,0.022), new THREE.MeshBasicMaterial({color:light.color}));
-    faceMesh.position.z=0.021; g.add(faceMesh);
+    const cw=mmToM(D&&D.h,0.05), cd=mmToM(D&&D.w,0.04);
+    g.add(new THREE.Mesh(new THREE.BoxGeometry(2.0,cw,cd), housingMat));   /* extrusion */
+    faceMesh=new THREE.Mesh(new THREE.PlaneGeometry(1.92,cw*0.44), new THREE.MeshBasicMaterial({color:light.color}));
+    faceMesh.position.z=cd*0.525; g.add(faceMesh);
   } else {
-    const cg=new THREE.CylinderGeometry(0.05,0.062,0.15,16); cg.rotateX(Math.PI/2);
+    const rTop=mmToM(D&&D.dia,0.10)/2, len=mmToM(D&&D.len,0.15);
+    const rBot=rTop*1.24;                                  /* subtle taper, same ratio as the old fixed body */
+    const cg=new THREE.CylinderGeometry(rTop,rBot,len,16); cg.rotateX(Math.PI/2);
     g.add(new THREE.Mesh(cg, housingMat));
-    faceMesh=new THREE.Mesh(new THREE.CircleGeometry(0.042,16), new THREE.MeshBasicMaterial({color:light.color}));
-    faceMesh.position.z=0.076; g.add(faceMesh);
+    faceMesh=new THREE.Mesh(new THREE.CircleGeometry(rTop*0.84,16), new THREE.MeshBasicMaterial({color:light.color}));
+    faceMesh.position.z=len/2+0.001; g.add(faceMesh);
   }
   light.bodyGroup=g; light.faceMesh=faceMesh;
   return g;
@@ -6454,6 +6502,8 @@ let condition='day';          /* day | night */
 let showBeams=true, showLabels=true, showOverlay=true;   /* overlay ON by default (owner 2026-07-25) */
 let showPebbles=true;   /* pebble field ON by default — pure display toggle, no spec/verdict impact */
 let showWiring=false;   /* wiring layer OFF by default (spec §4a) — pure display toggle */
+let showBodies=true;    /* to-scale fixture bodies ON by default (owner 2026-08-12) — pure
+                            display toggle, independent of fidelity mode; see buildBodyGroup() */
 let currentViewId='free';   /* last-chosen viewpoint id — declared up front so saveUIState can read it any time */
 
 /* ---------- UI persistence (§D, v7.12 2026-07-25) ----------
@@ -6470,7 +6520,7 @@ function saveUIState(){
   try{
     localStorage.setItem(UI_STORAGE_KEY, JSON.stringify({
       mode:fidelity, condition:condition, beams:showBeams, labels:showLabels,
-      pebbles:showPebbles, wiring:showWiring, wiringPlan:activeWiringPlan,
+      pebbles:showPebbles, wiring:showWiring, bodies:showBodies, wiringPlan:activeWiringPlan,
       viewpoint:currentViewId
     }));
   }catch(e){ /* sandboxed iframe or storage disabled — best-effort only */ }
@@ -6602,7 +6652,9 @@ function applyMode(){
   markers.forEach(function(mk){ mk.label.visible=showLabels; });
   placed.forEach(function(l){
     l.label.visible=showLabels;
-    l.bodyGroup.visible=!schem;                /* schematic keeps candidate DOTS, not bodies */
+    l.bodyGroup.visible=showBodies && !schem;  /* schematic keeps candidate DOTS, not bodies;
+                                                   showBodies (2026-08-12) lets the owner hide
+                                                   the to-scale bodies in Diagram/Photoreal too */
   });
   sun.castShadow=photo;
   bloomPass.enabled=photo;
@@ -6685,6 +6737,15 @@ function togglePebbles(){
 }   /* Diagram+Photo only — Schematic hides houseGroup entirely (no-op) */
 $('pebblesBtn').addEventListener('click', togglePebbles);
 $('mPebblesBtn') && $('mPebblesBtn').addEventListener('click', togglePebbles);
+/* to-scale fixture bodies toggle (owner 2026-08-12) — independent of fidelity mode, so
+   the owner can strip back to beam-only cones (old look) without leaving Diagram/Photoreal. */
+function toggleBodies(){
+  showBodies=!showBodies;
+  [$('bodiesBtn'),$('mBodiesBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showBodies); el.setAttribute('aria-pressed', showBodies?'true':'false'); } });
+  applyMode(); saveUIState();
+}
+$('bodiesBtn') && $('bodiesBtn').addEventListener('click', toggleBodies);
+$('mBodiesBtn') && $('mBodiesBtn').addEventListener('click', toggleBodies);
 /* wiring plan short label for the mobile summary bar (§B) — e.g. "⚡ Wiring 2 · one circuit" */
 function wiringShortLabel(id){
   const SHORT={wiring1:'Wiring 1 · two taps', wiring2:'Wiring 2 · one circuit'};
@@ -6936,8 +6997,10 @@ function restoreUIFromStorage(){
   showLabels  = (typeof s.labels==='boolean')  ? s.labels  : showLabels;
   showPebbles = (typeof s.pebbles==='boolean') ? s.pebbles : showPebbles;
   showWiring  = (typeof s.wiring==='boolean')  ? s.wiring  : showWiring;
+  showBodies  = (typeof s.bodies==='boolean')  ? s.bodies  : showBodies;
   [['beamsBtn','mBeamsBtn',showBeams],['labelsBtn','mLabelsBtn',showLabels],
-   ['pebblesBtn','mPebblesBtn',showPebbles],['wiringBtn','mWiringBtn',showWiring]].forEach(function(t){
+   ['pebblesBtn','mPebblesBtn',showPebbles],['wiringBtn','mWiringBtn',showWiring],
+   ['bodiesBtn','mBodiesBtn',showBodies]].forEach(function(t){
     [$(t[0]),$(t[1])].forEach(function(el){ if(el){ el.classList.toggle('on', t[2]); el.setAttribute('aria-pressed', t[2]?'true':'false'); } });
   });
   wireGroup.visible=showWiring;
