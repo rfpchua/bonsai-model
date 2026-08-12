@@ -378,7 +378,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <div class="sp-label">slide toward courtyard</div>
         <div class="sp-gap" id="slideGap">—</div>
         <label class="sp-flip" id="flipRow"><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
-        <div class="sp-cap">what-if — planting-day decisions; spec default is centred, current orientation</div>
+        <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
 
       <h2 class="sec">Advanced: stack a second head</h2>
@@ -440,7 +440,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <tbody></tbody>
       </table></div>
       <p class="foot"><b>ESTIMATE</b> — beam-angle + catalogue lumens; real photometry (IES) pending; empirical target set by the PAR-meter mock-up. <span class="facedot"></span>= display-face pad (its foyer-facing side counts toward the headline).</p>
-      <p class="foot">Pad, fixture and viewpoint positions are ESTIMATE grade (±0.10–0.20 m) pending the LiDAR scan (SEN-191). No supplier IES photometry yet — beams use <b>per-fixture-type dispersion models</b> (round point cone / rectangular flood, wider than tall / the sill strip as a 2 m line source / horticultural panel spread); IES will replace. Flux from beam angle + catalogue lumens (PPF ≈ lumens ÷ 68, the 3000 K rule, applied to 2700 K as a labelled approximation). Daylight baseline is the measured-model daily figure per height band and face; glass bounce onto the foyer face (plausibly +1–3 DLI) is excluded — conservative. The Day/Night switch changes the visual only, not the daily light arithmetic. The tree-position controls are <b>what-ifs</b> (spec §3a): the slide moves the whole tree assembly toward the courtyard (daylight floors held constant — orientation/height-based, treated as unchanged by a few cm of slide; approximation); the flip rotates the whole assembly 180° about the trunk axis — display-face detection, aspect relevance and the orientation-based daylight floors follow the rotated geometry. Fixture aims follow the tree in both. Spec default is centred, current orientation.</p>
+      <p class="foot">Pad, fixture and viewpoint positions are ESTIMATE grade (±0.10–0.20 m) pending the LiDAR scan (SEN-191). No supplier IES photometry yet — beams use <b>per-fixture-type dispersion models</b> (round point cone / rectangular flood, wider than tall / the sill strip as a 2 m line source / horticultural panel spread); IES will replace. Flux from beam angle + catalogue lumens (PPF ≈ lumens ÷ 68, the 3000 K rule, applied to 2700 K as a labelled approximation). Daylight baseline is the measured-model daily figure per height band and face; glass bounce onto the foyer face (plausibly +1–3 DLI) is excluded — conservative. The Day/Night switch changes the visual only, not the daily light arithmetic. The tree-position controls are <b>what-ifs</b> (spec §3a): the slide moves the whole tree assembly toward the courtyard (daylight floors held constant — orientation/height-based, treated as unchanged by a few cm of slide; approximation); the flip rotates the whole assembly 180° about the trunk axis — display-face detection, aspect relevance and the orientation-based daylight floors follow the rotated geometry. Fixture aims follow the tree in both. Spec default is the 11 cm courtyard slide (owner-ruled 2026-08-12; the pole heads are re-optimised for it — every pad clears the die band), current (un-flipped) orientation; drag the slide to 0 to see the earlier centred layout.</p>
     </div>
   </div>
 </div>
@@ -3337,8 +3337,8 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
  "scenarios": {
   "slide_toward_courtyard": {
    "max_m": 0.11,
-   "default_m": 0.0,
-   "note": "what-if only - canonical geometry is centred; planting-day decision pending (spec 3a). Lean adds crown displacement beyond 0.11, engineering TBC."
+   "default_m": 0.11,
+   "note": "RULED by owner 2026-08-12 (spec 3a): slide the whole tree the full 0.11 m to the courtyard at planting, pot flush to the courtyard wall. No longer a default-0 what-if - this IS the shipped default. Re-optimised 3-head/no-strip pole positions clear BOTH former die-band pads (L6, T4 -> 0 pads in the die band, was 2). Canonical geometry (pads/trunk) stays CENTRED in this JSON - the slider still exposes 0 as a reachable what-if for comparison, drag back to 0 to see the centred/un-slid layout. Lean adds crown displacement beyond 0.11, engineering TBC."
   },
   "flip_front_to_courtyard": {
    "default": false,
@@ -5773,7 +5773,22 @@ $('addBtn').addEventListener('click', function(){ addLight(fxProduct.value, fxPo
    die band even after a full re-optimisation of the pole heads (geometrically unreachable
    from two side poles at the SAME y as L6, same root cause as T4). So there are FOUR
    default sets here, keyed by [headsPerPole][strip-on|nostrip] — whichever the sill strip
-   currently is. */
+   currently is.
+
+   SLIDE RULING (owner 2026-08-12, spec 3a): the courtyard-slide what-if (scenarios.
+   slide_toward_courtyard) is now DEFAULT-ON at its max, 0.11 m (see SLIDE_CFG/slideM
+   above) — this moves L6 (y0.45->0.34) and T4 (y0.40->0.29) off the poles' y=0.45 line,
+   the geometric reason both were previously unreachable (see the T4 note further down).
+   3: nostrip below has been RE-OPTIMISED for the slid geometry (same engine, same
+   14-pad risk, same >=0.35m spacing, same fixed background) and is now the model's
+   actual boot default: die band = {} (was {L6, T4}) — every pad clears "thins" or
+   better. 2: nostrip, and both strip: entries, are UNCHANGED (still optimised for the
+   CENTRED/un-slid tree) — not yet re-run for the slide; addLight()'s aimSpec[1]-=slideM
+   auto-shift keeps their aim points pad-anchored (roughly correct) but they are not a
+   true re-optimisation for the slid pole/pad geometry. Do this follow-up if the owner
+   ever ships 2-head or strip-on as the default alongside the slide. Offline re-run:
+   ~/sentosa-home (scratch copy) bonsai/optimize_slide.js, scoring.js verbatim port of
+   the engine below. Un-slid comparison numbers kept in model-spec.md §3a. */
 const POLE_HEAD_DEFAULTS = {
   2: {
     strip: {
@@ -5791,8 +5806,14 @@ const POLE_HEAD_DEFAULTS = {
       poleR: [ {z:1.8000, aim:[0.3400,-0.1700,1.3500]}, {z:1.4491, aim:[0.2000,-0.1300,1.4100]}, {z:1.0849, aim:[-0.3700,0.2400,1.2500]} ]
     },
     nostrip: {
-      poleL: [ {z:1.8000, aim:[0.5700,0.3000,1.5100]}, {z:1.4483, aim:[-0.1300,0.0500,1.5200]}, {z:0.8889, aim:[0.6000,0.1500,0.4500]} ],
-      poleR: [ {z:1.8000, aim:[0.3700,0.0400,1.4800]}, {z:1.4512, aim:[-0.1000,0.0300,1.4000]}, {z:1.0600, aim:[0.7900,-0.1750,1.7500]} ]
+      /* SLID default (owner 2026-08-12, spec 3a) — re-optimised for the tree at its
+         default_m=0.11 courtyard-slide position. 'aim' values are stored in the
+         CANONICAL (pre-slide, slideM=0) frame — addLight() subtracts the live slideM
+         from aimSpec[1] for every light, so these track the tree automatically as the
+         slider moves; at the shipped default_m=0.11 they resolve to the effective aims
+         the optimiser actually found. Result: die band = {} (was {L6, T4} centred). */
+      poleL: [ {z:1.6466, aim:[-0.4900,-0.3250,1.3300]}, {z:0.8794, aim:[0.8000,0.1000,0.5000]}, {z:0.5241, aim:[-0.4700,-0.5550,1.5500]} ],
+      poleR: [ {z:1.8000, aim:[0.9000,-0.6250,1.0300]}, {z:1.0745, aim:[-0.6800,0.1000,0.5500]}, {z:0.7070, aim:[0.6500,0.0000,1.0600]} ]
     }
   }
 };
@@ -5897,7 +5918,7 @@ const LIGHT_GROUPS=[
   const strip=document.createElement('div'); strip.className='seg'; strip.id='stripSeg'; strip.style.marginLeft='6px';
   strip.setAttribute('role','group'); strip.setAttribute('aria-label','Sill strip');
   strip.innerHTML=
-    '<button data-strip="off" class="on" title="sill strip off — matches current default; L6 falls into the die band, unreachable from the poles alone">strip off</button>'+
+    '<button data-strip="off" class="on" title="sill strip off — model default; at the shipped 0.11m courtyard slide L6 clears without it (thins band) — drag slide to 0 and L6 falls back into the die band, unreachable from the poles alone">strip off</button>'+
     '<button data-strip="on" title="sill strip on — recovers L6 (thins band) and tightens L1/L2/M2/T3 margins">strip on</button>';
   phg.appendChild(strip);
   lightbar.appendChild(phg);
