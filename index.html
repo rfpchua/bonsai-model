@@ -2721,9 +2721,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "aim": [
     0.3,
     -0.1,
-    1.4
+    1.7
    ],
-   "beam_deg": 30
+   "beam_deg": 30,
+   "note": "aim z 1.4->1.7 (2026-08-13 flood re-aim): at z1.4 the 30-deg optic's vertical spread cuts off below the apex T1 - flood contribution to T1's foyer face was ZERO at any wattage and T1 sat in the die band (0.85) at boot; re-aiming to the upper canopy brings T1 inside the beam (60W->1.03, 80W->1.09, 100W->1.15 DMX-est) and moves no other pad's band. Verified against the deployed model's boot verdict."
   },
   {
    "id": "Rflood",
@@ -2736,9 +2737,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "aim": [
     -0.3,
     -0.1,
-    1.4
+    1.7
    ],
-   "beam_deg": 30
+   "beam_deg": 30,
+   "note": "aim z 1.4->1.7 - same 2026-08-13 flood re-aim as Lflood (see its note)."
   },
   {
    "id": "balc",
@@ -4224,8 +4226,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   {"id":"targetti_dart_maxi","brand":"Targetti","model":"DART Maxi 1E3958DA","lumens":5194,"beams":[28],"cct":3000,"cri":null,"watts":68.9,"role":"grow","verified":true,"dims_mm":{"dia":170,"len":260},"notes":"Factory cataphoresis; substantial body for a shallow soffit. Dims: PLACEHOLDER — Targetti DART is not covered by fixture-spec-index.md (its top-3 shortlist is Ligman/Philips/iGuzzini for this role); sized from class (compact adjustable spot/projector), scaled up for the 68.9W Maxi tier. Verify against Targetti's own DART datasheet."},
   {"id":"targetti_dart_medium","brand":"Targetti","model":"DART Medium 1E3934DA","lumens":4145,"beams":[48],"cct":3000,"cri":null,"watts":33.2,"role":"grow","verified":true,"dims_mm":{"dia":140,"len":210},"notes":"Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), 33.2W Medium tier. This is the product actually placed by default at wireL/wireR/poleL/poleR (model-src/40-app.js DEFAULT_PRODUCT) — verify against Targetti's own DART datasheet before order."},
   {"id":"targetti_dart_small","brand":"Targetti","model":"DART Round Small 1E3977DA","lumens":1477,"beams":[48],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":true,"dims_mm":{"dia":110,"len":160},"notes":"Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), smallest DART tier, wattage not published. Verify against Targetti's own DART datasheet."},
-  {"id":"philips_bvp353_80_30","brand":"Philips","model":"UniFlood M BVP353 80 W 30°","lumens":6750,"beams":[30],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":160,"w":150,"d":320},"notes":"Code 911401747413; dimming is DMX only — see lighting-design.md §C workaround. Dims: PLACEHOLDER (extrapolated) — fixture-spec-index.md only verifies dims for the 60W L30 Mono tier (see philips_bvp353_60_30); this 80W tier is not separately dimensioned there, so its box is scaled up ~8% from the verified 60W housing. Confirm against Philips' own 80W leaflet before use."},
-  {"id":"philips_bvp353_80_45","brand":"Philips","model":"UniFlood M BVP353 80 W 45°","lumens":6750,"beams":[45],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":160,"w":150,"d":320},"notes":"Code 911401747503; lumens carried over from the 30° head — ESTIMATE. Dims: PLACEHOLDER (extrapolated), same housing assumption as philips_bvp353_80_30 — see that entry's note."},
+  {"id":"philips_bvp353_80_30","brand":"Philips","model":"UniFlood M G2 BVP353 L35 80 W 30°","lumens":6300,"beams":[30],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":348},"notes":"L35 tier, 36LED. Leaflet (2026-08-13 pass): non-DMX mono code 911401747413 = 6,750 lm; lumens here = 6,300, the DMX-mono ESTIMATE derived from the L30 pair's verified 93.4% DMX/non-DMX ratio (4,785/5,125) — mono-DMX SKU code TBC with Dennis (mono DMX-RDM exists per the install manual's control table but is off-leaflet, same as the quoted 60W's 911401747083). Dims: REAL, install drawing 2026-08-13 — same 150(H)×140(W) cross-section as every tier, body length 348 mm, 4.5 kg. Glass gate PASSES (pivot along the length axis sweeps only the 150×140 section, ~103 mm swing — lighting-design.md 2026-07-27); WEIGHT FLAG: 4.5 kg vs the ≤3.5 kg slab surface-fix guideline — anchor spec to be engineered at PO."},
+  {"id":"philips_bvp353_80_45","brand":"Philips","model":"UniFlood M G2 BVP353 L35 80 W 45°","lumens":6080,"beams":[45],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":348},"notes":"L35/45° tier. Leaflet: non-DMX mono code 911401747503 = 6,515 lm; lumens here = 6,080 DMX-mono ESTIMATE (93.4% ratio — see philips_bvp353_80_30). Dims: REAL, install drawing — 150×140×348 mm, 4.5 kg; same gate-pass + weight flag as the 30° head."},
+  {"id":"philips_bvp353_100_30","brand":"Philips","model":"UniFlood M G2 BVP353 L40 100 W 30°","lumens":7880,"beams":[30],"cct":3000,"cri":80,"watts":100,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":403},"notes":"NEW 2026-08-13 (flood-wattage round) — L40 tier, 48LED, 100 W: the top of the BVP353 M family (L50/L57 exist but jump to 120/150 W; the leaflet's other 'L40' rows belong to BVP354, a different 96LED/200W product — do not confuse). Leaflet: non-DMX mono code 911401747773 = 8,440 lm @30°; lumens here = 7,880 DMX-mono ESTIMATE (93.4% ratio, see philips_bvp353_80_30); mono-DMX SKU code TBC with Dennis. Dims: REAL, install drawing — 150(H)×140(W)×403(D) mm, 5.4 kg. Glass gate PASSES (length-axis pivot, ~103 mm swing at every tier); WEIGHT FLAG: 5.4 kg vs the ≤3.5 kg slab surface-fix guideline — anchor engineering mandatory at PO."},
+  {"id":"philips_bvp353_100_45","brand":"Philips","model":"UniFlood M G2 BVP353 L40 100 W 45°","lumens":7600,"beams":[45],"cct":3000,"cri":80,"watts":100,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":403},"notes":"L40/45° tier for balcony what-ifs. Leaflet: non-DMX mono code 911401747863 = 8,145 lm; lumens here = 7,600 DMX-mono ESTIMATE (93.4% ratio). Dims: REAL — 150×140×403 mm, 5.4 kg; same gate-pass + weight flag as the 30° head."},
   {"id":"philips_bvp353_60_30","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 30° DMX","lumens":4785,"beams":[30],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":293},"notes":"Code 911401747083 — the QUOTED soffit-flood tier (S$425/unit, LKH/Dennis 2026-08-03). Extruded aluminium, IP66, DMX/RDM only (no DALI — needs a DMX island or fixed-output on a DALI relay). Passes the glass-clearance gate (~103 mm swing). Corrosion: NO Marine Salt Painting for this family + no SG warranty corrosion cover regardless — self-insured (defensible in the sheltered well). Glare: no honeycomb louvre exists (directional shield only). 60 W not 80 W: no louvre loss to offset, sits in the 4,500-5,500 band, dims cleaner. Lumens = verified DMX figure (leaflet non-DMX L30/30° = 5,125). Dims: REAL, fixture-spec-index.md Role 1 top-3 #2 (front-runner, gate-verified) — 150(H)×140(W)×293(D)mm, 3.65 kg, verified off the install manual's 'BVP353 L30 Mono' row (`Philips-BVP353-leaflet.pdf` + install drawing). This is the product actually placed by default at Lflood/Rflood/soffitL/soffitR (model-src/40-app.js DEFAULT_PRODUCT)."},
   {"id":"philips_bvp353_60_45","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 45°","lumens":5125,"beams":[45],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":293},"notes":"45° L30 variant for the wider balcony throw (design P7 = 40-48°); order code TBD, lumens carried from the leaflet L30/30° figure — ESTIMATE. Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only). Dims: REAL — same BVP353 L30 Mono G2 housing as the verified 30° tier (fixture-spec-index.md Role 1 #2), 150(H)×140(W)×293(D)mm, 3.65 kg; only the internal optic differs between the 30°/45° SKUs, not the housing. This is the product actually placed by default at balc/balc2 (model-src/40-app.js DEFAULT_PRODUCT)."},
   {"id":"philips_bvp353_40_30","brand":"Philips","model":"UniFlood M BVP353 40 W 30° DMX","lumens":3040,"beams":[30],"cct":3000,"cri":80,"watts":40,"role":"grow","verified":true,"dims_mm":{"h":135,"w":125,"d":250},"notes":"Code 911401746363; lumens scaled from the 80 W DMX head (6,070 lm) — ESTIMATE. Dims: PLACEHOLDER (extrapolated smaller) — fixture-spec-index.md only verifies the 60W L30 Mono tier; this 40W tier's box is scaled down from that verified housing. Confirm against Philips' own 40W leaflet before use."},
@@ -4327,6 +4331,7 @@ const PRODUCT_ABBREV={
   targetti_dart_maxi:'DART Mx', targetti_dart_medium:'DART Md', targetti_dart_small:'DART Sm',
   philips_bvp353_60_30:'BVP 60W', philips_bvp353_60_45:'BVP 60W',
   philips_bvp353_80_30:'BVP 80W', philips_bvp353_80_45:'BVP 80W', philips_bvp353_40_30:'BVP 40W',
+  philips_bvp353_100_30:'BVP 100W', philips_bvp353_100_45:'BVP 100W',
   lumenpulse_lb_large:'LB Lg', lumenpulse_lb_medium:'LB Md', lumenpulse_lb_small:'LB Sm',
   weef_flc220:'FLC220', cs_gwl_re340:'CS panel',
   underscore_linear:'U-score', generic_decor:'decor',
@@ -5254,16 +5259,23 @@ let uidSeq=1, selectedUid=null;
 
 const coneVert='varying vec2 vUv; varying vec3 vN; varying vec3 vW;\n'+
  'void main(){ vUv=uv; vN=normalize(normalMatrix*normal); vec4 mv=modelViewMatrix*vec4(position,1.0); vW=mv.xyz; gl_Position=projectionMatrix*mv; }';
+/* v7.16 dispersion pass (2026-08-13, owner ask): the axial fade is now an
+   inverse-square-style surface-brightness falloff in real metres (uLen carries the
+   beam length), replacing the previous normalized pow(vUv.y,1.5) which faded the
+   same for a 1 m throw as a 4 m one. The far end fades over the last ~12% so the
+   truncated volume doesn't end on a hard cap. vUv.y = 1 at the source, 0 at the end. */
 const coneFrag='varying vec2 vUv; varying vec3 vN; varying vec3 vW;\n'+
- 'uniform vec3 uColor; uniform float uInt;\n'+
+ 'uniform vec3 uColor; uniform float uInt; uniform float uLen;\n'+
  'void main(){ vec3 V=normalize(-vW); float f=abs(dot(V,normalize(vN)));\n'+
- ' float axial=pow(vUv.y,1.5)*smoothstep(0.0,0.03,vUv.y);\n'+
+ ' float d=(1.0-vUv.y)*uLen;\n'+
+ ' float fall=1.0/(1.0+pow(d/1.15,2.0));\n'+
+ ' float axial=fall*smoothstep(0.0,0.12,vUv.y);\n'+
  ' float a=uInt*axial*pow(f,1.5);\n'+
  ' gl_FragColor=vec4(uColor, a); }';
 
 function makeConeMaterial(color){
   return new THREE.ShaderMaterial({
-    uniforms:{ uColor:{value:color.clone()}, uInt:{value:0.5} },
+    uniforms:{ uColor:{value:color.clone()}, uInt:{value:0.5}, uLen:{value:2.5} },
     vertexShader:coneVert, fragmentShader:coneFrag,
     transparent:true, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide
   });
@@ -5288,7 +5300,8 @@ function libById(id){ return FIXLIB.find(function(f){return f.id===id;}); }
    round = cylindrical projectors/pole-heads/decorative uplights (Targetti DART,
            Lumenpulse, WE-EF, iGuzzini, Ligman, Simes, L&L Ginko, Platek, generic) */
 const RECT_PRODUCTS={lumascape_q4:1, lumascape_q2:1, philips_bvp353_80_30:1, philips_bvp353_80_45:1,
-  philips_bvp353_40_30:1, philips_bvp353_60_30:1, philips_bvp353_60_45:1};
+  philips_bvp353_40_30:1, philips_bvp353_60_30:1, philips_bvp353_60_45:1,
+  philips_bvp353_100_30:1, philips_bvp353_100_45:1};
 function formOf(lib){
   if(lib.role==='linear') return 'linear';
   if(lib.id==='cs_gwl_re340') return 'panel';
@@ -5536,6 +5549,7 @@ function removeLight(uid){
   const l=placed[i];
   scene.remove(l.group);
   if(l.cone){ l.cone.geometry.dispose(); l.cone.material.dispose(); }
+  if(l.coneSoft){ l.coneSoft.geometry.dispose(); l.coneSoft.material.dispose(); }
   placed.splice(i,1);
   if(l.hasShaft){                     /* keep the pole mast if another head survives */
     const survivor=placed.find(function(x){return x.posId===l.posId;});
@@ -5564,34 +5578,57 @@ function updateLightObjects(light){
       s.angle=Math.min(half,1.2); s.distance=len*1.8;
     });
   }
-  /* visible dispersion volume — SHAPE matches the Photometry model per form factor */
+  /* visible dispersion volume — SHAPE matches the Photometry model per form factor.
+     v7.16 (2026-08-13): TWO shells per light — the main beam at the catalogue
+     half-angle, plus a fainter SOFT SKIRT out to 1.3× the half-angle, the exact
+     penumbra zone Photometry._soft() actually credits in the verdict math. What
+     you see is now what the engine scores. Linear keeps its single wash wedge. */
   if(light.cone){ light.group.remove(light.cone); light.cone.geometry.dispose(); }
+  if(light.coneSoft){ light.group.remove(light.coneSoft); light.coneSoft.geometry.dispose(); light.coneSoft=null; }
   if(!light.coneMat) light.coneMat=makeConeMaterial(light.color);
-  let cone;
+  if(!light.coneSoftMat) light.coneSoftMat=makeConeMaterial(light.color);
+  light.coneMat.uniforms.uLen.value=len;
+  light.coneSoftMat.uniforms.uLen.value=len;
+  let cone, coneSoft=null;
   if(light.form==='rect' || light.form==='panel'){
     /* rectangular frustum, wider than tall (DISP factors) */
     const hHalf=Math.atan(Math.tan(half)*(light.form==='rect'?DISP.RECT_H:1.0));
     const vHalf=Math.atan(Math.tan(half)*DISP.RECT_V);
-    const cg=new THREE.CylinderGeometry(0.10, 1, len, 4, 6, true);
-    cg.rotateY(Math.PI/4);
-    cg.scale(Math.tan(hHalf)*len*Math.SQRT2, 1, Math.tan(vHalf)*len*Math.SQRT2);
-    cg.translate(0,-len/2,0);
-    cone=new THREE.Mesh(cg, light.coneMat);
-    cone.quaternion.copy(beamBasisQuat(dirW));
+    function rectShell(hh,vv,mat){
+      const cg=new THREE.CylinderGeometry(0.10, 1, len, 4, 6, true);
+      cg.rotateY(Math.PI/4);
+      cg.scale(Math.tan(hh)*len*Math.SQRT2, 1, Math.tan(vv)*len*Math.SQRT2);
+      cg.translate(0,-len/2,0);
+      const m=new THREE.Mesh(cg, mat);
+      m.quaternion.copy(beamBasisQuat(dirW));
+      return m;
+    }
+    cone=rectShell(hHalf, vHalf, light.coneMat);
+    coneSoft=rectShell(Math.min(hHalf*1.3,1.45), Math.min(vHalf*1.3,1.45), light.coneSoftMat);
   } else if(light.form==='linear'){
     /* elongated flat wash wedge along the strip */
     const cg=linearWashGeometry(len, 1.0, 0.02, 1.15, Math.tan(DISP.LINE_CROSS_DEG*DEG)*len);
     cone=new THREE.Mesh(cg, light.coneMat);
     cone.quaternion.copy(beamBasisQuat(dirW));
   } else {
-    const cg=new THREE.CylinderGeometry(0.02, Math.tan(half)*len, len, 22, 6, true);
-    cg.translate(0,-len/2,0);
-    cone=new THREE.Mesh(cg, light.coneMat);
-    cone.quaternion.setFromUnitVectors(new THREE.Vector3(0,-1,0), dirW);
+    function roundShell(hh,mat){
+      const cg=new THREE.CylinderGeometry(0.02, Math.tan(hh)*len, len, 22, 6, true);
+      cg.translate(0,-len/2,0);
+      const m=new THREE.Mesh(cg, mat);
+      m.quaternion.setFromUnitVectors(new THREE.Vector3(0,-1,0), dirW);
+      return m;
+    }
+    cone=roundShell(half, light.coneMat);
+    coneSoft=roundShell(Math.min(half*1.3,1.45), light.coneSoftMat);
   }
   cone.position.copy(posW);
   cone.userData.lightUid=light.uid;
   light.group.add(cone); light.cone=cone;
+  if(coneSoft){
+    coneSoft.position.copy(posW);
+    coneSoft.userData.lightUid=light.uid;
+    light.group.add(coneSoft); light.coneSoft=coneSoft;
+  }
   /* body / halo / handle / label */
   light.bodyGroup.position.copy(posW);
   const mo=BODY_MOUNT_OFFSET[light.posId];
@@ -5859,7 +5896,13 @@ const POLE_HEAD_DEFAULTS = {
          CANONICAL (pre-slide, slideM=0) frame — addLight() subtracts the live slideM
          from aimSpec[1] for every light, so these track the tree automatically as the
          slider moves; at the shipped default_m=0.11 they resolve to the effective aims
-         the optimiser actually found. Result: die band = {} (was {L6, T4} centred). */
+         the optimiser actually found.
+         CORRECTION (2026-08-13 flood-wattage round): the earlier "die band = {}" claim
+         for this set was only true together with a flood contribution to T1 that the
+         shipped engine does not deliver at the old flood aim (z=1.4) — the live boot
+         verdict actually showed T1 = 0.8 (die). Fixed via the spec-level flood re-aim
+         to z=1.7 (see model-spec.json Lflood.note): with it, boot = zero deaths again
+         (T1 = 1.03 at 60 W; 1.09 at 80 W; 1.15 at 100 W, DMX-est lumens). */
       poleL: [ {z:1.6466, aim:[-0.4900,-0.3250,1.3300]}, {z:0.8794, aim:[0.8000,0.1000,0.5000]}, {z:0.5241, aim:[-0.4700,-0.5550,1.5500]} ],
       poleR: [ {z:1.8000, aim:[0.9000,-0.6250,1.0300]}, {z:1.0745, aim:[-0.6800,0.1000,0.5500]}, {z:0.7070, aim:[0.6500,0.0000,1.0600]} ]
     }
@@ -6552,15 +6595,18 @@ function applyCondition(){
     sun.visible=false;
     scene.background=new THREE.Color(photo?0x05070b:0x101826);   /* dark night SKY (blue-cast), distinguishable from solid walls */
   } else {
-    /* DAY CALIBRATION (owner 2026-07-24): the open SKY stays bright, but the light
-       reaching the tree inside the well is ~1/3 of open sky (tree-and-site §4) —
-       so the tree reads shaded against the bright backdrop and an active fixture's
-       beam still visibly brightens the pads it hits. Visual layer only; the verdict
-       engine already uses the measured daylight table. */
-    hemi.intensity=photo?0.34:0.42;
+    /* DAY CALIBRATION (owner 2026-07-24; re-tuned DOWN 2026-08-13, owner ask): the open
+       SKY stays bright, but the light reaching the tree inside the well is ~1/3 of open
+       sky (tree-and-site §4) — and the previous levels still rendered the courtyard so
+       bright that an active fixture's beam was invisible on the pads it hits. Ambient
+       halved (hemi 0.34/0.42 → 0.17/0.22) and direct sun cut ~55% (1.0/0.5 → 0.45/0.22)
+       so the shaded well reads shaded and each fixture's contribution is visible in Day.
+       Visual layer only; the verdict engine reads the measured daylight table, never
+       these intensities. */
+    hemi.intensity=photo?0.17:0.22;
     hemi.color.set(0xdfeefc); hemi.groundColor.set(0x6f6c62);
     sun.visible=true;
-    sun.intensity=photo?1.0:0.5;
+    sun.intensity=photo?0.45:0.22;
     scene.background=new THREE.Color(photo?0xcfe2f0:0xddebf6);   /* bright Singapore sky beyond the open courtyard */
   }
   scene.environment = photo ? (night?envNight:envDay) : null;
@@ -6621,9 +6667,12 @@ function applyCondition(){
       l.spot.intensity=inten;
     }
     l.spot.castShadow = photo && idx<4;
-    if(l.coneMat) l.coneMat.uniforms.uInt.value = on&&showBeams ?
+    const coneI = on&&showBeams ?
       Math.min(0.7, 0.14+base*0.28)*(night?1.0:0.75)*g*(l.form==='linear'?1.6:1)*decorMult : 0;
+    if(l.coneMat) l.coneMat.uniforms.uInt.value = coneI;
+    if(l.coneSoftMat) l.coneSoftMat.uniforms.uInt.value = coneI*0.32;   /* the 1.3× soft-edge skirt (v7.16) */
     if(l.cone) l.cone.visible = on&&showBeams;
+    if(l.coneSoft) l.coneSoft.visible = on&&showBeams;
     l.faceMesh.material.color.copy(l.color).multiplyScalar(on? (0.4+0.6*l.dim):0.08);
     l.halo.material.opacity=(on&&!schem)? (night?0.85:0.35)*l.dim : 0;
   });
