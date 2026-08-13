@@ -382,7 +382,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         </div>
         <div class="sp-label">slide toward courtyard</div>
         <div class="sp-gap" id="slideGap">—</div>
-        <label class="sp-flip" id="flipRow"><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
+        <label class="sp-flip" id="flipRow" title="flips the tree 180° AND applies the optimised max-life flip light layout (v7.16): every aim re-found offline for the flipped geometry, keyed to the strip toggle. Best case still loses pad M3 (and L5+T5 too without the strip) — the flip trades pads for the nicer foyer face. Untick to restore the normal defaults."><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
         <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
 
@@ -5910,6 +5910,72 @@ const POLE_HEAD_DEFAULTS = {
 };
 let poleHeadConfig=3;   /* 2 | 3 — default 3 ("best life": fewer/shallower die-band and thins-band pads) */
 
+/* ============================== flip light defaults (owner 2026-08-13 eve) ==============================
+   Max-life light layouts for the FLIPPED tree (nicest face to the foyer), found by the
+   same offline optimiser discipline as POLE_HEAD_DEFAULTS (validated engine port, random
+   restarts + local search, all aims free incl. floods/balc/strips, pole z ceiling 1.8,
+   3 heads per pole, 0.11 m slide). Keyed by strip state because the outcomes differ
+   MATERIALLY:
+   - nostrip: best possible still loses THREE pads (L5, M3, T5 — the former rear pads;
+     after the flip they face the foyer at ~the poles' own y-plane, the same unreachable
+     geometry that once killed L6/T4). No aim of the current fixture set fixes them.
+   - strip:   the sill strip fires square at those foyer-facing faces and rescues L5 and
+     T5; only M3 still dies (0.48 — and stays dead even with 2 extra soffit heads tested).
+   So: FLIP EFFECTIVELY REQUIRES THE STRIP, and costs M3 regardless (owner arbitrates
+   prune-vs-keep). Aims are stored in the EFFECTIVE frame at the shipped 0.11 m slide
+   (what the optimiser searched); applyFlipLightDefaults() converts to runtime aimSpec
+   via +0.11 − slideM so the slide slider keeps tracking. Layouts are 3-head-optimised;
+   flipping while in the 2-head config still applies the 3-head flip layout. */
+/* FULL-PRECISION values — the optimum sits on steep soft-edge gradients; rounding these
+   to 2 dp was tested and knocks L3/L5 from ~1.13/1.05 back under the die threshold. */
+const FLIP_LIGHT_DEFAULTS={
+  nostrip:{
+    Lflood:[0.674641,0.42791,0.521258], Rflood:[1.041576,0.64785,1.548782], balc:[-0.076482,0.51962,0.72627],
+    poleL:[{z:1.701223,aim:[-0.712736,-0.334968,1.37886]},{z:1.096778,aim:[-1.099351,-0.584924,0.3]},{z:0.5,aim:[-0.704775,0.07918,0.468194]}],
+    poleR:[{z:1.777089,aim:[-0.809248,0.277057,1.593585]},{z:1.224376,aim:[-0.374556,-0.009008,0.540194]},{z:0.5,aim:[0.189437,-0.157799,0.651616]}]
+  },
+  strip:{
+    Lflood:[1.152674,-0.677216,0.735918], Rflood:[0.60737,-0.6509,0.554238], balc:[0.530852,-0.378401,1.111229],
+    strip:[0.922417,-0.411136,1.367505], strip2:[-0.001562,-0.378651,1.273026],
+    poleL:[{z:1.650613,aim:[0.152859,0.083112,1.446473]},{z:1.255655,aim:[0.144486,-0.57632,0.896467]},{z:0.905655,aim:[0.827287,0.558742,0.978576]}],
+    poleR:[{z:1.628822,aim:[0.277572,0.512983,1.585601]},{z:1.278822,aim:[0.108525,-0.063812,1.477114]},{z:0.922951,aim:[-0.421259,-0.283675,0.745116]}]
+  }
+};
+/* effective-frame aim (optimised at slide 0.11) -> runtime aimSpec at the live slideM */
+function flipAimToRuntime(a){ return [a[0], a[1]+0.11-slideM, a[2]]; }
+function applyFlipLightDefaults(){
+  const cfg=FLIP_LIGHT_DEFAULTS[currentStripOn()?'strip':'nostrip'];
+  ['Lflood','Rflood','balc','strip','strip2'].forEach(function(pos){
+    if(!cfg[pos]) return;
+    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
+      l.aimSpec=flipAimToRuntime(cfg[pos]); updateLightObjects(l);
+    });
+  });
+  ['poleL','poleR'].forEach(function(pos){
+    if(!placed.some(function(l){return l.posId===pos;})) return;   /* off poles stay off */
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;})
+      .forEach(function(uid){ removeLight(uid); });
+    const d=DEFAULT_PRODUCT[pos]||['targetti_dart_medium',48];
+    cfg[pos].forEach(function(h,idx){
+      /* addLight() subtracts the live slideM from opts.aim -> pass the CANONICAL aim (+0.11 y) */
+      addLight(d[0], pos, {beam:d[1], headZ:h.z, aim:[h.aim[0], h.aim[1]+0.11, h.aim[2]], headB:idx===1, headC:idx===2});
+    });
+  });
+  refreshLightbar();
+}
+function restoreUnflippedDefaults(){
+  ['Lflood','Rflood','balc','strip','strip2'].forEach(function(pos){
+    const sf=specFixById[pos]; if(!sf) return;
+    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
+      l.aimSpec=sf.aim.slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+    });
+  });
+  ['poleL','poleR'].forEach(function(pos){
+    if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
+  });
+  refreshLightbar();
+}
+
 /* strip presence is read live off `placed` rather than tracked separately — one source of
    truth, so a manual strip/strip2 checkbox edit can never desync from the pole defaults. */
 function currentStripOn(){ return placed.some(function(l){ return l.posId==='strip' || l.posId==='strip2'; }); }
@@ -5937,6 +6003,7 @@ function applyPoleHeadConfig(n){
   ['poleL','poleR'].forEach(function(pos){
     if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, n);
   });
+  if(flipOn) applyFlipLightDefaults();   /* flipped: the flip layout wins (3-head-optimised) */
   refreshLightbar(); refreshPoleHeadUI();
 }
 
@@ -5958,6 +6025,7 @@ function setStripOn(on){
   ['poleL','poleR'].forEach(function(pos){
     if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
   });
+  if(flipOn) applyFlipLightDefaults();   /* flipped: strip on/off swaps between the two flip layouts */
   refreshLightbar(); refreshPoleHeadUI();
 }
 function refreshPoleHeadUI(){
@@ -6138,12 +6206,11 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
   });
   flip.addEventListener('change', function(){
     flipOn=flip.checked;
-    /* aims follow the tree: rotate each CURRENT aim 180° about the (slid) trunk axis */
-    placed.forEach(function(l){
-      l.aimSpec[0]=-l.aimSpec[0];
-      l.aimSpec[1]=-l.aimSpec[1]-2*slideM;
-      updateLightObjects(l);
-    });
+    /* v7.16 (owner 2026-08-13): ticking flip now applies the OPTIMISED max-life flip
+       layout (FLIP_LIGHT_DEFAULTS, keyed by strip state) instead of the old naive
+       180° aim mirror; unticking restores the normal defaults (spec aims + the
+       current pole-head config's optimised set). Hand-tuning after either is free. */
+    if(flipOn) applyFlipLightDefaults(); else restoreUnflippedDefaults();
     computeRelevance();                        /* outward-facing aspects follow the geometry */
     refresh();
   });
