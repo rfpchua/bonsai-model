@@ -2719,12 +2719,12 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     3.0
    ],
    "aim": [
-    0.3,
-    -0.1,
-    1.7
+    0.54776,
+    0.005165,
+    1.913379
    ],
    "beam_deg": 30,
-   "note": "aim z 1.4->1.7 (2026-08-13 flood re-aim): at z1.4 the 30-deg optic's vertical spread cuts off below the apex T1 - flood contribution to T1's foyer face was ZERO at any wattage and T1 sat in the die band (0.85) at boot; re-aiming to the upper canopy brings T1 inside the beam (60W->1.03, 80W->1.09, 100W->1.15 DMX-est) and moves no other pad's band. Verified against the deployed model's boot verdict."
+   "note": "2026-08-14 joint-optimised default (Codex cross-check round): full joint search over flood+balcony+pole-head aims (ceiling 1.8, >=0.35m head spacing, DMX-corrected balcony lumens) lifts the whole-tree minimum margin to 1.229 (strip off) / 1.272 (strip on) with zero die-band pads - vs 1.03 for the 2026-08-13 z1.7 re-aim it supersedes. History: the original z1.4 mid-canopy aim left the apex T1 at 0.85 (die) because the 30-deg optic's vertical spread cut off below it; the 08-13 re-aim to z1.7 first fixed that (T1 1.03). Strip-state-specific flood aims live in NORMAL_LIGHT_DEFAULTS (model-src/40-app.js); this spec aim is the boot (strip-off) value."
   },
   {
    "id": "Rflood",
@@ -2735,12 +2735,12 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     3.0
    ],
    "aim": [
-    -0.3,
-    -0.1,
-    1.7
+    1.029925,
+    -0.389469,
+    0.572267
    ],
    "beam_deg": 30,
-   "note": "aim z 1.4->1.7 - same 2026-08-13 flood re-aim as Lflood (see its note)."
+   "note": "2026-08-14 joint-optimised default - same round as Lflood (see its note). Cross-aimed: the R flood serves the left/lower canopy (the design brief's crossing principle)."
   },
   {
    "id": "balc",
@@ -2751,11 +2751,12 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     3.0
    ],
    "aim": [
-    0.0,
-    -0.05,
-    1.4
+    0.683988,
+    0.049828,
+    1.913085
    ],
-   "beam_deg": 45
+   "beam_deg": 45,
+   "note": "2026-08-14 joint-optimised default (same round as Lflood - see its note). Boot/strip-off value; the strip-on variant lives in NORMAL_LIGHT_DEFAULTS."
   },
   {
    "id": "balc2",
@@ -2882,7 +2883,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      0.5,
      1.8
     ],
-    "note": "owner 2026-07-25 - clamp-on 2nd/3rd head anywhere along the shaft; extended to 3 (head C) 2026-08-12 - optimised 2-head/3-head default positions in model-spec.md §4"
+    "note": "owner 2026-07-25 - clamp-on 2nd/3rd head anywhere along the shaft; extended to 3 (head C) 2026-08-12 - optimised 2-head/3-head default positions in model-spec.md \u00a74"
    },
    "shaft": {
     "base_z": -0.67,
@@ -2910,7 +2911,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      0.5,
      1.8
     ],
-    "note": "owner 2026-07-25 - clamp-on 2nd/3rd head anywhere along the shaft; extended to 3 (head C) 2026-08-12 - optimised 2-head/3-head default positions in model-spec.md §4"
+    "note": "owner 2026-07-25 - clamp-on 2nd/3rd head anywhere along the shaft; extended to 3 (head C) 2026-08-12 - optimised 2-head/3-head default positions in model-spec.md \u00a74"
    },
    "shaft": {
     "base_z": -0.67,
@@ -2920,7 +2921,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   },
   {
    "id": "decorA",
-   "label": "decor key A · dining view (night, indicative)",
+   "label": "decor key A \u00b7 dining view (night, indicative)",
    "pos": [
     0.85,
     0.3,
@@ -2936,11 +2937,11 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "cross-key ground layout (owner ruling 2026-07-25: courtyard + dining are equal-primary night views) — the dining view's KEY light, and decorB's rim. Surface-mounted on the perforated cover sheet. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+   "note": "cross-key ground layout (owner ruling 2026-07-25: courtyard + dining are equal-primary night views) \u2014 the dining view's KEY light, and decorB's rim. Surface-mounted on the perforated cover sheet. Count/exact aim settle at the \u00a7B4 night mock-up (night-lighting-scheme.md \u00a71b)"
   },
   {
    "id": "decorB",
-   "label": "decor key B · courtyard view (night, indicative)",
+   "label": "decor key B \u00b7 courtyard view (night, indicative)",
    "pos": [
     -0.75,
     -0.4,
@@ -2956,11 +2957,11 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "cross-key ground layout (owner ruling 2026-07-25) — the courtyard view's KEY light, and decorA's rim. Surface-mounted on the perforated cover sheet. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+   "note": "cross-key ground layout (owner ruling 2026-07-25) \u2014 the courtyard view's KEY light, and decorA's rim. Surface-mounted on the perforated cover sheet. Count/exact aim settle at the \u00a7B4 night mock-up (night-lighting-scheme.md \u00a71b)"
   },
   {
    "id": "decorF",
-   "label": "decor fill · cascade (night, indicative)",
+   "label": "decor fill \u00b7 cascade (night, indicative)",
    "pos": [
     -0.6,
     0.35,
@@ -2976,11 +2977,11 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "cross-key ground layout (owner ruling 2026-07-25) — low FILL light softening the shadow the two keys leave on the cascade skirt (L4/L6). Surface-mounted on the perforated cover sheet. Count/exact aim settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+   "note": "cross-key ground layout (owner ruling 2026-07-25) \u2014 low FILL light softening the shadow the two keys leave on the cascade skirt (L4/L6). Surface-mounted on the perforated cover sheet. Count/exact aim settle at the \u00a7B4 night mock-up (night-lighting-scheme.md \u00a71b)"
   },
   {
    "id": "decorL",
-   "label": "decor uplight L (alt · pole spare)",
+   "label": "decor uplight L (alt \u00b7 pole spare)",
    "pos": [
     1.2,
     0.45,
@@ -2996,11 +2997,11 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "pole L's spare 3rd head-exit (lighting-design.md §A4c); aimed at trunk pt T5. Demoted to an OPTIONAL ALTERNATE 2026-07-25 (owner cross-key ruling put decorA/decorB/decorF in the default night set instead) — still placeable from the sidebar, not auto-placed. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+   "note": "pole L's spare 3rd head-exit (lighting-design.md \u00a7A4c); aimed at trunk pt T5. Demoted to an OPTIONAL ALTERNATE 2026-07-25 (owner cross-key ruling put decorA/decorB/decorF in the default night set instead) \u2014 still placeable from the sidebar, not auto-placed. Count/position settle at the \u00a7B4 night mock-up (night-lighting-scheme.md \u00a71b)"
   },
   {
    "id": "decorR",
-   "label": "decor uplight R (alt · pole spare)",
+   "label": "decor uplight R (alt \u00b7 pole spare)",
    "pos": [
     -1.2,
     0.45,
@@ -3016,11 +3017,11 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "pole R's spare 3rd head-exit, mirrored; aimed at trunk pt T6. Demoted to an OPTIONAL ALTERNATE 2026-07-25 (owner cross-key ruling put decorA/decorB/decorF in the default night set instead) — still placeable from the sidebar, not auto-placed. Count/position settle at the §B4 night mock-up (night-lighting-scheme.md §1b)"
+   "note": "pole R's spare 3rd head-exit, mirrored; aimed at trunk pt T6. Demoted to an OPTIONAL ALTERNATE 2026-07-25 (owner cross-key ruling put decorA/decorB/decorF in the default night set instead) \u2014 still placeable from the sidebar, not auto-placed. Count/position settle at the \u00a7B4 night mock-up (night-lighting-scheme.md \u00a71b)"
   },
   {
    "id": "decorG",
-   "label": "decor fill · courtyard (optional 4th)",
+   "label": "decor fill \u00b7 courtyard (optional 4th)",
    "pos": [
     0.6,
     -0.35,
@@ -3036,14 +3037,14 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "cct": 2700,
    "mcst": false,
    "status": "ESTIMATE",
-   "note": "optional 4th light, owner-approved addition to the cross-key layout 2026-07-25 — tests whether the courtyard view's shadow quadrant (no fill in the 3-light decorA/decorB/decorF layout) needs a second fill into the living-side rear canopy undersides. Surface-mounted on the cover sheet. NOT auto-placed — placeable from the sidebar with one tap, like the other alternates. The §B4 night mock-up decides 3-vs-4 by eye"
+   "note": "optional 4th light, owner-approved addition to the cross-key layout 2026-07-25 \u2014 tests whether the courtyard view's shadow quadrant (no fill in the 3-light decorA/decorB/decorF layout) needs a second fill into the living-side rear canopy undersides. Surface-mounted on the cover sheet. NOT auto-placed \u2014 placeable from the sidebar with one tap, like the other alternates. The \u00a7B4 night mock-up decides 3-vs-4 by eye"
   }
  ],
  "frame": {
   "origin": "trunk centre at top of pot",
-  "x": "+ = living (foyer-left), − = dining (foyer-right)",
-  "y": "+ = foyer/display side, − = courtyard/road side",
-  "z": "up; 0 = pot top; deck ≈ +0.05; pool floor = −0.67",
+  "x": "+ = living (foyer-left), \u2212 = dining (foyer-right)",
+  "y": "+ = foyer/display side, \u2212 = courtyard/road side",
+  "z": "up; 0 = pot top; deck \u2248 +0.05; pool floor = \u22120.67",
   "units": "metres"
  },
  "house": {
@@ -3058,7 +3059,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    ],
    "floor_z": -0.67,
    "rim_z": 0.05,
-   "tag": "MEASURED (3.96×1.08×0.67)"
+   "tag": "MEASURED (3.96\u00d71.08\u00d70.67)"
   },
   "glass": {
    "plane_y": 0.54,
@@ -3129,7 +3130,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    ],
    "z": 3.0,
    "side": "dining",
-   "tag": "OWNER — edge at centre-pane midpoint; pergola-setback caveat"
+   "tag": "OWNER \u2014 edge at centre-pane midpoint; pergola-setback caveat"
   },
   "false_ceiling": {
    "plane_z": 2.59,
@@ -3295,16 +3296,16 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   "concrete": "soffit + walls, light grey matte"
  },
  "provenance": {
-  "MEASURED_tape": "tree 1.93×1.52×2.1; pool 3.96×1.08×0.67; bay 4.42; pane 2.4/2.6; sill 0.52; pot 0.84×0.52; soffit 1.08deep×9in×3.0; false ceiling 2.59(16in); ledges 9in",
-  "ESTIMATE": "pad positions & sizes (±0.10–0.20 m, triangulated, normalized to the taped envelope); fixture positions (from owner markup); viewpoints (paced)",
-  "NEEDS_LIDAR (SEN-191)": "absolute pad volumes; dining-flank pads L4/M2/M3/T5; the volume distribution has read 3 ways from photos (bottom→top→owner-tuned balanced) — LiDAR settles it",
+  "MEASURED_tape": "tree 1.93\u00d71.52\u00d72.1; pool 3.96\u00d71.08\u00d70.67; bay 4.42; pane 2.4/2.6; sill 0.52; pot 0.84\u00d70.52; soffit 1.08deep\u00d79in\u00d73.0; false ceiling 2.59(16in); ledges 9in",
+  "ESTIMATE": "pad positions & sizes (\u00b10.10\u20130.20 m, triangulated, normalized to the taped envelope); fixture positions (from owner markup); viewpoints (paced)",
+  "NEEDS_LIDAR (SEN-191)": "absolute pad volumes; dining-flank pads L4/M2/M3/T5; the volume distribution has read 3 ways from photos (bottom\u2192top\u2192owner-tuned balanced) \u2014 LiDAR settles it",
   "UNRESOLVED": "pool floor flat-or-stepped; exact fixture aims (set at commissioning); no IES files yet (all light coverage is qualitative); side-glazing exact planes/pane splits (owner-ruled: full-height glass ledge-to-head, no sill; splits pending one tape/photo pass)",
   "last_refine": "v7 shape pass (3 tier analysts, IMG_1638 orbit + pan/sweep/stills): all 14 shape tags held; per-pad flatness ratios added; media filed to Drive (source-media.md)",
   "shape_flags_2026-07-24": "video pass, tags UNCHANGED, owner arbitrates: L1 rounder-than-tagged (low conf); M3 bushier-than-tagged or backlight artifact (low); T4/T5 never resolve as independent pads (existence -> LiDAR); L1-L3 dz reads proportionally tall vs footage (size flag only -> LiDAR)",
   "trunk_taper_2026-07-25": "video-triangulated vs pot 0.52 panel + locked 2.1 height (orbit IMG_1638, multi-angle); base 0.39 = nebari flare at soil only, clean stem ~0.22 by z=0.3; ESTIMATE, LiDAR supersedes"
  },
  "shape_legend": {
-  "flat_plate": "a flattened disc — height ≈ 0.4–0.6× its width; the classic cloud-pruned plate (L2, L3 etc.)",
+  "flat_plate": "a flattened disc \u2014 height \u2248 0.4\u20130.6\u00d7 its width; the classic cloud-pruned plate (L2, L3 etc.)",
   "flat_table": "very flat and wide, near-horizontal shelf (T3 the top 'table')",
   "bulbous_dome": "rounded, near-spherical, taller than a plate (T1 apex)",
   "rounded_dome": "between a plate and a dome (T2)",
@@ -3591,7 +3592,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorA - key uplight, dining view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorA - key uplight, dining view (cross-key ground layout, night-lighting-scheme.md \u00a71b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -3613,7 +3614,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorB - key uplight, courtyard view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorB - key uplight, courtyard view (cross-key ground layout, night-lighting-scheme.md \u00a71b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -3635,7 +3636,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorF - fill uplight, cascade (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorF - fill uplight, cascade (cross-key ground layout, night-lighting-scheme.md \u00a71b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -4025,7 +4026,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorA - key uplight, dining view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorA - key uplight, dining view (cross-key ground layout, night-lighting-scheme.md \u00a71b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -4047,7 +4048,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorB - key uplight, courtyard view (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorB - key uplight, courtyard view (cross-key ground layout, night-lighting-scheme.md \u00a71b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -4069,7 +4070,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
      },
      {
       "circuit": "L",
-      "serves": "decorF - fill uplight, cascade (cross-key ground layout, night-lighting-scheme.md §1b; under the cover sheet, no new penetration)",
+      "serves": "decorF - fill uplight, cascade (cross-key ground layout, night-lighting-scheme.md \u00a71b; under the cover sheet, no new penetration)",
       "style": "solid",
       "points": [
        [
@@ -4231,7 +4232,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
   {"id":"philips_bvp353_100_30","brand":"Philips","model":"UniFlood M G2 BVP353 L40 100 W 30°","lumens":7880,"beams":[30],"cct":3000,"cri":80,"watts":100,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":403},"notes":"NEW 2026-08-13 (flood-wattage round) — L40 tier, 48LED, 100 W: the top of the BVP353 M family (L50/L57 exist but jump to 120/150 W; the leaflet's other 'L40' rows belong to BVP354, a different 96LED/200W product — do not confuse). Leaflet: non-DMX mono code 911401747773 = 8,440 lm @30°; lumens here = 7,880 DMX-mono ESTIMATE (93.4% ratio, see philips_bvp353_80_30); mono-DMX SKU code TBC with Dennis. Dims: REAL, install drawing — 150(H)×140(W)×403(D) mm, 5.4 kg. Glass gate PASSES (length-axis pivot, ~103 mm swing at every tier); WEIGHT FLAG: 5.4 kg vs the ≤3.5 kg slab surface-fix guideline — anchor engineering mandatory at PO."},
   {"id":"philips_bvp353_100_45","brand":"Philips","model":"UniFlood M G2 BVP353 L40 100 W 45°","lumens":7600,"beams":[45],"cct":3000,"cri":80,"watts":100,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":403},"notes":"L40/45° tier for balcony what-ifs. Leaflet: non-DMX mono code 911401747863 = 8,145 lm; lumens here = 7,600 DMX-mono ESTIMATE (93.4% ratio). Dims: REAL — 150×140×403 mm, 5.4 kg; same gate-pass + weight flag as the 30° head."},
   {"id":"philips_bvp353_60_30","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 30° DMX","lumens":4785,"beams":[30],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":293},"notes":"Code 911401747083 — the QUOTED soffit-flood tier (S$425/unit, LKH/Dennis 2026-08-03). Extruded aluminium, IP66, DMX/RDM only (no DALI — needs a DMX island or fixed-output on a DALI relay). Passes the glass-clearance gate (~103 mm swing). Corrosion: NO Marine Salt Painting for this family + no SG warranty corrosion cover regardless — self-insured (defensible in the sheltered well). Glare: no honeycomb louvre exists (directional shield only). 60 W not 80 W: no louvre loss to offset, sits in the 4,500-5,500 band, dims cleaner. Lumens = verified DMX figure (leaflet non-DMX L30/30° = 5,125). Dims: REAL, fixture-spec-index.md Role 1 top-3 #2 (front-runner, gate-verified) — 150(H)×140(W)×293(D)mm, 3.65 kg, verified off the install manual's 'BVP353 L30 Mono' row (`Philips-BVP353-leaflet.pdf` + install drawing). This is the product actually placed by default at Lflood/Rflood/soffitL/soffitR (model-src/40-app.js DEFAULT_PRODUCT)."},
-  {"id":"philips_bvp353_60_45","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 45°","lumens":5125,"beams":[45],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":293},"notes":"45° L30 variant for the wider balcony throw (design P7 = 40-48°); order code TBD, lumens carried from the leaflet L30/30° figure — ESTIMATE. Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only). Dims: REAL — same BVP353 L30 Mono G2 housing as the verified 30° tier (fixture-spec-index.md Role 1 #2), 150(H)×140(W)×293(D)mm, 3.65 kg; only the internal optic differs between the 30°/45° SKUs, not the housing. This is the product actually placed by default at balc/balc2 (model-src/40-app.js DEFAULT_PRODUCT)."},
+  {"id":"philips_bvp353_60_45","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 45°","lumens":4617,"beams":[45],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":293},"notes":"45° L30 variant for the wider balcony throw (design P7 = 40-48°); order code TBD. LUMENS CORRECTED 2026-08-14 (Codex cross-check caught the bug): was 5,125 (the 30° figure, mislabelled); leaflet 45° L30 non-DMX = 4,945 lm → 4,617 DMX-mono ESTIMATE (93.4% verified ratio). Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only). Dims: REAL — same BVP353 L30 Mono G2 housing as the verified 30° tier (fixture-spec-index.md Role 1 #2), 150(H)×140(W)×293(D)mm, 3.65 kg; only the internal optic differs between the 30°/45° SKUs, not the housing. This is the product actually placed by default at balc/balc2 (model-src/40-app.js DEFAULT_PRODUCT)."},
   {"id":"philips_bvp353_40_30","brand":"Philips","model":"UniFlood M BVP353 40 W 30° DMX","lumens":3040,"beams":[30],"cct":3000,"cri":80,"watts":40,"role":"grow","verified":true,"dims_mm":{"h":135,"w":125,"d":250},"notes":"Code 911401746363; lumens scaled from the 80 W DMX head (6,070 lm) — ESTIMATE. Dims: PLACEHOLDER (extrapolated smaller) — fixture-spec-index.md only verifies the 60W L30 Mono tier; this 40W tier's box is scaled down from that verified housing. Confirm against Philips' own 40W leaflet before use."},
   {"id":"lumenpulse_lb_large","brand":"Lumenpulse","model":"Lumenbeam Large","lumens":5673,"beams":[30,45],"cct":3000,"cri":null,"watts":50,"role":"grow","verified":false,"dims_mm":{"dia":160,"len":280},"notes":"Singapore supply/price/lead time unverified; beam options not recorded in fixture-options.md — placeholder, confirm with supplier. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact spot/projector), 50W Large tier."},
   {"id":"lumenpulse_lb_medium","brand":"Lumenpulse","model":"Lumenbeam Medium","lumens":2714,"beams":[30,45],"cct":3000,"cri":null,"watts":28,"role":"grow","verified":false,"dims_mm":{"dia":120,"len":210},"notes":"Singapore supply unverified; beam options placeholder — confirm. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class, 28W Medium tier."},
@@ -5886,28 +5887,53 @@ const POLE_HEAD_DEFAULTS = {
     }
   },
   3: {
+    /* 2026-08-14 JOINT-OPTIMISED defaults (Codex cross-check round). A blind second-
+       opinion pass (OpenAI Codex, independent engine port) discovered that jointly
+       re-optimising flood + balcony + pole-head aims TOGETHER — instead of the pole
+       heads against fixed flood aims — lifts the whole-tree minimum worst-aspect DLI
+       from ~1.03 to ~1.23–1.27 with zero die-band pads, at the existing 1.8 m poles
+       and 60 W floods. These sets are the build-constrained re-run of that find
+       (≥0.35 m head spacing restored — Codex's raw optimum clustered heads 3–6 cm
+       apart, unbuildable; the constraint costs only ~0.05 margin — and the balcony
+       lumens corrected to the true 45° DMX figure). Aims stored CANONICAL (pre-slide);
+       addLight() subtracts the live slideM. The matching flood/balcony/strip aims per
+       strip state live in NORMAL_LIGHT_DEFAULTS below — the two structures ship as a
+       matched pair. Verified: strip-off boot = min 1.229 (T1 1.23+), strip-on = 1.272.
+       History: 08-12 pole-only sets (min ~1.05, T1 die at the then z1.4 flood aim);
+       08-13 flood re-aim z1.7 (T1 1.03); superseded by this joint set. */
     strip: {
-      poleL: [ {z:1.7000, aim:[0.3800,0.3200,1.1500]}, {z:1.3483, aim:[-0.0500,-0.1750,1.5500]}, {z:0.5400, aim:[0.6700,0.1200,0.7000]} ],
-      poleR: [ {z:1.8000, aim:[0.3400,-0.1700,1.3500]}, {z:1.4491, aim:[0.2000,-0.1300,1.4100]}, {z:1.0849, aim:[-0.3700,0.2400,1.2500]} ]
+      poleL: [ {z:1.538277, aim:[-1.055762,-0.387903,1.327197]}, {z:1.185083, aim:[-1.186489,-0.607007,1.538308]}, {z:0.589944, aim:[0.436875,0.179266,0.573182]} ],
+      poleR: [ {z:1.8, aim:[0.687124,-0.416292,1.145534]}, {z:0.880226, aim:[0.47926,-0.013095,1.027034]}, {z:0.530226, aim:[0.890726,-0.045581,1.503772]} ]
     },
     nostrip: {
-      /* SLID default (owner 2026-08-12, spec 3a) — re-optimised for the tree at its
-         default_m=0.11 courtyard-slide position. 'aim' values are stored in the
-         CANONICAL (pre-slide, slideM=0) frame — addLight() subtracts the live slideM
-         from aimSpec[1] for every light, so these track the tree automatically as the
-         slider moves; at the shipped default_m=0.11 they resolve to the effective aims
-         the optimiser actually found.
-         CORRECTION (2026-08-13 flood-wattage round): the earlier "die band = {}" claim
-         for this set was only true together with a flood contribution to T1 that the
-         shipped engine does not deliver at the old flood aim (z=1.4) — the live boot
-         verdict actually showed T1 = 0.8 (die). Fixed via the spec-level flood re-aim
-         to z=1.7 (see model-spec.json Lflood.note): with it, boot = zero deaths again
-         (T1 = 1.03 at 60 W; 1.09 at 80 W; 1.15 at 100 W, DMX-est lumens). */
-      poleL: [ {z:1.6466, aim:[-0.4900,-0.3250,1.3300]}, {z:0.8794, aim:[0.8000,0.1000,0.5000]}, {z:0.5241, aim:[-0.4700,-0.5550,1.5500]} ],
-      poleR: [ {z:1.8000, aim:[0.9000,-0.6250,1.0300]}, {z:1.0745, aim:[-0.6800,0.1000,0.5500]}, {z:0.7070, aim:[0.6500,0.0000,1.0600]} ]
+      poleL: [ {z:1.542385, aim:[-1.35,-0.385879,1.291018]}, {z:1.066845, aim:[-1.35,-0.018565,1.647888]}, {z:0.562792, aim:[0.640618,0.21852,0.649134]} ],
+      poleR: [ {z:1.68781, aim:[1.015325,-0.490952,1.134956]}, {z:0.85, aim:[0.301829,0.017358,1.16034]}, {z:0.5, aim:[0.584002,0.021546,1.384933]} ]
     }
   }
 };
+
+/* NORMAL-orientation flood/balcony/strip aims per strip state — the other half of the
+   2026-08-14 joint optimisation (see the POLE_HEAD_DEFAULTS[3] comment). The spec JSON's
+   fixture aims carry the nostrip (boot) values; the strip-on variant differs because the
+   optimum genuinely shifts when the strips join the system. Canonical frame. */
+const NORMAL_LIGHT_DEFAULTS={
+  nostrip:{
+    Lflood:[0.54776,0.005165,1.913379], Rflood:[1.029925,-0.389469,0.572267], balc:[0.683988,0.049828,1.913085]
+  },
+  strip:{
+    Lflood:[0.697395,0.036261,2.207109], Rflood:[1.152334,-0.229722,0.949648], balc:[0.521723,0.053812,1.681645],
+    strip:[0,-0.09,1.157526], strip2:[-0.008632,0.020965,0.866207]
+  }
+};
+function applyNormalLightDefaults(){
+  const cfg=NORMAL_LIGHT_DEFAULTS[currentStripOn()?'strip':'nostrip'];
+  ['Lflood','Rflood','balc','strip','strip2'].forEach(function(pos){
+    if(!cfg[pos]) return;
+    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
+      l.aimSpec=cfg[pos].slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+    });
+  });
+}
 let poleHeadConfig=3;   /* 2 | 3 — default 3 ("best life": fewer/shallower die-band and thins-band pads) */
 
 /* ============================== flip light defaults (owner 2026-08-13 eve) ==============================
@@ -5964,15 +5990,10 @@ function applyFlipLightDefaults(){
   refreshLightbar();
 }
 function restoreUnflippedDefaults(){
-  ['Lflood','Rflood','balc','strip','strip2'].forEach(function(pos){
-    const sf=specFixById[pos]; if(!sf) return;
-    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
-      l.aimSpec=sf.aim.slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
-    });
-  });
   ['poleL','poleR'].forEach(function(pos){
     if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
   });
+  applyNormalLightDefaults();   /* strip-state-aware flood/balc/strip aims (2026-08-14 joint set) */
   refreshLightbar();
 }
 
@@ -6004,6 +6025,7 @@ function applyPoleHeadConfig(n){
     if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, n);
   });
   if(flipOn) applyFlipLightDefaults();   /* flipped: the flip layout wins (3-head-optimised) */
+  else applyNormalLightDefaults();       /* normal: keep flood/balc/strip aims on the joint optimum */
   refreshLightbar(); refreshPoleHeadUI();
 }
 
@@ -6026,6 +6048,7 @@ function setStripOn(on){
     if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
   });
   if(flipOn) applyFlipLightDefaults();   /* flipped: strip on/off swaps between the two flip layouts */
+  else applyNormalLightDefaults();       /* normal: strip on/off swaps flood/balc/strip aims too (joint optimum per state) */
   refreshLightbar(); refreshPoleHeadUI();
 }
 function refreshPoleHeadUI(){
