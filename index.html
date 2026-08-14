@@ -383,7 +383,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <div class="sp-label">slide toward courtyard</div>
         <div class="sp-gap" id="slideGap">—</div>
         <label class="sp-flip" id="flipRow" title="flips the tree 180° AND applies the optimised max-life flip light layout (v7.16): every aim re-found offline for the flipped geometry, keyed to the strip toggle. Best case still loses pad M3 (and L5+T5 too without the strip) — the flip trades pads for the nicer foyer face. Untick to restore the normal defaults."><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
-        <label class="sp-flip" id="recRow" title="applies the 14-Aug RECOMMENDED layout (v7.18): the two 60 W floods move to the FOYER-side soffit corners (16 cm off the glass, stock yoke — L corner: rotate base ~21° toward the courtyard diagonal, tilt 36° down; R corner: ~18°, tilt 49° down), poles shift 3 cm toward the glass (y 0.48), sill strip ON. Modelled minimum margin 1.63 vs 1.23 for the shipped default — the same fixtures, placed where they face the starving foyer-side pad faces. Untick to restore the boot default."><input type="checkbox" id="recChk"> recommended layout (corner floods + shifted poles + strip)</label>
+        <label class="sp-flip" id="recRow" title="the CALIBRATED final layout (v7.20 ground-truth reset — now the boot default): 4 × Philips 100 W — two 30° heads at the foyer-side soffit corners (y = 0.30, the collision-safe cap for the 403 mm body) + a 45° and a 30° head on the balcony underside slab edge at (−0.35,−1.1) and (−0.7,−1.1), which is what feeds the rear pads' courtyard faces (the binding faces once real daylight is 5–8× lower than the old table). Poles stay at spec y = 0.45, 6 heads re-aimed; strips ON (droppable — margins pass either way). Engine: MID min 2.145 / LOW min 1.648, zero die-band pads through the jitter/yoke/engine gate battery. Untick to fall back to the old 60 W pre-calibration reference layout."><input type="checkbox" id="recChk"> recommended layout (calibrated: 4×100 W corners + balcony pair)</label>
         <label class="sp-flip" id="igRow" title="applies the iGuzzini EF51 scenario (v7.19): all three flood heads become Palco InOut EF51s (real spec-sheet photometry — 30°, 4,970 lm, DALI-2) at the foyer corners + balcony, poles at y 0.48, strip ON. Modelled minimum margin 1.68 — best of everything tested. EF51's dual-axis ball aiming can sweep parallel to the glazing (gate-friendlier than the yoke) and is tool-free re-aimable; costs ~S$1,087/head vs S$425 and weighs 6.56 kg (anchor engineering). The oval accessory is TBC with LuxLight — survival doesn't need it. Untick to restore the boot default."><input type="checkbox" id="igChk"> iGuzzini EF51 scenario (corners + balcony, DALI-2)</label>
         <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
@@ -4254,9 +4254,12 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 }
 </script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7 · 2026-07-24
+/* Bonsai 3D — 118 Marina Collection. v7.20 · 2026-08-14 (ground-truth reset)
    All geometry parsed at runtime from the embedded #model-spec JSON (single source of truth).
-   Swapping in LiDAR later = replacing that JSON block only.                                  */
+   Swapping in LiDAR later = replacing that JSON block only.
+   v7.20: DAYLIGHT = the MEASURED calibration (site-light-readings.md; old Monte-Carlo table
+   retired to a reference toggle); boot default = the calibrated recommended layout
+   (4 × 100 W: corner pair at y 0.30 + balcony-underside pair; poles y 0.45; strips on). */
 'use strict';
 (function(){
 
@@ -5160,8 +5163,20 @@ const ASPECTS=[
   {id:'px',  short:'living',  n:[1,0,0]},
   {id:'mx',  short:'dining',  n:[-1,0,0]}
 ];
-/* measured-model daylight baseline (tree-and-site.md §4), by height band: [z>=1.45, 1.0–1.45, z<1.0] */
-const DAYLIGHT={ top:[20.4,17.5,16.2], my:[12.6,13.9,14.6], px:[7.5,7.5,7.5], mx:[7.5,7.5,7.5], py:[0.1,0.0,0.0] };
+/* daylight by height band [z>=1.45, 1.0–1.45, z<1.0] — GROUND-TRUTH RESET 2026-08-14 (v7.20).
+   The old Monte-Carlo table (tree-and-site.md §4) was proved ~5–8× optimistic by Richard's
+   Photone site measurements (site-light-readings.md: dated day-curve 8 & 10 Jul — brightest
+   canopy spots ≈3 mol/m²/day, typical 1–2, corners 0.5–1). The shipped default is the
+   MEASURED calibration (mid): old sky components ×0.132 with a 0.95 diffuse floor (the
+   measured dim-corner ~1.0 contradicted the old zero floor). LOW = ×0.098/floor 0.70
+   (pessimistic end of the measured band; the paper diffuser under-reads so truth sits
+   between LOW and ×1.4 of readings). The PRECAL table is kept as a reference toggle only. */
+const DAYLIGHT_PRECAL={ top:[20.4,17.5,16.2], my:[12.6,13.9,14.6], px:[7.5,7.5,7.5], mx:[7.5,7.5,7.5], py:[0.1,0.0,0.0] };
+function _calDaylight(scale,floor){ const o={}; Object.keys(DAYLIGHT_PRECAL).forEach(function(k){
+  o[k]=DAYLIGHT_PRECAL[k].map(function(v){ return Math.max(v*scale,floor); }); }); return o; }
+const DAYLIGHT_CAL_MID=_calDaylight(0.132,0.95);
+const DAYLIGHT_CAL_LOW=_calDaylight(0.098,0.70);
+let DAYLIGHT=DAYLIGHT_CAL_MID;   /* live table — swapped by the daylight toggle (measured/low/pre-cal) */
 function bandIdx(z){ return z>=1.45?0:(z>=1.0?1:2); }
 const BAND_LABEL=['dense (thrive)','holds','thins','bare risk (die band)'];
 const BAND_COLOR=['#2e7d46','#8fae4f','#d99a2b','#c8452c'];
@@ -5991,24 +6006,36 @@ function applyFlipLightDefaults(){
   });
   refreshLightbar();
 }
-/* ============================== RECOMMENDED scenario (owner, 2026-08-14) ==============================
-   The final recommendation from the flood-placement investigation (codex-cross-check.md):
-   the two 60 W floods move to the FOYER-side soffit corners at a gate-safe 16 cm off the
-   glass (posSpec y = 0.38, vs the spec candidate 0.45 — the stock yoke's ~103 mm swing
-   needs ~128 mm of glazing setback), the poles shift 3 cm toward the glass (y = 0.48,
-   physical clash-check pending), and the sill strip is ON. Modelled minimum margin 1.63
-   (vs 1.23 shipped default); robust to ±3° set-once yoke azimuth error (worst case 1.63).
-   Mounting orientation for the corner Philips (install/drilling spec, derived from these
-   aims): L corner — base azimuth ~21° off the courtyard axis toward the diagonal, tilt
-   ~36° below horizontal; R corner — ~18°, tilt ~49°. Aims stored CANONICAL. */
+/* ============================== RECOMMENDED scenario (GROUND-TRUTH RESET, 2026-08-14 pm) ==============================
+   v7.20 — the calibrated-world final layout, now also the BOOT DEFAULT. Rebuilt from the
+   measured daylight calibration with a ROBUST joint optimiser (objective = worst case over
+   a ±5 cm aim / ±2 cm position jitter ensemble, LOW table first — plain free optimisation
+   was shown to park aims on soft-edge cliffs that the jitter gate kills). Layout:
+   - 2 × Philips BVP353 L40 100 W 30° at the FOYER-side soffit-corner returns, x = ±1.98,
+     y = 0.30 (the 100 W body is 403 mm — the cross-aimed yoke's static length projects
+     onto y, so 0.30 is the collision-safe cap vs the y = 0.54 glass; fp-report mechanics).
+   - 1 × 100 W 45° + 1 × 100 W 30° on the BALCONY UNDERSIDE slab edge at (−0.35,−1.1) and
+     (−0.7,−1.1) — the calibrated world's key move: the old table hid that the rear pads'
+     courtyard faces (M3/T5/L5) become binding once real daylight is 5–8× lower; only
+     courtyard-side sources serve those faces. (The old 'courtyard-side right end' 4th-head
+     idea is superseded — the balcony-edge position beats it on every gate.)
+   - Poles at the SPEC y = 0.45 (the +3 cm shift is unnecessary in the calibrated world —
+     scores identically — so the glass-clash conditional disappears), 3 heads each,
+     shipped strip-set z's, re-aimed. Sill strips ON, re-aimed (strip decision itself
+     stays a Monday-quote/mock-up call; margins pass with and without).
+   Scores (engine, calibrated): MID min 2.145 / LOW min 1.648, ZERO die-band pads under
+   the full 99% gate battery (LOW+MID × jitter 5th-pct × yoke ±3° × engine ±10%).
+   Aims stored CANONICAL (pre-slide). */
 const RECOMMENDED_SCENARIO={
-  soffitL:{posY:0.38, aim:[-0.355878,-0.372582,1.252819]},
-  soffitR:{posY:0.38, aim:[-0.324241,-0.008920,1.160172]},
-  balc:[0.742986,0.065330,1.883942],
-  strip:[-0.050161,-0.536875,1.372548], strip2:[0.069617,-0.335341,1.258123],
-  poleY:0.48,
-  poleL:[{z:1.457867,aim:[-0.279517,-0.308754,1.444610]},{z:0.85,aim:[-0.164257,-0.023729,0.992391]},{z:0.5,aim:[-0.726924,-0.479854,0.864667]}],
-  poleR:[{z:1.8,aim:[0.386296,-0.351535,1.242941]},{z:1.45,aim:[-0.342647,0.154000,1.385403]},{z:0.720317,aim:[-0.159954,0.207424,1.107729]}]
+  product30:'philips_bvp353_100_30', product45:'philips_bvp353_100_45',
+  soffitL:{posX:1.98, posY:0.30, aim:[-0.158703,-0.342708,1.303317]},
+  soffitR:{posX:-1.98, posY:0.30, aim:[1.000689,-0.286772,0.545362]},
+  balcPos:[-0.35,-1.1,3.0], balc:[-0.019013,0.334471,0.490425],
+  balc2Pos:[-0.7,-1.1,3.0], balc2:[0.038432,0.080341,0.505256],
+  strip:[0.253378,-0.554255,1.596003], strip2:[0,-0.2,0.9],
+  poleY:0.45,
+  poleL:[{z:1.538277,aim:[-1.35,-0.74,1.068088]},{z:1.185083,aim:[-0.75,-0.105592,1.359076]},{z:0.589944,aim:[-0.828367,-0.433617,0.481985]}],
+  poleR:[{z:1.8,aim:[0.520849,-0.402437,1.308862]},{z:0.880226,aim:[0.189068,-0.176866,1.722168]},{z:0.530226,aim:[-0.049898,-0.261107,1.162721]}]
 };
 let recScenarioOn=false;
 
@@ -6083,16 +6110,23 @@ function restoreFromIguzziniScenario(){
 }
 function applyRecommendedScenario(){
   recScenarioOn=true;
-  /* courtyard-side floods off; corner floods on at the gate-safe mounting */
+  /* courtyard-side end floods off; corner floods on at the collision-safe mounting */
   ['Lflood','Rflood'].forEach(function(pos){
     placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
   });
   ['soffitL','soffitR'].forEach(function(pos){
     placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
     const cfg=RECOMMENDED_SCENARIO[pos];
-    const d=DEFAULT_PRODUCT[pos];
-    const nl=addLight(d[0], pos, {beam:d[1], aim:cfg.aim.slice()});
-    if(nl){ nl.posSpec=[nl.posSpec[0], cfg.posY, nl.posSpec[2]]; updateLightObjects(nl); }
+    const nl=addLight(RECOMMENDED_SCENARIO.product30, pos, {beam:30, aim:cfg.aim.slice()});
+    if(nl){ nl.posSpec=[cfg.posX, cfg.posY, 3.0]; updateLightObjects(nl); }
+  });
+  /* balcony PAIR at the slab edge (the calibrated world's courtyard-face fix) */
+  ['balc','balc2'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const prod=(pos==='balc')?RECOMMENDED_SCENARIO.product45:RECOMMENDED_SCENARIO.product30;
+    const beam=(pos==='balc')?45:30;
+    const nl=addLight(prod, pos, {beam:beam, aim:RECOMMENDED_SCENARIO[pos].slice()});
+    if(nl){ nl.posSpec=RECOMMENDED_SCENARIO[pos+'Pos'].slice(); updateLightObjects(nl); }
   });
   /* strip ON with the scenario aims */
   ['strip','strip2'].forEach(function(pos){
@@ -6103,11 +6137,7 @@ function applyRecommendedScenario(){
       l.aimSpec=RECOMMENDED_SCENARIO[pos].slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
     });
   });
-  /* balcony aim */
-  placed.filter(function(l){return l.posId==='balc';}).forEach(function(l){
-    l.aimSpec=RECOMMENDED_SCENARIO.balc.slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
-  });
-  /* poles: scenario heads at the shifted y */
+  /* poles: scenario heads at the spec y (0.45 — no shift needed in the calibrated world) */
   ['poleL','poleR'].forEach(function(pos){
     placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
     const d=DEFAULT_PRODUCT[pos]||['targetti_dart_medium',48];
@@ -6120,10 +6150,12 @@ function applyRecommendedScenario(){
 }
 function restoreFromRecommendedScenario(){
   recScenarioOn=false;
-  ['soffitL','soffitR','strip','strip2'].forEach(function(pos){
+  ['soffitL','soffitR','strip','strip2','balc2'].forEach(function(pos){
     placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
   });
-  ['Lflood','Rflood'].forEach(function(pos){
+  /* balc back to its spec position/product */
+  placed.filter(function(l){return l.posId==='balc';}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  ['Lflood','Rflood','balc'].forEach(function(pos){
     if(!placed.some(function(l){return l.posId===pos;})){
       const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
     }
@@ -6249,6 +6281,23 @@ const LIGHT_GROUPS=[
     '<button data-strip="off" class="on" title="sill strip off — model default; at the shipped 0.11m courtyard slide L6 clears without it (thins band) — drag slide to 0 and L6 falls back into the die band, unreachable from the poles alone">strip off</button>'+
     '<button data-strip="on" title="sill strip on — recovers L6 (thins band) and tightens L1/L2/M2/T3 margins">strip on</button>';
   phg.appendChild(strip);
+  /* daylight-table toggle (v7.20 ground-truth reset): measured mid = default; low = the
+     pessimistic end of the measured band; pre-cal = the retired Monte-Carlo table, kept
+     as a reference so the old numbers stay reproducible. */
+  const dl=document.createElement('div'); dl.className='seg'; dl.id='daylightSeg'; dl.style.marginLeft='6px';
+  dl.setAttribute('role','group'); dl.setAttribute('aria-label','Daylight table');
+  dl.innerHTML=
+    '<button data-dl="mid" class="on" title="MEASURED daylight, mid calibration (Photone day-curve 8/10 Jul: old sky ×0.132, 0.95 diffuse floor) — the shipped default">daylight: measured</button>'+
+    '<button data-dl="low" title="pessimistic end of the measured band (×0.098, floor 0.70) — the robustness table every recommendation must survive">low</button>'+
+    '<button data-dl="precal" title="the RETIRED pre-calibration Monte-Carlo table (proved ~5–8× optimistic by the site measurements) — reference only, do not design against it">pre-cal</button>';
+  phg.appendChild(dl);
+  dl.addEventListener('click', function(e){
+    const b=e.target.closest('button[data-dl]'); if(!b) return;
+    const k=b.getAttribute('data-dl');
+    DAYLIGHT = k==='precal'?DAYLIGHT_PRECAL:(k==='low'?DAYLIGHT_CAL_LOW:DAYLIGHT_CAL_MID);
+    dl.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x===b); });
+    computeVerdicts();
+  });
   lightbar.appendChild(phg);
   heads.addEventListener('click', function(e){
     const b=e.target.closest('button[data-heads]'); if(!b) return;
@@ -7363,6 +7412,11 @@ function restoreUIFromStorage(){
 });
 $('overlayChk').checked=true;
 initWhatIf();
+/* v7.20 (ground-truth reset): the CALIBRATED recommended layout IS the boot default —
+   4 × 100 W (2 corner 30° + balcony-edge 45°+30°) + 6 re-aimed pole heads + strips.
+   Untick the scenario checkbox to fall back to the old 60 W normal layout (reference). */
+applyRecommendedScenario();
+(function(){ const rc=document.getElementById('recChk'); if(rc) rc.checked=true; })();
 selectedUid=placed.length?placed[0].uid:null;
 refreshLightbar(); refreshSelection(); refreshPoleHeadUI();
 computeVerdicts();
