@@ -4325,43 +4325,594 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 }</script>
 <script type="application/json" id="fixture-lib">
 {
- "source": "distilled from fixture-options.md (as_of 2026-07-23) — catalogue claims and allowances, no quotations; verify every order code before purchase. dims_mm added 2026-08-12 from fixture-spec-index.md (as_of 2026-08-12, top-3-per-role datasheet index) — see each fixture's notes for the exact source and whether the number is a measured datasheet figure or a class-based placeholder.",
- "dims_mm_convention": "box-like bodies (form 'rect'/'panel'): {h,w,d} in mm, h=height, w=width, d=front-to-back depth (the thin axis). round spots/pole-heads/decorative (form 'round'): {dia,len} in mm, dia=barrel diameter, len=overall length along the beam axis. linear strips (form 'linear'): {w,h,len_per_m:true} in mm, a CROSS-SECTION (w=depth into the wall/ledge, h=rise off the mounting surface) — the rendered run length is set by the site geometry (model-spec.json fixtures[].pos), not by the product's own section length.",
+ "source": "distilled from fixture-options.md (as_of 2026-07-23) \u2014 catalogue claims and allowances, no quotations; verify every order code before purchase. dims_mm added 2026-08-12 from fixture-spec-index.md (as_of 2026-08-12, top-3-per-role datasheet index) \u2014 see each fixture's notes for the exact source and whether the number is a measured datasheet figure or a class-based placeholder.",
+ "dims_mm_convention": "box-like bodies (form 'rect'/'panel'): {h,w,d} in mm, h=height, w=width, d=front-to-back depth (the thin axis). round spots/pole-heads/decorative (form 'round'): {dia,len} in mm, dia=barrel diameter, len=overall length along the beam axis. linear strips (form 'linear'): {w,h,len_per_m:true} in mm, a CROSS-SECTION (w=depth into the wall/ledge, h=rise off the mounting surface) \u2014 the rendered run length is set by the site geometry (model-spec.json fixtures[].pos), not by the product's own section length.",
  "fixtures": [
-  {"id":"lumascape_q4","brand":"Lumascape","model":"Quadralux Q4 LS9142","lumens":4980,"beams":[30,45,65],"cct":3000,"cri":null,"watts":48,"role":"grow","verified":true,"dims_mm":{"w":330,"h":228,"d":68},"notes":"Marine-grade casting, DALI-2, IP66/67; sits at the bottom of the required band. Dims: fixture-spec-index.md Role 1 footnote — 330×228×68mm, 3.2kg (`Lumascape-Q4-LS9142-datasheet.pdf`) — RFQ'd but NOT top-3 for this role (superseded by the Philips/iGuzzini/Ligman shortlist)."},
-  {"id":"lumascape_q2","brand":"Lumascape","model":"Quadralux Q2 LS9122","lumens":3300,"beams":[30,45,65],"cct":3000,"cri":null,"watts":33,"role":"grow","verified":true,"dims_mm":{"w":235,"h":228,"d":68},"notes":"Beam options assumed same family optics as Q4 — confirm. Dims: fixture-spec-index.md Role 2 top-3 #1 (pole-head switch pick) — 228×235×68mm body + 68–130mm bracket (bracket excluded from the body box), 2.4 kg, DALI-2 (`Lumascape-Q2-LS9122-datasheet.pdf`)."},
-  {"id":"iguzzini_palco","brand":"iGuzzini","model":"Palco InOut EF51.04 (Ø153)","lumens":4970,"beams":[30],"cct":3000,"cri":82,"watts":47.3,"role":"grow","verified":true,"dims_mm":{"dia":153,"len":276},"notes":"CORRECTED 2026-08-14 from the actual spec sheet + IES (both on Drive; old entry said 6,200 lm/48° — wrong on both): F-Flood 30°, 4,970 lm system / 47.3 W, 3000 K, CRI 82, DALI-2 integrated, IP66/IK07. IES verified: rotationally symmetric, Imax 17,431 cd, half-max ±15.3°, 80% of flux within ±19.5°, ~zero past ±32°; integrates to 4,971 lm (parse validated); flux-equivalent uniform beam ≈ 34.6°. Body Ø153×276 mm (300 mm overall with base), 6.56 kg — ANCHOR FLAG vs the ≤3.5 kg slab-fix guideline. Mounting: ceiling-surface EXPLICITLY permitted (datasheet Installation), dual-axis aiming — 360° rotation + 90° tilt with mechanical locks on both axes (the 'ball-socket-class' aiming; can be oriented so the body sweeps PARALLEL to glazing, easing the glass gate). Optic accessories via holder frame — elliptical/oval spread lens availability TBC with LuxLight/Chelsea. QUOTED S$1,087/unit (LuxLight, 31 Jul)."},
-  {"id":"iguzzini_palco_oval","brand":"iGuzzini","model":"Palco InOut EF51.04 + X311 elliptical","lumens":4186,"beams":[40],"cct":3000,"cri":82,"watts":47.3,"role":"grow","verified":true,"dims_mm":{"dia":153,"len":276},"notes":"NEW 2026-08-14 eve — the EF51 with iGuzzini's X311.024 elliptical refractor in the X303.004 support frame (QUOTED: lens S$48/u + frame S$107/u on top of the S$1,087 head; LuxLight IG1/7/2026 Rev 3). MEASURED IES supplied (ef51_x311_b11u.ies, filed with the 14 Aug RFQ email): integrates to 4,186 lm (~16% flux cost vs the clear 4,970), half-max ±27.7° × ±13.9° = a true ~55°×28° ELLIPSE, orientable in the holder. ENGINE CAVEAT: this entry's symmetric beams:[40] is a placeholder mean for the UI cone only — for verdict work model the two planes from the IES (or rect-form hMul/vMul ≈ 2:1 flux-conserving), noting orientation is a design choice. Same body/weight/mounting as iguzzini_palco (6.56 kg — anchor flag)."},
-  {"id":"iguzzini_newfo","brand":"iGuzzini","model":"Newfo InOut 125","lumens":2570,"beams":[52],"cct":3000,"cri":90,"watts":24,"role":"decorative","verified":true,"dims_mm":{"dia":125,"len":110},"notes":"CRI 90 suits the decorative part of the scheme; candidate for decorC (night-lighting-scheme.md §1b) — catalogue entry is 3000K, a 2700K SKU is UNVERIFIED, confirm at RFQ before treating as default. Dims: PLACEHOLDER — fixture-spec-index.md Role 4 top-3 #3 lists H×W×D+weight as 'Not confirmed'; sized from class (iGuzzini InOut round decorative-uplight family; '125' is iGuzzini's nominal ~125mm size class). Verify against a real Newfo InOut 125 datasheet before use."},
-  {"id":"targetti_dart_maxi","brand":"Targetti","model":"DART Maxi 1E3958DA","lumens":5194,"beams":[28],"cct":3000,"cri":null,"watts":68.9,"role":"grow","verified":true,"dims_mm":{"dia":170,"len":260},"notes":"Factory cataphoresis; substantial body for a shallow soffit. Dims: PLACEHOLDER — Targetti DART is not covered by fixture-spec-index.md (its top-3 shortlist is Ligman/Philips/iGuzzini for this role); sized from class (compact adjustable spot/projector), scaled up for the 68.9W Maxi tier. Verify against Targetti's own DART datasheet."},
-  {"id":"targetti_dart_medium","brand":"Targetti","model":"DART Medium 1E3934DA","lumens":4145,"beams":[48],"cct":3000,"cri":null,"watts":33.2,"role":"grow","verified":true,"dims_mm":{"dia":140,"len":210},"notes":"Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), 33.2W Medium tier. This is the product actually placed by default at wireL/wireR/poleL/poleR (model-src/40-app.js DEFAULT_PRODUCT) — verify against Targetti's own DART datasheet before order."},
-  {"id":"targetti_dart_small","brand":"Targetti","model":"DART Round Small 1E3977DA","lumens":1477,"beams":[48],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":true,"dims_mm":{"dia":110,"len":160},"notes":"Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), smallest DART tier, wattage not published. Verify against Targetti's own DART datasheet."},
-  {"id":"philips_bvp353_80_30","brand":"Philips","model":"UniFlood M G2 BVP353 L35 80 W 30°","lumens":6300,"beams":[30],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":348},"notes":"L35 tier, 36LED. Leaflet (2026-08-13 pass): non-DMX mono code 911401747413 = 6,750 lm; lumens here = 6,300, the DMX-mono ESTIMATE derived from the L30 pair's verified 93.4% DMX/non-DMX ratio (4,785/5,125) — mono-DMX SKU code TBC with Dennis (mono DMX-RDM exists per the install manual's control table but is off-leaflet, same as the quoted 60W's 911401747083). Dims: REAL, install drawing 2026-08-13 — same 150(H)×140(W) cross-section as every tier, body length 348 mm, 4.5 kg. Glass gate PASSES (pivot along the length axis sweeps only the 150×140 section, ~103 mm swing — lighting-design.md 2026-07-27); WEIGHT FLAG: 4.5 kg vs the ≤3.5 kg slab surface-fix guideline — anchor spec to be engineered at PO."},
-  {"id":"philips_bvp353_80_45","brand":"Philips","model":"UniFlood M G2 BVP353 L35 80 W 45°","lumens":6080,"beams":[45],"cct":3000,"cri":80,"watts":80,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":348},"notes":"L35/45° tier. Leaflet: non-DMX mono code 911401747503 = 6,515 lm; lumens here = 6,080 DMX-mono ESTIMATE (93.4% ratio — see philips_bvp353_80_30). Dims: REAL, install drawing — 150×140×348 mm, 4.5 kg; same gate-pass + weight flag as the 30° head."},
-  {"id":"philips_bvp353_100_30","brand":"Philips","model":"UniFlood M G2 BVP353 L40 100 W 30°","lumens":7880,"beams":[30],"cct":3000,"cri":80,"watts":100,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":403},"notes":"NEW 2026-08-13 (flood-wattage round) — L40 tier, 48LED, 100 W: the top of the BVP353 M family (L50/L57 exist but jump to 120/150 W; the leaflet's other 'L40' rows belong to BVP354, a different 96LED/200W product — do not confuse). Leaflet: non-DMX mono code 911401747773 = 8,440 lm @30°; lumens here = 7,880 DMX-mono ESTIMATE (93.4% ratio, see philips_bvp353_80_30); mono-DMX SKU code TBC with Dennis. Dims: REAL, install drawing — 150(H)×140(W)×403(D) mm, 5.4 kg. Glass gate PASSES (length-axis pivot, ~103 mm swing at every tier); WEIGHT FLAG: 5.4 kg vs the ≤3.5 kg slab surface-fix guideline — anchor engineering mandatory at PO."},
-  {"id":"philips_bvp353_100_45","brand":"Philips","model":"UniFlood M G2 BVP353 L40 100 W 45°","lumens":7600,"beams":[45],"cct":3000,"cri":80,"watts":100,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":403},"notes":"L40/45° tier for balcony what-ifs. Leaflet: non-DMX mono code 911401747863 = 8,145 lm; lumens here = 7,600 DMX-mono ESTIMATE (93.4% ratio). Dims: REAL — 150×140×403 mm, 5.4 kg; same gate-pass + weight flag as the 30° head."},
-  {"id":"philips_bvp353_60_30","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 30° DMX","lumens":4785,"beams":[30],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":true,"dims_mm":{"h":150,"w":140,"d":293},"notes":"Code 911401747083 — the QUOTED soffit-flood tier (S$425/unit, LKH/Dennis 2026-08-03). Extruded aluminium, IP66, DMX/RDM only (no DALI — needs a DMX island or fixed-output on a DALI relay). Passes the glass-clearance gate (~103 mm swing). Corrosion: NO Marine Salt Painting for this family + no SG warranty corrosion cover regardless — self-insured (defensible in the sheltered well). Glare: no honeycomb louvre exists (directional shield only). 60 W not 80 W: no louvre loss to offset, sits in the 4,500-5,500 band, dims cleaner. Lumens = verified DMX figure (leaflet non-DMX L30/30° = 5,125). Dims: REAL, fixture-spec-index.md Role 1 top-3 #2 (front-runner, gate-verified) — 150(H)×140(W)×293(D)mm, 3.65 kg, verified off the install manual's 'BVP353 L30 Mono' row (`Philips-BVP353-leaflet.pdf` + install drawing). This is the product actually placed by default at Lflood/Rflood/soffitL/soffitR (model-src/40-app.js DEFAULT_PRODUCT)."},
-  {"id":"philips_bvp353_60_45","brand":"Philips","model":"UniFlood M G2 BVP353 L30 60 W 45°","lumens":4617,"beams":[45],"cct":3000,"cri":80,"watts":60,"role":"grow","verified":false,"dims_mm":{"h":150,"w":140,"d":293},"notes":"45° L30 variant for the wider balcony throw (design P7 = 40-48°); order code TBD. LUMENS CORRECTED 2026-08-14 (Codex cross-check caught the bug): was 5,125 (the 30° figure, mislabelled); leaflet 45° L30 non-DMX = 4,945 lm → 4,617 DMX-mono ESTIMATE (93.4% verified ratio). Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only). Dims: REAL — same BVP353 L30 Mono G2 housing as the verified 30° tier (fixture-spec-index.md Role 1 #2), 150(H)×140(W)×293(D)mm, 3.65 kg; only the internal optic differs between the 30°/45° SKUs, not the housing. This is the product actually placed by default at balc/balc2 (model-src/40-app.js DEFAULT_PRODUCT)."},
-  {"id":"philips_bvp353_40_30","brand":"Philips","model":"UniFlood M BVP353 40 W 30° DMX","lumens":3040,"beams":[30],"cct":3000,"cri":80,"watts":40,"role":"grow","verified":true,"dims_mm":{"h":135,"w":125,"d":250},"notes":"Code 911401746363; lumens scaled from the 80 W DMX head (6,070 lm) — ESTIMATE. Dims: PLACEHOLDER (extrapolated smaller) — fixture-spec-index.md only verifies the 60W L30 Mono tier; this 40W tier's box is scaled down from that verified housing. Confirm against Philips' own 40W leaflet before use."},
-  {"id":"lumenpulse_lb_large","brand":"Lumenpulse","model":"Lumenbeam Large","lumens":5673,"beams":[30,45],"cct":3000,"cri":null,"watts":50,"role":"grow","verified":false,"dims_mm":{"dia":160,"len":280},"notes":"Singapore supply/price/lead time unverified; beam options not recorded in fixture-options.md — placeholder, confirm with supplier. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact spot/projector), 50W Large tier."},
-  {"id":"lumenpulse_lb_medium","brand":"Lumenpulse","model":"Lumenbeam Medium","lumens":2714,"beams":[30,45],"cct":3000,"cri":null,"watts":28,"role":"grow","verified":false,"dims_mm":{"dia":120,"len":210},"notes":"Singapore supply unverified; beam options placeholder — confirm. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class, 28W Medium tier."},
-  {"id":"lumenpulse_lb_small","brand":"Lumenpulse","model":"Lumenbeam Small","lumens":1419,"beams":[30,45],"cct":3000,"cri":null,"watts":14,"role":"grow","verified":false,"dims_mm":{"dia":90,"len":150},"notes":"Singapore supply unverified; beam options placeholder — confirm. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class, 14W Small tier."},
-  {"id":"weef_flc220","brand":"WE-EF","model":"FLC220","lumens":2800,"beams":[30,45],"cct":3000,"cri":null,"watts":26,"role":"grow","verified":false,"dims_mm":{"dia":130,"len":220},"notes":"Corrosion benchmark; no Singapore entity; beam options not recorded — placeholder, confirm. Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (26W compact projector)."},
-  {"id":"cs_gwl_re340","brand":"CS","model":"GWL-RE340 horticultural","lumens":10000,"ppf_direct":150,"beams":[60],"cct":3200,"cri":75,"watts":100,"role":"grow","verified":false,"dims_mm":{"h":145,"w":340,"d":65},"notes":"Datasheet ~20% optimistic — engine uses ~150 µmol/s DIRECT; IP65 below the IP66 site minimum; 60° too wide for the soffit role (ask for 30°); DALI driver suffix ELG-100-48DA UNVERIFIED. Dims: REAL, GWL-RE340 horticultural-panel datasheet — 340×145×65mm — already the source for this fixture's hardcoded body geometry in 40-app.js prior to this pass; now promoted into a proper dims_mm field."},
-  {"id":"underscore_linear","brand":"iGuzzini","model":"Underscore InOut linear (2 m sill strip)","lumens":2000,"beams":[60],"cct":3000,"cri":90,"watts":null,"role":"linear","verified":false,"dims_mm":{"w":45,"h":24,"len_per_m":true},"notes":"~1,000 lm/m over 2 m — ESTIMATE; the asymmetric optic decides success (without it ~85% misses the tree). Dims: PLACEHOLDER — this exact iGuzzini Underscore product is not covered by fixture-spec-index.md (its Role 3 top-3 shortlist is Lumascape L3 / Linea Light Paseo / LED Linear FUSION — none of which is Underscore); cross-section sized from that class (slim linear grazer). This is the product actually placed by default at strip/strip2 (model-src/40-app.js DEFAULT_PRODUCT) — verify before ordering."},
-  {"id":"generic_decor","brand":"Generic","model":"Decorative uplight (allowance)","lumens":800,"beams":[30],"cct":2700,"cri":90,"watts":null,"role":"decorative","verified":false,"dims_mm":{"dia":90,"len":95},"notes":"Allowance-grade placeholder, no product selected — CRI90 assumed per §B2's mandatory colour-rendering minimum, not a spec'd figure. Default product for decorA/decorB/decorF/decorL/decorR/decorG pending the §B4 night mock-up (night-lighting-scheme.md §1b). Dims: PLACEHOLDER — sized as a rough midpoint of the Role 4 top-3 in fixture-spec-index.md (Ginko Ø54×58mm / Platek ~Ø230mm implied / Newfo 'not confirmed'). Swap for ll_ginko20 or platek_sunm once the decorative product is picked."},
-  {"id":"ligman_quantum1","brand":"Ligman","model":"Quantum 1 QA-50001","lumens":4532,"beams":[21,28,44,75],"cct":3000,"cri":80,"watts":38,"role":"grow","verified":true,"dims_mm":{"dia":230,"len":308},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — value pick for Role 1 (grow floods) top-3 #1 AND fallback for Role 2 (pole heads) top-3 #3 (same product family, both roles). 3,868–4,532 lm across N/M/W/VW optics (this entry uses the top of range); 2700/3000/4000K SKUs (this entry defaults 3000K). Gaps: DALI is generic, NOT DALI-2 certified (Ligman absent from the DALI Alliance database); stainless hardware is 304, not the 316 this coastal site wants. RFQ sent to Delight, awaiting. Dims: REAL — datasheet gives 308×244×218mm (incl. bracket), 3.7 kg; rendered as a round body dia=230mm (averaged from the 244×218mm cross-section, since the housing isn't a perfect cylinder) len=308mm (`Ligman-Quantum1-QA-50001-datasheet.pdf`)."},
-  {"id":"simes_stage_s1386","brand":"Simes","model":"STAGE Round Pole S.1386","lumens":3300,"beams":[14,30,54],"cct":3000,"cri":null,"watts":null,"role":"grow","verified":false,"dims_mm":{"dia":150,"len":296},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 2 (pole heads) top-3 #2, best-documented marine/DALI challenger. Lumens (2,716–3,885, this entry uses the midpoint), CCT range (2700–4000K) and CRI (~90) are cited in the index from a separate internal sweep, not from this datasheet directly — treat as lower-confidence than the dims. No full spec sheet or IES exists as a static file (Simes gates it behind a JS configurator); SG channel and true fastener grade (steel+coating vs 316) both unconfirmed. RFQ sent to Delight, awaiting. Dims: REAL (verified — supersedes an earlier 4.31kg sweep estimate) — mounting drawing gives 296×185×Ø150/145mm body, Ø72mm base, 3.8 kg; rendered as a round body dia=150mm (top of the Ø150/145mm range) len=296mm — the 185mm figure (likely swing/width incl. yoke) and the Ø72mm base foot are omitted from this plain-cylinder approximation (`Simes-STAGE-S1386-mounting.pdf`)."},
-  {"id":"lumascape_l3","brand":"Lumascape","model":"Linealux L3 LS9032 (5W/ft ASHRAE SKU)","lumens":4450,"beams":[60],"cct":3000,"cri":80,"watts":null,"role":"linear","verified":false,"dims_mm":{"w":60,"h":42,"len_per_m":true},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 3 (sill strip) top-3 #1, switch pick with integral DALI-2. Genuine Asymmetric Left/Right (AL/AR) optic — the beams:[60] figure here is a nominal placeholder for the UI's symmetric beam-angle field only, not the real optic. Lumens figure (4,450) is from the datasheet's 4ft/12W-ft example section — order the 5W/ft ASHRAE SKU instead (~16.4 W/m; doesn't map cleanly to the schema's single 'watts' field, left null). Sections come in 610/908/1,206mm (2/3/4ft) lengths; 2.8 kg for a 4ft section. RFQ to LuxLight pending; confirm the current hardware is genuinely DALI-2 (an older datasheet said generic 'DALI' only). Dims: cross-section is an APPROXIMATION — the datasheet gives section lengths + a 42×60–75mm mounting-bracket footprint, but does not separately dimension the extrusion's own cross-section; this entry uses the bracket footprint (w=60mm, h=42mm) as a proxy. Verify against a physical sample or a fuller datasheet before treating as exact (`Lumascape-LinealuxL3-LS9032-datasheet.pdf`)."},
-  {"id":"linea_light_paseo","brand":"Linea Light","model":"Paseo_L Anti-glare 94022M07","lumens":568,"beams":[50],"cct":2700,"cri":80,"watts":15,"role":"linear","verified":true,"dims_mm":{"w":39,"h":24,"len_per_m":true},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 3 (sill strip) top-3 #2, secondary hold. 1,208 lm source but only 568 lm DELIVERED per 1.15m section (LOR 47%) — this entry uses the delivered figure; ~15W over that section (37 lm/W). Genuine Asymmetric Wallwasher optic verified — the beams:[50] figure here is a nominal placeholder for the UI's symmetric beam-angle field only. DALI-2/1-10V needs a SEPARATE external controller (driver not included, e.g. code 83333). No RFQ initiated yet. Lower output than the L3 pick — multiple sections would be needed to cover the 1.9m run, stacking cost. Dims: REAL — 1,152×39×24mm profile (cross-section w=39mm, h=24mm), 0.89 kg for that section; UV-resistant polycarbonate, 'MARINE GRADE' badge on the datasheet. Filed in Files/manuals/, not the main specs folder — no IES saved (linealight.com public datasheet)."},
-  {"id":"led_linear_fusion","brand":"LED Linear","model":"FUSION IP67","lumens":null,"beams":[15],"cct":3000,"cri":86,"watts":null,"role":"linear","verified":false,"dims_mm":{"w":38.6,"h":28,"len_per_m":true},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 3 (sill strip) top-3 #3, retired to fallback. Not on the datasheet at the target 15 W/m tier — lumens/watts left null. 15°×15° nano optics (HC engine) — the beams:[15] figure reflects the real narrow symmetric optic (this one is NOT asymmetric, unlike L3/Paseo). CRI flagged: the datasheet's 'Product Information' panel claims CRI>90 but its own Electrical & Output Data table lists CRI/R9 = 86/18 for every wattage tier — this entry uses the table figure (86) as the more reliable one; get it in writing before treating as CRI90-class. No driver included — needs an external DALI-2-certified CV driver, no published pairing. Weight not published anywhere on the sheet. RFQ to Luci awaiting, low priority. Dims: REAL — modular 210/211mm segments to custom length; symmetric cross-section 38.6×28mm (an asymmetric variant is 35.6mm — not used here) (`LEDLinear-FUSION-IP67-spec.pdf` + brochure)."},
-  {"id":"ll_ginko20","brand":"L&L Luce&Light","model":"Ginko 2.0","lumens":374,"beams":[17,34,45],"cct":2700,"cri":90,"watts":7,"role":"decorative","verified":true,"dims_mm":{"dia":54,"len":58},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 4 (decorative uplights) top-3 #1, current keep pick. 374 lm on the 7W/17° SKU (this entry's default) / 284 lm on the alt 5W/34° SKU; 45° SKU also exists. CRI >90 verified, R9 not published anywhere. Casambi-ONLY control — NOT DALI (bridge via casambi-bt-hass → Home Assistant, or a Casambi EN1612/CBU-DCS gateway onto the DALI-2 bus). Anticorodal 6082 body + genuine AISI 316L bracket, >1,500h salt spray. RFQ folded into the multi-role LuxLight/Lumascape request, pending. Dims: REAL (manufacturer-published) but from the public range PDF only — Ø54×58mm compact surface uplight. No primary datasheet or IES file exists anywhere on Drive for this SKU; the manufacturer only issues them through a 'Generate code → Download' web configurator that hasn't been run yet (lucelight.it public range PDF). Weight not published."},
-  {"id":"platek_sunm","brand":"Platek","model":"Sun M (88 40 313)","lumens":3640,"beams":[26],"cct":3000,"cri":80,"watts":null,"role":"decorative","verified":true,"dims_mm":{"dia":230,"len":110},"notes":"NEW 2026-08-12, added from fixture-spec-index.md — Role 4 (decorative uplights) top-3 #2, re-slotted from the flood role (fails the glass-clearance gate there). 3,640 lm system (5,000 lm LED source), RS 26° rotationally symmetric optic. CRI is datasheet-confirmed at 80, NOT the 90 Platek's own marketing implies — its glare accessories are a visor/anti-glare grille, not the snoot+honeycomb pairing Ginko offers. DALI control. Die-cast EN44300 low-copper aluminium, A4 stainless screws, galvanic anodizing + 2-step epoxy/polyester paint. QUOTED S$1,525/unit (3× = S$4,986.75 incl. GST, ref 20260730-01, Illum-Tec, 30 Jul). Net 2.9 kg, gross 3.4kg shipping. Dims: PARTIAL — diameter is REAL (Ø230mm, matches the visor/anti-glare-grille/concentrating-tube accessory diameters given on the datasheet), but the dimension diagram itself carries NO numeric H/W/D callouts, so the len=110mm figure here is a PLACEHOLDER (typical compact-uplight height-to-diameter ratio, ~0.48×dia) — verify against a physical unit or a fuller drawing before treating as exact (`Platek-SUNM-datasheet.pdf` + revised quote)."}
+  {
+   "id": "lumascape_q4",
+   "brand": "Lumascape",
+   "model": "Quadralux Q4 LS9142",
+   "lumens": 4980,
+   "beams": [
+    30,
+    45,
+    65
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 48,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "w": 330,
+    "h": 228,
+    "d": 68
+   },
+   "notes": "Marine-grade casting, DALI-2, IP66/67; sits at the bottom of the required band. Dims: fixture-spec-index.md Role 1 footnote \u2014 330\u00d7228\u00d768mm, 3.2kg (`Lumascape-Q4-LS9142-datasheet.pdf`) \u2014 RFQ'd but NOT top-3 for this role (superseded by the Philips/iGuzzini/Ligman shortlist)."
+  },
+  {
+   "id": "lumascape_q2",
+   "brand": "Lumascape",
+   "model": "Quadralux Q2 LS9122",
+   "lumens": 3300,
+   "beams": [
+    30,
+    45,
+    65
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 33,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "w": 235,
+    "h": 228,
+    "d": 68
+   },
+   "notes": "Beam options assumed same family optics as Q4 \u2014 confirm. Dims: fixture-spec-index.md Role 2 top-3 #1 (pole-head switch pick) \u2014 228\u00d7235\u00d768mm body + 68\u2013130mm bracket (bracket excluded from the body box), 2.4 kg, DALI-2 (`Lumascape-Q2-LS9122-datasheet.pdf`)."
+  },
+  {
+   "id": "iguzzini_palco",
+   "brand": "iGuzzini",
+   "model": "Palco InOut EF51.04 (\u00d8153)",
+   "lumens": 4970,
+   "beams": [
+    30
+   ],
+   "cct": 3000,
+   "cri": 82,
+   "watts": 47.3,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "dia": 153,
+    "len": 276
+   },
+   "notes": "CORRECTED 2026-08-14 from the actual spec sheet + IES (both on Drive; old entry said 6,200 lm/48\u00b0 \u2014 wrong on both): F-Flood 30\u00b0, 4,970 lm system / 47.3 W, 3000 K, CRI 82, DALI-2 integrated, IP66/IK07. IES verified: rotationally symmetric, Imax 17,431 cd, half-max \u00b115.3\u00b0, 80% of flux within \u00b119.5\u00b0, ~zero past \u00b132\u00b0; integrates to 4,971 lm (parse validated); flux-equivalent uniform beam \u2248 34.6\u00b0. Body \u00d8153\u00d7276 mm (300 mm overall with base), 6.56 kg \u2014 ANCHOR FLAG vs the \u22643.5 kg slab-fix guideline. Mounting: ceiling-surface EXPLICITLY permitted (datasheet Installation), dual-axis aiming \u2014 360\u00b0 rotation + 90\u00b0 tilt with mechanical locks on both axes (the 'ball-socket-class' aiming; can be oriented so the body sweeps PARALLEL to glazing, easing the glass gate). Optic accessories via holder frame \u2014 elliptical/oval spread lens availability TBC with LuxLight/Chelsea. QUOTED S$1,087/unit (LuxLight, 31 Jul)."
+  },
+  {
+   "id": "iguzzini_palco_oval",
+   "brand": "iGuzzini",
+   "model": "Palco InOut EF51.04 + X311 elliptical",
+   "lumens": 4186,
+   "beams": [
+    40
+   ],
+   "cct": 3000,
+   "cri": 82,
+   "watts": 47.3,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "dia": 153,
+    "len": 276
+   },
+   "notes": "NEW 2026-08-14 eve \u2014 the EF51 with iGuzzini's X311.024 elliptical refractor in the X303.004 support frame (QUOTED: lens S$48/u + frame S$107/u on top of the S$1,087 head; LuxLight IG1/7/2026 Rev 3). MEASURED IES supplied (ef51_x311_b11u.ies, filed with the 14 Aug RFQ email): integrates to 4,186 lm (~16% flux cost vs the clear 4,970), half-max \u00b127.7\u00b0 \u00d7 \u00b113.9\u00b0 = a true ~55\u00b0\u00d728\u00b0 ELLIPSE, orientable in the holder. ENGINE CAVEAT: this entry's symmetric beams:[40] is a placeholder mean for the UI cone only \u2014 for verdict work model the two planes from the IES (or rect-form hMul/vMul \u2248 2:1 flux-conserving), noting orientation is a design choice. Same body/weight/mounting as iguzzini_palco (6.56 kg \u2014 anchor flag)."
+  },
+  {
+   "id": "iguzzini_newfo",
+   "brand": "iGuzzini",
+   "model": "Newfo InOut 125",
+   "lumens": 2570,
+   "beams": [
+    52
+   ],
+   "cct": 3000,
+   "cri": 90,
+   "watts": 24,
+   "role": "decorative",
+   "verified": true,
+   "dims_mm": {
+    "dia": 125,
+    "len": 110
+   },
+   "notes": "CRI 90 suits the decorative part of the scheme; candidate for decorC (night-lighting-scheme.md \u00a71b) \u2014 catalogue entry is 3000K, a 2700K SKU is UNVERIFIED, confirm at RFQ before treating as default. Dims: PLACEHOLDER \u2014 fixture-spec-index.md Role 4 top-3 #3 lists H\u00d7W\u00d7D+weight as 'Not confirmed'; sized from class (iGuzzini InOut round decorative-uplight family; '125' is iGuzzini's nominal ~125mm size class). Verify against a real Newfo InOut 125 datasheet before use."
+  },
+  {
+   "id": "targetti_dart_maxi",
+   "brand": "Targetti",
+   "model": "DART Maxi 1E3958DA",
+   "lumens": 5194,
+   "beams": [
+    28
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 68.9,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "dia": 170,
+    "len": 260
+   },
+   "notes": "Factory cataphoresis; substantial body for a shallow soffit. Dims: PLACEHOLDER \u2014 Targetti DART is not covered by fixture-spec-index.md (its top-3 shortlist is Ligman/Philips/iGuzzini for this role); sized from class (compact adjustable spot/projector), scaled up for the 68.9W Maxi tier. Verify against Targetti's own DART datasheet."
+  },
+  {
+   "id": "targetti_dart_medium",
+   "brand": "Targetti",
+   "model": "DART Medium 1E3934DA",
+   "lumens": 4145,
+   "beams": [
+    48
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 33.2,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "dia": 140,
+    "len": 210
+   },
+   "notes": "Dims: PLACEHOLDER \u2014 not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), 33.2W Medium tier. This is the product actually placed by default at wireL/wireR/poleL/poleR (model-src/40-app.js DEFAULT_PRODUCT) \u2014 verify against Targetti's own DART datasheet before order."
+  },
+  {
+   "id": "targetti_dart_small",
+   "brand": "Targetti",
+   "model": "DART Round Small 1E3977DA",
+   "lumens": 1477,
+   "beams": [
+    48
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": null,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "dia": 110,
+    "len": 160
+   },
+   "notes": "Dims: PLACEHOLDER \u2014 not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), smallest DART tier, wattage not published. Verify against Targetti's own DART datasheet."
+  },
+  {
+   "id": "philips_bvp353_80_30",
+   "brand": "Philips",
+   "model": "UniFlood M G2 BVP353 L35 80 W 30\u00b0",
+   "lumens": 6300,
+   "beams": [
+    30
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 80,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "h": 150,
+    "w": 140,
+    "d": 348
+   },
+   "notes": "L35 tier, 36LED. Leaflet (2026-08-13 pass): non-DMX mono code 911401747413 = 6,750 lm; lumens here = 6,300, the DMX-mono ESTIMATE derived from the L30 pair's verified 93.4% DMX/non-DMX ratio (4,785/5,125) \u2014 mono-DMX SKU code TBC with Dennis (mono DMX-RDM exists per the install manual's control table but is off-leaflet, same as the quoted 60W's 911401747083). Dims: REAL, install drawing 2026-08-13 \u2014 same 150(H)\u00d7140(W) cross-section as every tier, body length 348 mm, 4.5 kg. Glass gate PASSES (pivot along the length axis sweeps only the 150\u00d7140 section, ~103 mm swing \u2014 lighting-design.md 2026-07-27); WEIGHT FLAG: 4.5 kg vs the \u22643.5 kg slab surface-fix guideline \u2014 anchor spec to be engineered at PO."
+  },
+  {
+   "id": "philips_bvp353_80_45",
+   "brand": "Philips",
+   "model": "UniFlood M G2 BVP353 L35 80 W 45\u00b0",
+   "lumens": 6080,
+   "beams": [
+    45
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 80,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "h": 150,
+    "w": 140,
+    "d": 348
+   },
+   "notes": "L35/45\u00b0 tier. Leaflet: non-DMX mono code 911401747503 = 6,515 lm; lumens here = 6,080 DMX-mono ESTIMATE (93.4% ratio \u2014 see philips_bvp353_80_30). Dims: REAL, install drawing \u2014 150\u00d7140\u00d7348 mm, 4.5 kg; same gate-pass + weight flag as the 30\u00b0 head."
+  },
+  {
+   "id": "philips_bvp353_100_30",
+   "brand": "Philips",
+   "model": "UniFlood M G2 BVP353 L40 100 W 30\u00b0",
+   "lumens": 7880,
+   "beams": [
+    30
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 100,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "h": 150,
+    "w": 140,
+    "d": 403
+   },
+   "notes": "NEW 2026-08-13 (flood-wattage round) \u2014 L40 tier, 48LED, 100 W: the top of the BVP353 M family (L50/L57 exist but jump to 120/150 W; the leaflet's other 'L40' rows belong to BVP354, a different 96LED/200W product \u2014 do not confuse). Leaflet: non-DMX mono code 911401747773 = 8,440 lm @30\u00b0; lumens here = 7,880 DMX-mono ESTIMATE (93.4% ratio, see philips_bvp353_80_30); mono-DMX SKU code TBC with Dennis. Dims: REAL, install drawing \u2014 150(H)\u00d7140(W)\u00d7403(D) mm, 5.4 kg. Glass gate PASSES (length-axis pivot, ~103 mm swing at every tier); WEIGHT FLAG: 5.4 kg vs the \u22643.5 kg slab surface-fix guideline \u2014 anchor engineering mandatory at PO."
+  },
+  {
+   "id": "philips_bvp353_100_45",
+   "brand": "Philips",
+   "model": "UniFlood M G2 BVP353 L40 100 W 45\u00b0",
+   "lumens": 7600,
+   "beams": [
+    45
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 100,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "h": 150,
+    "w": 140,
+    "d": 403
+   },
+   "notes": "L40/45\u00b0 tier for balcony what-ifs. Leaflet: non-DMX mono code 911401747863 = 8,145 lm; lumens here = 7,600 DMX-mono ESTIMATE (93.4% ratio). Dims: REAL \u2014 150\u00d7140\u00d7403 mm, 5.4 kg; same gate-pass + weight flag as the 30\u00b0 head."
+  },
+  {
+   "id": "philips_bvp353_60_30",
+   "brand": "Philips",
+   "model": "UniFlood M G2 BVP353 L30 60 W 30\u00b0 DMX",
+   "lumens": 4785,
+   "beams": [
+    30
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 60,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "h": 150,
+    "w": 140,
+    "d": 293
+   },
+   "notes": "Code 911401747083 \u2014 the QUOTED soffit-flood tier (S$425/unit, LKH/Dennis 2026-08-03). Extruded aluminium, IP66, DMX/RDM only (no DALI \u2014 needs a DMX island or fixed-output on a DALI relay). Passes the glass-clearance gate (~103 mm swing). Corrosion: NO Marine Salt Painting for this family + no SG warranty corrosion cover regardless \u2014 self-insured (defensible in the sheltered well). Glare: no honeycomb louvre exists (directional shield only). 60 W not 80 W: no louvre loss to offset, sits in the 4,500-5,500 band, dims cleaner. Lumens = verified DMX figure (leaflet non-DMX L30/30\u00b0 = 5,125). Dims: REAL, fixture-spec-index.md Role 1 top-3 #2 (front-runner, gate-verified) \u2014 150(H)\u00d7140(W)\u00d7293(D)mm, 3.65 kg, verified off the install manual's 'BVP353 L30 Mono' row (`Philips-BVP353-leaflet.pdf` + install drawing). This is the product actually placed by default at Lflood/Rflood/soffitL/soffitR (model-src/40-app.js DEFAULT_PRODUCT)."
+  },
+  {
+   "id": "philips_bvp353_60_45",
+   "brand": "Philips",
+   "model": "UniFlood M G2 BVP353 L30 60 W 45\u00b0",
+   "lumens": 4617,
+   "beams": [
+    45
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 60,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "h": 150,
+    "w": 140,
+    "d": 293
+   },
+   "notes": "45\u00b0 L30 variant for the wider balcony throw (design P7 = 40-48\u00b0); order code TBD. LUMENS CORRECTED 2026-08-14 (Codex cross-check caught the bug): was 5,125 (the 30\u00b0 figure, mislabelled); leaflet 45\u00b0 L30 non-DMX = 4,945 lm \u2192 4,617 DMX-mono ESTIMATE (93.4% verified ratio). Same family caveats as philips_bvp353_60_30 (DMX-only, no MSP, IP66, directional glare shield only). Dims: REAL \u2014 same BVP353 L30 Mono G2 housing as the verified 30\u00b0 tier (fixture-spec-index.md Role 1 #2), 150(H)\u00d7140(W)\u00d7293(D)mm, 3.65 kg; only the internal optic differs between the 30\u00b0/45\u00b0 SKUs, not the housing. This is the product actually placed by default at balc/balc2 (model-src/40-app.js DEFAULT_PRODUCT)."
+  },
+  {
+   "id": "philips_bvp353_40_30",
+   "brand": "Philips",
+   "model": "UniFlood M BVP353 40 W 30\u00b0 DMX",
+   "lumens": 3040,
+   "beams": [
+    30
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 40,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "h": 135,
+    "w": 125,
+    "d": 250
+   },
+   "notes": "Code 911401746363; lumens scaled from the 80 W DMX head (6,070 lm) \u2014 ESTIMATE. Dims: PLACEHOLDER (extrapolated smaller) \u2014 fixture-spec-index.md only verifies the 60W L30 Mono tier; this 40W tier's box is scaled down from that verified housing. Confirm against Philips' own 40W leaflet before use."
+  },
+  {
+   "id": "lumenpulse_lb_large",
+   "brand": "Lumenpulse",
+   "model": "Lumenbeam Large",
+   "lumens": 5673,
+   "beams": [
+    30,
+    45
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 50,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "dia": 160,
+    "len": 280
+   },
+   "notes": "Singapore supply/price/lead time unverified; beam options not recorded in fixture-options.md \u2014 placeholder, confirm with supplier. Dims: PLACEHOLDER \u2014 not covered by fixture-spec-index.md; sized from class (compact spot/projector), 50W Large tier."
+  },
+  {
+   "id": "lumenpulse_lb_medium",
+   "brand": "Lumenpulse",
+   "model": "Lumenbeam Medium",
+   "lumens": 2714,
+   "beams": [
+    30,
+    45
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 28,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "dia": 120,
+    "len": 210
+   },
+   "notes": "Singapore supply unverified; beam options placeholder \u2014 confirm. Dims: PLACEHOLDER \u2014 not covered by fixture-spec-index.md; sized from class, 28W Medium tier."
+  },
+  {
+   "id": "lumenpulse_lb_small",
+   "brand": "Lumenpulse",
+   "model": "Lumenbeam Small",
+   "lumens": 1419,
+   "beams": [
+    30,
+    45
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 14,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "dia": 90,
+    "len": 150
+   },
+   "notes": "Singapore supply unverified; beam options placeholder \u2014 confirm. Dims: PLACEHOLDER \u2014 not covered by fixture-spec-index.md; sized from class, 14W Small tier."
+  },
+  {
+   "id": "weef_flc220",
+   "brand": "WE-EF",
+   "model": "FLC220",
+   "lumens": 2800,
+   "beams": [
+    30,
+    45
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": 26,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "dia": 130,
+    "len": 220
+   },
+   "notes": "Corrosion benchmark; no Singapore entity; beam options not recorded \u2014 placeholder, confirm. Dims: PLACEHOLDER \u2014 not covered by fixture-spec-index.md; sized from class (26W compact projector)."
+  },
+  {
+   "id": "cs_gwl_re340",
+   "brand": "CS",
+   "model": "GWL-RE340 horticultural",
+   "lumens": 10000,
+   "ppf_direct": 150,
+   "beams": [
+    60
+   ],
+   "cct": 3200,
+   "cri": 75,
+   "watts": 100,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "h": 145,
+    "w": 340,
+    "d": 65
+   },
+   "notes": "Datasheet ~20% optimistic \u2014 engine uses ~150 \u00b5mol/s DIRECT; IP65 below the IP66 site minimum; 60\u00b0 too wide for the soffit role (ask for 30\u00b0); DALI driver suffix ELG-100-48DA UNVERIFIED. Dims: REAL, GWL-RE340 horticultural-panel datasheet \u2014 340\u00d7145\u00d765mm \u2014 already the source for this fixture's hardcoded body geometry in 40-app.js prior to this pass; now promoted into a proper dims_mm field."
+  },
+  {
+   "id": "underscore_linear",
+   "brand": "iGuzzini",
+   "model": "Underscore InOut linear (2 m sill strip)",
+   "lumens": 2000,
+   "beams": [
+    60
+   ],
+   "cct": 3000,
+   "cri": 90,
+   "watts": null,
+   "role": "linear",
+   "verified": false,
+   "dims_mm": {
+    "w": 45,
+    "h": 24,
+    "len_per_m": true
+   },
+   "notes": "~1,000 lm/m over 2 m \u2014 ESTIMATE; the asymmetric optic decides success (without it ~85% misses the tree). Dims: PLACEHOLDER \u2014 this exact iGuzzini Underscore product is not covered by fixture-spec-index.md (its Role 3 top-3 shortlist is Lumascape L3 / Linea Light Paseo / LED Linear FUSION \u2014 none of which is Underscore); cross-section sized from that class (slim linear grazer). This is the product actually placed by default at strip/strip2 (model-src/40-app.js DEFAULT_PRODUCT) \u2014 verify before ordering."
+  },
+  {
+   "id": "generic_decor",
+   "brand": "Generic",
+   "model": "Decorative uplight (allowance)",
+   "lumens": 800,
+   "beams": [
+    30
+   ],
+   "cct": 2700,
+   "cri": 90,
+   "watts": null,
+   "role": "decorative",
+   "verified": false,
+   "dims_mm": {
+    "dia": 90,
+    "len": 95
+   },
+   "notes": "Allowance-grade placeholder, no product selected \u2014 CRI90 assumed per \u00a7B2's mandatory colour-rendering minimum, not a spec'd figure. Default product for decorA/decorB/decorF/decorL/decorR/decorG pending the \u00a7B4 night mock-up (night-lighting-scheme.md \u00a71b). Dims: PLACEHOLDER \u2014 sized as a rough midpoint of the Role 4 top-3 in fixture-spec-index.md (Ginko \u00d854\u00d758mm / Platek ~\u00d8230mm implied / Newfo 'not confirmed'). Swap for ll_ginko20 or platek_sunm once the decorative product is picked."
+  },
+  {
+   "id": "ligman_quantum1",
+   "brand": "Ligman",
+   "model": "Quantum 1 QA-50001",
+   "lumens": 4532,
+   "beams": [
+    21,
+    28,
+    44,
+    75
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": 38,
+   "role": "grow",
+   "verified": true,
+   "dims_mm": {
+    "dia": 180,
+    "len": 142
+   },
+   "notes": "NEW 2026-08-12, added from fixture-spec-index.md \u2014 value pick for Role 1 (grow floods) top-3 #1 AND fallback for Role 2 (pole heads) top-3 #3 (same product family, both roles). 3,868\u20134,532 lm across N/M/W/VW optics (this entry uses the top of range); 2700/3000/4000K SKUs (this entry defaults 3000K). Gaps: DALI is generic, NOT DALI-2 certified (Ligman absent from the DALI Alliance database); stainless hardware is 304, not the 316 this coastal site wants. RFQ sent to Delight, awaiting. Dims CORRECTED 2026-08-14 night from the datasheet DIMENSION DRAWING: the BARREL is \u00d8180\u00d7142mm (180 dia face, 142 body depth); 308\u00d7244\u00d7218/3.7kg is the whole assembly incl. yoke+base. The earlier \u00d8230\u00d7308 render (averaged from the assembly box) overstated the visible body ~3.5\u00d7 by volume \u2014 owner caught it on the pole render (`Ligman-Quantum1-QA-50001-datasheet.pdf`)."
+  },
+  {
+   "id": "simes_stage_s1386",
+   "brand": "Simes",
+   "model": "STAGE Round Pole S.1386",
+   "lumens": 3300,
+   "beams": [
+    14,
+    30,
+    54
+   ],
+   "cct": 3000,
+   "cri": null,
+   "watts": null,
+   "role": "grow",
+   "verified": false,
+   "dims_mm": {
+    "dia": 150,
+    "len": 296
+   },
+   "notes": "NEW 2026-08-12, added from fixture-spec-index.md \u2014 Role 2 (pole heads) top-3 #2, best-documented marine/DALI challenger. Lumens (2,716\u20133,885, this entry uses the midpoint), CCT range (2700\u20134000K) and CRI (~90) are cited in the index from a separate internal sweep, not from this datasheet directly \u2014 treat as lower-confidence than the dims. No full spec sheet or IES exists as a static file (Simes gates it behind a JS configurator); SG channel and true fastener grade (steel+coating vs 316) both unconfirmed. RFQ sent to Delight, awaiting. Dims: REAL (verified \u2014 supersedes an earlier 4.31kg sweep estimate) \u2014 mounting drawing gives 296\u00d7185\u00d7\u00d8150/145mm body, \u00d872mm base, 3.8 kg; rendered as a round body dia=150mm (top of the \u00d8150/145mm range) len=296mm \u2014 the 185mm figure (likely swing/width incl. yoke) and the \u00d872mm base foot are omitted from this plain-cylinder approximation (`Simes-STAGE-S1386-mounting.pdf`)."
+  },
+  {
+   "id": "lumascape_l3",
+   "brand": "Lumascape",
+   "model": "Linealux L3 LS9032 (5W/ft ASHRAE SKU)",
+   "lumens": 4450,
+   "beams": [
+    60
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": null,
+   "role": "linear",
+   "verified": false,
+   "dims_mm": {
+    "w": 60,
+    "h": 42,
+    "len_per_m": true
+   },
+   "notes": "NEW 2026-08-12, added from fixture-spec-index.md \u2014 Role 3 (sill strip) top-3 #1, switch pick with integral DALI-2. Genuine Asymmetric Left/Right (AL/AR) optic \u2014 the beams:[60] figure here is a nominal placeholder for the UI's symmetric beam-angle field only, not the real optic. Lumens figure (4,450) is from the datasheet's 4ft/12W-ft example section \u2014 order the 5W/ft ASHRAE SKU instead (~16.4 W/m; doesn't map cleanly to the schema's single 'watts' field, left null). Sections come in 610/908/1,206mm (2/3/4ft) lengths; 2.8 kg for a 4ft section. RFQ to LuxLight pending; confirm the current hardware is genuinely DALI-2 (an older datasheet said generic 'DALI' only). Dims: cross-section is an APPROXIMATION \u2014 the datasheet gives section lengths + a 42\u00d760\u201375mm mounting-bracket footprint, but does not separately dimension the extrusion's own cross-section; this entry uses the bracket footprint (w=60mm, h=42mm) as a proxy. Verify against a physical sample or a fuller datasheet before treating as exact (`Lumascape-LinealuxL3-LS9032-datasheet.pdf`)."
+  },
+  {
+   "id": "linea_light_paseo",
+   "brand": "Linea Light",
+   "model": "Paseo_L Anti-glare 94022M07",
+   "lumens": 568,
+   "beams": [
+    50
+   ],
+   "cct": 2700,
+   "cri": 80,
+   "watts": 15,
+   "role": "linear",
+   "verified": true,
+   "dims_mm": {
+    "w": 39,
+    "h": 24,
+    "len_per_m": true
+   },
+   "notes": "NEW 2026-08-12, added from fixture-spec-index.md \u2014 Role 3 (sill strip) top-3 #2, secondary hold. 1,208 lm source but only 568 lm DELIVERED per 1.15m section (LOR 47%) \u2014 this entry uses the delivered figure; ~15W over that section (37 lm/W). Genuine Asymmetric Wallwasher optic verified \u2014 the beams:[50] figure here is a nominal placeholder for the UI's symmetric beam-angle field only. DALI-2/1-10V needs a SEPARATE external controller (driver not included, e.g. code 83333). No RFQ initiated yet. Lower output than the L3 pick \u2014 multiple sections would be needed to cover the 1.9m run, stacking cost. Dims: REAL \u2014 1,152\u00d739\u00d724mm profile (cross-section w=39mm, h=24mm), 0.89 kg for that section; UV-resistant polycarbonate, 'MARINE GRADE' badge on the datasheet. Filed in Files/manuals/, not the main specs folder \u2014 no IES saved (linealight.com public datasheet)."
+  },
+  {
+   "id": "led_linear_fusion",
+   "brand": "LED Linear",
+   "model": "FUSION IP67",
+   "lumens": null,
+   "beams": [
+    15
+   ],
+   "cct": 3000,
+   "cri": 86,
+   "watts": null,
+   "role": "linear",
+   "verified": false,
+   "dims_mm": {
+    "w": 38.6,
+    "h": 28,
+    "len_per_m": true
+   },
+   "notes": "NEW 2026-08-12, added from fixture-spec-index.md \u2014 Role 3 (sill strip) top-3 #3, retired to fallback. Not on the datasheet at the target 15 W/m tier \u2014 lumens/watts left null. 15\u00b0\u00d715\u00b0 nano optics (HC engine) \u2014 the beams:[15] figure reflects the real narrow symmetric optic (this one is NOT asymmetric, unlike L3/Paseo). CRI flagged: the datasheet's 'Product Information' panel claims CRI>90 but its own Electrical & Output Data table lists CRI/R9 = 86/18 for every wattage tier \u2014 this entry uses the table figure (86) as the more reliable one; get it in writing before treating as CRI90-class. No driver included \u2014 needs an external DALI-2-certified CV driver, no published pairing. Weight not published anywhere on the sheet. RFQ to Luci awaiting, low priority. Dims: REAL \u2014 modular 210/211mm segments to custom length; symmetric cross-section 38.6\u00d728mm (an asymmetric variant is 35.6mm \u2014 not used here) (`LEDLinear-FUSION-IP67-spec.pdf` + brochure)."
+  },
+  {
+   "id": "ll_ginko20",
+   "brand": "L&L Luce&Light",
+   "model": "Ginko 2.0",
+   "lumens": 374,
+   "beams": [
+    17,
+    34,
+    45
+   ],
+   "cct": 2700,
+   "cri": 90,
+   "watts": 7,
+   "role": "decorative",
+   "verified": true,
+   "dims_mm": {
+    "dia": 54,
+    "len": 58
+   },
+   "notes": "NEW 2026-08-12, added from fixture-spec-index.md \u2014 Role 4 (decorative uplights) top-3 #1, current keep pick. 374 lm on the 7W/17\u00b0 SKU (this entry's default) / 284 lm on the alt 5W/34\u00b0 SKU; 45\u00b0 SKU also exists. CRI >90 verified, R9 not published anywhere. Casambi-ONLY control \u2014 NOT DALI (bridge via casambi-bt-hass \u2192 Home Assistant, or a Casambi EN1612/CBU-DCS gateway onto the DALI-2 bus). Anticorodal 6082 body + genuine AISI 316L bracket, >1,500h salt spray. RFQ folded into the multi-role LuxLight/Lumascape request, pending. Dims: REAL (manufacturer-published) but from the public range PDF only \u2014 \u00d854\u00d758mm compact surface uplight. No primary datasheet or IES file exists anywhere on Drive for this SKU; the manufacturer only issues them through a 'Generate code \u2192 Download' web configurator that hasn't been run yet (lucelight.it public range PDF). Weight not published."
+  },
+  {
+   "id": "platek_sunm",
+   "brand": "Platek",
+   "model": "Sun M (88 40 313)",
+   "lumens": 3640,
+   "beams": [
+    26
+   ],
+   "cct": 3000,
+   "cri": 80,
+   "watts": null,
+   "role": "decorative",
+   "verified": true,
+   "dims_mm": {
+    "dia": 230,
+    "len": 110
+   },
+   "notes": "NEW 2026-08-12, added from fixture-spec-index.md \u2014 Role 4 (decorative uplights) top-3 #2, re-slotted from the flood role (fails the glass-clearance gate there). 3,640 lm system (5,000 lm LED source), RS 26\u00b0 rotationally symmetric optic. CRI is datasheet-confirmed at 80, NOT the 90 Platek's own marketing implies \u2014 its glare accessories are a visor/anti-glare grille, not the snoot+honeycomb pairing Ginko offers. DALI control. Die-cast EN44300 low-copper aluminium, A4 stainless screws, galvanic anodizing + 2-step epoxy/polyester paint. QUOTED S$1,525/unit (3\u00d7 = S$4,986.75 incl. GST, ref 20260730-01, Illum-Tec, 30 Jul). Net 2.9 kg, gross 3.4kg shipping. Dims: PARTIAL \u2014 diameter is REAL (\u00d8230mm, matches the visor/anti-glare-grille/concentrating-tube accessory diameters given on the datasheet), but the dimension diagram itself carries NO numeric H/W/D callouts, so the len=110mm figure here is a PLACEHOLDER (typical compact-uplight height-to-diameter ratio, ~0.48\u00d7dia) \u2014 verify against a physical unit or a fuller drawing before treating as exact (`Platek-SUNM-datasheet.pdf` + revised quote)."
+  }
  ]
-}
-</script>
+}</script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.26 · 2026-08-14 (ground-truth reset + owner rounds)
+/* Bonsai 3D — 118 Marina Collection. v7.27 · 2026-08-14 (ground-truth reset + owner rounds)
    v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
    over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    v7.23: SOL 5.6 scenario checkbox — the Codex blind optimum (crossbar z=2.6 + 2.35 m
