@@ -433,12 +433,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
     <span id="wireSummaryText">⚡ Wiring</span>
   </button>
 
-  <div id="viewbar">
-    <button data-view="foyer_standing">Foyer standing</button>
-    <button data-view="dining_seated">Dining seated</button>
-    <button data-view="living_seated">Living seated</button>
-    <button data-view="free" class="on">Free orbit</button>
-  </div>
+  <!-- v7.24 UI cleanup (owner): viewpoint chips removed — free orbit is the only camera
+       mode. The div stays (hidden) because drawer-offset code measures it; the named
+       viewpoints remain in the spec for glare analysis, just not as camera presets. -->
+  <div id="viewbar" hidden></div>
 
   <div id="drawer">
     <div id="drawerBar">
@@ -4353,7 +4351,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 }
 </script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.23 · 2026-08-14 (ground-truth reset + owner rounds)
+/* Bonsai 3D — 118 Marina Collection. v7.24 · 2026-08-14 (ground-truth reset + owner rounds)
    v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
    over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    v7.23: SOL 5.6 scenario checkbox — the Codex blind optimum (crossbar z=2.6 + 2.35 m
@@ -7667,7 +7665,7 @@ canvas.addEventListener('pointercancel', function(){
    light set is placed. Falls back to today's hardcoded defaults for anything missing
    or invalid in storage — including on a fresh visitor with nothing stored yet, or in
    the claude.ai artifact sandbox where loadUIState() already returned null. */
-const VALID_VIEW_IDS=['foyer_standing','dining_seated','living_seated','free'];
+const VALID_VIEW_IDS=['free'];   /* v7.24: viewpoint presets removed — orbit only (stored viewpoints from older sessions fall back to free) */
 function restoreUIFromStorage(){
   const s=storedUI||{};
   const mode=(s.mode==='schematic'||s.mode==='diagram'||s.mode==='photo')?s.mode:fidelity;
