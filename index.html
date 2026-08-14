@@ -4361,7 +4361,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 }
 </script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.25 · 2026-08-14 (ground-truth reset + owner rounds)
+/* Bonsai 3D — 118 Marina Collection. v7.26 · 2026-08-14 (ground-truth reset + owner rounds)
    v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
    over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    v7.23: SOL 5.6 scenario checkbox — the Codex blind optimum (crossbar z=2.6 + 2.35 m
@@ -5615,7 +5615,10 @@ function addShaft(light, sf){
   let top=sf.shaft?sf.shaft.top_z:Math.max(zr[1], sf.pos[2]);
   if(light.posSpec && light.posSpec[2]>top) top=light.posSpec[2]+0.04;
   const bot=sf.shaft?sf.shaft.base_z:0.05;
-  const shaft=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.017,top-bot,10), housingMat);
+  /* v7.26: mast rendered TO SCALE — the spec'd pole is a Ø60–76 mm 316 tube
+     (lighting-design.md pole engineering); was Ø28–34 mm, which made the (honest,
+     ~Ø140–230 mm class) clamp-on heads read as oversized. */
+  const shaft=new THREE.Mesh(new THREE.CylinderGeometry(0.030,0.038,top-bot,12), housingMat);
   shaft.position.copy(W(sf.pos[0], sf.pos[1], (top+bot)/2));
   shaft.castShadow=true;
   light.group.add(shaft);
