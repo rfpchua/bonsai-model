@@ -383,6 +383,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <div class="sp-label">slide toward courtyard</div>
         <div class="sp-gap" id="slideGap">—</div>
         <label class="sp-flip" id="flipRow" title="flips the tree 180° AND applies the optimised max-life flip light layout (v7.16): every aim re-found offline for the flipped geometry, keyed to the strip toggle. Best case still loses pad M3 (and L5+T5 too without the strip) — the flip trades pads for the nicer foyer face. Untick to restore the normal defaults."><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
+        <label class="sp-flip" id="recRow" title="applies the 14-Aug RECOMMENDED layout (v7.18): the two 60 W floods move to the FOYER-side soffit corners (16 cm off the glass, stock yoke — L corner: rotate base ~21° toward the courtyard diagonal, tilt 36° down; R corner: ~18°, tilt 49° down), poles shift 3 cm toward the glass (y 0.48), sill strip ON. Modelled minimum margin 1.63 vs 1.23 for the shipped default — the same fixtures, placed where they face the starving foyer-side pad faces. Untick to restore the boot default."><input type="checkbox" id="recChk"> recommended layout (corner floods + shifted poles + strip)</label>
         <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
 
@@ -5989,6 +5990,80 @@ function applyFlipLightDefaults(){
   });
   refreshLightbar();
 }
+/* ============================== RECOMMENDED scenario (owner, 2026-08-14) ==============================
+   The final recommendation from the flood-placement investigation (codex-cross-check.md):
+   the two 60 W floods move to the FOYER-side soffit corners at a gate-safe 16 cm off the
+   glass (posSpec y = 0.38, vs the spec candidate 0.45 — the stock yoke's ~103 mm swing
+   needs ~128 mm of glazing setback), the poles shift 3 cm toward the glass (y = 0.48,
+   physical clash-check pending), and the sill strip is ON. Modelled minimum margin 1.63
+   (vs 1.23 shipped default); robust to ±3° set-once yoke azimuth error (worst case 1.63).
+   Mounting orientation for the corner Philips (install/drilling spec, derived from these
+   aims): L corner — base azimuth ~21° off the courtyard axis toward the diagonal, tilt
+   ~36° below horizontal; R corner — ~18°, tilt ~49°. Aims stored CANONICAL. */
+const RECOMMENDED_SCENARIO={
+  soffitL:{posY:0.38, aim:[-0.355878,-0.372582,1.252819]},
+  soffitR:{posY:0.38, aim:[-0.324241,-0.008920,1.160172]},
+  balc:[0.742986,0.065330,1.883942],
+  strip:[-0.050161,-0.536875,1.372548], strip2:[0.069617,-0.335341,1.258123],
+  poleY:0.48,
+  poleL:[{z:1.457867,aim:[-0.279517,-0.308754,1.444610]},{z:0.85,aim:[-0.164257,-0.023729,0.992391]},{z:0.5,aim:[-0.726924,-0.479854,0.864667]}],
+  poleR:[{z:1.8,aim:[0.386296,-0.351535,1.242941]},{z:1.45,aim:[-0.342647,0.154000,1.385403]},{z:0.720317,aim:[-0.159954,0.207424,1.107729]}]
+};
+let recScenarioOn=false;
+function applyRecommendedScenario(){
+  recScenarioOn=true;
+  /* courtyard-side floods off; corner floods on at the gate-safe mounting */
+  ['Lflood','Rflood'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  });
+  ['soffitL','soffitR'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const cfg=RECOMMENDED_SCENARIO[pos];
+    const d=DEFAULT_PRODUCT[pos];
+    const nl=addLight(d[0], pos, {beam:d[1], aim:cfg.aim.slice()});
+    if(nl){ nl.posSpec=[nl.posSpec[0], cfg.posY, nl.posSpec[2]]; updateLightObjects(nl); }
+  });
+  /* strip ON with the scenario aims */
+  ['strip','strip2'].forEach(function(pos){
+    if(!placed.some(function(l){return l.posId===pos;})){
+      const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+    }
+    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
+      l.aimSpec=RECOMMENDED_SCENARIO[pos].slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+    });
+  });
+  /* balcony aim */
+  placed.filter(function(l){return l.posId==='balc';}).forEach(function(l){
+    l.aimSpec=RECOMMENDED_SCENARIO.balc.slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+  });
+  /* poles: scenario heads at the shifted y */
+  ['poleL','poleR'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const d=DEFAULT_PRODUCT[pos]||['targetti_dart_medium',48];
+    RECOMMENDED_SCENARIO[pos].forEach(function(h,idx){
+      const nl=addLight(d[0], pos, {beam:d[1], headZ:h.z, aim:h.aim.slice(), headB:idx===1, headC:idx===2});
+      if(nl){ nl.posSpec=[nl.posSpec[0], RECOMMENDED_SCENARIO.poleY, nl.posSpec[2]]; updateLightObjects(nl); }
+    });
+  });
+  refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
+}
+function restoreFromRecommendedScenario(){
+  recScenarioOn=false;
+  ['soffitL','soffitR','strip','strip2'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  });
+  ['Lflood','Rflood'].forEach(function(pos){
+    if(!placed.some(function(l){return l.posId===pos;})){
+      const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+    }
+  });
+  ['poleL','poleR'].forEach(function(pos){
+    if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
+  });
+  applyNormalLightDefaults();
+  refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
+}
+
 function restoreUnflippedDefaults(){
   ['poleL','poleR'].forEach(function(pos){
     if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
@@ -6233,8 +6308,22 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
        layout (FLIP_LIGHT_DEFAULTS, keyed by strip state) instead of the old naive
        180° aim mirror; unticking restores the normal defaults (spec aims + the
        current pole-head config's optimised set). Hand-tuning after either is free. */
+    const rec=document.getElementById('recChk');
+    if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }  /* flip and the rec scenario are mutually exclusive */
     if(flipOn) applyFlipLightDefaults(); else restoreUnflippedDefaults();
     computeRelevance();                        /* outward-facing aspects follow the geometry */
+    refresh();
+  });
+  /* v7.18 (owner 2026-08-14): the RECOMMENDED-layout scenario checkbox — corner floods +
+     shifted poles + strip, see RECOMMENDED_SCENARIO. Mutually exclusive with flip. */
+  const rec=document.getElementById('recChk');
+  if(rec) rec.addEventListener('change', function(){
+    if(rec.checked){
+      if(flipOn){ flip.checked=false; flipOn=false; computeRelevance(); }
+      applyRecommendedScenario();
+    } else {
+      restoreFromRecommendedScenario();
+    }
     refresh();
   });
   refresh();
