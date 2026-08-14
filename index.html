@@ -389,7 +389,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <!-- v7.29: flip is a pure GEOMETRY what-if that composes with every scenario —
              the tree rotates 180°, the active scenario's lights stay exactly where they are,
              and the verdict recomputes live on measured daylight. -->
-        <label class="sp-flip" id="flipRow" title="rotates the tree 180° (nicest face toward the foyer) INSIDE the current scenario — lights stay exactly where the scenario put them and the verdict recomputes live. Fair-warning: every scenario's aims were optimised for the CURRENT orientation, so flipped verdicts are somewhat pessimistic (a dedicated flip re-optimisation would claw some margin back). A planting-day-only decision."><input type="checkbox" id="flipChk"> invert front ↔ rear (flip display face to courtyard)</label>
+        <label class="sp-flip" id="flipRow" title="rotates the tree 180° (nicest face toward the foyer) INSIDE the current scenario, and swaps in aims ROBUST-OPTIMISED for the flipped tree (v7.30 — every scenario carries its own flip aim set; downward rule enforced). THE HONEST RESULT: even re-optimised, the flipped world fails the survival gates in all four scenarios — the balcony build comes closest (nothing dies nominally, but robustness fails), the others each lose a pad (crossbar: L5 · corners: L4 · centres: M3+T5). The flip parks big pads against the glass where no mounting family can reach them. Explore freely; the bands tell the story. Planting-day-only decision."><input type="checkbox" id="flipChk"> invert front ↔ rear (flip display face to courtyard)</label>
         <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
 
@@ -4913,7 +4913,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
  ]
 }</script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.29 · 2026-08-14 (ground-truth reset + owner rounds)
+/* Bonsai 3D — 118 Marina Collection. v7.30 · 2026-08-14 (ground-truth reset + owner rounds)
    v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
    over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    v7.23: SOL 5.6 scenario checkbox — the Codex blind optimum (crossbar z=2.6 + 2.35 m
@@ -7059,6 +7059,32 @@ const SCENARIOS={
   centers:  function(){ _applySoffitFamily(CENTERS_SCENARIO, false); }
 };
 let currentScenario=null;
+/* ============================== v7.30 FLIP-OPTIMISED AIM SETS ==============================
+   Owner ask (2026-08-14 night): the flip must not inherit unflipped aims — each scenario
+   carries a dedicated aim set robust-optimised FOR the flipped tree (flip-aware engine,
+   pole flat-or-down enforced, strips constrained; scratch flipopt.js/flip_aims.json).
+   THE HONEST HEADLINE: even re-optimised, the flipped world FAILS the survival gate
+   battery in every scenario — balcony: LOW 1.13, zero deaths nominal but jitter p5 0.95;
+   crossbar: L5 DIES (0.76); corners: L4 dies (0.76); centres: M3+T5 die. The calibrated
+   engine thus independently re-derives the old conclusion: the flip parks large pads
+   against the glass where no mounting family can reach them. Kept as an explorable
+   what-if; the bands tell the story. Aims CANONICAL; pole maps keyed by head z (3 dp). */
+const SCEN_FLIP_AIMS={"balcony":{"singles":{"soffitL":[0.458703,0.042708,1.003317],"soffitR":[-1.000689,0.286772,0.545362],"balc":[0.019013,-0.334471,0.490425],"strip":[0.046622,0.16,1.596003],"strip2":[-0.04,0.15,0.9],"balc2":[-0.038432,-0.080341,0.505256]},"poleL":{"1.538":[1.35,0.74,1.068088],"1.185":[0.45,0.405592,1.185083],"0.59":[0.828367,0.433617,0.481985]},"poleR":{"1.8":[-0.820849,0.402437,1.608862],"0.88":[-0.039068,0.226866,0.880226],"0.53":[0.019898,0.261107,0.530226]}},"crossbar":{"singles":{"xbar1":[-0.334791,-0.420114,0.306201],"xbar2":[-0.21593,-0.422304,1.036812],"xbar3":[0.091243,-0.316877,0.472904],"xbar4":[-0.361159,0.123463,0.731643],"strip":[-1.2,-0.16,1.1],"strip2":[-1.2,-0.16,0.9]},"poleL":{"1.167":[-0.718139,0.199529,0.794705],"1.517":[0.191935,0.112815,0.744595],"1.878":[0.111143,0.200474,1.068741],"2.308":[0.131094,0.0037,1.480959]},"poleR":{"0.825":[-0.0662,-0.243612,0.711927],"1.285":[-0.202841,0.229271,0.2],"1.883":[-0.342129,0.174416,1.234432],"2.233":[-0.3,0.258766,1.154226]}},"corners":{"singles":{"soffitL":[-0.317366,-0.232147,1.567594],"soffitR":[-0.54665,-0.130667,0.25],"balc":[0.339316,-0.130854,0.6],"strip":[-0.20927,0.01,1.135173],"strip2":[-0.15,0.14,0.9]},"poleL":{"1.538":[1.35,-0.098941,1.47151],"1.185":[-0.425,-0.160906,1.185083],"0.59":[-0.325054,0.475758,0.589944]},"poleR":{"1.8":[0.109073,0.058932,1.415142],"0.88":[-0.26582,-0.002102,0.880226],"0.53":[0.101634,0.253758,0.530226]}},"centers":{"singles":{"strip":[0.7825,0.16,1.360656],"strip2":[1.1875,0.14,2],"Lflood":[-0.486931,-0.284071,0.893424],"Rflood":[-0.339225,0.74,0.887093],"balc":[-0.082642,0.045659,0.755098]},"poleL":{"1.538":[1.27,0.07451,1.358074],"1.185":[-0.327721,-0.274885,0.216102],"0.59":[0.837514,-0.024296,0.589944]},"poleR":{"1.8":[0.077356,-0.020887,1.436098],"0.88":[-0.805238,0.161248,0.427535],"0.53":[0.356991,-0.366962,0.530226]}}};
+function applyFlipAims(key){
+  const S=SCEN_FLIP_AIMS[key]; if(!S) return;
+  placed.forEach(function(l){
+    if(l.isDecor) return;
+    if(l.posId==='poleL'||l.posId==='poleR'){
+      const zkey=String(Math.round(l.posSpec[2]*1000)/1000);
+      const a=S[l.posId] && S[l.posId][zkey];
+      if(a){ l.aimSpec=a.slice(); l.aimSpec[1]-=slideM; updateLightObjects(l); }
+    } else if(S.singles[l.posId]){
+      l.aimSpec=S.singles[l.posId].slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+    }
+  });
+  computeVerdicts();
+}
+
 function refreshScenSeg(){
   const seg=document.getElementById('scenSeg'); if(!seg) return;
   seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-scen')===currentScenario); });
@@ -7067,6 +7093,7 @@ function applyScenario(key){
   if(!SCENARIOS[key]) return;
   currentScenario=key;
   SCENARIOS[key]();
+  if(flipOn) applyFlipAims(key);   /* v7.30: flipped world gets its own optimised aims */
   refreshScenSeg();
 }
 (function(){
@@ -7364,7 +7391,9 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
        CURRENT orientation, so flipped verdicts read somewhat pessimistic. */
     flipOn=flip.checked;
     computeRelevance();                        /* outward-facing aspects follow the geometry */
-    computeVerdicts();
+    /* v7.30: swap the ACTIVE scenario between its canonical and flip-optimised aim sets */
+    if(currentScenario){ applyScenario(currentScenario); }
+    else computeVerdicts();
     refresh();
   });
   /* v7.18/v7.19 (owner 2026-08-14): the two scenario checkboxes — RECOMMENDED (Philips
