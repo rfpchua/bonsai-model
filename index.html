@@ -378,6 +378,21 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <span class="badge est">positions ±0.10–0.20 m ESTIMATE</span>
       </div>
 
+      <h2 class="sec">Global what-ifs — apply in any scenario</h2>
+      <div id="slidePill" hidden>
+        <div class="sp-row">
+          <input type="range" id="slideRange" min="0" max="11" step="1" value="0" aria-label="Slide toward courtyard, centimetres">
+          <output id="slideOut">0 cm</output>
+        </div>
+        <div class="sp-label">slide toward courtyard</div>
+        <div class="sp-gap" id="slideGap">—</div>
+        <!-- v7.29: flip is a pure GEOMETRY what-if that composes with every scenario —
+             the tree rotates 180°, the active scenario's lights stay exactly where they are,
+             and the verdict recomputes live on measured daylight. -->
+        <label class="sp-flip" id="flipRow" title="rotates the tree 180° (nicest face toward the foyer) INSIDE the current scenario — lights stay exactly where the scenario put them and the verdict recomputes live. Fair-warning: every scenario's aims were optimised for the CURRENT orientation, so flipped verdicts are somewhat pessimistic (a dedicated flip re-optimisation would claw some margin back). A planting-day-only decision."><input type="checkbox" id="flipChk"> invert front ↔ rear (flip display face to courtyard)</label>
+        <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
+      </div>
+
       <h2 class="sec">Scenario — pick a mounting plan</h2>
       <p class="hint">One click sets the whole rig: flood positions, products, every aim, poles and strips. All four are computed on the <b>measured</b> daylight and pass the robustness gates (worst-case / typical-day margins shown).</p>
       <div id="scenSeg" role="group" aria-label="Mounting scenario">
@@ -391,20 +406,6 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <p class="hint">The scenario ticks these automatically; hand-edit freely afterwards (tick a position on or off; tap its <b>name</b> to choose product, beam, aim, dim, hours). <span class="badge mcst" style="margin:0">MCST</span> = common property, needs the management corporation's endorsement.</p>
       <div id="lightbar" aria-label="Candidate lights — tick to place"></div>
 
-      <h2 class="sec">Tree position (what-if)</h2>
-      <div id="slidePill" hidden>
-        <div class="sp-row">
-          <input type="range" id="slideRange" min="0" max="11" step="1" value="0" aria-label="Slide toward courtyard, centimetres">
-          <output id="slideOut">0 cm</output>
-        </div>
-        <div class="sp-label">slide toward courtyard</div>
-        <div class="sp-gap" id="slideGap">—</div>
-        <!-- v7.25: what-ifs = slide + flip only (scenarios moved to the picker above).
-             Flip layouts are LEGACY aims (pre-calibration optimised) — the verdict itself
-             recomputes live on measured daylight, so the bands stay honest. -->
-        <label class="sp-flip" id="flipRow" title="flips the tree 180° (nicest face to the foyer) and applies the legacy flip light layout. NOTE: those aims were optimised on the retired pre-calibration table — the verdict you see IS recomputed live on measured daylight, so trust the bands, not old claims. (Pre-calibration analyses consistently ranked the flip inferior; no calibrated re-optimisation has been run for it.) A planting-day-only decision."><input type="checkbox" id="flipChk"> flip display face to courtyard (legacy what-if)</label>
-        <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
-      </div>
 
       <h2 class="sec">Advanced: stack a second head</h2>
       <p class="hint">Only needed to stack a <i>second</i> head at a position that already has one — everything else lives in the Lights list above.</p>
@@ -4912,7 +4913,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
  ]
 }</script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.28 · 2026-08-14 (ground-truth reset + owner rounds)
+/* Bonsai 3D — 118 Marina Collection. v7.29 · 2026-08-14 (ground-truth reset + owner rounds)
    v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
    over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    v7.23: SOL 5.6 scenario checkbox — the Codex blind optimum (crossbar z=2.6 + 2.35 m
@@ -7072,8 +7073,7 @@ function applyScenario(key){
   const seg=document.getElementById('scenSeg'); if(!seg) return;
   seg.addEventListener('click', function(e){
     const b=e.target.closest('button[data-scen]'); if(!b) return;
-    const flip=document.getElementById('flipChk');
-    if(flipOn && flip){ flip.checked=false; flipOn=false; computeRelevance(); }
+    /* v7.29: flip persists across scenario switches — it is a global geometry what-if */
     applyScenario(b.getAttribute('data-scen'));
   });
 })();
@@ -7356,29 +7356,15 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
     refresh();
   });
   flip.addEventListener('change', function(){
+    /* v7.29 (owner): flip is a pure GEOMETRY what-if that COMPOSES with every scenario —
+       the tree rotates 180°, the active scenario's lights stay exactly where they are,
+       and the verdict recomputes live on the measured tables. (The v7.16 legacy flip
+       light layouts — FLIP_LIGHT_DEFAULTS, pre-calibration aims — are retired from this
+       path; the constant remains as history.) Scenario aims are optimised for the
+       CURRENT orientation, so flipped verdicts read somewhat pessimistic. */
     flipOn=flip.checked;
-    /* v7.16 (owner 2026-08-13): ticking flip now applies the OPTIMISED max-life flip
-       layout (FLIP_LIGHT_DEFAULTS, keyed by strip state) instead of the old naive
-       180° aim mirror; unticking restores the normal defaults (spec aims + the
-       current pole-head config's optimised set). Hand-tuning after either is free. */
-    const rec=document.getElementById('recChk');
-    if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }  /* flip and the scenarios are mutually exclusive */
-    const ig=document.getElementById('igChk');
-    if(ig && ig.checked){ ig.checked=false; restoreFromIguzziniScenario(); }
-    /* v7.25 picker semantics: flip ON rebuilds the legacy base flood set (the flip layouts
-       aim Lflood/Rflood/balc) and clears the scenario picker; flip OFF returns to the
-       boot scenario. Flip layouts are legacy pre-calibration aims — verdict stays live. */
-    if(flipOn){
-      clearFloods();
-      ['Lflood','Rflood','balc'].forEach(function(pos){
-        const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
-      });
-      applyFlipLightDefaults();
-      currentScenario=null; refreshScenSeg();
-    } else {
-      applyScenario('balcony');
-    }
     computeRelevance();                        /* outward-facing aspects follow the geometry */
+    computeVerdicts();
     refresh();
   });
   /* v7.18/v7.19 (owner 2026-08-14): the two scenario checkboxes — RECOMMENDED (Philips
