@@ -385,6 +385,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <label class="sp-flip" id="flipRow" title="flips the tree 180° AND applies the optimised max-life flip light layout (v7.16): every aim re-found offline for the flipped geometry, keyed to the strip toggle. Best case still loses pad M3 (and L5+T5 too without the strip) — the flip trades pads for the nicer foyer face. Untick to restore the normal defaults."><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
         <label class="sp-flip" id="recRow" title="the CALIBRATED final layout (v7.20 ground-truth reset — now the boot default): 4 × Philips 100 W — two 30° heads at the foyer-side soffit corners (y = 0.30, the collision-safe cap for the 403 mm body) + a 45° and a 30° head on the balcony underside slab edge at (−0.35,−1.1) and (−0.7,−1.1), which is what feeds the rear pads' courtyard faces (the binding faces once real daylight is 5–8× lower than the old table). Poles stay at spec y = 0.45, 6 heads re-aimed; strips ON (droppable — margins pass either way). Engine: MID min 2.145 / LOW min 1.648, zero die-band pads through the jitter/yoke/engine gate battery. Untick to fall back to the old 60 W pre-calibration reference layout."><input type="checkbox" id="recChk"> recommended layout (calibrated: 4×100 W corners + balcony pair)</label>
         <label class="sp-flip" id="igRow" title="applies the iGuzzini EF51 scenario (v7.19): all three flood heads become Palco InOut EF51s (real spec-sheet photometry — 30°, 4,970 lm, DALI-2) at the foyer corners + balcony, poles at y 0.48, strip ON. Modelled minimum margin 1.68 — best of everything tested. EF51's dual-axis ball aiming can sweep parallel to the glazing (gate-friendlier than the yoke) and is tool-free re-aimable; costs ~S$1,087/head vs S$425 and weighs 6.56 kg (anchor engineering). The oval accessory is TBC with LuxLight — survival doesn't need it. Untick to restore the boot default."><input type="checkbox" id="igChk"> iGuzzini EF51 scenario (corners + balcony, DALI-2)</label>
+        <label class="sp-flip" id="pergRow" title="the PERGOLA option (v7.22, owner what-if): a courtyard pergola at 2.7 m lets the two balcony heads move OUT over the courtyard — (−0.6, 2.0 m out) 45° + (+1.2, 1.0 m out) 30° — where they hit the binding courtyard-side faces (L5/M3/T5) square and from above. Same four Philips 100 W units as the recommended plan; corners unchanged. Engine: LOW 1.99 / MID 2.24 (vs 1.65/2.14 balcony plan), all robustness gates pass, poles flat-or-down enforced. CONDITIONAL: the pergola structure itself needs MCST and is not modelled — heads render at their mount points. Untick to return to the boot default."><input type="checkbox" id="pergChk"> pergola option (heads over the courtyard @2.7 m)</label>
         <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
 
@@ -2776,6 +2777,36 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "beam_deg": 45
   },
   {
+   "id": "perg1",
+   "pos": [
+    -0.6,
+    -2.0,
+    2.7
+   ],
+   "aim": [
+    0.407751,
+    0.047503,
+    0.757951
+   ],
+   "beam_deg": 45,
+   "note": "PERGOLA head 1 - CONDITIONAL on the courtyard pergola being built (owner what-if 2026-08-14 eve; structure needs MCST). Mounted on the pergola underside at 2.7 m; position ESTIMATE within the pergola span."
+  },
+  {
+   "id": "perg2",
+   "pos": [
+    1.2,
+    -1.0,
+    2.7
+   ],
+   "aim": [
+    0.445911,
+    0.301426,
+    0.62163
+   ],
+   "beam_deg": 30,
+   "note": "PERGOLA head 2 - CONDITIONAL, same structure. 2.7 m over the courtyard, living-side of the crown."
+  },
+  {
    "id": "soffitL",
    "label": "soffit corner L",
    "pos": [
@@ -4254,7 +4285,9 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 }
 </script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.21 · 2026-08-14 (ground-truth reset + owner round)
+/* Bonsai 3D — 118 Marina Collection. v7.22 · 2026-08-14 (ground-truth reset + owner rounds)
+   v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
+   over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    All geometry parsed at runtime from the embedded #model-spec JSON (single source of truth).
    Swapping in LiDAR later = replacing that JSON block only.
    v7.20: DAYLIGHT = the MEASURED calibration (site-light-readings.md; old Monte-Carlo table
@@ -4290,6 +4323,12 @@ const POSMETA = {
   Rflood:  {disp:'R flood — end soffit (base scheme)',  short:'R flood',    mcst:true},
   balc:    {disp:'balcony centre (base scheme)',        short:'balc centre',mcst:false},
   balc2:   {disp:'balcony 2 (base scheme)',             short:'balc 2',     mcst:false},
+  /* pergola pair (owner what-if 2026-08-14 eve): CONDITIONAL on the courtyard pergola
+     being built — the structure itself needs MCST (tree-and-site §5); heads at 2.7 m
+     hit the calibrated world's binding courtyard-side faces square and from above.
+     The pergola structure is NOT modelled — bodies render at their mount points. */
+  perg1:   {disp:'pergola head 1 — courtyard 2.7 m (conditional structure)', short:'pergola 1', mcst:true},
+  perg2:   {disp:'pergola head 2 — courtyard 2.7 m (conditional structure)', short:'pergola 2', mcst:true},
   soffitL: {disp:'(a) soffit corner L',                 short:'soffit L',   mcst:true},
   soffitR: {disp:'(a) soffit corner R',                 short:'soffit R',   mcst:true},
   wireL:   {disp:'(b) suspended vertical L',            short:'susp L',     mcst:true},
@@ -4324,6 +4363,7 @@ const DEFAULT_PRODUCT={
   Lflood:['philips_bvp353_60_30',30], Rflood:['philips_bvp353_60_30',30],
   balc:['philips_bvp353_60_45',45],   balc2:['philips_bvp353_60_45',45],
   soffitL:['philips_bvp353_60_30',30],soffitR:['philips_bvp353_60_30',30],
+  perg1:['philips_bvp353_100_45',45], perg2:['philips_bvp353_100_30',30],
   wireL:['targetti_dart_medium',48], wireR:['targetti_dart_medium',48],
   strip:['underscore_linear',60], strip2:['underscore_linear',60],
   poleL:['targetti_dart_medium',48], poleR:['targetti_dart_medium',48],
@@ -6182,6 +6222,71 @@ function restoreFromRecommendedScenario(){
   refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
 }
 
+/* ============================== PERGOLA scenario (owner what-if, 2026-08-14 eve, v7.22) ==============================
+   CONDITIONAL on the courtyard pergola being built (the structure itself needs MCST —
+   tree-and-site §5; it is not modelled, heads render at their mount points). Same four
+   Philips 100 W units as the recommended plan — the two balcony heads move onto the
+   pergola underside at 2.7 m, out in the courtyard, where they hit the calibrated
+   world's binding courtyard-side faces (L5/M3/T5) SQUARE and FROM ABOVE (no under-
+   lighting). Robust-optimised with the flat-or-downward pole rule enforced. Engine:
+   LOW min 1.988 / MID min 2.238 (vs 1.65/2.14 for the balcony plan), full gate battery
+   PASS (jitter p5 LOW 1.899). Aims CANONICAL. */
+const PERGOLA_SCENARIO={
+  product30:'philips_bvp353_100_30', product45:'philips_bvp353_100_45',
+  soffitL:{posX:1.98, posY:0.30, aim:[-1.35,-0.08435,0.307052]},
+  soffitR:{posX:-1.98, posY:0.30, aim:[-0.46853,-0.211827,1.705061]},
+  perg1:[0.407751,0.047503,0.757951],
+  perg2:[0.445911,0.301426,0.62163],
+  strip:[0.17879,-0.36,1.410208], strip2:[0.5225,0.21,0.923354],
+  poleY:0.45,
+  poleL:[{z:1.538277,aim:[-0.165693,0.288207,1.47789]},{z:1.185083,aim:[-0.768767,-0.293472,1.185083]},{z:0.589944,aim:[0.378307,0.042608,0.589944]}],
+  poleR:[{z:1.8,aim:[1.3,-0.74,0.816656]},{z:0.880226,aim:[1.35,0.318211,0.880226]},{z:0.530226,aim:[-0.667387,0.292528,0.530226]}]
+};
+let pergScenarioOn=false;
+function applyPergolaScenario(){
+  pergScenarioOn=true;
+  ['Lflood','Rflood','balc','balc2'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  });
+  ['soffitL','soffitR'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const cfg=PERGOLA_SCENARIO[pos];
+    const nl=addLight(PERGOLA_SCENARIO.product30, pos, {beam:30, aim:cfg.aim.slice()});
+    if(nl){ nl.posSpec=[cfg.posX, cfg.posY, 3.0]; updateLightObjects(nl); }
+  });
+  ['perg1','perg2'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const prod=(pos==='perg1')?PERGOLA_SCENARIO.product45:PERGOLA_SCENARIO.product30;
+    addLight(prod, pos, {beam:(pos==='perg1')?45:30, aim:PERGOLA_SCENARIO[pos].slice()});
+  });
+  ['strip','strip2'].forEach(function(pos){
+    if(!placed.some(function(l){return l.posId===pos;})){
+      const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+    }
+    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
+      l.aimSpec=PERGOLA_SCENARIO[pos].slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+    });
+  });
+  ['poleL','poleR'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const d=DEFAULT_PRODUCT[pos]||['targetti_dart_medium',48];
+    PERGOLA_SCENARIO[pos].forEach(function(h,idx){
+      const nl=addLight(d[0], pos, {beam:d[1], headZ:h.z, aim:h.aim.slice(), headB:idx===1, headC:idx===2});
+      if(nl){ nl.posSpec=[nl.posSpec[0], PERGOLA_SCENARIO.poleY, nl.posSpec[2]]; updateLightObjects(nl); }
+    });
+  });
+  refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
+}
+function restoreFromPergolaScenario(){
+  /* the boot default IS the recommended (balcony) layout — restore to that */
+  pergScenarioOn=false;
+  ['perg1','perg2'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  });
+  applyRecommendedScenario();
+  const rc=document.getElementById('recChk'); if(rc) rc.checked=true;
+}
+
 function restoreUnflippedDefaults(){
   ['poleL','poleR'].forEach(function(pos){
     if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
@@ -6258,6 +6363,7 @@ const lightbar=$('lightbar');
 const LIGHT_GROUPS=[
   ['base',['Lflood','Rflood','balc','balc2']],
   ['a · soffit',['soffitL','soffitR']],
+  ['e · pergola',['perg1','perg2']],
   ['b · suspended',['wireL','wireR']],
   ['c · sill',['strip','strip2']],
   ['d · poles',['poleL','poleR']]
@@ -6447,6 +6553,9 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
     if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }  /* flip and the scenarios are mutually exclusive */
     const ig=document.getElementById('igChk');
     if(ig && ig.checked){ ig.checked=false; restoreFromIguzziniScenario(); }
+    const pg=document.getElementById('pergChk');
+    if(pg && pg.checked){ pg.checked=false; pergScenarioOn=false;
+      ['perg1','perg2'].forEach(function(pos){ placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); }); }); }
     if(flipOn) applyFlipLightDefaults(); else restoreUnflippedDefaults();
     computeRelevance();                        /* outward-facing aspects follow the geometry */
     refresh();
@@ -6455,10 +6564,18 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
      corner floods) and IGUZZINI (EF51s). Mutually exclusive with each other and with flip. */
   const rec=document.getElementById('recChk');
   const ig=document.getElementById('igChk');
+  const perg=document.getElementById('pergChk');
+  function dropPergHeads(){
+    ['perg1','perg2'].forEach(function(pos){
+      placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    });
+    pergScenarioOn=false;
+  }
   if(rec) rec.addEventListener('change', function(){
     if(rec.checked){
       if(flipOn){ flip.checked=false; flipOn=false; computeRelevance(); }
       if(ig && ig.checked){ ig.checked=false; restoreFromIguzziniScenario(); }
+      if(perg && perg.checked){ perg.checked=false; dropPergHeads(); }
       applyRecommendedScenario();
     } else {
       restoreFromRecommendedScenario();
@@ -6469,9 +6586,21 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
     if(ig.checked){
       if(flipOn){ flip.checked=false; flipOn=false; computeRelevance(); }
       if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }
+      if(perg && perg.checked){ perg.checked=false; dropPergHeads(); }
       applyIguzziniScenario();
     } else {
       restoreFromIguzziniScenario();
+    }
+    refresh();
+  });
+  if(perg) perg.addEventListener('change', function(){
+    if(perg.checked){
+      if(flipOn){ flip.checked=false; flipOn=false; computeRelevance(); }
+      if(rec && rec.checked){ rec.checked=false; }          /* apply below rebuilds everything */
+      if(ig && ig.checked){ ig.checked=false; restoreFromIguzziniScenario(); }
+      applyPergolaScenario();
+    } else {
+      restoreFromPergolaScenario();
     }
     refresh();
   });
