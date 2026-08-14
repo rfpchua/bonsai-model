@@ -78,6 +78,14 @@ h2.sec:first-of-type{border-top:0;padding-top:2px}
 
 /* ---------- light toggle groups (inside the sidebar) ---------- */
 #lightbar{display:flex;flex-direction:column;gap:7px}
+/* v7.25 scenario picker */
+#scenSeg{display:flex;flex-direction:column;gap:6px;margin:2px 0 6px}
+#scenSeg button{font:inherit;font-size:.76rem;text-align:left;padding:8px 11px;border:1px solid var(--line);
+  border-radius:10px;background:var(--card-solid);color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}
+#scenSeg button:hover{border-color:var(--acc)}
+#scenSeg button.on{border-color:var(--acc);color:var(--acc);font-weight:650}
+#scenSeg .scen-m{font-size:.66rem;color:var(--mut);font-variant-numeric:tabular-nums;flex:none}
+#scenSeg button.on .scen-m{color:var(--acc)}
 .lgroup{display:flex;align-items:center;gap:2px;background:var(--card-solid);border:1px solid var(--line);
   border-radius:10px;padding:5px 9px;flex-wrap:wrap}
 .glabel{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:700;margin-right:6px}
@@ -370,8 +378,17 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <span class="badge est">positions ±0.10–0.20 m ESTIMATE</span>
       </div>
 
-      <h2 class="sec">Lights — tick to place</h2>
-      <p class="hint">Tick a position on or off; tap its <b>name</b> to choose the product, beam, aim, dim and hours. Positions marked <span class="badge mcst" style="margin:0">MCST</span> sit on common property (the soffit returns) and need the management corporation's endorsement.</p>
+      <h2 class="sec">Scenario — pick a mounting plan</h2>
+      <p class="hint">One click sets the whole rig: flood positions, products, every aim, poles and strips. All four are computed on the <b>measured</b> daylight and pass the robustness gates (worst-case / typical-day margins shown).</p>
+      <div id="scenSeg" role="group" aria-label="Mounting scenario">
+        <button data-scen="balcony" class="on" title="THE ORDERED PLAN (boot default): 4 × Philips 100 W — two 30° heads at the foyer-side soffit corners (24 cm off the glass) + a 45° and a 30° head on the balcony underside slab edge. Poles y 0.45, 6 heads, strips on. No new structure. Margins 1.65 / 2.14, zero die-band pads through the full gate battery.">1 · Balcony mounted <span class="scen-m">1.65 / 2.14</span></button>
+        <button data-scen="crossbar" title="SOL 5.6 (Codex blind optimum, owner-ruled to iGuzzini EF51 — ball-joint re-aim, DALI-2, one real X311 oval): four EF51s on a courtyard CROSSBAR at z=2.6 + poles raised to 2.35 m (heads above the apex, shining down, 4 per pole) + strips. The only tier where the WHOLE TREE holds on a typical day. CONDITIONAL: crossbar structure (MCST + engineering), 2.35 m masts, 4th clamp per pole. Margins 2.64 / 2.99.">2 · Pergola crossbar (Sol 5.6) <span class="scen-m">2.64 / 2.99</span></button>
+        <button data-scen="corners" title="REFERENCE: floods at the foyer-side soffit corners ONLY (2 × Philips 100 W 30°) + poles + strips — no balcony or structure heads. Passes all gates (nothing dies) but the rear pads' courtyard faces are daylight-limited without a courtyard-side source. Margins 1.24 / 1.66.">3 · Soffit corners only <span class="scen-m">1.24 / 1.66</span></button>
+        <button data-scen="centers" title="REFERENCE: floods at the soffit-return CENTRES (2 × Philips 100 W 30°, the original pre-reset positions) + poles + strips. Passes all gates but same courtyard-face ceiling as the corners family. Margins 1.24 / 1.66.">4 · Soffit centres only <span class="scen-m">1.24 / 1.66</span></button>
+      </div>
+
+      <h2 class="sec">Lights — the rig in detail</h2>
+      <p class="hint">The scenario ticks these automatically; hand-edit freely afterwards (tick a position on or off; tap its <b>name</b> to choose product, beam, aim, dim, hours). <span class="badge mcst" style="margin:0">MCST</span> = common property, needs the management corporation's endorsement.</p>
       <div id="lightbar" aria-label="Candidate lights — tick to place"></div>
 
       <h2 class="sec">Tree position (what-if)</h2>
@@ -382,17 +399,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         </div>
         <div class="sp-label">slide toward courtyard</div>
         <div class="sp-gap" id="slideGap">—</div>
-        <!-- v7.23 ground-truth cleanup: flip row HIDDEN (not removed — boot wiring needs the
-             element). The flip is a dead option (loses M3 in every layout) and its optimised
-             light sets were computed on the retired pre-calibration daylight table. -->
-        <label class="sp-flip" id="flipRow" hidden title="RETIRED — pre-calibration analysis; the flip loses pad M3 in every layout"><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
-        <label class="sp-flip" id="recRow" title="the CALIBRATED final layout (v7.20 ground-truth reset — now the boot default): 4 × Philips 100 W — two 30° heads at the foyer-side soffit corners (y = 0.30, the collision-safe cap for the 403 mm body) + a 45° and a 30° head on the balcony underside slab edge at (−0.35,−1.1) and (−0.7,−1.1), which is what feeds the rear pads' courtyard faces (the binding faces once real daylight is 5–8× lower than the old table). Poles stay at spec y = 0.45, 6 heads re-aimed; strips ON (droppable — margins pass either way). Engine: MID min 2.145 / LOW min 1.648, zero die-band pads through the jitter/yoke/engine gate battery. Untick to fall back to the old 60 W pre-calibration reference layout."><input type="checkbox" id="recChk"> recommended layout (calibrated: 4×100 W corners + balcony pair)</label>
-        <!-- v7.23 ground-truth cleanup: the v7.19 EF51 scenario row HIDDEN — its layout was
-             optimised on the retired pre-calibration table. The EF51 as a product lives on in
-             the Sol 5.6 scenario below (calibrated, gated, with the real X311 oval). -->
-        <label class="sp-flip" id="igRow" hidden title="RETIRED pre-calibration layout — the calibrated EF51 build is the Sol 5.6 scenario"><input type="checkbox" id="igChk"> iGuzzini EF51 scenario (pre-calibration reference)</label>
-        <label class="sp-flip" id="pergRow" title="the PERGOLA option (v7.22, owner what-if): a courtyard pergola at 2.7 m lets the two balcony heads move OUT over the courtyard — (−0.6, 2.0 m out) 45° + (+1.2, 1.0 m out) 30° — where they hit the binding courtyard-side faces (L5/M3/T5) square and from above. Same four Philips 100 W units as the recommended plan; corners unchanged. Engine: LOW 1.99 / MID 2.24 (vs 1.65/2.14 balcony plan), all robustness gates pass, poles flat-or-down enforced. CONDITIONAL: the pergola structure itself needs MCST and is not modelled — heads render at their mount points. Untick to return to the boot default."><input type="checkbox" id="pergChk"> pergola option (heads over the courtyard @2.7 m)</label>
-        <label class="sp-flip" id="sol56Row" title="SOL 5.6 OPTIMIZATION (v7.23) — the Codex blind clean-sheet optimum, verified in the project engine to 4 decimals, owner-modified to iGuzzini EF51 floods (native ball-joint swivel = tool-free re-aim, DALI-2, no DMX island). Poles raised to 2.35 m — heads ABOVE the apex shining down — with FOUR heads per pole (8 × Ligman-class 28°/44°); four EF51s on a courtyard CROSSBAR at z=2.6, y=−1.34 (one with the real X311 elliptical lens, measured IES, wide axis vertical); both strips. Engine: LOW 2.64 / MID 2.99 — the whole tree reads holds-or-better on a typical day (T1 dense), the only design tier to achieve that. All robustness gates pass (jitter p5 2.51). CONDITIONAL hardware: crossbar structure (MCST + engineering), 2.35 m masts, 4th clamp per pole. Untick to return to the boot default."><input type="checkbox" id="sol56Chk"> Sol 5.6 optimization (crossbar + tall poles, EF51)</label>
+        <!-- v7.25: what-ifs = slide + flip only (scenarios moved to the picker above).
+             Flip layouts are LEGACY aims (pre-calibration optimised) — the verdict itself
+             recomputes live on measured daylight, so the bands stay honest. -->
+        <label class="sp-flip" id="flipRow" title="flips the tree 180° (nicest face to the foyer) and applies the legacy flip light layout. NOTE: those aims were optimised on the retired pre-calibration table — the verdict you see IS recomputed live on measured daylight, so trust the bands, not old claims. (Pre-calibration analyses consistently ranked the flip inferior; no calibrated re-optimisation has been run for it.) A planting-day-only decision."><input type="checkbox" id="flipChk"> flip display face to courtyard (legacy what-if)</label>
         <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
 
@@ -4351,7 +4361,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
 }
 </script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.24 · 2026-08-14 (ground-truth reset + owner rounds)
+/* Bonsai 3D — 118 Marina Collection. v7.25 · 2026-08-14 (ground-truth reset + owner rounds)
    v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
    over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    v7.23: SOL 5.6 scenario checkbox — the Codex blind optimum (crossbar z=2.6 + 2.35 m
@@ -6418,6 +6428,93 @@ function applySol56Scenario(){
   });
   refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
 }
+/* ============================== v7.25 SCENARIO PICKER ==============================
+   Owner UX redesign (2026-08-14 night): one radio-style picker drives the whole rig —
+   (1) Balcony mounted = the ordered plan (boot default) · (2) Pergola crossbar = Sol 5.6
+   EF51 · (3) Soffit corners only · (4) Soffit centres only (both REFERENCE families,
+   robust-optimised + gated 2026-08-14: LOW 1.235 / MID 1.663, zero deaths — they pass,
+   but the rear pads' courtyard faces are daylight-limited without a courtyard-side
+   source, which is the story of why the plan moved on). Every apply is a full rebuild;
+   hand-editing afterwards is free sandbox play. */
+const ALL_FLOOD_POS=['Lflood','Rflood','balc','balc2','soffitL','soffitR','perg1','perg2','xbar1','xbar2','xbar3','xbar4'];
+function clearFloods(){
+  ALL_FLOOD_POS.forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  });
+}
+/* corners/centres reference layouts — robust-optimised offline (winner_CORNERS/CENTERS,
+   2026-08-14 night), aims CANONICAL */
+const CORNERS_SCENARIO={
+  soffitL:{posX:1.98,posY:0.30,aim:[1.35,0.351374,1.868126]},
+  soffitR:{posX:-1.98,posY:0.30,aim:[0.149846,-0.193863,1.271909]},
+  strip:[-1.192673,0.348604,1.261385], strip2:[0.18732,-0.1675,1.270153],
+  poleL:[{z:1.538277,aim:[0.588668,0.184597,1.468722]},{z:1.185083,aim:[-0.158482,-0.09,0.2]},{z:0.589944,aim:[-1.045276,-0.002197,1.616105]}],
+  poleR:[{z:1.8,aim:[-1.003979,0.512987,1.767863]},{z:0.880226,aim:[1.175662,-0.736644,0.364954]},{z:0.530226,aim:[0.551991,0.103942,1.356084]}]
+};
+const CENTERS_SCENARIO={
+  Lflood:{aim:[0.368223,-0.351229,0.501395]},
+  Rflood:{aim:[-0.134902,-0.303431,1.465916]},
+  strip:[-0.149795,0.4975,0.855992], strip2:[-0.149646,0.46,0.91764],
+  poleL:[{z:1.538277,aim:[-1.05,-0.041926,1.468448]},{z:1.185083,aim:[0.347323,0.06487,1.588585]},{z:0.589944,aim:[-1.35,-0.74,0.587101]}],
+  poleR:[{z:1.8,aim:[0.418802,-0.375139,1.256152]},{z:0.880226,aim:[-0.287359,0.079258,0.759213]},{z:0.530226,aim:[1.158047,-0.086872,2.059104]}]
+};
+function _applySoffitFamily(S, useCorners){
+  clearFloods();
+  if(useCorners){
+    ['soffitL','soffitR'].forEach(function(pos){
+      const cfg=S[pos];
+      const nl=addLight('philips_bvp353_100_30', pos, {beam:30, aim:cfg.aim.slice()});
+      if(nl){ nl.posSpec=[cfg.posX, cfg.posY, 3.0]; updateLightObjects(nl); }
+    });
+  } else {
+    ['Lflood','Rflood'].forEach(function(pos){
+      addLight('philips_bvp353_100_30', pos, {beam:30, aim:S[pos].aim.slice()});
+    });
+  }
+  ['strip','strip2'].forEach(function(pos){
+    if(!placed.some(function(l){return l.posId===pos;})){
+      const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+    }
+    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
+      l.aimSpec=S[pos].slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+    });
+  });
+  ['poleL','poleR'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const d=DEFAULT_PRODUCT[pos]||['targetti_dart_medium',48];
+    S[pos].forEach(function(h,idx){
+      addLight(d[0], pos, {beam:d[1], headZ:h.z, aim:h.aim.slice(), headB:idx===1, headC:idx===2});
+    });
+  });
+  refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
+}
+const SCENARIOS={
+  balcony:  function(){ clearFloods(); applyRecommendedScenario(); },
+  crossbar: function(){ clearFloods(); applySol56Scenario(); },
+  corners:  function(){ _applySoffitFamily(CORNERS_SCENARIO, true); },
+  centers:  function(){ _applySoffitFamily(CENTERS_SCENARIO, false); }
+};
+let currentScenario=null;
+function refreshScenSeg(){
+  const seg=document.getElementById('scenSeg'); if(!seg) return;
+  seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-scen')===currentScenario); });
+}
+function applyScenario(key){
+  if(!SCENARIOS[key]) return;
+  currentScenario=key;
+  SCENARIOS[key]();
+  refreshScenSeg();
+}
+(function(){
+  const seg=document.getElementById('scenSeg'); if(!seg) return;
+  seg.addEventListener('click', function(e){
+    const b=e.target.closest('button[data-scen]'); if(!b) return;
+    const flip=document.getElementById('flipChk');
+    if(flipOn && flip){ flip.checked=false; flipOn=false; computeRelevance(); }
+    applyScenario(b.getAttribute('data-scen'));
+  });
+})();
+
 function restoreFromSol56Scenario(){
   sol56On=false;
   ['xbar1','xbar2','xbar3','xbar4'].forEach(function(pos){
@@ -6510,14 +6607,15 @@ function refreshPoleHeadUI(){
 
 /* ---------- light toggle bar (the primary flow: presence = checkbox) ---------- */
 const lightbar=$('lightbar');
+/* v7.25 owner UX redesign: FOUR role panels (floods / poles / sill / decor), product and
+   position merged per row (the chip already shows both). The scenario picker above the
+   lightbar drives the ticks; suspended-wire rows are dropped (never in any recommended
+   stack; positions remain in the spec). */
 const LIGHT_GROUPS=[
-  ['base',['Lflood','Rflood','balc','balc2']],
-  ['a · soffit',['soffitL','soffitR']],
-  ['e · pergola',['perg1','perg2']],
-  ['f · sol 5.6 crossbar',['xbar1','xbar2','xbar3','xbar4']],
-  ['b · suspended',['wireL','wireR']],
-  ['c · sill',['strip','strip2']],
-  ['d · poles',['poleL','poleR']]
+  ['floods — high heads',['soffitL','soffitR','Lflood','Rflood','balc','balc2','perg1','perg2','xbar1','xbar2','xbar3','xbar4']],
+  ['poles',['poleL','poleR']],
+  ['sill strips',['strip','strip2']],
+  ['decor uplights (night, not verdict-scored)',['decorA','decorB','decorF','decorL','decorR','decorG']]
 ];
 (function buildLightbar(){
   LIGHT_GROUPS.forEach(function(gr){
@@ -6704,13 +6802,19 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
     if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }  /* flip and the scenarios are mutually exclusive */
     const ig=document.getElementById('igChk');
     if(ig && ig.checked){ ig.checked=false; restoreFromIguzziniScenario(); }
-    const pg=document.getElementById('pergChk');
-    if(pg && pg.checked){ pg.checked=false; pergScenarioOn=false;
-      ['perg1','perg2'].forEach(function(pos){ placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); }); }); }
-    const s56=document.getElementById('sol56Chk');
-    if(s56 && s56.checked){ s56.checked=false; sol56On=false;
-      ['xbar1','xbar2','xbar3','xbar4'].forEach(function(pos){ placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); }); }); }
-    if(flipOn) applyFlipLightDefaults(); else restoreUnflippedDefaults();
+    /* v7.25 picker semantics: flip ON rebuilds the legacy base flood set (the flip layouts
+       aim Lflood/Rflood/balc) and clears the scenario picker; flip OFF returns to the
+       boot scenario. Flip layouts are legacy pre-calibration aims — verdict stays live. */
+    if(flipOn){
+      clearFloods();
+      ['Lflood','Rflood','balc'].forEach(function(pos){
+        const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+      });
+      applyFlipLightDefaults();
+      currentScenario=null; refreshScenSeg();
+    } else {
+      applyScenario('balcony');
+    }
     computeRelevance();                        /* outward-facing aspects follow the geometry */
     refresh();
   });
@@ -7732,11 +7836,8 @@ function restoreUIFromStorage(){
 });
 $('overlayChk').checked=true;
 initWhatIf();
-/* v7.20 (ground-truth reset): the CALIBRATED recommended layout IS the boot default —
-   4 × 100 W (2 corner 30° + balcony-edge 45°+30°) + 6 re-aimed pole heads + strips.
-   Untick the scenario checkbox to fall back to the old 60 W normal layout (reference). */
-applyRecommendedScenario();
-(function(){ const rc=document.getElementById('recChk'); if(rc) rc.checked=true; })();
+/* v7.25: boot = scenario 1 (Balcony mounted — the ordered plan) via the picker. */
+applyScenario('balcony');
 selectedUid=placed.length?placed[0].uid:null;
 refreshLightbar(); refreshSelection(); refreshPoleHeadUI();
 computeVerdicts();
