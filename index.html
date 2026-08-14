@@ -384,6 +384,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <div class="sp-gap" id="slideGap">—</div>
         <label class="sp-flip" id="flipRow" title="flips the tree 180° AND applies the optimised max-life flip light layout (v7.16): every aim re-found offline for the flipped geometry, keyed to the strip toggle. Best case still loses pad M3 (and L5+T5 too without the strip) — the flip trades pads for the nicer foyer face. Untick to restore the normal defaults."><input type="checkbox" id="flipChk"> flip display face to courtyard</label>
         <label class="sp-flip" id="recRow" title="applies the 14-Aug RECOMMENDED layout (v7.18): the two 60 W floods move to the FOYER-side soffit corners (16 cm off the glass, stock yoke — L corner: rotate base ~21° toward the courtyard diagonal, tilt 36° down; R corner: ~18°, tilt 49° down), poles shift 3 cm toward the glass (y 0.48), sill strip ON. Modelled minimum margin 1.63 vs 1.23 for the shipped default — the same fixtures, placed where they face the starving foyer-side pad faces. Untick to restore the boot default."><input type="checkbox" id="recChk"> recommended layout (corner floods + shifted poles + strip)</label>
+        <label class="sp-flip" id="igRow" title="applies the iGuzzini EF51 scenario (v7.19): all three flood heads become Palco InOut EF51s (real spec-sheet photometry — 30°, 4,970 lm, DALI-2) at the foyer corners + balcony, poles at y 0.48, strip ON. Modelled minimum margin 1.68 — best of everything tested. EF51's dual-axis ball aiming can sweep parallel to the glazing (gate-friendlier than the yoke) and is tool-free re-aimable; costs ~S$1,087/head vs S$425 and weighs 6.56 kg (anchor engineering). The oval accessory is TBC with LuxLight — survival doesn't need it. Untick to restore the boot default."><input type="checkbox" id="igChk"> iGuzzini EF51 scenario (corners + balcony, DALI-2)</label>
         <div class="sp-cap">what-if — planting-day decisions; spec default is 11 cm toward the courtyard (owner-ruled 2026-08-12), current orientation</div>
       </div>
 
@@ -4223,7 +4224,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
  "fixtures": [
   {"id":"lumascape_q4","brand":"Lumascape","model":"Quadralux Q4 LS9142","lumens":4980,"beams":[30,45,65],"cct":3000,"cri":null,"watts":48,"role":"grow","verified":true,"dims_mm":{"w":330,"h":228,"d":68},"notes":"Marine-grade casting, DALI-2, IP66/67; sits at the bottom of the required band. Dims: fixture-spec-index.md Role 1 footnote — 330×228×68mm, 3.2kg (`Lumascape-Q4-LS9142-datasheet.pdf`) — RFQ'd but NOT top-3 for this role (superseded by the Philips/iGuzzini/Ligman shortlist)."},
   {"id":"lumascape_q2","brand":"Lumascape","model":"Quadralux Q2 LS9122","lumens":3300,"beams":[30,45,65],"cct":3000,"cri":null,"watts":33,"role":"grow","verified":true,"dims_mm":{"w":235,"h":228,"d":68},"notes":"Beam options assumed same family optics as Q4 — confirm. Dims: fixture-spec-index.md Role 2 top-3 #1 (pole-head switch pick) — 228×235×68mm body + 68–130mm bracket (bracket excluded from the body box), 2.4 kg, DALI-2 (`Lumascape-Q2-LS9122-datasheet.pdf`)."},
-  {"id":"iguzzini_palco","brand":"iGuzzini","model":"Palco InOut EF51.04 (Ø153, 3.EF51.704.0)","lumens":6200,"beams":[48],"cct":3000,"cri":null,"watts":58,"role":"grow","verified":true,"dims_mm":{"dia":153,"len":300},"notes":"Best optical/dimensional match; the coastal warranty in writing is the gate. Dims: fixture-spec-index.md Role 1 top-3 #3 (DALI-2 alternate, QUOTED S$1,087/unit) — datasheet gives ~300×276×Ø153mm, 6.56 kg; rendered as a plain cylinder dia=153mm len=300mm — the 276mm figure is the bracket/mounting swing width, omitted from this body approximation (`iGuzzini-EF51-datasheet.pdf`)."},
+  {"id":"iguzzini_palco","brand":"iGuzzini","model":"Palco InOut EF51.04 (Ø153)","lumens":4970,"beams":[30],"cct":3000,"cri":82,"watts":47.3,"role":"grow","verified":true,"dims_mm":{"dia":153,"len":276},"notes":"CORRECTED 2026-08-14 from the actual spec sheet + IES (both on Drive; old entry said 6,200 lm/48° — wrong on both): F-Flood 30°, 4,970 lm system / 47.3 W, 3000 K, CRI 82, DALI-2 integrated, IP66/IK07. IES verified: rotationally symmetric, Imax 17,431 cd, half-max ±15.3°, 80% of flux within ±19.5°, ~zero past ±32°; integrates to 4,971 lm (parse validated); flux-equivalent uniform beam ≈ 34.6°. Body Ø153×276 mm (300 mm overall with base), 6.56 kg — ANCHOR FLAG vs the ≤3.5 kg slab-fix guideline. Mounting: ceiling-surface EXPLICITLY permitted (datasheet Installation), dual-axis aiming — 360° rotation + 90° tilt with mechanical locks on both axes (the 'ball-socket-class' aiming; can be oriented so the body sweeps PARALLEL to glazing, easing the glass gate). Optic accessories via holder frame — elliptical/oval spread lens availability TBC with LuxLight/Chelsea. QUOTED S$1,087/unit (LuxLight, 31 Jul)."},
   {"id":"iguzzini_newfo","brand":"iGuzzini","model":"Newfo InOut 125","lumens":2570,"beams":[52],"cct":3000,"cri":90,"watts":24,"role":"decorative","verified":true,"dims_mm":{"dia":125,"len":110},"notes":"CRI 90 suits the decorative part of the scheme; candidate for decorC (night-lighting-scheme.md §1b) — catalogue entry is 3000K, a 2700K SKU is UNVERIFIED, confirm at RFQ before treating as default. Dims: PLACEHOLDER — fixture-spec-index.md Role 4 top-3 #3 lists H×W×D+weight as 'Not confirmed'; sized from class (iGuzzini InOut round decorative-uplight family; '125' is iGuzzini's nominal ~125mm size class). Verify against a real Newfo InOut 125 datasheet before use."},
   {"id":"targetti_dart_maxi","brand":"Targetti","model":"DART Maxi 1E3958DA","lumens":5194,"beams":[28],"cct":3000,"cri":null,"watts":68.9,"role":"grow","verified":true,"dims_mm":{"dia":170,"len":260},"notes":"Factory cataphoresis; substantial body for a shallow soffit. Dims: PLACEHOLDER — Targetti DART is not covered by fixture-spec-index.md (its top-3 shortlist is Ligman/Philips/iGuzzini for this role); sized from class (compact adjustable spot/projector), scaled up for the 68.9W Maxi tier. Verify against Targetti's own DART datasheet."},
   {"id":"targetti_dart_medium","brand":"Targetti","model":"DART Medium 1E3934DA","lumens":4145,"beams":[48],"cct":3000,"cri":null,"watts":33.2,"role":"grow","verified":true,"dims_mm":{"dia":140,"len":210},"notes":"Dims: PLACEHOLDER — not covered by fixture-spec-index.md; sized from class (compact adjustable spot/projector), 33.2W Medium tier. This is the product actually placed by default at wireL/wireR/poleL/poleR (model-src/40-app.js DEFAULT_PRODUCT) — verify against Targetti's own DART datasheet before order."},
@@ -6010,6 +6011,76 @@ const RECOMMENDED_SCENARIO={
   poleR:[{z:1.8,aim:[0.386296,-0.351535,1.242941]},{z:1.45,aim:[-0.342647,0.154000,1.385403]},{z:0.720317,aim:[-0.159954,0.207424,1.107729]}]
 };
 let recScenarioOn=false;
+
+/* ============================== iGuzzini EF51 scenario (owner, 2026-08-14) ==============================
+   "iGuzzini from above": all three flood heads become Palco InOut EF51s (real spec-sheet
+   photometry — the corrected iguzzini_palco lib entry, IES-verified 30° / 4,970 lm) at the
+   FOYER-side corners + the balcony, with the shifted poles (y 0.48) and the strip ON.
+   Modelled minimum margin 1.682 — BEATS the Philips recommended scenario's 1.625, with
+   only 3 thin pads. Corner mounting at y = 0.38: the EF51's dual-axis ball aiming lets the
+   body be oriented to sweep PARALLEL to the glazing, so the swing gate is workable at 16 cm
+   where the Philips yoke needs care — physical check at the mock-up. Costs: ~S$1,087/head
+   vs S$425 (+~S$2.0k for 3), 6.56 kg/head anchor engineering; buys DALI-2 (no DMX island),
+   marine-grade build, tool-free re-aim. The requested OVAL accessory is NOT in the spec
+   sheet — availability via the accessory holder frame is TBC with LuxLight (survival is
+   shape-insensitive; the oval would only reduce spill further). Aims CANONICAL. */
+const IGUZZINI_SCENARIO={
+  cornerY:0.38, poleY:0.48, product:'iguzzini_palco', beam:30,
+  soffitL:[-0.305367,-0.033939,0.943498],
+  soffitR:[-0.217495,0.137679,1.423444],
+  balc:[0.748379,-0.022117,1.764680],
+  strip:[-0.009306,-0.543624,1.555176], strip2:[0.953528,-0.072701,2.018028],
+  poleL:[{z:1.509500,aim:[-0.587018,-0.082630,1.130439]},{z:0.867037,aim:[-0.403763,-0.025580,0.929420]},{z:0.5,aim:[-0.856740,-0.565696,0.775215]}],
+  poleR:[{z:1.701918,aim:[0.469905,-0.351209,1.260160]},{z:1.351918,aim:[-0.395289,0.215647,1.397001]},{z:0.946738,aim:[-0.139883,0.311665,1.064880]}]
+};
+let igScenarioOn=false;
+function applyIguzziniScenario(){
+  igScenarioOn=true;
+  ['Lflood','Rflood'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  });
+  ['soffitL','soffitR','balc'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const aim=IGUZZINI_SCENARIO[pos];
+    const nl=addLight(IGUZZINI_SCENARIO.product, pos, {beam:IGUZZINI_SCENARIO.beam, aim:aim.slice()});
+    if(nl && (pos==='soffitL'||pos==='soffitR')){ nl.posSpec=[nl.posSpec[0], IGUZZINI_SCENARIO.cornerY, nl.posSpec[2]]; updateLightObjects(nl); }
+  });
+  ['strip','strip2'].forEach(function(pos){
+    if(!placed.some(function(l){return l.posId===pos;})){
+      const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+    }
+    placed.filter(function(l){return l.posId===pos;}).forEach(function(l){
+      l.aimSpec=IGUZZINI_SCENARIO[pos].slice(); l.aimSpec[1]-=slideM; updateLightObjects(l);
+    });
+  });
+  ['poleL','poleR'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+    const d=DEFAULT_PRODUCT[pos]||['targetti_dart_medium',48];
+    IGUZZINI_SCENARIO[pos].forEach(function(h,idx){
+      const nl=addLight(d[0], pos, {beam:d[1], headZ:h.z, aim:h.aim.slice(), headB:idx===1, headC:idx===2});
+      if(nl){ nl.posSpec=[nl.posSpec[0], IGUZZINI_SCENARIO.poleY, nl.posSpec[2]]; updateLightObjects(nl); }
+    });
+  });
+  refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
+}
+function restoreFromIguzziniScenario(){
+  igScenarioOn=false;
+  ['soffitL','soffitR','strip','strip2'].forEach(function(pos){
+    placed.filter(function(l){return l.posId===pos;}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  });
+  /* balc back to the default Philips 45° */
+  placed.filter(function(l){return l.posId==='balc';}).map(function(l){return l.uid;}).forEach(function(uid){ removeLight(uid); });
+  ['Lflood','Rflood','balc'].forEach(function(pos){
+    if(!placed.some(function(l){return l.posId===pos;})){
+      const d=DEFAULT_PRODUCT[pos]; addLight(d[0], pos, {beam:d[1]});
+    }
+  });
+  ['poleL','poleR'].forEach(function(pos){
+    if(placed.some(function(l){return l.posId===pos;})) placePoleDefault(pos, poleHeadConfig);
+  });
+  applyNormalLightDefaults();
+  refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
+}
 function applyRecommendedScenario(){
   recScenarioOn=true;
   /* courtyard-side floods off; corner floods on at the gate-safe mounting */
@@ -6309,20 +6380,34 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
        180° aim mirror; unticking restores the normal defaults (spec aims + the
        current pole-head config's optimised set). Hand-tuning after either is free. */
     const rec=document.getElementById('recChk');
-    if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }  /* flip and the rec scenario are mutually exclusive */
+    if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }  /* flip and the scenarios are mutually exclusive */
+    const ig=document.getElementById('igChk');
+    if(ig && ig.checked){ ig.checked=false; restoreFromIguzziniScenario(); }
     if(flipOn) applyFlipLightDefaults(); else restoreUnflippedDefaults();
     computeRelevance();                        /* outward-facing aspects follow the geometry */
     refresh();
   });
-  /* v7.18 (owner 2026-08-14): the RECOMMENDED-layout scenario checkbox — corner floods +
-     shifted poles + strip, see RECOMMENDED_SCENARIO. Mutually exclusive with flip. */
+  /* v7.18/v7.19 (owner 2026-08-14): the two scenario checkboxes — RECOMMENDED (Philips
+     corner floods) and IGUZZINI (EF51s). Mutually exclusive with each other and with flip. */
   const rec=document.getElementById('recChk');
+  const ig=document.getElementById('igChk');
   if(rec) rec.addEventListener('change', function(){
     if(rec.checked){
       if(flipOn){ flip.checked=false; flipOn=false; computeRelevance(); }
+      if(ig && ig.checked){ ig.checked=false; restoreFromIguzziniScenario(); }
       applyRecommendedScenario();
     } else {
       restoreFromRecommendedScenario();
+    }
+    refresh();
+  });
+  if(ig) ig.addEventListener('change', function(){
+    if(ig.checked){
+      if(flipOn){ flip.checked=false; flipOn=false; computeRelevance(); }
+      if(rec && rec.checked){ rec.checked=false; restoreFromRecommendedScenario(); }
+      applyIguzziniScenario();
+    } else {
+      restoreFromIguzziniScenario();
     }
     refresh();
   });
