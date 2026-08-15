@@ -396,7 +396,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <h2 class="sec">Scenario — pick a mounting plan</h2>
       <p class="hint">One click sets the whole rig: flood positions, products, every aim, poles and strips. All four are computed on the <b>measured</b> daylight and pass the robustness gates (worst-case / typical-day margins shown).</p>
       <div id="scenSeg" role="group" aria-label="Mounting scenario">
-        <button data-scen="balcony" class="on" title="THE ORDERED PLAN (boot default): 4 × Philips 100 W — two 30° heads at the foyer-side soffit corners (24 cm off the glass) + a 45° head at the balcony slab-edge CORNER (centreline) and a 30° head 1.4 m dining-side along the edge, both hanging ~12.5 cm in from the slab edge (owner mounting rule; slab edge per house geometry at 2.0 m out — TAPE-CONFIRM the real projection). Poles y 0.45, 6 heads, strips on. No new structure. Margins 1.85 / 2.24, all gates pass.">1 · Balcony mounted <span class="scen-m">1.85 / 2.24</span></button>
+        <button data-scen="balcony" class="on" title="THE ORDERED PLAN (boot default): 4 × Philips 100 W — two 30° corner heads (24 cm off the glass) + a 45° and a 30° head under the balcony at the SAFE-EVERYWHERE line, 0.64 m out from the glass plane. ⚠ The balcony's true reach is disputed (owner memory ~1.1 m from glass · house geometry 2.0 m) — ONE TAPE MEASUREMENT (glass → balcony outer edge) settles it and upgrades this scenario: edge at 1.2 m → margins 1.65/2.14; edge at 2.0 m → 1.85/2.24. As shipped (safe in every world): margins 1.40/1.87, all gates pass. Note: at the safe line the 2nd balcony head adds only ~0.02 — the 4-vs-3 flood call also rides on the tape.">1 · Balcony mounted <span class="scen-m">1.40 / 1.87*</span></button>
         <button data-scen="crossbar" title="SOL 5.6 (Codex blind optimum, owner-ruled to iGuzzini EF51 — ball-joint re-aim, DALI-2, one real X311 oval): four EF51s on a courtyard CROSSBAR at z=2.6 + poles raised to 2.35 m (heads above the apex, shining down, 4 per pole) + strips. The only tier where the WHOLE TREE holds on a typical day. CONDITIONAL: crossbar structure (MCST + engineering), 2.35 m masts, 4th clamp per pole. Margins 2.64 / 2.99.">2 · Pergola crossbar (Sol 5.6) <span class="scen-m">2.64 / 2.99</span></button>
         <button data-scen="corners" title="Soffit corners + ONE balcony 45° head (3 × Philips 100 W) + poles + strips — no structure. Passes all gates. Margins 1.50 / 1.99.">3 · Soffit corners + balc <span class="scen-m">1.50 / 1.99</span></button>
         <button data-scen="centers" title="Soffit-return CENTRES (the original pre-reset flood positions) + ONE balcony 45° head (3 × Philips 100 W) + poles + strips. Passes all gates. Margins 1.50 / 1.85.">4 · Soffit centres + balc <span class="scen-m">1.50 / 1.85</span></button>
@@ -4913,7 +4913,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
  ]
 }</script>
 <script>
-/* Bonsai 3D — 118 Marina Collection. v7.31 · 2026-08-14 (ground-truth reset + owner rounds)
+/* Bonsai 3D — 118 Marina Collection. v7.32 · 2026-08-15 (ground-truth reset + owner rounds)
    v7.22: PERGOLA scenario checkbox — the owner's courtyard-pergola what-if (heads at 2.7 m
    over the courtyard; LOW 1.99 / MID 2.24, gates pass; structure conditional on MCST).
    v7.23: SOL 5.6 scenario checkbox — the Codex blind optimum (crossbar z=2.6 + 2.35 m
@@ -6729,20 +6729,23 @@ function applyFlipLightDefaults(){
    Aims stored CANONICAL (pre-slide). */
 const RECOMMENDED_SCENARIO={
   product30:'philips_bvp353_100_30', product45:'philips_bvp353_100_45',
-  /* v7.31 (owner mounting rule): balcony heads hang within ~12.5 cm of the SLAB EDGE.
-     The house geometry (OWNER tag) puts the balcony edge at y=-2.0 — the earlier
-     y=-1.1 placement came from a stale zone bound and under-used the slab. Edge-mounted
-     pair (x=0 centre-slab-corner + x=-1.4), everything re-optimised robust with the
-     flat-or-down pole rule: LOW 1.845 / MID 2.235 (was 1.648/2.144), all gates PASS.
-     TAPE-CONFIRM item: the real slab projection (glass plane to balcony outer edge). */
-  soffitL:{posX:1.98, posY:0.30, aim:[-0.078703,0.057292,1.303317]},
-  soffitR:{posX:-1.98, posY:0.30, aim:[0.800689,-0.486772,0.545362]},
-  balcPos:[0,-1.875,3.0], balc:[-0.019013,0.334471,0.490425],
-  balc2Pos:[-1.4,-1.875,3.0], balc2:[0.300932,0.080341,0.705256],
-  strip:[1.188378,0.155745,1.633503], strip2:[1.1925,0.16,1.65],
+  /* v7.32 GEOMETRY HOLD (owner recall 2026-08-15 am): the balcony's true projection is
+     DISPUTED three ways — owner memory ~1.1 m from the glass (edge ≈ y −0.54, i.e. over
+     the pool line only), reset brief 1.2 m, house geometry 2.0 m. THE TAPE (glass plane →
+     balcony outer edge) GATES THIS. Until it's taken, the shipped pair mounts at the
+     SAFE-EVERYWHERE line y = −0.64 (edge + ~10 cm overhang in the owner-memory world):
+     LOW 1.398 / MID 1.870, all gates PASS. If the tape says 1.2 m → pair can sit at
+     y −1.1 (margins 1.65/2.14); if 2.0 m → slab edge y −1.875 (1.85/2.24). SKUs
+     unchanged in every world; note the 2nd balcony head adds only ~+0.02 margin in the
+     owner-memory world — the 4-vs-3 flood decision ALSO rides on the tape. */
+  soffitL:{posX:1.98, posY:0.30, aim:[-0.834334,-0.278447,0.856647]},
+  soffitR:{posX:-1.98, posY:0.30, aim:[0.191542,0.088528,0.950746]},
+  balcPos:[0,-0.64,3.0], balc:[0.01398,-0.285838,1.539353],
+  balc2Pos:[-1.0,-0.64,3.0], balc2:[0.072429,0.341438,0.55],
+  strip:[0.315584,-0.0775,1.576067], strip2:[0.3125,0.16,0.831756],
   poleY:0.45,
-  poleL:[{z:1.538277,aim:[-1.35,-0.615,1.068088]},{z:1.185083,aim:[-0.25,-0.105592,1.185083]},{z:0.589944,aim:[-0.778367,-0.74,0.589944]}],
-  poleR:[{z:1.8,aim:[0.620849,-0.302437,1.108862]},{z:0.880226,aim:[1.35,0.273134,0.880226]},{z:0.530226,aim:[1.050102,-0.411107,0.530226]}]
+  poleL:[{z:1.538277,aim:[-1.35,0.081712,1.451196]},{z:1.185083,aim:[0.204002,0.286642,1.185083]},{z:0.589944,aim:[0.022786,-0.122348,0.589944]}],
+  poleR:[{z:1.8,aim:[0.164657,-0.262832,1.4]},{z:0.880226,aim:[-0.082442,-0.114928,0.476648]},{z:0.530226,aim:[-0.685119,0.321611,0.530226]}]
 };
 let recScenarioOn=false;
 
