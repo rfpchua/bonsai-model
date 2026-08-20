@@ -5529,10 +5529,81 @@ const fabGroup=new THREE.Group(); scene.add(fabGroup);
   const sheetTopZ=pc?pc.z[1]:0.05, sheetBotZ=pc?pc.z[0]:0.0;  /* existing cover-sheet z-range */
   const platEdge=(plat&&plat.size?plat.size[0]:0.9)/2;        /* 0.45 pot-platform half-width */
   const LIFT=0.003, GAP=0.004;         /* overlay clearance off the old sheet / visible edge gap */
-  const plateR=0.15, plateT=0.01;      /* Ø300×10mm base plate */
-  const ballOutR=0.20, ballInR=0.035, ballH=0.15;  /* Ø400×150mm ballast ring, snug on the Ø60 pole */
+  const plateWx=0.30, plateWy=0.35, plateT=0.01;   /* 350x300x10mm RECTANGULAR base plate
+     (owner change-list, pole-fabrication-spec.md rev 3, 2026-08-20): replaces the Ø300 disc —
+     the round plate was invisible under the Ø460 ballast ring in renders; the rectangle's
+     corners poke out from under it instead. 300mm side (plateWx) runs parallel to the pool's
+     long axis (x); 350mm side (plateWy) runs along y. */
+  const plateYOff=-0.115;   /* ASYMMETRIC placement: the pole sits toward the plate's y+
+     (foyer/glass) edge — that edge sits ~60mm from the pole centre, with the remaining
+     ~290mm extending toward the pool centre (y-). plateYOff is the plate-centre offset
+     from the pole centre: (py+0.06 + py-0.29)/2 - py = -0.115. */
+  const ballOutR=0.23, ballInR=0.035, ballH=0.18;  /* concrete ballast ring, ENLARGED + BRIGHTENED
+     (owner change-list #2, 2026-08-20) from the nominal Ø400×150mm — it was reading as subtle
+     against the old steel-grey plate; now reads chunky+visible against the black plate (#1) below */
   const slotHalf=0.035, sheetT=0.012;  /* 70mm-wide U-slot; 12mm overlay panel */
   const legR=0.018, footR=0.05, footT=0.008;   /* Ø36mm leg stub; dark foot pad */
+  const collarR=0.032, collarH=0.018;  /* #5 adjustable-jack screw-collar head, just under the sheet */
+  const liningW=0.013, liningH=0.006;  /* #3 U-slot rubber lining: ~13mm black strip, raised
+     ~6mm proud of the panel along the slot's cut edge (owner change-list, 2026-08-20) */
+
+  /* #1 base plates -> BLACK to match the pole shafts (same 0x2e3134 as the housingMat the
+     poles themselves use), instead of the generic steel-grey M.steel used elsewhere here */
+  const plateMat=[new THREE.MeshLambertMaterial({color:0x2e3134}),
+    new THREE.MeshStandardMaterial({color:0x2e3134, metalness:0.45, roughness:0.55})];
+  /* #2 ballast: brightened concrete-grey so the ring reads distinctly against the black plate.
+     Modest tint only (photoreal keeps the concreteTex's own tone, no white overlay) — an
+     aggressive near-white tint clipped to a blown-out disc under Photoreal's bloom/ACES
+     tone-mapping, which erased the "concrete" read entirely (caught in the overhead-view
+     screenshot pass, 2026-08-20). */
+  const ballastMat=[new THREE.MeshLambertMaterial({color:0xe3ded0, transparent:true, opacity:0.45, depthWrite:false}),
+    new THREE.MeshStandardMaterial({map:concreteTex, color:0xdcd7c8, roughness:0.92, metalness:0, transparent:true, opacity:0.45, depthWrite:false})];
+  /* translucent (owner 20 Aug): the ballast reads as a see-through volume so the
+     rectangular base plate underneath stays legible for the fabricator */
+  /* #3 rubber lining: matte black, non-metallic — reads as rubber against the glossy black
+     steel plate/poles (metalness 0) */
+  const liningMat=[new THREE.MeshLambertMaterial({color:0x151515}),
+    new THREE.MeshStandardMaterial({color:0x151515, metalness:0.0, roughness:0.92})];
+
+  /* #4 cover-sheet pieces read as PERFORATED (Ø8mm holes, 12mm stagger, pole-fabrication-spec.md
+     rev 2 §5.1): reuses the exact alpha-cutout convention buildHouse() already established for
+     the real perforated_cover sheet (its perfMats()) — a canvas dot-tile drives alphaMap +
+     alphaTest so the holes are genuinely see-through at the same physical pitch, rather than
+     inventing a second perforation convention for this overlay piece. */
+  let fabSheetMats=null;
+  if(pc){
+    const pitch=pc.pitch_m||0.012, holeD=pc.hole_dia_m||0.008;
+    const tileW=2*pitch, tileH=pitch*Math.sqrt(3);
+    const holeFrac=holeD/tileW;
+    const drawA=perfTile('#ffffff','#000000',holeFrac);
+    const aT=canvasTex(256,256,drawA,[1/tileW,1/tileH]);
+    fabSheetMats=[new THREE.MeshLambertMaterial({color:0xc6c9c4, alphaMap:aT, alphaTest:0.5}),
+      new THREE.MeshStandardMaterial({color:0xb9bec0, metalness:0.8, roughness:0.45,
+        alphaMap:aT, alphaTest:0.5, bumpMap:aT, bumpScale:-0.0012})];
+    WIRE_FADE_MATS.push(fabSheetMats[0], fabSheetMats[1]);   /* goes x-ray with the Wiring layer
+      too, so the #5 jacks/plates/ballast underneath stay legible from directly above */
+  }
+
+  /* #3 U-slot rubber-lining ribbon: a hand-traced closed "stroke" of the U-slot boundary
+     (inner radius = the slot's own edge, outer = slot edge + liningW). The slot boundary is
+     an open-mouthed U, not a closed loop, so Shape.holes doesn't apply — walk the outer
+     boundary one way, then the inner boundary back, giving one simple non-self-intersecting
+     ribbon polygon (same rounding convention as the dark cutline decal below: the arc
+     "rounds away from the y1 edge"). */
+  function uSlotLining(px,py,y1,rIn,rOut,segsN){
+    const sh=new THREE.Shape();
+    sh.moveTo(px-rOut, y1);
+    sh.lineTo(px-rOut, py);
+    for(let i=segsN-1;i>=0;i--){ const t=Math.PI*i/segsN; sh.lineTo(px+rOut*Math.cos(t), py-rOut*Math.sin(t)); }
+    sh.lineTo(px+rOut, y1);
+    sh.lineTo(px+rIn, y1);
+    sh.lineTo(px+rIn, py);
+    for(let i=1;i<segsN;i++){ const t=Math.PI*i/segsN; sh.lineTo(px+rIn*Math.cos(t), py-rIn*Math.sin(t)); }
+    sh.lineTo(px-rIn, py);
+    sh.lineTo(px-rIn, y1);
+    sh.closePath();
+    return sh;
+  }
 
   function radial(mat, rOut, rIn, h, cx, cy, cz, edges){   /* upright disc/annulus; rIn=0 -> solid disc */
     const sh=new THREE.Shape(); sh.absarc(0,0,rOut,0,Math.PI*2,false);
@@ -5553,28 +5624,47 @@ const fabGroup=new THREE.Group(); scene.add(fabGroup);
     fabGroup.add(m); swapables.push(m);
     return m;
   }
+  function box(mat, wx, wy, h, cx, cy, cz, edges){   /* upright rectangular slab, centred on (cx,cy) */
+    const g=new THREE.BoxGeometry(wx, h, wy);
+    const m=new THREE.Mesh(g, mat[0]);
+    m.position.copy(W(cx,cy,cz+h/2));
+    m.userData.mats=mat; m.castShadow=true; m.receiveShadow=true;
+    fabGroup.add(m); swapables.push(m);
+    if(edges){ const e=new THREE.LineSegments(new THREE.EdgesGeometry(g), edgeMat); e.position.copy(m.position); edgesGroup.add(e); }
+    return m;
+  }
 
   poleSpecs.forEach(function(sf){
     const px=sf.pos[0], py=sf.pos[1], side=px>=0?1:-1;
 
-    /* 1. pole base plate — Ø300×10mm steel-grey disc, resting loose on the pool floor */
-    radial(M.steel, plateR, 0, plateT, px, py, floorZ, true);
+    /* 1. pole base plate — 350x300x10mm BLACK rectangular slab (owner change-list #1: matches
+       the pole shafts, not the generic steel-grey; rev 3 swaps the Ø300 disc for a rectangle
+       so its corners show beyond the ballast ring), resting loose on the pool floor, offset
+       so the pole sits near its y+ (foyer/glass) edge */
+    box(plateMat, plateWx, plateWy, plateT, px, py+plateYOff, floorZ, true);
 
-    /* 4. optional ballast — Ø400×150mm concrete-grey annulus on the base plate, snug
-       around the Ø60 pole (§2 lateral-support row: backup to the U-slot restraint) */
-    radial(M.concrete, ballOutR, ballInR, ballH, px, py, floorZ+plateT, true);
+    /* 4. ballast — enlarged/brightened concrete-grey annulus on the base plate, snug
+       around the Ø60 pole (§2 lateral-support row: backup to the U-slot restraint;
+       owner change-list #2, sized/coloured to read clearly at schematic zoom) */
+    radial(ballastMat, ballOutR, ballInR, ballH, px, py, floorZ+plateT, true);
 
-    /* 3. welded legs, sheet underside -> pool floor: one flanking each U-slot prong
-       (the two strips either side of the slot flex independently, §5.2) + one near
-       the platform edge away from the slot — each on a small dark foot pad */
+    /* 3. sheet supports as ADJUSTABLE-JACK-style posts (owner change-list #5): a small
+       round base pad, a shaft, and a wider screw-collar head just under the sheet —
+       one flanking each U-slot prong (the two strips either side of the slot flex
+       independently, §5.2) + one near the platform edge away from the slot. Positions
+       are unchanged from the original welded-leg layout — only the silhouette changed
+       (base+shaft+collar reads as adjustable, and is legible top-down via the Wiring
+       x-ray toggle now that the sheet material is in WIRE_FADE_MATS). */
     const legPts=[
       [px-side*(slotHalf+0.05), 0.50],
       [px+side*(slotHalf+0.05), 0.50],
       [side*(platEdge+0.20), -0.30]
     ];
     legPts.forEach(function(p){
-      upCyl(M.steel, legR, sheetBotZ-floorZ, p[0], p[1], floorZ);
-      radial(M.frame, footR, 0, footT, p[0], p[1], floorZ, false);
+      radial(M.frame, footR, 0, footT, p[0], p[1], floorZ, false);            /* small round base */
+      const shaftH=(sheetBotZ-collarH)-(floorZ+footT);
+      upCyl(M.steel, legR, shaftH, p[0], p[1], floorZ+footT);                 /* shaft */
+      radial(M.steel, collarR, 0, collarH, p[0], p[1], sheetBotZ-collarH, true); /* screw-collar head */
     });
 
     /* 2 + 5. the cover sheet as its own liftable piece on this side: pot-platform edge
@@ -5595,9 +5685,11 @@ const fabGroup=new THREE.Group(); scene.add(fabGroup);
     sh.lineTo(px-slotHalf,y1); sh.lineTo(lo,y1); sh.closePath();
     const g=new THREE.ExtrudeGeometry(sh,{depth:sheetT,bevelEnabled:false,curveSegments:24});
     g.rotateX(-Math.PI/2);
-    const m=new THREE.Mesh(g, M.steel[0]);
+    const pieceMats=fabSheetMats||M.steel;   /* #4 perforated read, falls back to plain steel if
+      house.perforated_cover isn't in the spec */
+    const m=new THREE.Mesh(g, pieceMats[0]);
     m.position.copy(W(0,0,sheetTopZ+LIFT));
-    m.userData.mats=M.steel; m.castShadow=true; m.receiveShadow=true;
+    m.userData.mats=pieceMats; m.castShadow=true; m.receiveShadow=true;
     fabGroup.add(m); swapables.push(m);
     const e=new THREE.LineSegments(new THREE.EdgesGeometry(g,25), edgeMat);
     e.position.copy(m.position); edgesGroup.add(e);
@@ -5622,6 +5714,19 @@ const fabGroup=new THREE.Group(); scene.add(fabGroup);
     fabGroup.add(slotM);
     const se=new THREE.LineSegments(new THREE.EdgesGeometry(slotG,25), edgeMat);
     se.position.copy(slotM.position); edgesGroup.add(se);
+
+    /* #3 rubber lining: a raised black strip tracing the U-slot's cut edge — sits on the
+       solid (perforated) steel immediately outside the void, from the slot's own edge
+       (rIn=slotHalf) out by liningW, extruded liningH proud of the panel */
+    const liningSh=uSlotLining(px, py, y1, slotHalf, slotHalf+liningW, 16);
+    const liningG=new THREE.ExtrudeGeometry(liningSh,{depth:liningH,bevelEnabled:false,curveSegments:16});
+    liningG.rotateX(-Math.PI/2);
+    const liningMesh=new THREE.Mesh(liningG, liningMat[0]);
+    liningMesh.position.copy(W(0,0,sheetTopZ+LIFT+sheetT+0.001));
+    liningMesh.userData.mats=liningMat; liningMesh.castShadow=true; liningMesh.receiveShadow=true;
+    fabGroup.add(liningMesh); swapables.push(liningMesh);
+    const le=new THREE.LineSegments(new THREE.EdgesGeometry(liningG,25), edgeMat);
+    le.position.copy(liningMesh.position); edgesGroup.add(le);
   });
 })();
 
@@ -7998,7 +8103,11 @@ let currentViewId='free';   /* last-chosen viewpoint id — declared up front so
    EXCLUDES the §3a slide/flip what-if state and the light-set checkboxes (spec instr.).
    Every access is try/catch'd — the claude.ai artifact iframe sandbox throws on
    localStorage access, and persistence there is a nice-to-have, not a requirement. */
-const UI_STORAGE_KEY='bonsai3d.ui.v1';
+const UI_STORAGE_KEY='bonsai3d.ui.v2';   /* v2 (2026-08-20): bumped from v1 — the Fab. detail
+   layer's default flipped to ON (ballast-ring rev), and any v1 blob saved before that change
+   (or with fab toggled off and forgotten) was silently overriding the new default forever.
+   Bumping the key orphans stale v1 state so the coded default (showFab=true) wins on next
+   load; a fresh explicit toggle still persists correctly under v2 from here on. */
 function loadUIState(){
   try{ const raw=localStorage.getItem(UI_STORAGE_KEY); return raw?JSON.parse(raw):null; }
   catch(e){ return null; }
