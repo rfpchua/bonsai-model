@@ -302,6 +302,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <button id="labelsBtn" class="on">Labels</button>
       <button id="pebblesBtn" class="on">Pebbles</button>
       <button id="bodiesBtn" class="on" title="Real-scale fixture bodies (dims_mm)">Bodies</button>
+      <button id="fabBtn" class="on" title="Fabrication detail (pole-fabrication-spec.md rev 2, ratified 20 Aug): Ø300 pole base plates, the cover sheet as its two liftable pieces with the U-slot pole restraint, welded legs to the pool floor, and the optional concrete ballast ring">Fab. detail</button>
       <button id="wiringBtn">Wiring</button>
     </div>
   </div>
@@ -339,6 +340,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         <button id="mBodiesBtn" class="mchip on" role="menuitem" aria-label="Toggle real-scale fixture bodies" aria-pressed="true" title="Fixture bodies (real dims)">
           <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="9" width="14" height="8" rx="1.5"/><path d="M9 9V6h6v3"/></svg>
           <span>Bodies</span>
+        </button>
+        <button id="mFabBtn" class="mchip on" role="menuitem" aria-label="Toggle fabrication detail" aria-pressed="true" title="Fabrication detail (pole base plates, U-slot sheet pieces, legs, ballast)">
+          <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>Fab.</span>
         </button>
       </div>
     </div>
@@ -5502,6 +5507,124 @@ function addSolid(matPair, sx,sy,sz, cx,cy,cz, opts){ /* sizes+centre in SPEC co
   pebblesMesh=pebbles;   /* keep a handle for the Pebbles display toggle */
 })();
 
+/* ============================== fabrication detail ==============================
+   pole-fabrication-spec.md, rev 2 ratified 2026-08-20 (Prakash, Abundance Landscape).
+   Shows the newly-agreed pole + cover-sheet fabrication design — Ø300 base plates,
+   the cover sheet as its two liftable pieces (platform edge -> pool end) each with
+   its U-slot pole restraint, welded legs to the pool floor, and the optional
+   concrete ballast ring — as a toggleable overlay ("Fab. detail" layer button,
+   default ON; see toggleFabDetail() further down). BUILDING-ANCHORED like the
+   perforated cover above (fixed pole positions; does not follow the §3a slide/flip).
+   Pure ADDITION: nothing above is read, mutated or removed — the existing
+   pool/platform/perforated-cover/pole-shaft geometry stays exactly as built; this
+   overlay just sits a hair above it (LIFT) so the two don't z-fight. Reuses the
+   M.steel / M.concrete / M.frame material pairs and the addSolid-style edge-outline
+   convention from buildHouse() above. */
+const fabGroup=new THREE.Group(); scene.add(fabGroup);
+(function buildFabricationDetail(){
+  const H=SPEC.house, pool=H.pool, pc=H.perforated_cover, plat=H.platform;
+  const poleSpecs=SPEC.fixtures.filter(function(f){ return f.id==='poleL'||f.id==='poleR'; });
+  if(!poleSpecs.length || !pool) return;
+  const floorZ=pool.floor_z;                        /* -0.67 pool floor: plate + leg-foot level */
+  const sheetTopZ=pc?pc.z[1]:0.05, sheetBotZ=pc?pc.z[0]:0.0;  /* existing cover-sheet z-range */
+  const platEdge=(plat&&plat.size?plat.size[0]:0.9)/2;        /* 0.45 pot-platform half-width */
+  const LIFT=0.003, GAP=0.004;         /* overlay clearance off the old sheet / visible edge gap */
+  const plateR=0.15, plateT=0.01;      /* Ø300×10mm base plate */
+  const ballOutR=0.20, ballInR=0.035, ballH=0.15;  /* Ø400×150mm ballast ring, snug on the Ø60 pole */
+  const slotHalf=0.035, sheetT=0.012;  /* 70mm-wide U-slot; 12mm overlay panel */
+  const legR=0.018, footR=0.05, footT=0.008;   /* Ø36mm leg stub; dark foot pad */
+
+  function radial(mat, rOut, rIn, h, cx, cy, cz, edges){   /* upright disc/annulus; rIn=0 -> solid disc */
+    const sh=new THREE.Shape(); sh.absarc(0,0,rOut,0,Math.PI*2,false);
+    if(rIn>0){ const hole=new THREE.Path(); hole.absarc(0,0,rIn,0,Math.PI*2,true); sh.holes.push(hole); }
+    const g=new THREE.ExtrudeGeometry(sh,{depth:h,bevelEnabled:false,curveSegments:32});
+    g.rotateX(-Math.PI/2);
+    const m=new THREE.Mesh(g, mat[0]);
+    m.position.copy(W(cx,cy,cz));
+    m.userData.mats=mat; m.castShadow=true; m.receiveShadow=true;
+    fabGroup.add(m); swapables.push(m);
+    if(edges){ const e=new THREE.LineSegments(new THREE.EdgesGeometry(g,25), edgeMat); e.position.copy(m.position); edgesGroup.add(e); }
+    return m;
+  }
+  function upCyl(mat, r, h, cx, cy, cz){
+    const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,14), mat[0]);
+    m.position.copy(W(cx,cy,cz+h/2));
+    m.userData.mats=mat; m.castShadow=true; m.receiveShadow=true;
+    fabGroup.add(m); swapables.push(m);
+    return m;
+  }
+
+  poleSpecs.forEach(function(sf){
+    const px=sf.pos[0], py=sf.pos[1], side=px>=0?1:-1;
+
+    /* 1. pole base plate — Ø300×10mm steel-grey disc, resting loose on the pool floor */
+    radial(M.steel, plateR, 0, plateT, px, py, floorZ, true);
+
+    /* 4. optional ballast — Ø400×150mm concrete-grey annulus on the base plate, snug
+       around the Ø60 pole (§2 lateral-support row: backup to the U-slot restraint) */
+    radial(M.concrete, ballOutR, ballInR, ballH, px, py, floorZ+plateT, true);
+
+    /* 3. welded legs, sheet underside -> pool floor: one flanking each U-slot prong
+       (the two strips either side of the slot flex independently, §5.2) + one near
+       the platform edge away from the slot — each on a small dark foot pad */
+    const legPts=[
+      [px-side*(slotHalf+0.05), 0.50],
+      [px+side*(slotHalf+0.05), 0.50],
+      [side*(platEdge+0.20), -0.30]
+    ];
+    legPts.forEach(function(p){
+      upCyl(M.steel, legR, sheetBotZ-floorZ, p[0], p[1], floorZ);
+      radial(M.frame, footR, 0, footT, p[0], p[1], floorZ, false);
+    });
+
+    /* 2 + 5. the cover sheet as its own liftable piece on this side: pot-platform edge
+       to the pool end, full pool depth, with the U-slot cut from the foyer-side edge
+       (y=+0.54) in to the pole, closing in a semicircle snug around the Ø60 pole — and
+       a real ~4mm gap off the platform edge so the piece reads as separate + liftable.
+       Sits a hair above the untouched base sheet (LIFT) so it doesn't z-fight it. */
+    const xIn=side*(platEdge+GAP), xOut=(side>0)?pool.x[1]:pool.x[0];
+    const lo=Math.min(xIn,xOut), hi=Math.max(xIn,xOut);
+    const y0=pool.y[0], y1=pool.y[1];
+    /* structural cut: a plain rectangular notch (simple 8-point concave polygon —
+       reliably triangulated) from the foyer-side edge in to the pole centreline.
+       The rounded closing end is drawn separately below as a dark decal, which reads
+       correctly regardless of the earcut path and keeps this cut itself bullet-proof. */
+    const sh=new THREE.Shape();
+    sh.moveTo(lo,y0); sh.lineTo(hi,y0); sh.lineTo(hi,y1); sh.lineTo(px+slotHalf,y1);
+    sh.lineTo(px+slotHalf,py); sh.lineTo(px-slotHalf,py);
+    sh.lineTo(px-slotHalf,y1); sh.lineTo(lo,y1); sh.closePath();
+    const g=new THREE.ExtrudeGeometry(sh,{depth:sheetT,bevelEnabled:false,curveSegments:24});
+    g.rotateX(-Math.PI/2);
+    const m=new THREE.Mesh(g, M.steel[0]);
+    m.position.copy(W(0,0,sheetTopZ+LIFT));
+    m.userData.mats=M.steel; m.castShadow=true; m.receiveShadow=true;
+    fabGroup.add(m); swapables.push(m);
+    const e=new THREE.LineSegments(new THREE.EdgesGeometry(g,25), edgeMat);
+    e.position.copy(m.position); edgesGroup.add(e);
+
+    /* dark cutline decal: the FULL slot footprint (rectangle + semicircular closed
+       end, snug around the Ø60 pole) painted on TOP of the panel — reads as a visible
+       dark slot from directly above in any fidelity mode, independent of the
+       structural cut's own triangulation, per the "visible gap/darker cutline" brief. */
+    const slotSh=new THREE.Shape();
+    slotSh.moveTo(px-slotHalf,y1); slotSh.lineTo(px+slotHalf,y1); slotSh.lineTo(px+slotHalf,py);
+    const segs=16;
+    for(let i=1;i<segs;i++){
+      const t=Math.PI*i/segs;
+      slotSh.lineTo(px+slotHalf*Math.cos(t), py-slotHalf*Math.sin(t));   /* rounds AWAY from the y1 edge */
+    }
+    slotSh.lineTo(px-slotHalf,py); slotSh.closePath();
+    const slotG=new THREE.ShapeGeometry(slotSh,24);
+    slotG.rotateX(-Math.PI/2);
+    const slotMat=new THREE.MeshBasicMaterial({color:0x0c0c0b, side:THREE.DoubleSide});
+    const slotM=new THREE.Mesh(slotG, slotMat);
+    slotM.position.copy(W(0,0,sheetTopZ+LIFT+sheetT+0.001));
+    fabGroup.add(slotM);
+    const se=new THREE.LineSegments(new THREE.EdgesGeometry(slotG,25), edgeMat);
+    se.position.copy(slotM.position); edgesGroup.add(se);
+  });
+})();
+
 /* ============================== trunk ============================== */
 (function buildTrunk(){
   const pts=SPEC.trunk.map(Wa);
@@ -7865,6 +7988,9 @@ let showPebbles=true;   /* pebble field ON by default — pure display toggle, n
 let showWiring=false;   /* wiring layer OFF by default (spec §4a) — pure display toggle */
 let showBodies=true;    /* to-scale fixture bodies ON by default (owner 2026-08-12) — pure
                             display toggle, independent of fidelity mode; see buildBodyGroup() */
+let showFab=true;       /* fabrication detail (pole base plates/U-slot sheet pieces/legs/
+                            ballast, pole-fabrication-spec.md rev 2) ON by default — pure
+                            display toggle; see buildFabricationDetail() / fabGroup above */
 let currentViewId='free';   /* last-chosen viewpoint id — declared up front so saveUIState can read it any time */
 
 /* ---------- UI persistence (§D, v7.12 2026-07-25) ----------
@@ -7881,7 +8007,7 @@ function saveUIState(){
   try{
     localStorage.setItem(UI_STORAGE_KEY, JSON.stringify({
       mode:fidelity, condition:condition, beams:showBeams, labels:showLabels,
-      pebbles:showPebbles, wiring:showWiring, bodies:showBodies, wiringPlan:activeWiringPlan,
+      pebbles:showPebbles, wiring:showWiring, bodies:showBodies, fab:showFab, wiringPlan:activeWiringPlan,
       viewpoint:currentViewId
     }));
   }catch(e){ /* sandboxed iframe or storage disabled — best-effort only */ }
@@ -8006,6 +8132,7 @@ function applyMode(){
   renderer.toneMapping = photo? THREE.ACESFilmicToneMapping : THREE.NoToneMapping;
   swapables.forEach(function(m){ m.material=m.userData.mats[photo?1:0]; });
   houseGroup.visible=!schem;                 /* schematic draws its own translucent house */
+  fabGroup.visible=showFab && !schem;        /* fabrication detail rides the same real-geometry rule */
   glassMeshes.forEach(function(g){ g.visible=!schem; });
   edgesGroup.visible=(fidelity==='diagram');
   schematicGroup.visible=schem;
@@ -8113,6 +8240,16 @@ function toggleBodies(){
 }
 $('bodiesBtn') && $('bodiesBtn').addEventListener('click', toggleBodies);
 $('mBodiesBtn') && $('mBodiesBtn').addEventListener('click', toggleBodies);
+/* fabrication-detail overlay toggle (pole-fabrication-spec.md rev 2, 2026-08-20) — pole
+   base plates, U-slot cover-sheet pieces, welded legs + ballast; default ON, independent
+   of fidelity mode (hidden only in Schematic, same rule as the rest of the real house). */
+function toggleFabDetail(){
+  showFab=!showFab;
+  [$('fabBtn'),$('mFabBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showFab); el.setAttribute('aria-pressed', showFab?'true':'false'); } });
+  applyMode(); saveUIState();
+}
+$('fabBtn') && $('fabBtn').addEventListener('click', toggleFabDetail);
+$('mFabBtn') && $('mFabBtn').addEventListener('click', toggleFabDetail);
 /* wiring plan short label for the mobile summary bar (§B) — e.g. "⚡ Wiring 2 · one circuit" */
 function wiringShortLabel(id){
   const SHORT={wiring1:'Wiring 1 · two taps', wiring2:'Wiring 2 · one circuit'};
@@ -8365,11 +8502,13 @@ function restoreUIFromStorage(){
   showPebbles = (typeof s.pebbles==='boolean') ? s.pebbles : showPebbles;
   showWiring  = (typeof s.wiring==='boolean')  ? s.wiring  : showWiring;
   showBodies  = (typeof s.bodies==='boolean')  ? s.bodies  : showBodies;
+  showFab     = (typeof s.fab==='boolean')     ? s.fab     : showFab;
   [['beamsBtn','mBeamsBtn',showBeams],['labelsBtn','mLabelsBtn',showLabels],
    ['pebblesBtn','mPebblesBtn',showPebbles],['wiringBtn','mWiringBtn',showWiring],
-   ['bodiesBtn','mBodiesBtn',showBodies]].forEach(function(t){
+   ['bodiesBtn','mBodiesBtn',showBodies],['fabBtn','mFabBtn',showFab]].forEach(function(t){
     [$(t[0]),$(t[1])].forEach(function(el){ if(el){ el.classList.toggle('on', t[2]); el.setAttribute('aria-pressed', t[2]?'true':'false'); } });
   });
+  fabGroup.visible=showFab;
   wireGroup.visible=showWiring;
   $('wireLegend').hidden=!showWiring;
   if(s.wiringPlan && wiringPlans.some(function(p){return p.id===s.wiringPlan;})){
@@ -8474,7 +8613,10 @@ rafId=requestAnimationFrame(loop);
 
 /* expose the upgrade hooks */
 window.BonsaiModel={ spec:SPEC, fixtureLibrary:FIXLIB, Photometry:Photometry, recompute:computeVerdicts,
-  camera:camera, controls:controls, goToView:goToView, scene:scene };
+  camera:camera, controls:controls, goToView:goToView, scene:scene, fabGroup:fabGroup,
+  selectFidelity:selectFidelity, applyMode:applyMode, togglePebbles:togglePebbles,
+  toggleBodies:toggleBodies, toggleFabDetail:toggleFabDetail, toggleWiring:toggleWiring,
+  toggleBeams:toggleBeams, toggleLabels:toggleLabels };
 
 })();
 </script>
