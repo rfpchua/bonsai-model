@@ -469,6 +469,8 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <p class="hint" style="margin-top:8px">How much light each face of the tree collects in a day (<b>DLI</b>, mol/m²/day) — measured daylight baseline plus the placed fixtures. Bands from the tree-care fact base: light that falls short <i>thins</i> a face; only a face held near zero long-term goes bare.</p>
       <p class="hint" id="nightVerdictNote" hidden><b>Night:</b> these bands score Part A's daytime grow lighting (08:00–18:00) — unaffected by the decorative uplights currently shown.</p>
       <label class="tg"><input type="checkbox" id="overlayChk"> Colour the pads by verdict (overlay)</label>
+      <label class="tg"><input type="checkbox" id="trimGlassChk" checked> Trim view — scanned leaves <b style="color:#c0392b">red</b> past the glass, <b style="color:#e67e22">orange</b> within 10 cm of it (follows slide + flip)</label>
+      <label class="tg"><input type="checkbox" id="trimZipChk"> …and at the Ziptrak line on the courtyard side (line position = ESTIMATE, pool edge y = −0.54, pending photos)</label>
       <div style="overflow-x:auto"><table class="vt" id="verdictTable">
         <thead><tr><th>Pad</th><th>Foyer face</th><th>Worst face</th><th>Verdict</th></tr></thead>
         <tbody></tbody>
@@ -3600,7 +3602,9 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "default": "best face toward the COURTYARD (nursery front); rear toward the foyer",
    "option": "pads_flip_best_face_to_foyer = measured pads rotated 180\u00b0 about the trunk",
    "tag": "OWNER 2026-09-04: orientation TBD pending the lighting re-optimisation"
-  }
+  },
+  "ziptrak_plane_y": -0.54,
+  "ziptrak_plane_y_tag": "ESTIMATE \u2014 pool edge; owner says the line is not strictly at the window edge; photos pending (2026-09-04)"
  },
  "wiring": {
   "tag": "ESTIMATE 2026-07-25 - routes per lighting-design.md D2; tap positions pending electrician visit + manhole photo; DALI pair shares every run; 'internal' style = cable inside the pole tube (A4c: deck gland entry, internal rise, exits under head clamps); strips tap off pole L's internal cable via rear-facing exits (0.29 / 0.55) - short lateral jumps along the sill face/ledge; TWO selectable plans (owner 2026-07-25): wiring1 two-tap vs wiring2 all-from-top single-circuit. Decorative wiring, cross-key rework 2026-07-25 (owner ruling: courtyard + dining are equal-primary night views): decorA/decorB/decorF (the default night set - two keys + one fill) each get their own solid run from JB-L, under the cover sheet, no new penetration; decorL/decorR (now role decorative_alt, optional alternates, not auto-placed) still ride the pole-L/pole-R internal risers via the added 0.45 via-point - no new route. Owner-approved addition 2026-07-25: decorG, an optional 4th fill for the courtyard view's shadow quadrant (role decorative_alt, not auto-placed) - dashed JB-L run in both plans, matching the legend's future/optional convention (solid = the default trio, dashed = optional). The decorative layer is its own DALI zone/group (independent night-scene switching; control topology only, per Part C - the physical wiring/circuit topology above is unchanged by that)",
@@ -5784,6 +5788,27 @@ let scanPts=null, showScan=true;
     scene.add(scanPts); treeParts.push(scanPts);
   }catch(e){ console.warn('scan cloud failed',e); }
 })();
+let scanBaseCol=null;
+function recolourScan(){   /* trim view: red = past the glass plane, orange = within 10 cm; optional Ziptrak plane on the courtyard side */
+  if(!scanPts) return;
+  const geo=scanPts.geometry, pos=geo.attributes.position.array, col=geo.attributes.color;
+  if(!scanBaseCol) scanBaseCol=new Float32Array(col.array);
+  const glassOn=!!(document.getElementById('trimGlassChk')&&document.getElementById('trimGlassChk').checked);
+  const zipOn=!!(document.getElementById('trimZipChk')&&document.getElementById('trimZipChk').checked);
+  const gY=(SPEC.house&&SPEC.house.glass&&SPEC.house.glass.plane_y)||0.54;
+  const zY=(SPEC.scenarios&&SPEC.scenarios.ziptrak_plane_y!=null)?SPEC.scenarios.ziptrak_plane_y:-0.54;
+  const band=0.10, fx=(typeof flipOn!=='undefined'&&flipOn)?-1:1, sm=(typeof slideM!=='undefined')?slideM:0;
+  const n=pos.length/3; const c=col.array;
+  for(let i=0;i<n;i++){
+    const y=-pos[i*3+2]*fx - sm;                     /* effective spec y (front = +) */
+    let r=scanBaseCol[i*3], g=scanBaseCol[i*3+1], b=scanBaseCol[i*3+2];
+    if(glassOn){ if(y>gY){r=0.85;g=0.10;b=0.10;} else if(y>gY-band){r=1.0;g=0.55;b=0.05;} }
+    if(zipOn){ if(y<zY){r=0.85;g=0.10;b=0.10;} else if(y<zY+band){ if(!(glassOn&&y>gY-band)){r=1.0;g=0.55;b=0.05;} } }
+    c[i*3]=r; c[i*3+1]=g; c[i*3+2]=b;
+  }
+  col.needsUpdate=true;
+}
+['trimGlassChk','trimZipChk'].forEach(function(id){ const el=document.getElementById(id); if(el) el.addEventListener('change', recolourScan); });
 function applyScanVis(){ if(scanPts) scanPts.visible=showScan; [document.getElementById('scanBtn'),document.getElementById('mScanBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showScan); el.setAttribute('aria-pressed',showScan?'true':'false'); } }); }
 function toggleScan(){ showScan=!showScan; applyScanVis(); if(typeof applyMode==='function') applyMode(); }
 document.getElementById('scanBtn') && document.getElementById('scanBtn').addEventListener('click', toggleScan);
@@ -8203,6 +8228,7 @@ function initWhatIf(){   /* CALLED at the end of boot — renderVerdictUI's DOM 
     applyWhatIf();
     updateSlideGhost();
     computeVerdicts();
+    recolourScan();
   }
   range.addEventListener('input', function(){
     const newM=+range.value/100, d=newM-slideM; slideM=newM;
@@ -9324,4 +9350,5 @@ window.BonsaiModel={ spec:SPEC, fixtureLibrary:FIXLIB, Photometry:Photometry, re
   toggleBeams:toggleBeams, toggleLabels:toggleLabels };
 
 })();
+if(typeof recolourScan==='function') recolourScan();
 </script>
