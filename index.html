@@ -6205,7 +6205,7 @@ function recolourScan(){   /* trim view: red = past the glass plane, orange = wi
   col.needsUpdate=true;
 }
 ['trimGlassChk','trimZipChk'].forEach(function(id){ const el=document.getElementById(id); if(el) el.addEventListener('change', recolourScan); });
-function applyScanVis(){ if(scanPts) scanPts.visible=showScan; [document.getElementById('scanBtn'),document.getElementById('mScanBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showScan); el.setAttribute('aria-pressed',showScan?'true':'false'); } }); }
+function applyScanVis(){ if(scanPts){ const photo=(typeof fidelity!=='undefined'&&fidelity==='photo')||(document.body&&document.body.classList.contains('photo')); scanPts.visible=photo?true:showScan; } [document.getElementById('scanBtn'),document.getElementById('mScanBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showScan); el.setAttribute('aria-pressed',showScan?'true':'false'); } }); }
 function toggleScan(){ showScan=!showScan; applyScanVis(); if(typeof applyMode==='function') applyMode(); }
 document.getElementById('scanBtn') && document.getElementById('scanBtn').addEventListener('click', toggleScan);
 document.getElementById('mScanBtn') && document.getElementById('mScanBtn').addEventListener('click', toggleScan);
@@ -9276,10 +9276,11 @@ function applyMode(){
   glassMeshes.forEach(function(g){ g.visible=!schem; });
   edgesGroup.visible=(fidelity==='diagram');
   schematicGroup.visible=schem;
+  applyScanVis();
   padObjs.forEach(function(po){
-    po.mesh.visible=!photo && !showScan;     /* flat-shaded pads serve diagram AND schematic; hidden while the SCAN cloud is on */
-    po.core.visible=photo && !showScan;
-    po.leaves.visible=photo && !showScan;
+    po.mesh.visible=!photo && !(showScan&&scanPts);   /* schematic/diagram: cloud plates unless the SCAN cloud is switched in */
+    po.core.visible=photo && !scanPts;                  /* photoreal: the scanned tree only (leaf-card pads are the fallback if no scan is embedded) */
+    po.leaves.visible=photo && !scanPts;
     po.shell.visible=showOverlay;
     po.label.visible=showLabels && !photo;
   });
