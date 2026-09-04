@@ -3137,9 +3137,9 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "plane_y": 0.54,
    "x": [-1.94,1.59],
    "z": [0.57,3.0],
-   "tag": "MEASURED 2026-09-04: main frosted glass 3.53 between the dining end wall and the living-end pier; sill top 0.57 above deck (floor→sill 1.22 at 0.65 depth). Pane split ESTIMATE — mullions not taped",
-   "panes": [0.75,1.83,0.75],
-   "frame_w": 0.05
+   "tag": "MEASURED 2026-09-04: main frosted glass 3.53 (x −1.94..1.59) between the dining end wall and the living-end pier; sill top 0.57 above deck. Mullions at x ±1.21 = the JULY pane split (2.4 m centre pane, 0.10 frames) kept per owner 2026-09-05 'where you don't know, use previous measurements' — the poles at ±1.2 sit on the mullion lines",
+   "panes": [0.63,2.4,0.28],
+   "frame_w": 0.1
   },
   "sill_wall": {
    "plane_y": 0.54,
@@ -3234,20 +3234,20 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
    "tag": "OWNER 2026-07-25 - 2in external ledge at the window base; the sill strip body sits on it"
   },
   "pier": {
-   "x": [1.59,1.94],
+   "x": [1.59,1.82],
    "y": [0.33,0.545],
    "z": [0.0,3.0],
-   "tag": "MEASURED depth 0.21 (IMG_5156), full height in photos (IMG_5154/5108); WIDTH along the glass ESTIMATE (fills the 0.35 return bay end); the well runs under/past it to the end wall at +1.94 — the return window sits in that end wall"
+   "tag": "MEASURED depth 0.21 (IMG_5156), full height (IMG_5154/5108); width along the glass = the July 9 in / 0.23 (owner 2026-09-05: use previous measurements); the well runs past it to the end wall at +1.94 which carries the return window"
   },
   "coping": {
    "width": 0.27,
    "tag": "MEASURED 2026-09-04 IMG_5166: white coping between the mosaic edge and the deck boards on the courtyard side"
   },
   "well_bench": {
-   "x": [-1.94,-1.685],
+   "x": [1.685,1.94],
    "y": [-0.545,-0.29],
    "z": [-0.65,-0.05],
-   "tag": "MEASURED 0.60 up from the floor, 0.255 tread (IMG_5150/5151); CORNER ESTIMATE (deck-side, dining/door end) — owner to confirm"
+   "tag": "MEASURED 0.60 up from the floor, 0.255 tread (IMG_5150/5151); placed at the LIVING end, deck side — IMG_5161 (camera at the living end, door far away, block near-left) and IMG_5152 (block beside the return-window end wall) both put it at the living end; July's 'window side' hint was from a poor photo"
   }
  },
  "viewpoints": [
@@ -5057,7 +5057,7 @@ const dimsGroup=new THREE.Group(); dimsGroup.visible=false; scene.add(dimsGroup)
   dim([0.40,yD,zD+0.02],[0.40,yD-0.27,zD+0.02],'coping 0.27',[0.06,0,0],[0,-0.25,0.10]);
   dim([-0.60,yG,0.57],[-0.60,yG-0.24,0.57],'sill wall 0.23–0.25 thick',[0.06,0,0],[0,-0.2,0.12]);
   /* piers / fins projecting from the glass line */
-  dim([1.59,yG,1.5],[1.59,yG-0.21,1.5],'pier beside the glass 0.21 (full height in photos)',[0,0,0.06],[0.2,-0.3,0.15]);
+  dim([1.59,yG,1.5],[1.59,yG-0.21,1.5],'pier 0.21 deep × 0.23 wide (Jul 9 in), full height',[0,0,0.06],[0.2,-0.3,0.15]);
   /* soffit + returns */
   dim([2.02,yD-0.25,zD],[2.02,yD-0.25,3.0],'soffit 3.0 (owner-confirmed, no tape)',[0.06,0,0],[0.35,0,0]);
   dim([1.94,yD-0.15,3.0],[2.16,yD-0.15,3.0],'soffit return 0.22 wide',[0,0.05,0],[0.3,-0.2,0.12]);
@@ -5065,7 +5065,7 @@ const dimsGroup=new THREE.Group(); dimsGroup.visible=false; scene.add(dimsGroup)
   /* tiled bench block in the well, deck-side corner at the dining/door end (0.60 high × 0.255 deep) */
   const bench=new THREE.Mesh(new THREE.BoxGeometry(0.255,0.60,0.255), new THREE.MeshBasicMaterial({color:0x3b7fb8, transparent:true, opacity:0.45, depthTest:false}));
   bench.position.copy(W(-1.94+0.1275, yD+0.1275, zF+0.30)); bench.renderOrder=985; bench.visible=false; dimsGroup.add(bench);   /* now built in buildHouse (house.well_bench) */
-  const bl=textSprite('tiled ledge 0.60 up from the floor × 0.255 tread (deck-side corner, door end — confirm position)',{fs:28,k:0.0011,bg:'rgba(30,70,110,0.85)'}); bl.position.copy(W(-1.6,yD+0.1,zF+0.75)); bl.renderOrder=995; dimsGroup.add(bl);
+  const bl=textSprite('tiled bench 0.60 up from the floor × 0.255 tread (living end, deck side)',{fs:28,k:0.0011,bg:'rgba(30,70,110,0.85)'}); bl.position.copy(W(1.6,yD+0.1,zF+0.75)); bl.renderOrder=995; dimsGroup.add(bl);
   const hdr=textSprite('DIMENSIONS — owner tape 4 Sep 2026 (orange); house geometry rebuilt to these values (v7.34) · Jul = July value kept where no new tape',{fs:30,k:0.00125,bg:'rgba(60,30,5,0.9)'}); hdr.position.copy(W(0,-1.2,3.35)); hdr.renderOrder=995; dimsGroup.add(hdr);
 })();
 function setDims(on){
