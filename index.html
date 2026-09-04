@@ -302,6 +302,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
       <button id="labelsBtn" class="on">Labels</button>
       <button id="pebblesBtn" class="on">Pebbles</button>
       <button id="bodiesBtn" class="on" title="Real-scale fixture bodies (dims_mm)">Bodies</button>
+      <button id="dimsBtn" title="Dimension overlay — every taped segment from the owner's 4 Sep 2026 photos (orange), with the July file values where no tape exists">Dims</button>
       <select id="treeView" title="Tree rendering: Scan = the real tree (LiDAR point cloud); Clouds = contour pads (offset surface 2 cm off the scanned leaves, verdict-coloured); Both = clouds translucent over the scan" aria-label="Tree rendering"><option value="scan">Tree: Scan</option><option value="clouds">Tree: Clouds</option><option value="both">Tree: Both</option></select>
       <button id="fabBtn" class="on" title="Fabrication detail (pole-fabrication-spec.md rev 2, ratified 20 Aug): Ø300 pole base plates, the cover sheet as its two liftable pieces with the U-slot pole restraint, welded legs to the pool floor, and the optional concrete ballast ring">Fab. detail</button>
       <button id="wiringBtn">Wiring</button>
@@ -344,6 +345,7 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
         </button>
         <select id="mTreeView" class="mchip" aria-label="Tree rendering"><option value="scan">Tree: Scan</option><option value="clouds">Tree: Clouds</option><option value="both">Tree: Both</option></select>
         <button id="mPergBtn" class="mchip" role="menuitem" aria-label="Toggle pergola + 2 beam heads" aria-pressed="false" title="Pergola + 2 beam heads">Pergola</button>
+        <button id="mDimsBtn" class="mchip" role="menuitem" aria-label="Toggle dimension overlay" aria-pressed="false" title="Dimensions (4 Sep tape)">Dims</button>
         <button id="mFabBtn" class="mchip on" role="menuitem" aria-label="Toggle fabrication detail" aria-pressed="true" title="Fabrication detail (pole base plates, U-slot sheet pieces, legs, ballast)">
           <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
           <span>Fab.</span>
@@ -5000,6 +5002,58 @@ const pergolaGroup=new THREE.Group(); pergolaGroup.visible=false; scene.add(perg
   e.position.copy(pvc.position); pergolaGroup.add(e);
   const lbl=textSprite('pergola beam · Ziptrak PVC plane (toggle)', {fs:30,k:0.0011,bg:'rgba(120,90,20,0.7)'}); lbl.position.copy(W(-0.1,-0.65,2.92)); pergolaGroup.add(lbl);
 })();
+
+/* ============================== DIMENSIONS overlay (v7.34, owner tape 2026-09-04) ==============================
+   Every value here is a TAPED segment from the owner's 4 Sep photos (ops/wip/suncourt-tape-measurements.md)
+   or a July MEASURED value where no new tape exists (marked Jul). Frame: +x = living end (left when
+   facing the foyer from the courtyard), +y = glass. The house geometry underneath is still the July
+   spec (well 3.96); the overlay shows the 4 Sep numbers ON that geometry so differences are visible. */
+const dimsGroup=new THREE.Group(); dimsGroup.visible=false; scene.add(dimsGroup);
+(function buildDims(){
+  const mat=new THREE.LineBasicMaterial({color:0xd4570b, depthTest:false, transparent:true, opacity:0.95});
+  function seg(a,b){ const g=new THREE.BufferGeometry().setFromPoints([Wa(a),Wa(b)]); const l=new THREE.Line(g,mat); l.renderOrder=990; dimsGroup.add(l); }
+  function dim(a,b,label,tick,lab){   /* a,b spec points; tick = tick direction vector (spec); lab = label offset (spec) */
+    seg(a,b); const t=tick||[0,0,0.06];
+    seg([a[0]-t[0],a[1]-t[1],a[2]-t[2]],[a[0]+t[0],a[1]+t[1],a[2]+t[2]]);
+    seg([b[0]-t[0],b[1]-t[1],b[2]-t[2]],[b[0]+t[0],b[1]+t[1],b[2]+t[2]]);
+    const m=[(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2]; const o=lab||[0,0,0.12];
+    const sp=textSprite(label,{fs:30,k:0.00115,bg:'rgba(120,50,8,0.85)'}); sp.position.copy(W(m[0]+o[0],m[1]+o[1],m[2]+o[2])); sp.renderOrder=995; dimsGroup.add(sp);
+  }
+  const yD=-0.54, yG=0.54, zD=0.0, zF=-0.67;
+  /* well length, deck-side coping line */
+  dim([-1.94,yD-0.05,zD+0.02],[1.94,yD-0.05,zD+0.02],'well (mosaic) 3.88 · boards 3.48 + pad 0.37 · Jul file 3.96',[0,0.05,0],[0,-0.15,0.10]);
+  dim([-1.94,yD-0.05,zD+0.30],[1.54,yD-0.05,zD+0.30],'boards 3.48 (deck-side run 3.51 to the wall)',[0,0.05,0],[0,-0.1,0.10]);
+  dim([1.54,yD-0.05,zD+0.30],[1.94,yD-0.05,zD+0.30],'pad 0.37',[0,0.05,0],[0.15,-0.1,0.22]);
+  /* main sill / frosted glass between piers, sill top */
+  dim([-1.94,yG-0.02,0.57],[1.59,yG-0.02,0.57],'main sill / frosted glass between piers 3.53 (tape 3.535)',[0,0,0.06],[0,-0.05,0.14]);
+  dim([1.59,yG-0.02,0.57],[1.94,yG-0.02,0.57],'return bay 0.37 (under the return window)',[0,0,0.06],[0.3,-0.05,0.30]);
+  /* end ledges */
+  dim([1.98,yD-0.10,0.05],[2.20,yD-0.10,0.05],'ledge 0.22 (9 in) · living end',[0,0.05,0],[0.35,-0.25,0.10]);
+  dim([-2.18,yD-0.10,0.05],[-1.98,yD-0.10,0.05],'ledge 0.20 (8 in) · dining end',[0,0.05,0],[-0.35,-0.25,0.10]);
+  /* front-to-back, depth, sill-top height */
+  dim([-1.60,yD,zD+0.02],[-1.60,yG,zD+0.02],'front-to-back 1.09 (owner tape; Jul 1.08)',[0.06,0,0],[-0.1,0,0.14]);
+  dim([-1.80,yD+0.15,zF],[-1.80,yD+0.15,zD],'depth 0.65 (owner tape; Jul 0.67)',[0.06,0,0],[-0.55,0,0]);
+  dim([1.30,yG-0.06,zF],[1.30,yG-0.06,0.55],'floor→sill top 1.22 (tape) ⇒ sill 0.57 above deck at 0.65 depth',[0.06,0,0],[0.0,-0.35,0.05]);
+  /* coping, sill wall thickness */
+  dim([0.40,yD,zD+0.02],[0.40,yD-0.27,zD+0.02],'coping 0.27',[0.06,0,0],[0,-0.25,0.10]);
+  dim([-0.60,yG,0.57],[-0.60,yG-0.24,0.57],'sill wall 0.23–0.25 thick',[0.06,0,0],[0,-0.2,0.12]);
+  /* piers / fins projecting from the glass line */
+  dim([1.59,yG,1.5],[1.59,yG-0.21,1.5],'pier beside the glass 0.21 (full height in photos)',[0,0,0.06],[0.2,-0.3,0.15]);
+  /* soffit + returns */
+  dim([2.05,yD-0.25,zD],[2.05,yD-0.25,3.0],'soffit 3.0 (owner-confirmed, no tape)',[0.06,0,0],[0.35,0,0]);
+  dim([1.98,yD-0.15,3.0],[2.21,yD-0.15,3.0],'soffit return 0.23 wide (Jul)',[0,0.05,0],[0.3,-0.2,0.12]);
+  dim([2.10,yD,3.0],[2.10,yG,3.0],'soffit return 1.08 deep (Jul)',[0.06,0,0],[0.35,0,0.12]);
+  /* tiled bench block in the well, deck-side corner at the dining/door end (0.60 high × 0.255 deep) */
+  const bench=new THREE.Mesh(new THREE.BoxGeometry(0.255,0.60,0.255), new THREE.MeshBasicMaterial({color:0x3b7fb8, transparent:true, opacity:0.45, depthTest:false}));
+  bench.position.copy(W(-1.94+0.1275, yD+0.1275, zF+0.30)); bench.renderOrder=985; dimsGroup.add(bench);
+  const bl=textSprite('tiled ledge 0.60 up from the floor × 0.255 tread (deck-side corner, door end — confirm position)',{fs:28,k:0.0011,bg:'rgba(30,70,110,0.85)'}); bl.position.copy(W(-1.6,yD+0.1,zF+0.75)); bl.renderOrder=995; dimsGroup.add(bl);
+  const hdr=textSprite('DIMENSIONS — owner tape 4 Sep 2026 (orange) · Jul = July file value · geometry under the labels is still the July spec',{fs:30,k:0.00125,bg:'rgba(60,30,5,0.9)'}); hdr.position.copy(W(0,-1.2,3.35)); hdr.renderOrder=995; dimsGroup.add(hdr);
+})();
+function setDims(on){
+  dimsGroup.visible=!!on;
+  ['dimsBtn','mDimsBtn'].forEach(function(id){ const b=document.getElementById(id); if(!b) return; b.classList.toggle('on',dimsGroup.visible); b.setAttribute('aria-pressed',dimsGroup.visible?'true':'false'); });
+}
+['dimsBtn','mDimsBtn'].forEach(function(id){ const b=document.getElementById(id); if(b) b.addEventListener('click', function(){ setDims(!dimsGroup.visible); }); });
 const edgesGroup=new THREE.Group(); scene.add(edgesGroup);
 const edgeMat=new THREE.LineBasicMaterial({color:0x5a6459, transparent:true, opacity:0.45});
 
@@ -8574,6 +8628,8 @@ applyScenario('measured');
     if(q.get('scen') && SCENARIOS[q.get('scen')]) applyScenario(q.get('scen'));
     if(q.get('flip')==='1'){ const f=document.getElementById('flipChk'); if(f&&!f.checked){ f.checked=true; f.dispatchEvent(new Event('change')); } }
     if(q.get('perg')==='1') setPergHeads(true);
+    if(q.get('dims')==='1') setDims(true);
+    if(q.get('cam')){ const c=q.get('cam').split(',').map(Number); if(c.length===6&&c.every(isFinite)){ const place=function(){ viewAnim.active=false; camera.position.copy(W(c[0],c[1],c[2])); controls.target.copy(W(c[3],c[4],c[5])); controls.update(); }; setTimeout(place,150); setTimeout(place,900); } }   /* after restoreUIFromStorage()'s goToView */
     if(q.get('tree')) setTreeView(q.get('tree'));
     if(q.get('trim')){ const t=q.get('trim').split(','); const g=document.getElementById('trimGlassChk'), z=document.getElementById('trimZipChk');
       if(g){ g.checked=t.indexOf('glass')>=0; } if(z){ z.checked=t.indexOf('zip')>=0; } recolourScan(); }
