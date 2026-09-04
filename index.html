@@ -342,6 +342,10 @@ label.tg{display:flex;align-items:center;gap:7px;font-size:.76rem;color:var(--mu
           <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="9" width="14" height="8" rx="1.5"/><path d="M9 9V6h6v3"/></svg>
           <span>Bodies</span>
         </button>
+        <button id="mScanBtn" class="mchip on" role="menuitem" aria-label="Toggle the scanned real tree" aria-pressed="true" title="SCAN — the real tree from the nursery LiDAR scan (2026-09-04). Off = schematic pads.">
+          <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8" cy="9" r="1.6"/><circle cx="14" cy="6" r="1.6"/><circle cx="16" cy="13" r="1.6"/><circle cx="10" cy="15" r="1.6"/><circle cx="6" cy="17" r="1.6"/></svg>
+          <span>Scan</span>
+        </button>
         <button id="mFabBtn" class="mchip on" role="menuitem" aria-label="Toggle fabrication detail" aria-pressed="true" title="Fabrication detail (pole base plates, U-slot sheet pieces, legs, ballast)">
           <svg class="ci" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
           <span>Fab.</span>
@@ -5780,9 +5784,10 @@ let scanPts=null, showScan=true;
     scene.add(scanPts); treeParts.push(scanPts);
   }catch(e){ console.warn('scan cloud failed',e); }
 })();
-function applyScanVis(){ if(scanPts) scanPts.visible=showScan; [document.getElementById('scanBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showScan); el.setAttribute('aria-pressed',showScan?'true':'false'); } }); }
+function applyScanVis(){ if(scanPts) scanPts.visible=showScan; [document.getElementById('scanBtn'),document.getElementById('mScanBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showScan); el.setAttribute('aria-pressed',showScan?'true':'false'); } }); }
 function toggleScan(){ showScan=!showScan; applyScanVis(); if(typeof applyMode==='function') applyMode(); }
 document.getElementById('scanBtn') && document.getElementById('scanBtn').addEventListener('click', toggleScan);
+document.getElementById('mScanBtn') && document.getElementById('mScanBtn').addEventListener('click', toggleScan);
 
 const edgesGroup=new THREE.Group(); scene.add(edgesGroup);
 const edgeMat=new THREE.LineBasicMaterial({color:0x5a6459, transparent:true, opacity:0.45});
