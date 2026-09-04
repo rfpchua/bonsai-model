@@ -438935,7 +438935,7 @@ function applyScanVis(){
   if(scanPts) scanPts.visible=scan;
   if(typeof padObjs!=='undefined') padObjs.forEach(function(po){
     po.mesh.visible=clouds; po.core.visible=false; po.leaves.visible=false;
-    po.mesh.material.transparent=both; po.mesh.material.opacity=both?0.45:1.0; po.mesh.material.depthWrite=!both;
+    po.mesh.material.transparent=true; po.mesh.material.opacity=both?0.28:0.62; po.mesh.material.depthWrite=false;   /* clouds always translucent: 28% over the scan, 62% alone */
   });
   ['treeView','mTreeView'].forEach(function(id){ const el=document.getElementById(id); if(el&&el.value!==treeView) el.value=treeView; });
 }
