@@ -5757,7 +5757,7 @@ let scanPts=null, showScan=true;
   }catch(e){ console.warn('scan cloud failed',e); }
 })();
 function applyScanVis(){ if(scanPts) scanPts.visible=showScan; [document.getElementById('scanBtn')].forEach(function(el){ if(el){ el.classList.toggle('on',showScan); el.setAttribute('aria-pressed',showScan?'true':'false'); } }); }
-function toggleScan(){ showScan=!showScan; applyScanVis(); }
+function toggleScan(){ showScan=!showScan; applyScanVis(); if(typeof applyMode==='function') applyMode(); }
 document.getElementById('scanBtn') && document.getElementById('scanBtn').addEventListener('click', toggleScan);
 
 const edgesGroup=new THREE.Group(); scene.add(edgesGroup);
@@ -8811,9 +8811,9 @@ function applyMode(){
   edgesGroup.visible=(fidelity==='diagram');
   schematicGroup.visible=schem;
   padObjs.forEach(function(po){
-    po.mesh.visible=!photo;                  /* flat-shaded pads serve diagram AND schematic */
-    po.core.visible=photo;
-    po.leaves.visible=photo;
+    po.mesh.visible=!photo && !showScan;     /* flat-shaded pads serve diagram AND schematic; hidden while the SCAN cloud is on */
+    po.core.visible=photo && !showScan;
+    po.leaves.visible=photo && !showScan;
     po.shell.visible=showOverlay;
     po.label.visible=showLabels && !photo;
   });
