@@ -8833,6 +8833,7 @@ applyScenario('measured');
     if(q.get('leaf')==='1'){ const lc=document.getElementById('leafChk'); if(lc){ lc.checked=true; setTreeView('scan'); recolourScan(); } }
     if(q.get('cam')){ const c=q.get('cam').split(',').map(Number); if(c.length===6&&c.every(isFinite)){ const place=function(){ viewAnim.active=false; camera.position.copy(W(c[0],c[1],c[2])); controls.target.copy(W(c[3],c[4],c[5])); controls.update(); }; setTimeout(place,150); setTimeout(place,900); } }   /* after restoreUIFromStorage()'s goToView */
     if(q.get('tree')) setTreeView(q.get('tree'));   /* scan | clouds | both | none */
+    if(q.get('beams')==='0'){ const bb=document.getElementById('beamsBtn'); if(bb&&bb.classList.contains('on')) bb.click(); }
     if(q.get('pebbles')==='0'){ const pb=document.getElementById('pebblesBtn'); if(pb&&pb.classList.contains('on')) pb.click(); }
     if(q.get('labels')==='0'){ const lb=document.getElementById('labelsBtn'); if(lb&&lb.classList.contains('on')) lb.click(); }
     if(q.get('trim')){ const t=q.get('trim').split(','); const g=document.getElementById('trimGlassChk'), z=document.getElementById('trimZipChk');
@@ -8902,6 +8903,6 @@ window.BonsaiModel={ spec:SPEC, fixtureLibrary:FIXLIB, Photometry:Photometry, re
 
   /* boot: trim-view colours + diagnostic handle (inside the app scope) */
   recolourScan();
-  window.__bonsai={ shot:function(q){ renderer.render(scene,camera); return renderer.domElement.toDataURL('image/jpeg',q||0.85); }, renderer:renderer, camera:camera, controls:controls, goToView:goToView, get placed(){return placed;}, get scanPts(){return scanPts;}, get padObjs(){return padObjs;}, get slideM(){return slideM;}, get flipOn(){return flipOn;}, toggleScan:toggleScan, applyMode:applyMode, get showScan(){return showScan;}, setTreeView:setTreeView, get treeView(){return treeView;} };
+  window.__bonsai={ shot:function(q){ renderer.render(scene,camera); return renderer.domElement.toDataURL('image/jpeg',q||0.85); }, renderer:renderer, camera:camera, controls:controls, goToView:goToView, get scene(){return scene;}, get placed(){return placed;}, get scanPts(){return scanPts;}, get padObjs(){return padObjs;}, get slideM(){return slideM;}, get flipOn(){return flipOn;}, toggleScan:toggleScan, applyMode:applyMode, get showScan(){return showScan;}, setTreeView:setTreeView, get treeView(){return treeView;} };
 })();
 </script>
