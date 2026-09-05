@@ -7283,6 +7283,14 @@ function applyMeasuredScenario(){
     const nl=addLight(MEASURED_SCENARIO.poleProduct, pos, {beam:MEASURED_SCENARIO.poleBeam, aim:measuredAim(h.aim)});
     if(nl){ nl.posSpec=[h.x, MEASURED_SCENARIO.pergY, MEASURED_SCENARIO.pergZ]; updateLightObjects(nl); }
   });
+  /* Q2 bracket arms: a short bar from the pole axis to each head (visual only) */
+  if(typeof bracketGroup==='undefined'){ window.__bracketGroup=new THREE.Group(); scene.add(window.__bracketGroup); }
+  const bg=window.__bracketGroup; while(bg.children.length) bg.remove(bg.children[0]);
+  placed.filter(function(l){ return l.posId==='poleL'||l.posId==='poleR'; }).forEach(function(l){
+    const px=(l.posId==='poleL')?1.2:-1.2, py=MEASURED_SCENARIO.poleY; const a=W(px,py,l.posSpec[2]), b=W(l.posSpec[0],l.posSpec[1],l.posSpec[2]);
+    const len=a.distanceTo(b); if(len<0.02) return; const g=new THREE.CylinderGeometry(0.012,0.012,len,8); const m=new THREE.Mesh(g,new THREE.MeshLambertMaterial({color:0x2b2f33}));
+    m.position.copy(a).add(b).multiplyScalar(0.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), b.clone().sub(a).normalize()); bg.add(m);
+  });
   const mEl=document.getElementById('measM'); if(mEl) mEl.textContent=set.margins.low.toFixed(2)+' / '+set.margins.mid.toFixed(2)+(pergHeadsOn?' +pergola':'');
   if(typeof pergolaGroup!=='undefined') pergolaGroup.visible=pergHeadsOn;
   refreshLightbar(); refreshPoleHeadUI(); computeVerdicts(); applyCondition();
