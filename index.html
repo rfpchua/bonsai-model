@@ -4731,15 +4731,15 @@ function vnoise(x,y,z){ return (Math.sin(x*2.7+y*1.9)+Math.sin(y*3.1+z*2.3)+Math
 
 /* candidate-position display metadata (labels only — geometry stays in the spec JSON) */
 const POSMETA = {
-  Lflood:  {disp:'L flood — end soffit (base scheme)',  short:'L flood',    mcst:true},
-  Rflood:  {disp:'R flood — end soffit (base scheme)',  short:'R flood',    mcst:true},
+  Lflood:  {disp:'L flood — end soffit (base scheme)',  short:'L flood',    mcst:false},
+  Rflood:  {disp:'R flood — end soffit (base scheme)',  short:'R flood',    mcst:false},
   balc:    {disp:'balcony centre (base scheme)',        short:'balc centre',mcst:false},
   balc2:   {disp:'balcony 2 (base scheme)',             short:'balc 2',     mcst:false},
   /* pergola pair (owner what-if 2026-08-14 eve): CONDITIONAL on the courtyard pergola
      being built — the structure itself needs MCST (tree-and-site §5); heads at 2.7 m
      hit the calibrated world's binding courtyard-side faces square and from above.
      The pergola structure is NOT modelled — bodies render at their mount points. */
-  perg1:   {disp:'pergola head 1 — courtyard 2.7 m (conditional structure)', short:'pergola 1', mcst:true},
+  perg1:   {disp:'pergola head 1 — courtyard 2.7 m (conditional structure)', short:'pergola 1', mcst:true},   /* structure still needs MCST; the SOFFIT itself is the owner's (ruling 2026-09-05) */
   perg2:   {disp:'pergola head 2 — courtyard 2.7 m (conditional structure)', short:'pergola 2', mcst:true},
   /* Sol 5.6 crossbar (Codex blind optimum, 2026-08-14 eve): one beam across the courtyard
      at z=2.6 (0.4 m below the balcony), y=-1.336 — CONDITIONAL structure (MCST + build). */
@@ -4747,10 +4747,10 @@ const POSMETA = {
   xbar2:   {disp:'Sol 5.6 crossbar head 2 — EF51 + X311 oval (conditional structure)', short:'xbar 2 · oval', mcst:true},
   xbar3:   {disp:'Sol 5.6 crossbar head 3 (conditional structure)', short:'xbar 3', mcst:true},
   xbar4:   {disp:'Sol 5.6 crossbar head 4 (conditional structure)', short:'xbar 4', mcst:true},
-  soffitL: {disp:'(a) soffit corner L',                 short:'soffit L',   mcst:true},
-  soffitR: {disp:'(a) soffit corner R',                 short:'soffit R',   mcst:true},
-  wireL:   {disp:'(b) suspended vertical L',            short:'susp L',     mcst:true},
-  wireR:   {disp:'(b) suspended vertical R',            short:'susp R',     mcst:true},
+  soffitL: {disp:'(a) soffit corner L',                 short:'soffit L',   mcst:false},
+  soffitR: {disp:'(a) soffit corner R',                 short:'soffit R',   mcst:false},
+  wireL:   {disp:'(b) suspended vertical L',            short:'susp L',     mcst:false},
+  wireR:   {disp:'(b) suspended vertical R',            short:'susp R',     mcst:false},
   strip:   {disp:'(c) centre-pane sill strip',          short:'sill strip', mcst:false},
   strip2:  {disp:'(c) sill strip 2 — low on the sill-wall face', short:'sill strip 2 · low on sill', mcst:false},
   poleL:   {disp:'(d) window pole L',                   short:'pole L',     mcst:false},
