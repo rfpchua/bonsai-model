@@ -1,0 +1,79 @@
+{
+  "baseline_id": "R06-owner-baseline-v1",
+  "status": "OWNER_LOCKED_INFORMED_WORKING_BASELINE",
+  "recorded_at": "2026-09-11T08:23:32.155595+00:00",
+  "title": "Five overheads + six standard Targettis on mullion-aligned poles",
+  "hardware": {
+    "overheads": {
+      "120W_30deg": 2,
+      "120W_45deg": 1,
+      "80W_30deg": 2
+    },
+    "Targetti_Medium_1E3935DA_33_2W_48deg": 6,
+    "Targetti_Maxi": 0
+  },
+  "physical_poles": {
+    "count": 2,
+    "diameter_mm": 60,
+    "dining_heads": 4,
+    "living_heads": 2,
+    "axes_render_m": {
+      "dining": [
+        -1.247775,
+        0.45
+      ],
+      "living": [
+        1.247775,
+        0.45
+      ]
+    },
+    "complete_assembly_cap_above_well_floor_m": 3
+  },
+  "metrics": {
+    "mean": 4.000094747423601,
+    "share_ge4": 0.4189345500112457,
+    "weakest_pad_p10": 1.651105927427627,
+    "p10": 2.241219769858577,
+    "face_mean": 4.461073376151827,
+    "face_p10": 2.1718741163564714,
+    "face_share_ge4": 0.533206605678983,
+    "half_mean": 4.651780278113224,
+    "half_share_ge4": 0.5791805898590731,
+    "log_point": 1.5613598286088899,
+    "log_face": 1.6376530619226908,
+    "max_electric_PPFD": 260.49155457809223,
+    "p99_electric_PPFD": 212.7529618773795,
+    "eye_max": {
+      "foyer": 593.4576972150215,
+      "courtyard": 3241.404489262026
+    },
+    "eye_pass": true,
+    "typical_mean": 4.671426674578957
+  },
+  "daylight_reconciliation": {
+    "electric_mean_DLI": 3.3239191547482534,
+    "dull_daylight_mean_DLI": 0.6761755926753474,
+    "typical_daylight_mean_DLI": 1.3475075198307038,
+    "dull_combined_mean_DLI": 4.000094747423601,
+    "typical_combined_mean_DLI": 4.671426674578957
+  },
+  "total_watts": 719.2000000000003,
+  "minimum_targetti_envelope_gap_m": 0.3218214824913009,
+  "comparison_eye_limits_lux": {
+    "foyer": 596.0721349185519,
+    "courtyard": 3665.707149089307
+  },
+  "installation_qualified": false,
+  "limits": [
+    "Mount assemblies, structural grips and fixing details remain provisional.",
+    "120 W Philips uses the declared scaled 80 W photometry, not an exact 120 W IES.",
+    "Direct eye lux limits are inherited comparison screens, not validated comfort thresholds.",
+    "Daylight is a sparse-reading model scenario, not measured daily per-pad DLI.",
+    "No fixture/support self-shadow, exact leaf normals, thermal response or lifespan model.",
+    "The 4.106 DLI wall arrangement is outside the allowed mounting domain and is ineligible."
+  ],
+  "model": "./",
+  "schedule": "schedule.json",
+  "report": "report.html",
+  "publication_scope": "Interactive R06 viewer and report; local workspace paths and working notes omitted."
+}

@@ -1,0 +1,18 @@
+{
+  "run": "R06",
+  "baseline": "R06-owner-baseline-v1",
+  "status": "COMPLETE_OWNER_LOCKED_WORKING_BASELINE",
+  "canonical_geometry_unchanged": true,
+  "browser_checks_passed": 20,
+  "browser_checks_failed": 0,
+  "fresh_shared_protocol_equivalence_sources": 11,
+  "fresh_equivalence_max_error": 0.0,
+  "installation_qualified": false,
+  "public_bundle_browser_checks_before_upload": {
+    "passed": 21,
+    "failed": 0,
+    "phone_layout_tested": true,
+    "real_iOS_device_tested": false
+  },
+  "published_geometry_and_dose_buffers_unchanged": true
+}
