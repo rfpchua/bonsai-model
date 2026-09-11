@@ -1,0 +1,25 @@
+{
+  "run_id": "R06-C03",
+  "status": "PASS",
+  "target_met": true,
+  "repair": "v2-all-fixture-packing",
+  "rejected_v1_archive": "work/rejected-v1",
+  "fresh_response_status": "PASS",
+  "geometry_status": "PASS_ALL_PAIR_PROXY_PACKING_PROVISIONAL_MOUNT_DETAILS_MISSING",
+  "schedule_sha256": "bbd05fa96b5c6f8a947a371055818ea3ff2c6d670f19f41a79bfd7d314bfe87f",
+  "point_results_sha256": "d7c8fbfaf7b267ac41a95cf1952ea367ead930346956c91cecf695a32c0f911b",
+  "metrics_sha256": "aa2c6a06d4b8cfbd4b84fca8321f79ac60a7d439c0bcbf611d074db7536e3d97",
+  "summary_sha256": "4c09409884f69fc72115a3dc7bdacc2e83f8643bd791f202bff538c2e4bf44c9",
+  "checks": [
+    "shared doctor/selftest PASS",
+    "sealed baseline-equivalence hash matched manifest",
+    "all selected responses freshly recalculated",
+    "head rules and eye screens PASS",
+    "authoritative host anchors PASS",
+    "all-fixture body OBB SAT and common-host service/base proxy packing PASS",
+    "foliage clearance and complete-assembly cap PASS"
+  ],
+  "report_sha256": "ec631615933b127e4bba5bc8a3a6e924836638894a2d97ecc16b844a26d32aac",
+  "model_sha256": "d3c8d810d61147294fbcb7df29e91ed90f7d758659ab5200289f075574608980",
+  "top_down_mounting_sha256": "4b6a62bf74bf6f61109d7588f177fde2268d25a7967f90d3f3a5198ca9f7faa0"
+}

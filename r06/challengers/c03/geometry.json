@@ -1,0 +1,660 @@
+{
+  "status": "PASS_ALL_PAIR_PROXY_PACKING_PROVISIONAL_MOUNT_DETAILS_MISSING",
+  "errors": [],
+  "fixture_checks": [
+    {
+      "id": "C03-s00-036",
+      "orthonormal_max_error": 1.1102230246251565e-16,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 1.5235254779863978,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "host": "soffit_return_dining",
+      "anchor_on_underside": true
+    },
+    {
+      "id": "C03-s01-061",
+      "orthonormal_max_error": 2.1932471897982407e-17,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 1.726855581981592,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "host": "soffit_return_living",
+      "anchor_on_underside": true
+    },
+    {
+      "id": "balcony-120--0.75--0.85-50--65-0.14",
+      "orthonormal_max_error": 5.124223764110728e-17,
+      "determinant": 0.9999999999999999,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 1.5603721087075233,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "host": "balcony 1.524 m",
+      "anchor_on_underside": true
+    },
+    {
+      "id": "extra_living-80-1.98--0.28-185--45-0.14",
+      "orthonormal_max_error": 2.220446049250313e-16,
+      "determinant": 0.9999999999999999,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 1.727140553711235,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "host": "soffit_return_living",
+      "anchor_on_underside": true
+    },
+    {
+      "id": "C03-s04-140",
+      "orthonormal_max_error": 3.9176276883928015e-17,
+      "determinant": 0.9999999999999999,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 0.7185035849031948,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "host": "balcony 1.524 m",
+      "anchor_on_underside": true
+    },
+    {
+      "id": "R05-mullion-f4ecfdc44f43c08a",
+      "orthonormal_max_error": 2.2221803318675302e-17,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 0.6327048027988651,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "pole_axis_error_m": 0.0
+    },
+    {
+      "id": "C03-s06-053",
+      "orthonormal_max_error": 2.2221803318675302e-17,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 0.34262786355142805,
+      "close_distance_review_required": true,
+      "host_check": "PASS",
+      "pole_axis_error_m": 0.0
+    },
+    {
+      "id": "C03-s07-014",
+      "orthonormal_max_error": 2.2221803318675302e-17,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 0.33890047566453296,
+      "close_distance_review_required": true,
+      "host_check": "PASS",
+      "pole_axis_error_m": 0.0
+    },
+    {
+      "id": "C03-s08-037",
+      "orthonormal_max_error": 2.220446049250313e-16,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 0.5465566205797663,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "pole_axis_error_m": 0.0
+    },
+    {
+      "id": "C03-s09-017",
+      "orthonormal_max_error": 5.484994993846604e-17,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 0.31967704573137035,
+      "close_distance_review_required": true,
+      "host_check": "PASS",
+      "pole_axis_error_m": 0.0
+    },
+    {
+      "id": "C03-s10-012",
+      "orthonormal_max_error": 2.220446049250313e-16,
+      "determinant": 1.0,
+      "axis_aim_dot": 1.0,
+      "declared_envelope_clearance_m": 0.5904330124372285,
+      "close_distance_review_required": false,
+      "host_check": "PASS",
+      "pole_axis_error_m": 0.0
+    }
+  ],
+  "all_fixture_pair_packing": [
+    {
+      "a": "C03-s00-036",
+      "b": "C03-s01-061",
+      "body_sat_gap_m": 2.879176578565665,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "balcony-120--0.75--0.85-50--65-0.14",
+      "body_sat_gap_m": 1.0857211174717927,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "extra_living-80-1.98--0.28-185--45-0.14",
+      "body_sat_gap_m": 2.850940024118252,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "C03-s04-140",
+      "body_sat_gap_m": 1.5578563197703315,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "R05-mullion-f4ecfdc44f43c08a",
+      "body_sat_gap_m": 2.330916126638315,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "C03-s06-053",
+      "body_sat_gap_m": 1.630916126638315,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "C03-s07-014",
+      "body_sat_gap_m": 1.405039149563021,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 1.0006532043749399,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 3.466684084949784,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s00-036",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 3.132593301122273,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "balcony-120--0.75--0.85-50--65-0.14",
+      "body_sat_gap_m": 2.4424425814297472,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "extra_living-80-1.98--0.28-185--45-0.14",
+      "body_sat_gap_m": 0.1926097588073271,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": 0.38,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "C03-s04-140",
+      "body_sat_gap_m": 2.1034164640858073,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "R05-mullion-f4ecfdc44f43c08a",
+      "body_sat_gap_m": 3.704364756876991,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "C03-s06-053",
+      "body_sat_gap_m": 3.2655305963544863,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "C03-s07-014",
+      "body_sat_gap_m": 3.110892979978163,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 2.5269454259558453,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 1.4627134068272885,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s01-061",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 1.1068667440302669,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "extra_living-80-1.98--0.28-185--45-0.14",
+      "body_sat_gap_m": 2.2805347649363084,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "C03-s04-140",
+      "body_sat_gap_m": 0.2757593900115822,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": 0.320087712549569,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "R05-mullion-f4ecfdc44f43c08a",
+      "body_sat_gap_m": 2.5437433101676543,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "C03-s06-053",
+      "body_sat_gap_m": 1.931536805078734,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "C03-s07-014",
+      "body_sat_gap_m": 1.7292024378496116,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 1.296417231985336,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 2.6984485270087917,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "balcony-120--0.75--0.85-50--65-0.14",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 2.3261878918859686,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "extra_living-80-1.98--0.28-185--45-0.14",
+      "b": "C03-s04-140",
+      "body_sat_gap_m": 1.9010588607423884,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "extra_living-80-1.98--0.28-185--45-0.14",
+      "b": "R05-mullion-f4ecfdc44f43c08a",
+      "body_sat_gap_m": 3.8754208264222583,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "extra_living-80-1.98--0.28-185--45-0.14",
+      "b": "C03-s06-053",
+      "body_sat_gap_m": 3.483765899792441,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "extra_living-80-1.98--0.28-185--45-0.14",
+      "b": "C03-s07-014",
+      "body_sat_gap_m": 3.329726611479113,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "extra_living-80-1.98--0.28-185--45-0.14",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 2.7468966589955928,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "extra_living-80-1.98--0.28-185--45-0.14",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 1.4260968496004576,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "extra_living-80-1.98--0.28-185--45-0.14",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 1.1586732130700659,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s04-140",
+      "b": "R05-mullion-f4ecfdc44f43c08a",
+      "body_sat_gap_m": 2.5168362155626487,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s04-140",
+      "b": "C03-s06-053",
+      "body_sat_gap_m": 1.8336752965102083,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s04-140",
+      "b": "C03-s07-014",
+      "body_sat_gap_m": 1.611334097893958,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s04-140",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 1.4190317087595603,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s04-140",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 2.2280568599968325,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s04-140",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 1.8655079429542751,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "R05-mullion-f4ecfdc44f43c08a",
+      "b": "C03-s06-053",
+      "body_sat_gap_m": 0.5730000000000001,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "R05-mullion-f4ecfdc44f43c08a",
+      "b": "C03-s07-014",
+      "body_sat_gap_m": 0.7988769770752938,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "R05-mullion-f4ecfdc44f43c08a",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 1.4423259771158474,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "R05-mullion-f4ecfdc44f43c08a",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 2.2826175901391905,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "R05-mullion-f4ecfdc44f43c08a",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 2.52522141425358,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s06-053",
+      "b": "C03-s07-014",
+      "body_sat_gap_m": 0.09887697707529375,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s06-053",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 0.742325977115847,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s06-053",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 2.3884593762421487,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s06-053",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 2.2732801909305724,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s07-014",
+      "b": "C03-s08-037",
+      "body_sat_gap_m": 0.5164490000405533,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s07-014",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 2.3852835200247537,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s07-014",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 2.2701043347131775,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s08-037",
+      "b": "C03-s09-017",
+      "body_sat_gap_m": 2.268953979308702,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s08-037",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 2.018793064561427,
+      "same_host": false,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    },
+    {
+      "a": "C03-s09-017",
+      "b": "C03-s10-012",
+      "body_sat_gap_m": 0.30919426564368746,
+      "same_host": true,
+      "service_aabb_overlap": false,
+      "base_proxy_gap_m": null,
+      "pass": true
+    }
+  ],
+  "overhead_edge_base_checks": [
+    {
+      "id": "C03-s00-036",
+      "host": "soffit_dining",
+      "minimum_plan_edge_distance_m": 0.06430000000000002,
+      "base_status": "CONDITIONAL_BASE_FOOTPRINT_UNAVAILABLE"
+    },
+    {
+      "id": "C03-s01-061",
+      "host": "soffit_living",
+      "minimum_plan_edge_distance_m": 0.043199999999999905,
+      "base_status": "CONDITIONAL_BASE_FOOTPRINT_UNAVAILABLE"
+    },
+    {
+      "id": "balcony-120--0.75--0.85-50--65-0.14",
+      "host": "balcony",
+      "minimum_plan_edge_distance_m": 0.30499999999999994,
+      "base_status": "PROXY_EDGE_PASS_BASE_DETAILS_UNKNOWN"
+    },
+    {
+      "id": "extra_living-80-1.98--0.28-185--45-0.14",
+      "host": "soffit_living",
+      "minimum_plan_edge_distance_m": 0.043199999999999905,
+      "base_status": "CONDITIONAL_BASE_FOOTPRINT_UNAVAILABLE"
+    },
+    {
+      "id": "C03-s04-140",
+      "host": "balcony",
+      "minimum_plan_edge_distance_m": 0.15499999999999992,
+      "base_status": "PROXY_EDGE_PASS_BASE_DETAILS_UNKNOWN"
+    }
+  ],
+  "close_distance_fixture_ids": [
+    "C03-s06-053",
+    "C03-s07-014",
+    "C03-s09-017"
+  ],
+  "mounting_limits": [
+    "Body/envelope screening uses declared proxy geometry and 30mm service allowance; bracket, pivot, fasteners and substrate remain unqualified.",
+    "Far-field IES does not validate near-field leaf temperature or biological safety.",
+    "Long inner living wall excluded; M1/M2 unused."
+  ]
+}

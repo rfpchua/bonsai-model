@@ -1,0 +1,38 @@
+{
+  "run_id": "R06-C03",
+  "status": "COMPLETE_VERIFIED_PACKING_REPAIRED_CONDITIONAL_MOUNTS",
+  "target_met": true,
+  "best_mean_dull_DLI": 4.6157511869185015,
+  "gain_fraction": 0.15391046421873766,
+  "hardware_counts": {
+    "philips120_30": 2,
+    "philips120_45": 1,
+    "philips80_30": 2,
+    "targetti33": 6
+  },
+  "total_watts": 719.2000000000003,
+  "metrics": {
+    "mean": 4.6157511869185015,
+    "typical_mean": 5.287083114073858,
+    "share_ge4": 0.5222504257301674,
+    "weakest_pad_p10": 1.7164488041706334,
+    "face_p10": 2.5797377761366542,
+    "face_share_ge4": 0.5837590590471664,
+    "max_electric_PPFD": 456.0967049540535,
+    "p99_electric_PPFD": 288.2112468725729,
+    "eye_max": {
+      "foyer": 579.4552504352931,
+      "courtyard": 3561.966775534916
+    },
+    "eye_pass": true,
+    "gain_fraction": 0.15391046421873766,
+    "mean_target_met": true,
+    "all_coverage_tail_guards_preserved": true
+  },
+  "geometry_status": "PASS_ALL_PAIR_PROXY_PACKING_PROVISIONAL_MOUNT_DETAILS_MISSING",
+  "cost_status": "SAME_NOMINAL_FIXTURE_COUNTS_AND_WATTS_AS_R06; relocation/re-aim labor and all actual bases/brackets/fixings cost unknown",
+  "tested_combinations": 2590,
+  "unique_source_responses": 720,
+  "report_path": "output/report.html",
+  "model_path": "output/model.html"
+}

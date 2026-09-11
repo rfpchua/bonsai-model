@@ -37,5 +37,41 @@
     "gain_fraction": 0.07333246201001953,
     "mean_target_met": true,
     "all_coverage_tail_guards_preserved": true
+  },
+  "C02": {
+    "mean": 4.122569855646186,
+    "typical_mean": 4.793901782801542,
+    "share_ge4": 0.429987469074318,
+    "weakest_pad_p10": 1.4646176639835522,
+    "face_p10": 2.196762432865042,
+    "face_share_ge4": 0.47576333610550076,
+    "max_electric_PPFD": 266.62965626152163,
+    "p99_electric_PPFD": 220.77752560564107,
+    "eye_max": {
+      "foyer": 590.9002125368784,
+      "courtyard": 3569.4623088259596
+    },
+    "eye_pass": true,
+    "gain_fraction": 0.030618051810265223,
+    "mean_target_met": false,
+    "all_coverage_tail_guards_preserved": false
+  },
+  "C03": {
+    "mean": 4.6157511869185015,
+    "typical_mean": 5.287083114073858,
+    "share_ge4": 0.5222504257301674,
+    "weakest_pad_p10": 1.7164488041706334,
+    "face_p10": 2.5797377761366542,
+    "face_share_ge4": 0.5837590590471664,
+    "max_electric_PPFD": 456.0967049540535,
+    "p99_electric_PPFD": 288.2112468725729,
+    "eye_max": {
+      "foyer": 579.4552504352931,
+      "courtyard": 3561.966775534916
+    },
+    "eye_pass": true,
+    "gain_fraction": 0.15391046421873766,
+    "mean_target_met": true,
+    "all_coverage_tail_guards_preserved": true
   }
 }

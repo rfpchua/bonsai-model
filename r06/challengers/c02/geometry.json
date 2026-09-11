@@ -1,0 +1,101 @@
+{
+  "status": "PASS_KNOWN_GEOMETRY_SCREENS_INSTALLATION_CONDITIONAL",
+  "all_overhead_anchors_on_actual_host_undersides": true,
+  "actual_hosts": {
+    "dining": {
+      "lo": [
+        -2.14,
+        -0.545,
+        3.0338
+      ],
+      "hi": [
+        -1.9114,
+        0.545,
+        3.2138
+      ]
+    },
+    "living": {
+      "lo": [
+        1.9368,
+        -0.545,
+        3.0338
+      ],
+      "hi": [
+        2.14,
+        0.545,
+        3.2138
+      ]
+    },
+    "balcony": {
+      "lo": [
+        -1.54,
+        -4,
+        3.15
+      ],
+      "hi": [
+        -0.016,
+        -0.545,
+        3.38
+      ]
+    }
+  },
+  "all_fixture_body_obb_pairs_clear": true,
+  "body_obb_pair_count_checked": 55,
+  "all_body_plus_30mm_service_foliage_gaps_ge_0_30m": true,
+  "minimum_declared_envelope_clearance_m": 0.4280047685572014,
+  "fixture_clearances": [
+    {
+      "id": "R2-soffit_dining-1-4-philips120_30",
+      "gap_m": 1.643474150862532
+    },
+    {
+      "id": "R2-soffit_living-3-4-philips120_30",
+      "gap_m": 1.7916965070920825
+    },
+    {
+      "id": "R2-balcony-5-5-philips80_30",
+      "gap_m": 1.1690548903177016
+    },
+    {
+      "id": "R2-balcony-7-5-philips80_30",
+      "gap_m": 0.9350023781070859
+    },
+    {
+      "id": "R2-balcony-6-5-philips80_30",
+      "gap_m": 0.9503022759645635
+    },
+    {
+      "id": "C02-H0-+0-+10",
+      "gap_m": 0.7026407891456365
+    },
+    {
+      "id": "C02-H1--5-+10",
+      "gap_m": 0.4280047685572014
+    },
+    {
+      "id": "C02-H2-+0--10",
+      "gap_m": 0.5226395417385857
+    },
+    {
+      "id": "C02-H3--5-+5",
+      "gap_m": 0.6473901955960746
+    },
+    {
+      "id": "C02-H4-+10-+0",
+      "gap_m": 0.5103004984119287
+    },
+    {
+      "id": "C02-H5-+0-+0",
+      "gap_m": 0.8453277408799368
+    }
+  ],
+  "pole_axes_fixed": true,
+  "head_axes_non_upward": true,
+  "maxis": 0,
+  "long_inner_living_wall_used": false,
+  "remaining_uncertainties": [
+    "Exact overhead base footprint and fixing-centre evidence unavailable; anchor point lies on host but base fit remains conditional.",
+    "Complete yoke, pivot, service-loop and adjustment-sweep geometry unresolved.",
+    "Structural capacity, fasteners, waterproofing, self-shadow, field glare and thermal biology unresolved."
+  ]
+}

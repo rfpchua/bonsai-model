@@ -1,0 +1,28 @@
+{
+  "run_id": "R06-C02-v2",
+  "status": "COMPLETE",
+  "target_met": false,
+  "best_mean_dull_DLI": 4.122569855646186,
+  "gain_fraction": 0.030618051810265223,
+  "known_geometry_screens_pass": true,
+  "installation_conditional": true,
+  "rejected_v1_archive": "work/rejected-v1",
+  "outputs": {
+    "report.html": "5fa73da9c28a25fcd4cad7e43cc94605bade62334e65b3cea78c71abb90a6b6e",
+    "model.html": "f9ab9cabe6ca32b20676c8c4e287fd0123005f9134baf964d7c0e16482f2909d",
+    "top-down.svg": "006ee1ba041e06771ec71e1bad09c0a3b92a25e70f1d08a5aab046d0934fa395",
+    "summary.json": "098d8d57a5fd7273ff16baacbb9d765d618d83c7cdd646bcd5d04acaf5bf641f",
+    "schedule.json": "c07d575bf6e9cf69f4a71444e5eb20e88a6596e8aabbd41ee7da84fc172f35f7",
+    "metrics.json": "da23ea19d2c04c738984a5575ae709f304c81ebe31a58e33286a46f453883868",
+    "point-results.npz": "335d4b44a3d2dc8152ce6a05b5023ffb0c2f2b0cd3b79a77237e5aac07e8731d",
+    "comparison.json": "3693bed823d620bf3e432a241fa0c6023a140ba5e7387d6450f7e89613953c7a",
+    "view-data.js": "abe0353ac41e846489ecd3ef3dad37d2c01cd0c96d3e82ecd2efbe31343711ec"
+  },
+  "verification": {
+    "fresh-responses.json": "56066c5a23b8f1f9ece3da04f64d94e9c7f27838ccd4c859f9450dd27d2ead16",
+    "geometry.json": "32b9d90ebb2e2d164a3f4488ae36d3826a2749713474beaa3e5835135d1a8170"
+  },
+  "viewer_schedule_embedded_matches_schedule": true,
+  "viewer_fixture_count": 11,
+  "fresh_selected_responses": 11
+}

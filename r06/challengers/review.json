@@ -1,7 +1,7 @@
 {
   "baseline": "R06-owner-baseline-v1",
   "as_of": "2026-09-11",
-  "status": "ONE_PROVISIONALLY_ELIGIBLE_TWO_REPAIRS_RUNNING",
+  "status": "THREE_SEARCHES_REVIEWED_INSTALLATION_PROVISIONAL",
   "runs": {
     "C01": {
       "eligible": true,
@@ -14,22 +14,38 @@
       "schedule_sha256": "34cebece3bea217f127511f1c0e8b5a27c2601130ce33cd6511396d20387b1f7"
     },
     "C02": {
-      "eligible": false,
-      "audit": "C02-audit-v1.json",
-      "version": "v1",
-      "status": "Rejected v1; repair running",
+      "eligible": true,
+      "audit": "C02-audit-v2.json",
+      "version": "v2",
+      "status": "Repaired; known geometry screens passed; installation conditional",
+      "reported_mean": 4.122569855646186,
+      "reported_gain": 0.030618051810265223,
+      "reason": "Actual host anchors repaired; +3.06% with weaker coverage/tails and lower wattage.",
+      "schedule_sha256": "c07d575bf6e9cf69f4a71444e5eb20e88a6596e8aabbd41ee7da84fc172f35f7"
+    },
+    "C03": {
+      "eligible": true,
+      "audit": "C03-audit-v2.json",
+      "version": "v2",
+      "status": "Repaired; known geometry screens passed; installation conditional",
+      "reported_mean": 4.6157511869185015,
+      "reported_gain": 0.15391046421873766,
+      "reason": "Living overhead collision repaired; +15.39% with higher peak intensity.",
+      "schedule_sha256": "bbd05fa96b5c6f8a947a371055818ea3ff2c6d670f19f41a79bfd7d314bfe87f"
+    }
+  },
+  "rejected_versions": [
+    {
+      "run_id": "C02",
       "reported_mean": 4.376325124980516,
       "reported_gain": 0.09405536651331547,
       "reason": "Four overhead anchors lie outside actual allowed mounting slabs."
     },
-    "C03": {
-      "eligible": false,
-      "audit": "C03-audit-v1.json",
-      "version": "v1",
-      "status": "Rejected v1; repair running",
+    {
+      "run_id": "C03",
       "reported_mean": 4.746863678396326,
       "reported_gain": 0.1866878106959109,
       "reason": "Two living-soffit fixture bodies overlap; anchors are only 6 cm apart."
     }
-  }
+  ]
 }

@@ -1,0 +1,41 @@
+{
+  "run_id": "R06-C02-v2",
+  "status": "COMPLETE_TARGET_NOT_MET_VALID_REPAIR",
+  "target_met": false,
+  "best_mean_dull_DLI": 4.122569855646186,
+  "gain_fraction": 0.030618051810265223,
+  "hardware_counts": {
+    "philips120_30": 2,
+    "philips80_30": 3,
+    "targetti33_medium": 6,
+    "overheads": 5,
+    "pole_heads": 6,
+    "maxis": 0
+  },
+  "total_watts": 679.2000000000003,
+  "metrics": {
+    "mean": 4.122569855646186,
+    "typical_mean": 4.793901782801542,
+    "share_ge4": 0.429987469074318,
+    "weakest_pad_p10": 1.4646176639835522,
+    "face_p10": 2.196762432865042,
+    "face_share_ge4": 0.47576333610550076,
+    "max_electric_PPFD": 266.62965626152163,
+    "p99_electric_PPFD": 220.77752560564107,
+    "eye_max": {
+      "foyer": 590.9002125368784,
+      "courtyard": 3569.4623088259596
+    },
+    "eye_pass": true,
+    "gain_fraction": 0.030618051810265223,
+    "mean_target_met": false,
+    "all_coverage_tail_guards_preserved": false
+  },
+  "geometry_status": "PASS_KNOWN_GEOMETRY_SCREENS_INSTALLATION_CONDITIONAL",
+  "cost_status": "679.2 W actual BOM; same quantities as C02 v1, but not the 719.2 W R06 baseline. Fixture-price and relocation/mounting cost data unavailable; no unchanged-cost claim versus R06.",
+  "tested_combinations": 2000,
+  "unique_source_responses": 120,
+  "report_path": "output/report.html",
+  "model_path": "output/model.html",
+  "rejected_v1_archive": "work/rejected-v1"
+}

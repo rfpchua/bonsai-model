@@ -1,0 +1,11 @@
+{
+  "run_id": "R06-C02",
+  "numeric_mean_recomputed": 4.122569855646186,
+  "gain_fraction": 0.030618051810265223,
+  "numeric_summary_match": true,
+  "actual_total_watts": 679.2000000000003,
+  "invalid_mount_anchors": [],
+  "fixture_body_intersections": [],
+  "coordinator_status": "NO_FAILURE_IN_ANCHOR_AND_BODY_PAIR_SCREEN",
+  "scope": "Additional independent screen of saved coordinates/declared body boxes; passing does not qualify pivots, bases, services or installation."
+}
