@@ -1,0 +1,35 @@
+{
+  "baseline": "R06-owner-baseline-v1",
+  "as_of": "2026-09-11",
+  "status": "ONE_PROVISIONALLY_ELIGIBLE_TWO_REPAIRS_RUNNING",
+  "runs": {
+    "C01": {
+      "eligible": true,
+      "audit": "C01-audit-v1.json",
+      "version": "v1",
+      "status": "Mounting provisional; additional screen passed",
+      "reported_mean": 4.293431543525521,
+      "reported_gain": 0.07333246201001953,
+      "reason": "No fixture additions or anchor moves; revised overhead aiming.",
+      "schedule_sha256": "34cebece3bea217f127511f1c0e8b5a27c2601130ce33cd6511396d20387b1f7"
+    },
+    "C02": {
+      "eligible": false,
+      "audit": "C02-audit-v1.json",
+      "version": "v1",
+      "status": "Rejected v1; repair running",
+      "reported_mean": 4.376325124980516,
+      "reported_gain": 0.09405536651331547,
+      "reason": "Four overhead anchors lie outside actual allowed mounting slabs."
+    },
+    "C03": {
+      "eligible": false,
+      "audit": "C03-audit-v1.json",
+      "version": "v1",
+      "status": "Rejected v1; repair running",
+      "reported_mean": 4.746863678396326,
+      "reported_gain": 0.1866878106959109,
+      "reason": "Two living-soffit fixture bodies overlap; anchors are only 6 cm apart."
+    }
+  }
+}

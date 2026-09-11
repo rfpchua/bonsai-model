@@ -1,0 +1,32 @@
+{
+  "run_id": "R06-C01",
+  "status": "PASS",
+  "target_met": true,
+  "best_mean_dull_DLI": 4.293431543525521,
+  "gain_fraction": 0.07333246201001953,
+  "baseline_mean_dull_DLI": 4.000094747423601,
+  "target_mean_dull_DLI": 4.280101379743253,
+  "eye_pass": true,
+  "coverage_tail_guards_preserved": true,
+  "geometry_status": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+  "optical_verification": "PASS: all 11 selected responses freshly recalculated with sealed shared protocol",
+  "renderer_verification": "PASS: system Chrome software WebGL, 11 fixture groups, exact saved mean/coverage, zero JavaScript errors",
+  "deliverables": [
+    "output/report.html",
+    "output/model.html",
+    "output/top-down.svg",
+    "output/summary.json",
+    "output/schedule.json",
+    "output/metrics.json",
+    "output/comparison.json",
+    "output/geometry.json",
+    "output/point-results.npz"
+  ],
+  "search": {
+    "tested_combinations": 2086,
+    "unique_source_responses": 695,
+    "expansions_used": 1,
+    "stopping_reason": "A full-output, same-hardware, mount-linked candidate exceeded +7% and passed eye/coverage/geometry screens; additions and upgrades were unnecessary."
+  },
+  "claim_scope": "Best verified within tested design space; no global-maximum claim; optical model outcome, not plant-vitality or installation certification."
+}

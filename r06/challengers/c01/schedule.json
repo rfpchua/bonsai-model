@@ -1,0 +1,1589 @@
+{
+  "run_id": "R06-C01",
+  "pose": "foyer_0",
+  "electric_hours": 11.5,
+  "pole_cap_above_well_floor_m": 3.0,
+  "fixtures": [
+    {
+      "id": "R06-C01-01",
+      "product_id": "philips120_30",
+      "family": "Philips UniFlood M G2",
+      "order_code": "911401748173",
+      "watts": 120,
+      "role": "overhead",
+      "mount_group": "soffit_dining",
+      "mount_slot": "soffit_dining",
+      "mount_anchor_m": [
+        -1.9757,
+        0.23698290329300234,
+        3.0338
+      ],
+      "source_m": [
+        -1.91916264223432,
+        0.23267599516597132,
+        2.8454758060671383
+      ],
+      "aim_m": [
+        -0.40138122570599455,
+        0.11705430048057451,
+        1.5481820092117975
+      ],
+      "rotation_local_to_world": [
+        [
+          0.07595801628144858,
+          0.6467729684154282,
+          0.7588907082641627
+        ],
+        [
+          0.9971110167692397,
+          -0.04926993167168011,
+          -0.0578108473426984
+        ],
+        [
+          -0.0,
+          0.7610894830177088,
+          -0.6486468984276704
+        ]
+      ],
+      "optical_axis": [
+        0.7588907082641627,
+        -0.0578108473426984,
+        -0.6486468984276704
+      ],
+      "pan_deg": -4.356269624932116,
+      "tilt_deg": -40.43966133257812,
+      "dimming": 1.0,
+      "body_center_m": [
+        -1.9757,
+        0.23698290329300234,
+        2.8937999999999997
+      ],
+      "body_dimensions_m": [
+        0.486,
+        0.14,
+        0.149
+      ],
+      "assembly_bounds_m": [
+        [
+          -2.095969263511152,
+          -0.013070877125971575,
+          2.7921995422558985
+        ],
+        [
+          -1.8554307364888478,
+          0.4870366837119763,
+          2.995400457744101
+        ]
+      ],
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "ies_sha256": "7897103079f06862726711e926c45ee3d54828dbacfbde1faa1903a9a5259f2e",
+      "photometry_status": "SURROGATE_SCALED_80W",
+      "surrogate_carrier_product": "philips80_30",
+      "output_scale": 1.6450184501845018,
+      "baseline_lumens": 6775,
+      "proposed_lumens": 11145,
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mount_slab": "soffit_return_dining",
+      "geometry_status": "CONDITIONAL_DECLARED_ENVELOPE",
+      "geometry_assumptions": {
+        "hinge_below_slab_m": 0.14,
+        "full_product_box_m": [
+          0.486,
+          0.14,
+          0.149
+        ],
+        "yoke_and_offsets_qualified": false,
+        "declared_sweep_overhangs_slab": true,
+        "overhang_mount_acceptance": "UNVERIFIED"
+      },
+      "body_clearance_m": 1.656635451450673,
+      "declared_envelope_clearance_m": 1.56801136945507,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    },
+    {
+      "id": "R06-C01-02",
+      "product_id": "philips120_30",
+      "family": "Philips UniFlood M G2",
+      "order_code": "911401748173",
+      "watts": 120,
+      "role": "overhead",
+      "mount_group": "soffit_living",
+      "mount_slot": "soffit_living",
+      "mount_anchor_m": [
+        1.9784000000000002,
+        0.23698290329300234,
+        3.0338
+      ],
+      "source_m": [
+        1.9330442169874376,
+        0.22449909900597667,
+        2.8360309981232095
+      ],
+      "aim_m": [
+        0.7154393038985079,
+        -0.11063658655175948,
+        1.2851853101556907
+      ],
+      "rotation_local_to_world": [
+        [
+          0.2653731551821879,
+          -0.7476206641165529,
+          -0.6088024565444649
+        ],
+        [
+          -0.9641457817719531,
+          -0.20577640670831565,
+          -0.16756784277886808
+        ],
+        [
+          0.0,
+          0.6314423275550496,
+          -0.7754228439837594
+        ]
+      ],
+      "optical_axis": [
+        -0.6088024565444649,
+        -0.16756784277886808,
+        -0.7754228439837594
+      ],
+      "pan_deg": -164.6108730877749,
+      "tilt_deg": -50.843384808431985,
+      "dimming": 1.0,
+      "body_center_m": [
+        1.9784000000000002,
+        0.23698290329300234,
+        2.8937999999999997
+      ],
+      "body_dimensions_m": [
+        0.486,
+        0.14,
+        0.149
+      ],
+      "assembly_bounds_m": [
+        [
+          1.816225093790007,
+          -0.02419267443419007,
+          2.7918300351943564
+        ],
+        [
+          2.1405749062099932,
+          0.4981584810201948,
+          2.995769964805643
+        ]
+      ],
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "ies_sha256": "7897103079f06862726711e926c45ee3d54828dbacfbde1faa1903a9a5259f2e",
+      "photometry_status": "SURROGATE_SCALED_80W",
+      "surrogate_carrier_product": "philips80_30",
+      "output_scale": 1.6450184501845018,
+      "baseline_lumens": 6775,
+      "proposed_lumens": 11145,
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mount_slab": "soffit_return_living",
+      "geometry_status": "CONDITIONAL_DECLARED_ENVELOPE",
+      "geometry_assumptions": {
+        "hinge_below_slab_m": 0.14,
+        "full_product_box_m": [
+          0.486,
+          0.14,
+          0.149
+        ],
+        "yoke_and_offsets_qualified": false,
+        "declared_sweep_overhangs_slab": true,
+        "overhang_mount_acceptance": "UNVERIFIED"
+      },
+      "body_clearance_m": 1.8026944345296847,
+      "declared_envelope_clearance_m": 1.727140553711235,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    },
+    {
+      "id": "R06-C01-03",
+      "product_id": "philips120_45",
+      "family": "Philips UniFlood M G2",
+      "order_code": "911401748263",
+      "watts": 120,
+      "role": "overhead",
+      "mount_group": "balcony",
+      "mount_slot": "balcony",
+      "mount_anchor_m": [
+        -0.75,
+        -0.85,
+        3.15
+      ],
+      "source_m": [
+        -0.7200356778762257,
+        -0.825696784100765,
+        2.9462681939953224
+      ],
+      "aim_m": [
+        0.08437565430563543,
+        -0.1732614579468047,
+        1.2353472274267963
+      ],
+      "rotation_local_to_world": [
+        [
+          -0.6299242367181864,
+          0.6643990202877796,
+          0.40220566609093056
+        ],
+        [
+          0.7766565882003515,
+          0.5388752919754103,
+          0.32621766307698014
+        ],
+        [
+          0.0,
+          0.5178680927987892,
+          -0.855460483284263
+        ]
+      ],
+      "optical_axis": [
+        0.40220566609093056,
+        0.32621766307698014,
+        -0.855460483284263
+      ],
+      "pan_deg": 39.04453307988138,
+      "tilt_deg": -58.81064428020827,
+      "dimming": 1.0,
+      "body_center_m": [
+        -0.75,
+        -0.85,
+        3.01
+      ],
+      "body_dimensions_m": [
+        0.486,
+        0.14,
+        0.149
+      ],
+      "assembly_bounds_m": [
+        [
+          -0.9795438430664383,
+          -1.100752037270199,
+          2.910017427499407
+        ],
+        [
+          -0.5204561569335617,
+          -0.5992479627298009,
+          3.1099825725005927
+        ]
+      ],
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "ies_sha256": "7ab84c7b292f163eab47290ecb0d2cffc48c1438e451eff09b941a89433bbea8",
+      "photometry_status": "SURROGATE_SCALED_80W",
+      "surrogate_carrier_product": "philips80_45",
+      "output_scale": 1.6452599388379205,
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mount_slab": "balcony 1.524 m",
+      "geometry_status": "PROVISIONAL_DECLARED_ENVELOPE",
+      "geometry_assumptions": {
+        "hinge_below_slab_m": 0.14,
+        "full_product_box_m": [
+          0.486,
+          0.14,
+          0.149
+        ],
+        "real_bracket_base_and_pivot_known": false,
+        "inferred_hole_spacing_m": 0.2,
+        "fixing_edge_requirement_m": null,
+        "ceiling_mount_suitability": "UNKNOWN",
+        "service_packing_allowance_m": 0.03
+      },
+      "body_clearance_m": 1.6522362764142842,
+      "declared_envelope_clearance_m": 1.5603721087075233,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "mounting_qualification": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+      "mounting_screen": {
+        "qualification": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+        "holes_inferred_not_actual_base": true,
+        "fixing_centres_m": [
+          [
+            -0.6733955556881022,
+            -0.9142787609686539,
+            3.15
+          ],
+          [
+            -0.75,
+            -0.85,
+            3.15
+          ],
+          [
+            -0.8266044443118978,
+            -0.785721239031346,
+            3.15
+          ]
+        ],
+        "minimum_inferred_hole_edge_distance_m": 0.240721239031346,
+        "base_footprint_fit": "UNKNOWN",
+        "actual_pivot_offset": "UNKNOWN",
+        "anchor_system_edge_requirement": "UNKNOWN",
+        "ceiling_mount_approval": "UNKNOWN",
+        "declared_envelope_foliage_gap_m": 0.8494215054791296,
+        "body_top_below_underside_m": 0.0428967915439209,
+        "body_overhangs_host_plan": false,
+        "minimum_body_pair_gap_after_30mm_allowance_m": 0.7378419264282596
+      }
+    },
+    {
+      "id": "R06-C01-04",
+      "product_id": "philips80_30",
+      "family": "Philips UniFlood M G2",
+      "order_code": "911401747453",
+      "watts": 80,
+      "role": "overhead",
+      "mount_group": "extra_living",
+      "mount_slot": "extra_living",
+      "mount_anchor_m": [
+        1.98,
+        -0.28,
+        3.0338
+      ],
+      "source_m": [
+        1.9321071457409695,
+        -0.2768490167494583,
+        2.8368210932407605
+      ],
+      "aim_m": [
+        0.64639293744485,
+        -0.1922588623724985,
+        1.3071860124558154
+      ],
+      "rotation_local_to_world": [
+        [
+          -0.06565041142195623,
+          -0.7631675878380179,
+          -0.6428571041480597
+        ],
+        [
+          -0.9978426847354886,
+          0.05021058618949444,
+          0.04229507718847988
+        ],
+        [
+          0.0,
+          0.6442469479229287,
+          -0.7648175403924725
+        ]
+      ],
+      "optical_axis": [
+        -0.6428571041480597,
+        0.04229507718847988,
+        -0.7648175403924725
+      ],
+      "pan_deg": 176.23580125825373,
+      "tilt_deg": -49.89076233207175,
+      "dimming": 1.0,
+      "body_center_m": [
+        1.98,
+        -0.28,
+        2.8937999999999997
+      ],
+      "body_dimensions_m": [
+        0.348,
+        0.14,
+        0.149
+      ],
+      "assembly_bounds_m": [
+        [
+          1.867262243004888,
+          -0.4602903514277814,
+          2.7917238068861554
+        ],
+        [
+          2.092737756995112,
+          -0.09970964857221867,
+          2.995876193113844
+        ]
+      ],
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "ies_sha256": "7897103079f06862726711e926c45ee3d54828dbacfbde1faa1903a9a5259f2e",
+      "photometry_status": "EXACT",
+      "surrogate_carrier_product": "philips80_30",
+      "output_scale": 1.0,
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mount_slab": "soffit_return_living",
+      "geometry_status": "PROVISIONAL_DECLARED_ENVELOPE",
+      "geometry_assumptions": {
+        "hinge_below_slab_m": 0.14,
+        "full_product_box_m": [
+          0.348,
+          0.14,
+          0.149
+        ],
+        "real_bracket_base_and_pivot_known": false,
+        "inferred_hole_spacing_m": 0.2,
+        "fixing_edge_requirement_m": null,
+        "ceiling_mount_suitability": "UNKNOWN",
+        "service_packing_allowance_m": 0.03
+      },
+      "body_clearance_m": 1.8026944345296847,
+      "declared_envelope_clearance_m": 1.727140553711235,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "mounting_qualification": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+      "mounting_screen": {
+        "qualification": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+        "holes_inferred_not_actual_base": true,
+        "fixing_centres_m": [
+          [
+            1.9712844257252342,
+            -0.18038053019082545,
+            3.0338
+          ],
+          [
+            1.98,
+            -0.28,
+            3.0338
+          ],
+          [
+            1.9887155742747658,
+            -0.3796194698091746,
+            3.0338
+          ]
+        ],
+        "minimum_inferred_hole_edge_distance_m": 0.034484425725234136,
+        "base_footprint_fit": "UNKNOWN",
+        "actual_pivot_offset": "UNKNOWN",
+        "anchor_system_edge_requirement": "UNKNOWN",
+        "ceiling_mount_approval": "UNKNOWN",
+        "declared_envelope_foliage_gap_m": 1.7023338627749465,
+        "body_top_below_underside_m": 0.0378230701185438,
+        "body_overhangs_host_plan": true,
+        "minimum_body_pair_gap_after_30mm_allowance_m": 0.06516701386411972
+      }
+    },
+    {
+      "id": "R06-C01-05",
+      "product_id": "philips80_30",
+      "family": "Philips UniFlood M G2",
+      "order_code": "911401747453",
+      "watts": 80,
+      "role": "overhead",
+      "mount_group": "balcony",
+      "mount_slot": "fifth-balcony-edge",
+      "mount_anchor_m": [
+        -0.3,
+        -0.95,
+        3.15
+      ],
+      "source_m": [
+        -0.30312750104470776,
+        -0.9339374441489363,
+        2.9373194452639027
+      ],
+      "aim_m": [
+        -0.38708726063417875,
+        -0.5027278911002488,
+        0.9861636134223684
+      ],
+      "rotation_local_to_world": [
+        [
+          -0.9990754596813887,
+          0.009269064399460701,
+          -0.04197987979473549
+        ],
+        [
+          0.0,
+          0.9764807117090883,
+          0.21560477652434376
+        ],
+        [
+          0.042990997457860766,
+          0.21540544121556182,
+          -0.9755779159207671
+        ]
+      ],
+      "optical_axis": [
+        -0.04197987979473549,
+        0.21560477652434376,
+        -0.9755779159207671
+      ],
+      "pan_deg": 101.01806628784225,
+      "tilt_deg": -77.3113084499448,
+      "dimming": 1.0,
+      "body_center_m": [
+        -0.3,
+        -0.95,
+        3.01
+      ],
+      "body_dimensions_m": [
+        0.348,
+        0.14,
+        0.149
+      ],
+      "assembly_bounds_m": [
+        [
+          -0.47761546553723166,
+          -1.0344162056706998,
+          2.9147606308211453
+        ],
+        [
+          -0.12238453446276834,
+          -0.8655837943293001,
+          3.1052393691788542
+        ]
+      ],
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "ies_sha256": "7897103079f06862726711e926c45ee3d54828dbacfbde1faa1903a9a5259f2e",
+      "photometry_status": "EXACT",
+      "surrogate_carrier_product": "philips80_30",
+      "output_scale": 1.0,
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mount_slab": "balcony 1.524 m",
+      "geometry_status": "PROVISIONAL_DECLARED_ENVELOPE",
+      "geometry_assumptions": {
+        "hinge_below_slab_m": 0.14,
+        "full_product_box_m": [
+          0.348,
+          0.14,
+          0.149
+        ],
+        "real_bracket_base_and_pivot_known": false,
+        "inferred_hole_spacing_m": 0.2,
+        "fixing_edge_requirement_m": null,
+        "ceiling_mount_suitability": "UNKNOWN",
+        "service_packing_allowance_m": 0.03
+      },
+      "body_clearance_m": 1.6522362764142842,
+      "declared_envelope_clearance_m": 1.5603721087075233,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "mounting_qualification": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+      "mounting_screen": {
+        "qualification": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+        "holes_inferred_not_actual_base": true,
+        "fixing_centres_m": [
+          [
+            -0.25,
+            -0.8633974596215561,
+            3.15
+          ],
+          [
+            -0.3,
+            -0.95,
+            3.15
+          ],
+          [
+            -0.35,
+            -1.0366025403784438,
+            3.15
+          ]
+        ],
+        "minimum_inferred_hole_edge_distance_m": 0.23399999999999999,
+        "base_footprint_fit": "UNKNOWN",
+        "actual_pivot_offset": "UNKNOWN",
+        "anchor_system_edge_requirement": "UNKNOWN",
+        "ceiling_mount_approval": "UNKNOWN",
+        "declared_envelope_foliage_gap_m": 0.8436773981175735,
+        "body_top_below_underside_m": 0.05447644996390544,
+        "body_overhangs_host_plan": false,
+        "minimum_body_pair_gap_after_30mm_allowance_m": 0.07032106971687918
+      },
+      "beam_deg": 30
+    },
+    {
+      "id": "R06-C01-06",
+      "product_id": "targetti33",
+      "family": "Targetti DART Medium",
+      "order_code": "1E3935DA",
+      "watts": 33.2,
+      "role": "pole",
+      "mount_group": "pole",
+      "mount_slot": "dining-[-1.247775, 0.45]-0.4000",
+      "mount_anchor_m": [
+        -1.247775,
+        0.45,
+        0.4
+      ],
+      "source_m": [
+        -1.2162363539121015,
+        0.2848022746536485,
+        0.4
+      ],
+      "aim_m": [
+        0.6631488876597154,
+        -0.39923801199768894,
+        0.4
+      ],
+      "rotation_local_to_world": [
+        [
+          0.3420201433256687,
+          -0.0,
+          0.9396926207859084
+        ],
+        [
+          0.9396926207859084,
+          0.0,
+          -0.3420201433256687
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "optical_axis": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "pan_deg": -20.0,
+      "tilt_deg": 0.0,
+      "roll_deg": 0,
+      "dimming": 1.0,
+      "ies_sha256": "c8a77a6fd8d2e6580be9c82727be63ba1252e9fc2c31a4481a042755f3bd763d",
+      "photometry_status": "EXACT",
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "assembly_bounds_m": [
+        [
+          -1.4167466117974403,
+          0.19294633006938045,
+          0.19100000000000003
+        ],
+        [
+          -1.153860911282291,
+          0.503,
+          0.609
+        ]
+      ],
+      "geometry_status": "CONDITIONAL_DECLARED_GEOMETRY_NOT_FULL_INSTALLATION",
+      "manufacturer_CAD": false,
+      "geometry_checks": {
+        "optical_axis_dot": 1.0000000000000002,
+        "hinge_axis_error_deg_numeric": 0.0,
+        "mount_orientation_supported": "UNKNOWN",
+        "service_clearance_qualified": "UNKNOWN",
+        "full_manufacturer_tilt_sweep_qualified": "UNKNOWN",
+        "aperture_visibility": "UNKNOWN"
+      },
+      "cost_sgd": null,
+      "pole_side": "dining",
+      "pole_diameter_mm": 60,
+      "adapter": "1E2825",
+      "pole_axis_xy_m": [
+        -1.247775,
+        0.45
+      ],
+      "hinge_m": [
+        -1.2853037615398657,
+        0.3099407551880851,
+        0.4
+      ],
+      "hinge_axis": [
+        0.3420201433256687,
+        0.9396926207859084,
+        0.0
+      ],
+      "body_center_m": [
+        -1.2853037615398657,
+        0.3099407551880851,
+        0.4
+      ],
+      "body_dimensions_m": [
+        0.1345,
+        0.127,
+        0.147
+      ],
+      "body_bounds_m": [
+        [
+          -1.3773720238062812,
+          0.22160794590579613,
+          0.3365
+        ],
+        [
+          -1.1932354992734502,
+          0.3982735644703741,
+          0.4635
+        ]
+      ],
+      "head_attachment_z_m": 0.6,
+      "shaft_bottom_z_m": -0.55,
+      "mount_plane_normal": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "support": {
+        "type": "Pole clamp",
+        "adapter": "1E2825",
+        "adapter_complete_geometry": "UNKNOWN",
+        "shaft_support": "two-point wall/inverted-U standoff concept; unengineered"
+      },
+      "geometry_assumptions_ref": "work/evidence/geometry-premise.json",
+      "candidate_provenance": {
+        "axis_fixed": true,
+        "full_geometry_qualified": false
+      },
+      "clamp_clocking_deg": -105.0,
+      "support_geometry": {
+        "pole_diameter_m": 0.06,
+        "shaft_bottom_deck_z_m": -0.65,
+        "hinge_radial_offset_m": 0.145,
+        "fixing_and_adapter_offset_qualification": "UNKNOWN"
+      },
+      "geometry_assumptions": {
+        "clamp_and_hinge_offset_m": 0.145,
+        "full_service_vertical_envelope_m": 0.418,
+        "additional_xy_allowance_m": 0.015,
+        "complete_hardware_growth_movement_qualified": false
+      },
+      "clearance_distance_scope": "Provisional screening neighbourhood; exact full-cloud distances recalculated for selected fixtures",
+      "previous_fixture_id": "R05-aim-('dining', False, 0.4, -105, 2, 0)",
+      "mullion_correction": {
+        "height_delta_m": 0,
+        "clock_delta_deg": 0,
+        "source_shift_from_translation_m": 1.679146231554023
+      },
+      "body_clearance_m": 0.7326407891456366,
+      "declared_envelope_clearance_m": 0.6327048027988651,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    },
+    {
+      "id": "R06-C01-07",
+      "product_id": "targetti33",
+      "family": "Targetti DART Medium",
+      "order_code": "1E3935DA",
+      "watts": 33.2,
+      "role": "pole",
+      "mount_group": "pole",
+      "mount_slot": "dining-[-1.247775, 0.45]-1.0000",
+      "mount_anchor_m": [
+        -1.247775,
+        0.45,
+        1.0
+      ],
+      "source_m": [
+        -1.3042812759209794,
+        0.35236151946556343,
+        1.0
+      ],
+      "aim_m": [
+        0.5751039656508374,
+        -0.331678767185774,
+        1.0
+      ],
+      "rotation_local_to_world": [
+        [
+          0.3420201433256687,
+          -0.0,
+          0.9396926207859084
+        ],
+        [
+          0.9396926207859084,
+          0.0,
+          -0.3420201433256687
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "optical_axis": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "pan_deg": -20.0,
+      "tilt_deg": 0.0,
+      "roll_deg": 0,
+      "dimming": 1.0,
+      "ies_sha256": "c8a77a6fd8d2e6580be9c82727be63ba1252e9fc2c31a4481a042755f3bd763d",
+      "photometry_status": "EXACT",
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "assembly_bounds_m": [
+        [
+          -1.5047915338063182,
+          0.2605055748812954,
+          0.791
+        ],
+        [
+          -1.1947750000000001,
+          0.503,
+          1.209
+        ]
+      ],
+      "geometry_status": "CONDITIONAL_DECLARED_GEOMETRY_NOT_FULL_INSTALLATION",
+      "manufacturer_CAD": false,
+      "geometry_checks": {
+        "optical_axis_dot": 1.0000000000000002,
+        "hinge_axis_error_deg_numeric": 0.0,
+        "mount_orientation_supported": "UNKNOWN",
+        "service_clearance_qualified": "UNKNOWN",
+        "full_manufacturer_tilt_sweep_qualified": "UNKNOWN",
+        "aperture_visibility": "UNKNOWN"
+      },
+      "cost_sgd": null,
+      "pole_side": "dining",
+      "pole_diameter_mm": 60,
+      "adapter": "1E2825",
+      "pole_axis_xy_m": [
+        -1.247775,
+        0.45
+      ],
+      "hinge_m": [
+        -1.3733486835487436,
+        0.37750000000000006,
+        1.0
+      ],
+      "hinge_axis": [
+        0.3420201433256687,
+        0.9396926207859084,
+        0.0
+      ],
+      "body_center_m": [
+        -1.3733486835487436,
+        0.37750000000000006,
+        1.0
+      ],
+      "body_dimensions_m": [
+        0.1345,
+        0.127,
+        0.147
+      ],
+      "body_bounds_m": [
+        [
+          -1.4654169458151591,
+          0.2891671907177111,
+          0.9365
+        ],
+        [
+          -1.281280421282328,
+          0.46583280928228904,
+          1.0635
+        ]
+      ],
+      "head_attachment_z_m": 0.6,
+      "shaft_bottom_z_m": -0.55,
+      "mount_plane_normal": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "support": {
+        "type": "Pole clamp",
+        "adapter": "1E2825",
+        "adapter_complete_geometry": "UNKNOWN",
+        "shaft_support": "two-point wall/inverted-U standoff concept; unengineered"
+      },
+      "geometry_assumptions_ref": "work/evidence/geometry-premise.json",
+      "candidate_provenance": {
+        "axis_fixed": true,
+        "full_geometry_qualified": false
+      },
+      "clamp_clocking_deg": -150.0,
+      "support_geometry": {
+        "pole_diameter_m": 0.06,
+        "shaft_bottom_deck_z_m": -0.65,
+        "hinge_radial_offset_m": 0.145,
+        "fixing_and_adapter_offset_qualification": "UNKNOWN"
+      },
+      "geometry_assumptions": {
+        "clamp_and_hinge_offset_m": 0.145,
+        "full_service_vertical_envelope_m": 0.418,
+        "additional_xy_allowance_m": 0.015,
+        "complete_hardware_growth_movement_qualified": false
+      },
+      "clearance_distance_scope": "Provisional screening neighbourhood; exact full-cloud distances recalculated for selected fixtures",
+      "previous_fixture_id": "R05-aim-('dining', False, 1.0, -150, 2, 0)",
+      "mullion_correction": {
+        "height_delta_m": 0,
+        "clock_delta_deg": 0,
+        "source_shift_from_translation_m": 1.0984363745051489
+      },
+      "body_clearance_m": 0.4634064248996097,
+      "declared_envelope_clearance_m": 0.3218214824913009,
+      "close_distance_review_required": true,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    },
+    {
+      "id": "R06-C01-08",
+      "product_id": "targetti33",
+      "family": "Targetti DART Medium",
+      "order_code": "1E3935DA",
+      "watts": 33.2,
+      "role": "pole",
+      "mount_group": "pole",
+      "mount_slot": "dining-[-1.247775, 0.45]-1.6000",
+      "mount_anchor_m": [
+        -1.247775,
+        0.45,
+        1.6
+      ],
+      "source_m": [
+        -1.3066346907662516,
+        0.3532180924181227,
+        1.580976800184965
+      ],
+      "aim_m": [
+        0.5087120516144858,
+        -0.3075140866805816,
+        1.0633387099799234
+      ],
+      "rotation_local_to_world": [
+        [
+          0.3420201433256687,
+          0.24321034680169396,
+          0.9076733711903687
+        ],
+        [
+          0.9396926207859084,
+          -0.08852132690137686,
+          -0.33036608954935215
+        ],
+        [
+          0.0,
+          0.9659258262890684,
+          -0.25881904510252074
+        ]
+      ],
+      "optical_axis": [
+        0.9076733711903687,
+        -0.33036608954935215,
+        -0.25881904510252074
+      ],
+      "pan_deg": -20.0,
+      "tilt_deg": -14.999999999999998,
+      "roll_deg": 0,
+      "dimming": 1.0,
+      "ies_sha256": "c8a77a6fd8d2e6580be9c82727be63ba1252e9fc2c31a4481a042755f3bd763d",
+      "photometry_status": "EXACT",
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "assembly_bounds_m": [
+        [
+          -1.5047915338063182,
+          0.2605055748812954,
+          1.391
+        ],
+        [
+          -1.1947750000000001,
+          0.503,
+          1.8090000000000002
+        ]
+      ],
+      "geometry_status": "CONDITIONAL_DECLARED_GEOMETRY_NOT_FULL_INSTALLATION",
+      "manufacturer_CAD": false,
+      "geometry_checks": {
+        "optical_axis_dot": 1.0000000000000002,
+        "hinge_axis_error_deg_numeric": 0.0,
+        "mount_orientation_supported": "UNKNOWN",
+        "service_clearance_qualified": "UNKNOWN",
+        "full_manufacturer_tilt_sweep_qualified": "UNKNOWN",
+        "aperture_visibility": "UNKNOWN"
+      },
+      "cost_sgd": null,
+      "pole_side": "dining",
+      "pole_diameter_mm": 60,
+      "adapter": "1E2825",
+      "pole_axis_xy_m": [
+        -1.247775,
+        0.45
+      ],
+      "hinge_m": [
+        -1.3733486835487436,
+        0.37750000000000006,
+        1.6
+      ],
+      "hinge_axis": [
+        0.3420201433256687,
+        0.9396926207859084,
+        0.0
+      ],
+      "body_center_m": [
+        -1.3733486835487436,
+        0.37750000000000006,
+        1.6
+      ],
+      "body_dimensions_m": [
+        0.1345,
+        0.127,
+        0.147
+      ],
+      "body_bounds_m": [
+        [
+          -1.4785073879917945,
+          0.2844026594120329,
+          1.519640510215609
+        ],
+        [
+          -1.2681899791056928,
+          0.4705973405879672,
+          1.6803594897843912
+        ]
+      ],
+      "head_attachment_z_m": 0.6,
+      "shaft_bottom_z_m": -0.55,
+      "mount_plane_normal": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "support": {
+        "type": "Pole clamp",
+        "adapter": "1E2825",
+        "adapter_complete_geometry": "UNKNOWN",
+        "shaft_support": "two-point wall/inverted-U standoff concept; unengineered"
+      },
+      "geometry_assumptions_ref": "work/evidence/geometry-premise.json",
+      "candidate_provenance": {
+        "axis_fixed": true,
+        "full_geometry_qualified": false
+      },
+      "clamp_clocking_deg": -150.0,
+      "support_geometry": {
+        "pole_diameter_m": 0.06,
+        "shaft_bottom_deck_z_m": -0.65,
+        "hinge_radial_offset_m": 0.145,
+        "fixing_and_adapter_offset_qualification": "UNKNOWN"
+      },
+      "geometry_assumptions": {
+        "clamp_and_hinge_offset_m": 0.145,
+        "full_service_vertical_envelope_m": 0.418,
+        "additional_xy_allowance_m": 0.015,
+        "complete_hardware_growth_movement_qualified": false
+      },
+      "clearance_distance_scope": "Provisional screening neighbourhood; exact full-cloud distances recalculated for selected fixtures",
+      "previous_fixture_id": "R05-aim-('dining', False, 1.6, -150, 2, -15)",
+      "mullion_correction": {
+        "height_delta_m": 0,
+        "clock_delta_deg": 0,
+        "source_shift_from_translation_m": 0.5565438713837062
+      },
+      "body_clearance_m": 0.5441260603079489,
+      "declared_envelope_clearance_m": 0.3606295319453193,
+      "close_distance_review_required": true,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    },
+    {
+      "id": "R06-C01-09",
+      "product_id": "targetti33",
+      "family": "Targetti DART Medium",
+      "order_code": "1E3935DA",
+      "watts": 33.2,
+      "role": "pole",
+      "mount_group": "pole",
+      "mount_slot": "dining-[-1.247775, 0.45]-2.1000",
+      "mount_anchor_m": [
+        -1.247775,
+        0.45,
+        2.1
+      ],
+      "source_m": [
+        -1.1186982918479758,
+        0.3038340787311536,
+        2.057842131928198
+      ],
+      "aim_m": [
+        0.4208039707921387,
+        -0.25649892045531736,
+        0.910689259226106
+      ],
+      "rotation_local_to_world": [
+        [
+          0.3420201433256687,
+          0.5389855446957562,
+          0.7697511313200572
+        ],
+        [
+          0.9396926207859084,
+          -0.19617469496901108,
+          -0.2801664995932355
+        ],
+        [
+          0.0,
+          0.8191520442889919,
+          -0.573576436351046
+        ]
+      ],
+      "optical_axis": [
+        0.7697511313200572,
+        -0.2801664995932355,
+        -0.573576436351046
+      ],
+      "pan_deg": -19.999999999999996,
+      "tilt_deg": -35.0,
+      "roll_deg": 0,
+      "dimming": 1.0,
+      "ies_sha256": "c8a77a6fd8d2e6580be9c82727be63ba1252e9fc2c31a4481a042755f3bd763d",
+      "photometry_status": "EXACT",
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "assembly_bounds_m": [
+        [
+          -1.3067178502575747,
+          0.20743189133255174,
+          1.891
+        ],
+        [
+          -1.0438321497424254,
+          0.503,
+          2.309
+        ]
+      ],
+      "geometry_status": "CONDITIONAL_DECLARED_GEOMETRY_NOT_FULL_INSTALLATION",
+      "manufacturer_CAD": false,
+      "geometry_checks": {
+        "optical_axis_dot": 1.0000000000000002,
+        "hinge_axis_error_deg_numeric": 0.0,
+        "mount_orientation_supported": "UNKNOWN",
+        "service_clearance_qualified": "UNKNOWN",
+        "full_manufacturer_tilt_sweep_qualified": "UNKNOWN",
+        "aperture_visibility": "UNKNOWN"
+      },
+      "cost_sgd": null,
+      "pole_side": "dining",
+      "pole_diameter_mm": 60,
+      "adapter": "1E2825",
+      "pole_axis_xy_m": [
+        -1.247775,
+        0.45
+      ],
+      "hinge_m": [
+        -1.175275,
+        0.3244263164512564,
+        2.1
+      ],
+      "hinge_axis": [
+        0.3420201433256687,
+        0.9396926207859084,
+        0.0
+      ],
+      "body_center_m": [
+        -1.175275,
+        0.3244263164512564,
+        2.1
+      ],
+      "body_dimensions_m": [
+        0.1345,
+        0.127,
+        0.147
+      ],
+      "body_bounds_m": [
+        [
+          -1.289078144878856,
+          0.22818265685276906,
+          2.005825977115847
+        ],
+        [
+          -1.0614718551211442,
+          0.42066997604974377,
+          2.194174022884153
+        ]
+      ],
+      "head_attachment_z_m": 0.6,
+      "shaft_bottom_z_m": -0.55,
+      "mount_plane_normal": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "support": {
+        "type": "Pole clamp",
+        "adapter": "1E2825",
+        "adapter_complete_geometry": "UNKNOWN",
+        "shaft_support": "two-point wall/inverted-U standoff concept; unengineered"
+      },
+      "geometry_assumptions_ref": "work/evidence/geometry-premise.json",
+      "candidate_provenance": {
+        "axis_fixed": true,
+        "full_geometry_qualified": false
+      },
+      "clamp_clocking_deg": -60.0,
+      "support_geometry": {
+        "pole_diameter_m": 0.06,
+        "shaft_bottom_deck_z_m": -0.65,
+        "hinge_radial_offset_m": 0.145,
+        "fixing_and_adapter_offset_qualification": "UNKNOWN"
+      },
+      "geometry_assumptions": {
+        "clamp_and_hinge_offset_m": 0.145,
+        "full_service_vertical_envelope_m": 0.418,
+        "additional_xy_allowance_m": 0.015,
+        "complete_hardware_growth_movement_qualified": false
+      },
+      "clearance_distance_scope": "Provisional screening neighbourhood; exact full-cloud distances recalculated for selected fixtures",
+      "previous_fixture_id": "R05-aim-('dining', False, 2.1, -60, 2, -35)",
+      "mullion_correction": {
+        "height_delta_m": 0,
+        "clock_delta_deg": 0,
+        "source_shift_from_translation_m": 0.15207264504386828
+      },
+      "body_clearance_m": 0.6812761340165772,
+      "declared_envelope_clearance_m": 0.5292787156607088,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    },
+    {
+      "id": "R06-C01-10",
+      "product_id": "targetti33",
+      "family": "Targetti DART Medium",
+      "order_code": "1E3935DA",
+      "watts": 33.2,
+      "role": "pole",
+      "mount_group": "pole",
+      "mount_slot": "living-[1.247775, 0.45]-1.6000",
+      "mount_anchor_m": [
+        1.247775,
+        0.45,
+        1.6
+      ],
+      "source_m": [
+        1.2857412961861179,
+        0.3118570761840381,
+        1.5363471328218439
+      ],
+      "aim_m": [
+        0.34604867540020934,
+        -0.03016306714163086,
+        -0.19570367474703332
+      ],
+      "rotation_local_to_world": [
+        [
+          0.3420201433256689,
+          -0.8137976813493736,
+          -0.46984631039295427
+        ],
+        [
+          -0.9396926207859083,
+          -0.29619813272602397,
+          -0.17101007166283447
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          -0.8660254037844386
+        ]
+      ],
+      "optical_axis": [
+        -0.46984631039295427,
+        -0.17101007166283447,
+        -0.8660254037844386
+      ],
+      "pan_deg": -160.0,
+      "tilt_deg": -59.99999999999999,
+      "roll_deg": 0,
+      "dimming": 1.0,
+      "ies_sha256": "c8a77a6fd8d2e6580be9c82727be63ba1252e9fc2c31a4481a042755f3bd763d",
+      "photometry_status": "EXACT",
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "assembly_bounds_m": [
+        [
+          1.1888321497424255,
+          0.20743189133255174,
+          1.391
+        ],
+        [
+          1.4517178502575747,
+          0.503,
+          1.8090000000000002
+        ]
+      ],
+      "geometry_status": "CONDITIONAL_DECLARED_GEOMETRY_NOT_FULL_INSTALLATION",
+      "manufacturer_CAD": false,
+      "geometry_checks": {
+        "optical_axis_dot": 1.0000000000000002,
+        "hinge_axis_error_deg_numeric": 0.0,
+        "mount_orientation_supported": "UNKNOWN",
+        "service_clearance_qualified": "UNKNOWN",
+        "full_manufacturer_tilt_sweep_qualified": "UNKNOWN",
+        "aperture_visibility": "UNKNOWN"
+      },
+      "cost_sgd": null,
+      "pole_side": "living",
+      "pole_diameter_mm": 60,
+      "adapter": "1E2825",
+      "pole_axis_xy_m": [
+        1.247775,
+        0.45
+      ],
+      "hinge_m": [
+        1.320275,
+        0.3244263164512564,
+        1.6
+      ],
+      "hinge_axis": [
+        0.3420201433256689,
+        -0.9396926207859083,
+        0.0
+      ],
+      "body_center_m": [
+        1.320275,
+        0.3244263164512564,
+        1.6
+      ],
+      "body_dimensions_m": [
+        0.1345,
+        0.127,
+        0.147
+      ],
+      "body_bounds_m": [
+        [
+          1.2110642887817815,
+          0.22985416600808323,
+          1.504597132821844
+        ],
+        [
+          1.4294857112182187,
+          0.4189984668944296,
+          1.6954028671781562
+        ]
+      ],
+      "head_attachment_z_m": 0.6,
+      "shaft_bottom_z_m": -0.55,
+      "mount_plane_normal": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "support": {
+        "type": "Pole clamp",
+        "adapter": "1E2825",
+        "adapter_complete_geometry": "UNKNOWN",
+        "shaft_support": "two-point wall/inverted-U standoff concept; unengineered"
+      },
+      "geometry_assumptions_ref": "work/evidence/geometry-premise.json",
+      "candidate_provenance": {
+        "axis_fixed": true,
+        "full_geometry_qualified": false
+      },
+      "clamp_clocking_deg": -60.0,
+      "support_geometry": {
+        "pole_diameter_m": 0.06,
+        "shaft_bottom_deck_z_m": -0.65,
+        "hinge_radial_offset_m": 0.145,
+        "fixing_and_adapter_offset_qualification": "UNKNOWN"
+      },
+      "geometry_assumptions": {
+        "clamp_and_hinge_offset_m": 0.145,
+        "full_service_vertical_envelope_m": 0.418,
+        "additional_xy_allowance_m": 0.015,
+        "complete_hardware_growth_movement_qualified": false
+      },
+      "clearance_distance_scope": "Provisional screening neighbourhood; exact full-cloud distances recalculated for selected fixtures",
+      "previous_fixture_id": "R05-aim-('living', False, 1.6, -60, 2, -60)",
+      "mullion_correction": {
+        "height_delta_m": 0,
+        "clock_delta_deg": 0,
+        "source_shift_from_translation_m": 0.56670581701024
+      },
+      "body_clearance_m": 0.5330038163297924,
+      "declared_envelope_clearance_m": 0.3670304665681585,
+      "close_distance_review_required": true,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    },
+    {
+      "id": "R06-C01-11",
+      "product_id": "targetti33",
+      "family": "Targetti DART Medium",
+      "order_code": "1E3935DA",
+      "watts": 33.2,
+      "role": "pole",
+      "mount_group": "pole",
+      "mount_slot": "living-[1.247775, 0.45]-2.1000",
+      "mount_anchor_m": [
+        1.247775,
+        0.45,
+        2.1
+      ],
+      "source_m": [
+        1.182094105175512,
+        0.28631831053210477,
+        2.036347132821844
+      ],
+      "aim_m": [
+        0.41604966205653393,
+        -0.3564692991544348,
+        0.3042963252529667
+      ],
+      "rotation_local_to_world": [
+        [
+          0.6427876096865395,
+          -0.6634139481689383,
+          -0.38302222155948906
+        ],
+        [
+          -0.7660444431189779,
+          -0.5566703992264195,
+          -0.3213938048432698
+        ],
+        [
+          0.0,
+          0.5000000000000001,
+          -0.8660254037844386
+        ]
+      ],
+      "optical_axis": [
+        -0.38302222155948906,
+        -0.3213938048432698,
+        -0.8660254037844386
+      ],
+      "pan_deg": -140.0,
+      "tilt_deg": -59.99999999999999,
+      "roll_deg": 0,
+      "dimming": 1.0,
+      "ies_sha256": "c8a77a6fd8d2e6580be9c82727be63ba1252e9fc2c31a4481a042755f3bd763d",
+      "photometry_status": "EXACT",
+      "accessory": null,
+      "combined_photometry_status": "NOT_APPLICABLE",
+      "mounting_status": "UNKNOWN",
+      "mechanical_status": "UNKNOWN",
+      "glare_status": "UNKNOWN",
+      "assembly_bounds_m": [
+        [
+          1.0771161282362214,
+          0.17871270862026695,
+          1.891
+        ],
+        [
+          1.3433763486840475,
+          0.503,
+          2.309
+        ]
+      ],
+      "geometry_status": "CONDITIONAL_DECLARED_GEOMETRY_NOT_FULL_INSTALLATION",
+      "manufacturer_CAD": false,
+      "geometry_checks": {
+        "optical_axis_dot": 1.0000000000000002,
+        "hinge_axis_error_deg_numeric": 0.0,
+        "mount_orientation_supported": "UNKNOWN",
+        "service_clearance_qualified": "UNKNOWN",
+        "full_manufacturer_tilt_sweep_qualified": "UNKNOWN",
+        "aperture_visibility": "UNKNOWN"
+      },
+      "cost_sgd": null,
+      "pole_side": "living",
+      "pole_diameter_mm": 60,
+      "adapter": "1E2825",
+      "pole_axis_xy_m": [
+        1.247775,
+        0.45
+      ],
+      "hinge_m": [
+        1.2102462384601345,
+        0.3099407551880851,
+        2.1
+      ],
+      "hinge_axis": [
+        0.6427876096865395,
+        -0.7660444431189779,
+        0.0
+      ],
+      "body_center_m": [
+        1.2102462384601345,
+        0.3099407551880851,
+        2.1
+      ],
+      "body_dimensions_m": [
+        0.1345,
+        0.127,
+        0.147
+      ],
+      "body_bounds_m": [
+        [
+          1.0967398527153647,
+          0.19945325138147588,
+          2.0045971328218437
+        ],
+        [
+          1.3237526242049042,
+          0.4204282589946944,
+          2.1954028671781565
+        ]
+      ],
+      "head_attachment_z_m": 0.6,
+      "shaft_bottom_z_m": -0.55,
+      "mount_plane_normal": [
+        0.9396926207859084,
+        -0.3420201433256687,
+        0.0
+      ],
+      "support": {
+        "type": "Pole clamp",
+        "adapter": "1E2825",
+        "adapter_complete_geometry": "UNKNOWN",
+        "shaft_support": "two-point wall/inverted-U standoff concept; unengineered"
+      },
+      "geometry_assumptions_ref": "work/evidence/geometry-premise.json",
+      "candidate_provenance": {
+        "axis_fixed": true,
+        "full_geometry_qualified": false
+      },
+      "clamp_clocking_deg": -105.0,
+      "support_geometry": {
+        "pole_diameter_m": 0.06,
+        "shaft_bottom_deck_z_m": -0.65,
+        "hinge_radial_offset_m": 0.145,
+        "fixing_and_adapter_offset_qualification": "UNKNOWN"
+      },
+      "geometry_assumptions": {
+        "clamp_and_hinge_offset_m": 0.145,
+        "full_service_vertical_envelope_m": 0.418,
+        "additional_xy_allowance_m": 0.015,
+        "complete_hardware_growth_movement_qualified": false
+      },
+      "clearance_distance_scope": "Provisional screening neighbourhood; exact full-cloud distances recalculated for selected fixtures",
+      "previous_fixture_id": "R05-aim-('living', False, 2.1, -105, 1, -60)",
+      "mullion_correction": {
+        "height_delta_m": 0,
+        "clock_delta_deg": 0,
+        "source_shift_from_translation_m": 0.31126233819437915
+      },
+      "body_clearance_m": 0.8753277408799368,
+      "declared_envelope_clearance_m": 0.7124163851735582,
+      "close_distance_review_required": false,
+      "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+    }
+  ],
+  "installation_qualified": false,
+  "method": "fresh direct-IES transport; beta=4, voxel=.06m, lux-to-PPFD=.0145, incidence=.5",
+  "photometry_scope": "120W Philips uses declared scaled 80W surrogate; 80W Philips and Targetti Medium use exact supplied IES.",
+  "geometry_status": "PROVISIONAL_MOUNT_DETAILS_MISSING"
+}

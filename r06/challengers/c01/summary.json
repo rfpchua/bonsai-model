@@ -1,0 +1,39 @@
+{
+  "run_id": "R06-C01",
+  "status": "VERIFIED_TARGET_MET_CONDITIONAL_INSTALLATION",
+  "target_met": true,
+  "best_mean_dull_DLI": 4.293431543525521,
+  "gain_fraction": 0.07333246201001953,
+  "hardware_counts": {
+    "overheads": 5,
+    "pole_mediums": 6,
+    "surface_heads": 0,
+    "maxis": 0,
+    "total_fixtures": 11
+  },
+  "total_watts": 719.2000000000003,
+  "metrics": {
+    "mean": 4.293431543525521,
+    "typical_mean": 4.964763470680877,
+    "share_ge4": 0.5150692413970376,
+    "weakest_pad_p10": 1.7388332680481622,
+    "face_p10": 2.4098192203140543,
+    "face_share_ge4": 0.6297968397291196,
+    "max_electric_PPFD": 237.15342092845611,
+    "p99_electric_PPFD": 204.71492548733426,
+    "eye_max": {
+      "foyer": 559.8193528156446,
+      "courtyard": 3639.6251858205956
+    },
+    "eye_pass": true,
+    "gain_fraction": 0.07333246201001953,
+    "mean_target_met": true,
+    "all_coverage_tail_guards_preserved": true
+  },
+  "geometry_status": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+  "cost_status": "UNCHANGED BILL OF MATERIALS; installed-price delta is re-aiming/commissioning labor only and unquoted",
+  "tested_combinations": 2086,
+  "unique_source_responses": 695,
+  "report_path": "output/report.html",
+  "model_path": "output/model.html"
+}

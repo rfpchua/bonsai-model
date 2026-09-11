@@ -1,0 +1,21 @@
+{
+  "status": "PROVISIONAL_MOUNT_DETAILS_MISSING",
+  "hard_rule_screen": "PASS",
+  "anchor_hosts": "PASS_UNCHANGED_FROM_R06",
+  "pole_axes": "PASS_UNCHANGED",
+  "maxis": 0,
+  "orthonormal_and_aim_checks": "PASS via protocol.validate_head_rules/response",
+  "minimum_declared_envelope_clearance_m": 0.3218214824913009,
+  "minimum_changed_overhead_declared_envelope_clearance_m": 1.5603721087075233,
+  "close_distance_heads": [
+    "R06-C01-07",
+    "R06-C01-08",
+    "R06-C01-10"
+  ],
+  "pairwise_and_architecture": "No anchor/body-center changes; original fixture packing and hosts retained. Re-aimed overhead OBBs saved in schedule; no new AABB overlap between fixtures.",
+  "limitations": [
+    "Overhead yoke/base/fixing geometry and ceiling-mount approval unresolved",
+    "Pole supports/clamps remain illustrative and unengineered",
+    "Complete movement/growth envelope and on-site clearance require field verification"
+  ]
+}
