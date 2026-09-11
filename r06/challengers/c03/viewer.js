@@ -110,10 +110,10 @@
   window.R05.ready=true;
  }catch(error){$('r05-error').hidden=false;$('r05-error').textContent='R06-C03 model could not finish loading: '+error.message;console.error(error);}
 })();
-// Independent P1–P14 labels, anchored to the saved scored-pad centroids.
+// Independent pad labels, anchored to the saved scored-pad centroids.
 (function () {
   'use strict';
-  const pads = [{"number":1,"center":[-0.4009944878028203,-0.25390309291830454,0.6240295384023853]},{"number":2,"center":[1.0856794643303456,0.08568236521918994,0.7862956173226096]},{"number":3,"center":[0.11089585606470057,-0.734740108100273,0.765599304993572]},{"number":4,"center":[0.844040179071971,-0.5085114544617934,0.8685533385954466]},{"number":5,"center":[0.430325045965665,0.24881818454697693,0.8931598054701775]},{"number":6,"center":[-0.16744927774170362,0.24508507548068892,0.9619622283102037]},{"number":7,"center":[0.6492528079447465,-0.07376248409660528,1.201564834374861]},{"number":8,"center":[-0.5270471247668428,0.11058525401292493,1.2583719436786491]},{"number":9,"center":[-0.10461116523622235,-0.837828144337514,1.3395159417510631]},{"number":10,"center":[0.017217167173396504,0.23501351281131644,1.5749454824229194]},{"number":11,"center":[0.49295143922447326,-0.341176728103477,1.5868486169803653]},{"number":12,"center":[-0.5892113492764097,-0.24008568546200912,1.6032870122160332]},{"number":13,"center":[-0.12638327416575482,-0.6185168895925393,1.7785393946290369]},{"number":14,"center":[-0.06051048209673958,-0.09808869353077661,2.0802376322093035]}];
+  const pads = [{"number":1,"label":"B6","center":[-0.4009944878028203,-0.25390309291830454,0.6240295384023853]},{"number":2,"label":"B4","center":[1.0856794643303456,0.08568236521918994,0.7862956173226096]},{"number":3,"label":"B5","center":[0.11089585606470057,-0.734740108100273,0.765599304993572]},{"number":4,"label":"B3","center":[0.844040179071971,-0.5085114544617934,0.8685533385954466]},{"number":5,"label":"B2","center":[0.430325045965665,0.24881818454697693,0.8931598054701775]},{"number":6,"label":"B1","center":[-0.16744927774170362,0.24508507548068892,0.9619622283102037]},{"number":7,"label":"M3","center":[0.6492528079447465,-0.07376248409660528,1.201564834374861]},{"number":8,"label":"M2","center":[-0.5270471247668428,0.11058525401292493,1.2583719436786491]},{"number":9,"label":"M1","center":[-0.10461116523622235,-0.837828144337514,1.3395159417510631]},{"number":10,"label":"T5","center":[0.017217167173396504,0.23501351281131644,1.5749454824229194]},{"number":11,"label":"T4","center":[0.49295143922447326,-0.341176728103477,1.5868486169803653]},{"number":12,"label":"T3","center":[-0.5892113492764097,-0.24008568546200912,1.6032870122160332]},{"number":13,"label":"T2","center":[-0.12638327416575482,-0.6185168895925393,1.7785393946290369]},{"number":14,"label":"T1","center":[-0.06051048209673958,-0.09808869353077661,2.0802376322093035]}];
   function initialize() {
     if (!window.R05?.ready) {
       if (!document.getElementById('r05-error')?.hidden) return;
@@ -126,7 +126,7 @@
     const toggle = document.createElement('input');
     toggle.type = 'checkbox';
     toggle.id = 'r05-pad-numbers';
-    label.append(toggle, document.createTextNode(' Pad numbers (P1–P14)'));
+    label.append(toggle, document.createTextNode(' Pad numbers (B / M / T)'));
     fixtureToggle.closest('label').after(label);
 
     const style = document.createElement('style');
@@ -142,7 +142,8 @@
     const nodes = pads.map(pad => {
       const tag = document.createElement('span');
       tag.className = 'r06-pad-number';
-      tag.textContent = 'P' + pad.number;
+      tag.textContent = pad.label;
+      tag.dataset.originalPad = 'P' + pad.number;
       const line = document.createElementNS(ns, 'line');
       line.setAttribute('stroke', '#294638');
       line.setAttribute('stroke-width', '1');
