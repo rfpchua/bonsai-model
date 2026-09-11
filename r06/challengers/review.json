@@ -24,14 +24,15 @@
       "schedule_sha256": "c07d575bf6e9cf69f4a71444e5eb20e88a6596e8aabbd41ee7da84fc172f35f7"
     },
     "C03": {
-      "eligible": true,
+      "eligible": false,
       "audit": "C03-audit-v2.json",
       "version": "v2",
-      "status": "Repaired; known geometry screens passed; installation conditional",
+      "status": "Historical numerical reference: living fixture housing/glazing collision found in added C04 review",
       "reported_mean": 4.6157511869185015,
       "reported_gain": 0.15391046421873766,
       "reason": "Living overhead collision repaired; +15.39% with higher peak intensity.",
-      "schedule_sha256": "bbd05fa96b5c6f8a947a371055818ea3ff2c6d670f19f41a79bfd7d314bfe87f"
+      "schedule_sha256": "bbd05fa96b5c6f8a947a371055818ea3ff2c6d670f19f41a79bfd7d314bfe87f",
+      "additional_geometry_audit": "c03/additional-housing-audit.json"
     }
   },
   "rejected_versions": [
@@ -47,5 +48,6 @@
       "reported_gain": 0.1866878106959109,
       "reason": "Two living-soffit fixture bodies overlap; anchors are only 6 cm apart."
     }
-  ]
+  ],
+  "informed_C04_followup": "c04/"
 }

@@ -1,0 +1,121 @@
+[
+  {
+    "case_id": "u0-p6-keep",
+    "150_layout_mean": 5.080849331664116,
+    "same_layout_120W_mean": 5.080849331664116,
+    "power_only_delta": 0.0,
+    "power_only_gain": 0.0
+  },
+  {
+    "case_id": "u12-p6-keep",
+    "150_layout_mean": 5.304734338289211,
+    "same_layout_120W_mean": 5.07385060992953,
+    "power_only_delta": 0.23088372835968052,
+    "power_only_gain": 0.04550463663787041
+  },
+  {
+    "case_id": "u12-p6-relocate",
+    "150_layout_mean": 5.304734338289211,
+    "same_layout_120W_mean": 5.07385060992953,
+    "power_only_delta": 0.23088372835968052,
+    "power_only_gain": 0.04550463663787041
+  },
+  {
+    "case_id": "u23-p6-remove",
+    "150_layout_mean": 5.005744871463738,
+    "same_layout_120W_mean": 4.7719139741024765,
+    "power_only_delta": 0.23383089736126106,
+    "power_only_gain": 0.04900149051937608
+  },
+  {
+    "case_id": "u13-p5-keep",
+    "150_layout_mean": 5.007869447195992,
+    "same_layout_120W_mean": 4.797159999505659,
+    "power_only_delta": 0.2107094476903324,
+    "power_only_gain": 0.04392378984900347
+  },
+  {
+    "case_id": "u13-p5-relocate",
+    "150_layout_mean": 5.007869447195992,
+    "same_layout_120W_mean": 4.797159999505659,
+    "power_only_delta": 0.2107094476903324,
+    "power_only_gain": 0.04392378984900347
+  },
+  {
+    "case_id": "u12-p5-remove",
+    "150_layout_mean": 4.715145558744272,
+    "same_layout_120W_mean": 4.479334679367721,
+    "power_only_delta": 0.23581087937655099,
+    "power_only_gain": 0.052644175141169924
+  },
+  {
+    "case_id": "u123-p6-keep",
+    "150_layout_mean": 5.374709364889936,
+    "same_layout_120W_mean": 5.041345241169296,
+    "power_only_delta": 0.3333641237206404,
+    "power_only_gain": 0.06612602545016721
+  },
+  {
+    "case_id": "u123-p6-relocate",
+    "150_layout_mean": 5.374709364889936,
+    "same_layout_120W_mean": 5.041345241169296,
+    "power_only_delta": 0.3333641237206404,
+    "power_only_gain": 0.06612602545016721
+  },
+  {
+    "case_id": "u123-p6-remove",
+    "150_layout_mean": 5.063911954890339,
+    "same_layout_120W_mean": 4.731214704056499,
+    "power_only_delta": 0.3326972508338404,
+    "power_only_gain": 0.07031962649012491
+  },
+  {
+    "case_id": "u123-p5-keep",
+    "150_layout_mean": 5.111206075673463,
+    "same_layout_120W_mean": 4.775957614476263,
+    "power_only_delta": 0.3352484611972004,
+    "power_only_gain": 0.07019502438234348
+  },
+  {
+    "case_id": "u123-p5-relocate",
+    "150_layout_mean": 5.111206075673463,
+    "same_layout_120W_mean": 4.775957614476263,
+    "power_only_delta": 0.3352484611972004,
+    "power_only_gain": 0.07019502438234348
+  },
+  {
+    "case_id": "u123-p5-remove",
+    "150_layout_mean": 4.819510291581793,
+    "same_layout_120W_mean": 4.479334679367721,
+    "power_only_delta": 0.3401756122140718,
+    "power_only_gain": 0.07594333457175151
+  },
+  {
+    "case_id": "u2-p5-B6-protected",
+    "150_layout_mean": 4.836134995833277,
+    "same_layout_120W_mean": 4.625425548142948,
+    "power_only_delta": 0.21070944769032884,
+    "power_only_gain": 0.045554608002484454
+  },
+  {
+    "case_id": "u3-p5-B6-protected",
+    "150_layout_mean": 4.93947162431075,
+    "same_layout_120W_mean": 4.60422316311355,
+    "power_only_delta": 0.33524846119719953,
+    "power_only_gain": 0.0728132519472604
+  },
+  {
+    "case_id": "u2-p6-B6-protected",
+    "150_layout_mean": 5.134217146510488,
+    "same_layout_120W_mean": 4.903450703731828,
+    "power_only_delta": 0.23076644277865999,
+    "power_only_gain": 0.04706205011973141
+  },
+  {
+    "case_id": "u3-p6-B6-protected",
+    "150_layout_mean": 5.2368857401433795,
+    "same_layout_120W_mean": 4.903521616422741,
+    "power_only_delta": 0.3333641237206386,
+    "power_only_gain": 0.0679846342685928
+  }
+]

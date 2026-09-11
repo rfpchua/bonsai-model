@@ -1,0 +1,128 @@
+{
+  "version": "2026-09-11-v2",
+  "rule": "T1 is the crown. Number downwards within each fixed tier using the retained-foyer-pad mean height. Aliases remain fixed when cameras, tree poses or lighting change.",
+  "counts": {
+    "top": 5,
+    "middle": 3,
+    "bottom": 6
+  },
+  "pads": [
+    {
+      "display_name": "T1",
+      "original_id": "P14",
+      "point_pad_index": 13,
+      "tier": "top",
+      "description": "apical crown",
+      "reference_height_m": 2.08023763153134
+    },
+    {
+      "display_name": "T2",
+      "original_id": "P13",
+      "point_pad_index": 12,
+      "tier": "top",
+      "description": "upper rear cloud",
+      "reference_height_m": 1.7785393945834136
+    },
+    {
+      "display_name": "T3",
+      "original_id": "P12",
+      "point_pad_index": 11,
+      "tier": "top",
+      "description": "upper right cloud",
+      "reference_height_m": 1.6032870131984425
+    },
+    {
+      "display_name": "T4",
+      "original_id": "P11",
+      "point_pad_index": 10,
+      "tier": "top",
+      "description": "upper left sloping cloud",
+      "reference_height_m": 1.586848616837301
+    },
+    {
+      "display_name": "T5",
+      "original_id": "P10",
+      "point_pad_index": 9,
+      "tier": "top",
+      "description": "upper front cloud",
+      "reference_height_m": 1.5749454816181576
+    },
+    {
+      "display_name": "M1",
+      "original_id": "P9",
+      "point_pad_index": 8,
+      "tier": "middle",
+      "description": "middle rear cloud",
+      "reference_height_m": 1.3395159419359584
+    },
+    {
+      "display_name": "M2",
+      "original_id": "P8",
+      "point_pad_index": 7,
+      "tier": "middle",
+      "description": "middle right cloud",
+      "reference_height_m": 1.2583719438161938
+    },
+    {
+      "display_name": "M3",
+      "original_id": "P7",
+      "point_pad_index": 6,
+      "tier": "middle",
+      "description": "middle left cloud",
+      "reference_height_m": 1.2015648343875573
+    },
+    {
+      "display_name": "B1",
+      "original_id": "P6",
+      "point_pad_index": 5,
+      "tier": "bottom",
+      "description": "lower front-right blade / Reserved-tag candidate",
+      "reference_height_m": 0.9619622280836687
+    },
+    {
+      "display_name": "B2",
+      "original_id": "P5",
+      "point_pad_index": 4,
+      "tier": "bottom",
+      "description": "lower front-left inner cloud / 4947 tape candidate",
+      "reference_height_m": 0.8931598052142862
+    },
+    {
+      "display_name": "B3",
+      "original_id": "P4",
+      "point_pad_index": 3,
+      "tier": "bottom",
+      "description": "lower left rear cloud",
+      "reference_height_m": 0.8685533388116847
+    },
+    {
+      "display_name": "B4",
+      "original_id": "P2",
+      "point_pad_index": 1,
+      "tier": "bottom",
+      "description": "outer-left cloud / distinct from 4947 candidate",
+      "reference_height_m": 0.7862956173934308
+    },
+    {
+      "display_name": "B5",
+      "original_id": "P3",
+      "point_pad_index": 2,
+      "tier": "bottom",
+      "description": "lower rear central cloud",
+      "reference_height_m": 0.7655993047967993
+    },
+    {
+      "display_name": "B6",
+      "original_id": "P1",
+      "point_pad_index": 0,
+      "tier": "bottom",
+      "description": "low right pendant mass",
+      "reference_height_m": 0.6240295384375746
+    }
+  ],
+  "mount_display_names": {
+    "M1": "dining-wall mount",
+    "M2": "living-return mount"
+  },
+  "raw_data_policy": "Original P identifiers, numeric indices, input hashes and original evidence are retained for provenance; use display_name in owner-facing output."
+}

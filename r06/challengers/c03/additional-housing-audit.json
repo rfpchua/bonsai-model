@@ -1,0 +1,15 @@
+{
+  "existing_result_preserved": true,
+  "new_housing_vs_architecture_check": [
+    {
+      "fixture": "C03-s01-061",
+      "box": "foyer glass",
+      "gap": -0.0680640410913077
+    },
+    {
+      "fixture": "C03-s01-061",
+      "box": "living side glass",
+      "gap": -0.023499833185495533
+    }
+  ]
+}
