@@ -110,130 +110,68 @@
   window.R05.ready=true;
  }catch(error){$('r05-error').hidden=false;$('r05-error').textContent='R06-C03 model could not finish loading: '+error.message;console.error(error);}
 })();
-// Independent pad labels, floating near their saved scored-pad anchors.
+// Independent pad labels, drawn directly on their saved scored-pad anchors.
 (function () {
   'use strict';
   const pads = [{"number":1,"label":"B6","center":[-0.4009944878028203,-0.25390309291830454,0.6240295384023853]},{"number":2,"label":"B4","center":[1.0856794643303456,0.08568236521918994,0.7862956173226096]},{"number":3,"label":"B5","center":[0.11089585606470057,-0.734740108100273,0.765599304993572]},{"number":4,"label":"B3","center":[0.844040179071971,-0.5085114544617934,0.8685533385954466]},{"number":5,"label":"B2","center":[0.430325045965665,0.24881818454697693,0.8931598054701775]},{"number":6,"label":"B1","center":[-0.16744927774170362,0.24508507548068892,0.9619622283102037]},{"number":7,"label":"M3","center":[0.6492528079447465,-0.07376248409660528,1.201564834374861]},{"number":8,"label":"M2","center":[-0.5270471247668428,0.11058525401292493,1.2583719436786491]},{"number":9,"label":"M1","center":[-0.10461116523622235,-0.837828144337514,1.3395159417510631]},{"number":10,"label":"T5","center":[0.017217167173396504,0.23501351281131644,1.5749454824229194]},{"number":11,"label":"T4","center":[0.49295143922447326,-0.341176728103477,1.5868486169803653]},{"number":12,"label":"T3","center":[-0.5892113492764097,-0.24008568546200912,1.6032870122160332]},{"number":13,"label":"T2","center":[-0.12638327416575482,-0.6185168895925393,1.7785393946290369]},{"number":14,"label":"T1","center":[-0.06051048209673958,-0.09808869353077661,2.0802376322093035]}];
   function initialize() {
     if (!window.R05?.ready) {
       if (!document.getElementById('r05-error')?.hidden) return;
-      requestAnimationFrame(initialize);
-      return;
+      requestAnimationFrame(initialize);return;
     }
-    const fixtureToggle = document.getElementById('r05-labels');
-    const label = document.createElement('label');
-    label.className = fixtureToggle.closest('label').className;
-    const toggle = document.createElement('input');
-    toggle.type = 'checkbox';
-    toggle.id = 'r05-pad-numbers';
-    label.append(toggle, document.createTextNode(' Pad numbers (B / M / T)'));
-    fixtureToggle.closest('label').after(label);
-    const style = document.createElement('style');
-    style.textContent = '.r06-pad-overlay{position:fixed;inset:0;pointer-events:none;z-index:6}.r06-pad-number{position:fixed;box-sizing:border-box;transform:translate(-50%,-50%);width:44px;height:28px;display:grid;place-items:center;border:1.5px solid #274d3b;border-radius:9px;background:#fffef5;color:#173628;font:750 16px/1 system-ui;box-shadow:0 2px 7px #102d2938;white-space:nowrap}.r06-pad-number[hidden],.r06-pad-overlay[hidden]{display:none}';
+    const fixtureToggle=document.getElementById('r05-labels');
+    const label=document.createElement('label');label.className=fixtureToggle.closest('label').className;
+    const toggle=document.createElement('input');toggle.type='checkbox';toggle.id='r05-pad-numbers';
+    label.append(toggle,document.createTextNode(' Pad numbers (B / M / T)'));fixtureToggle.closest('label').after(label);
+    const style=document.createElement('style');
+    style.textContent='.r06-pad-overlay{position:fixed;inset:0;pointer-events:none;z-index:6}.r06-pad-number{position:fixed;box-sizing:border-box;transform:translate(-50%,-50%);width:32px;height:23px;display:grid;place-items:center;border:1px solid #31583e;border-radius:5px;background:#fffef5;color:#173628;font:800 14px/1 system-ui;box-shadow:0 1px 4px #102d2940;white-space:nowrap}.r06-pad-number[hidden],.r06-pad-overlay[hidden]{display:none}';
     document.head.append(style);
-    const overlay = document.createElement('div');
-    overlay.className = 'r06-pad-overlay';
-    overlay.dataset.layout = 'hover-v3';
-    overlay.setAttribute('aria-label', 'Tree pad numbers');
-    const ns = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(ns, 'svg');
-    svg.style.cssText = 'position:absolute;width:100%;height:100%;overflow:hidden';
-    svg.setAttribute('aria-hidden', 'true');
-    overlay.append(svg);
-    const nodes = pads.map(pad => {
-      const tag = document.createElement('span');
-      tag.className = 'r06-pad-number';
-      tag.textContent = pad.label;
-      tag.dataset.originalPad = 'P' + pad.number;
-      const guide = document.createElementNS(ns, 'g');
-      const halo = document.createElementNS(ns, 'line');
-      const line = document.createElementNS(ns, 'line');
-      const dot = document.createElementNS(ns, 'circle');
-      halo.setAttribute('stroke', '#fffef5');
-      halo.setAttribute('stroke-width', '4');
-      line.setAttribute('stroke', '#315b46');
-      line.setAttribute('stroke-width', '1.5');
-      dot.setAttribute('r', '3');
-      dot.setAttribute('fill', '#315b46');
-      dot.setAttribute('stroke', '#fffef5');
-      dot.setAttribute('stroke-width', '1.5');
-      guide.append(halo, line, dot);
-      svg.append(guide);
-      overlay.append(tag);
-      return {tag, guide, halo, line, dot, point: new THREE.Vector3(...pad.center)};
-    });
-    overlay.hidden = true;
-    document.body.append(overlay);
-    if (new URLSearchParams(location.search).get('pads') === '1') {
-      toggle.checked = true;
-      fixtureToggle.checked = false;
-      document.getElementById('r05-beams').checked = false;
-      window.R05.update();
+    const overlay=document.createElement('div');overlay.className='r06-pad-overlay';overlay.dataset.layout='on-pad-v4';overlay.setAttribute('aria-label','Tree pad numbers');
+    const nodes=pads.map(pad=>{const tag=document.createElement('span');tag.className='r06-pad-number';tag.textContent=pad.label;tag.dataset.originalPad='P'+pad.number;overlay.append(tag);return {tag,point:new THREE.Vector3(...pad.center)};});
+    overlay.hidden=true;document.body.append(overlay);
+    if(new URLSearchParams(location.search).get('pads')==='1'){
+      toggle.checked=true;fixtureToggle.checked=false;document.getElementById('r05-beams').checked=false;window.R05.update();
     }
-    const area = (a, b) => Math.max(0, Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0, Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
-    const box = (x,y) => ({left:x-25,right:x+25,top:y-17,bottom:y+17});
-    const cross = (a,b,c) => (b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
-    const crosses = (a,b,c,d) => cross(a,b,c)*cross(a,b,d)<0 && cross(c,d,a)*cross(c,d,b)<0;
-    let lastState = '';
-    toggle.addEventListener('change', () => {
-      overlay.hidden = !toggle.checked || window.R05.lastView === 'mounts';
-      lastState = '';
-    });
-    function draw() {
+    const area=(a,b)=>Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+    const box=(x,y)=>({left:x-18,right:x+18,top:y-13,bottom:y+13});
+    let lastState='',phoneFocus=false;
+    toggle.addEventListener('change',()=>{overlay.hidden=!toggle.checked||window.R05.lastView==='mounts';lastState='';});
+    function draw(){
       requestAnimationFrame(draw);
-      const hidden = !toggle.checked || window.R05.lastView === 'mounts';
-      overlay.hidden = hidden;
-      if (hidden) { lastState = ''; return; }
-      const {renderer, camera} = window.courtyard;
-      const rect = renderer.domElement.getBoundingClientRect();
-      const panel = document.getElementById('r05-panel');
-      const panelRect = panel?.getBoundingClientRect();
-      const state = [...camera.matrixWorld.elements,...camera.projectionMatrix.elements,rect.left,rect.top,rect.width,rect.height,panelRect?.top,panelRect?.bottom,document.getElementById('r05-labels').checked].join(',');
-      if (state === lastState) return;
-      lastState = state;
-      const projected = [];
-      for (const node of nodes) {
-        const p = node.point.clone().project(camera);
-        const visible = p.z>-1 && p.z<1 && Math.abs(p.x)<.97 && Math.abs(p.y)<.97;
-        node.tag.hidden = !visible;
-        node.guide.style.display = visible ? '' : 'none';
-        if (!visible) continue;
+      const hidden=!toggle.checked||window.R05.lastView==='mounts';overlay.hidden=hidden;
+      const {renderer,camera}=window.courtyard,rect=renderer.domElement.getBoundingClientRect();
+      const focus=!hidden&&rect.width<600;
+      // Bring the tree closer in the phone's pad view; restore the normal view when off.
+      if(focus||phoneFocus){
+        const base=camera.userData.baseFov||52;
+        const tangent=Math.tan(THREE.MathUtils.degToRad(base/2))*Math.max(1,1.25/camera.aspect);
+        const fov=THREE.MathUtils.radToDeg(2*Math.atan(tangent*(focus ? (window.R05.lastView==='aerial' ? .42 : .62) : 1)));
+        if(Math.abs(camera.fov-fov)>.001){camera.fov=fov;camera.updateProjectionMatrix();}
+      }
+      phoneFocus=focus;
+      if(hidden){lastState='';return;}
+      const state=[...camera.matrixWorld.elements,...camera.projectionMatrix.elements,rect.left,rect.top,rect.width,rect.height].join(',');
+      if(state===lastState)return;lastState=state;
+      const projected=[];
+      for(const node of nodes){
+        const p=node.point.clone().project(camera),visible=p.z>-1&&p.z<1&&Math.abs(p.x)<.97&&Math.abs(p.y)<.97;
+        node.tag.hidden=!visible;if(!visible)continue;
         projected.push({node,x:rect.left+(p.x*.5+.5)*rect.width,y:rect.top+(-p.y*.5+.5)*rect.height});
       }
-      const obstacles = [];
-      if (panelRect && panelRect.width && panelRect.height) obstacles.push(panelRect);
-      if (fixtureToggle.checked) document.querySelectorAll('.r05-tag:not([hidden])').forEach(t=>obstacles.push(t.getBoundingClientRect()));
-      const placed = [];
-      // Each label stays in a small neighbourhood of its own pad, on any screen size.
-      // Prefer above the pad; search nearby only to avoid another label or controls.
-      projected.sort((a,b)=>a.y-b.y || a.x-b.x);
-      for (const p of projected) {
-        let best = null;
-        for (const radius of [32,48,64,80,96,112]) {
-          for (const angle of [-90,-112.5,-67.5,-135,-45,-157.5,-22.5,180,0,157.5,22.5,135,45,112.5,67.5,90]) {
-            const theta = angle*Math.PI/180;
-            const x = Math.max(rect.left+27,Math.min(rect.right-27,p.x+Math.cos(theta)*radius));
-            const y = Math.max(rect.top+20,Math.min(rect.bottom-20,p.y+Math.sin(theta)*radius));
-            const bounds = box(x,y), candidate={x,y};
-            const collisions = placed.reduce((sum,q)=>sum+area(bounds,q.bounds),0)+obstacles.reduce((sum,q)=>sum+area(bounds,q),0);
-            const coveredAnchors = projected.filter(q=>q.x>bounds.left && q.x<bounds.right && q.y>bounds.top && q.y<bounds.bottom).length;
-            const crossings = placed.filter(q=>crosses(p,candidate,q.anchor,q)).length;
-            const distance = Math.hypot(x-p.x,y-p.y);
-            const score = collisions*1000+coveredAnchors*1200+crossings*100+distance+Math.abs(angle+90)*.025;
-            if (!best || score<best.score) best={x,y,bounds,score};
-          }
+      const placed=[];
+      projected.sort((a,b)=>a.y-b.y||a.x-b.x);
+      for(const p of projected){
+        let best=null;
+        // Stay over the pad: only a small local nudge is allowed when labels overlap.
+        for(const radius of [0,8,14,20])for(const angle of [-90,-45,-135,0,180,45,135,90]){
+          const theta=angle*Math.PI/180,x=p.x+Math.cos(theta)*radius,y=p.y+Math.sin(theta)*radius,bounds=box(x,y);
+          const clipped=x<rect.left+18||x>rect.right-18||y<rect.top+13||y>rect.bottom-13;
+          const score=placed.reduce((sum,q)=>sum+area(bounds,q),0)*1000+radius+(clipped?100000:0);
+          if(!best||score<best.score)best={x,y,bounds,score,radius};
         }
-        const {node}=p,{x,y}=best;
-        placed.push({...best,anchor:p});
-        node.tag.style.left=x+'px';node.tag.style.top=y+'px';
-        // End at the edge of the label; the dot marks the exact saved pad centroid.
-        const dx=p.x-x,dy=p.y-y;
-        const t=Math.min(1,22/Math.max(Math.abs(dx),1e-6),14/Math.max(Math.abs(dy),1e-6));
-        for (const line of [node.halo,node.line]) {
-          line.setAttribute('x1',p.x);line.setAttribute('y1',p.y);
-          line.setAttribute('x2',x+dx*t);line.setAttribute('y2',y+dy*t);
-        }
-        node.dot.setAttribute('cx',p.x);node.dot.setAttribute('cy',p.y);
+        p.node.tag.style.left=best.x+'px';p.node.tag.style.top=best.y+'px';
+        p.node.tag.dataset.anchorX=p.x;p.node.tag.dataset.anchorY=p.y;
+        placed.push(best.bounds);
       }
     }
     draw();
