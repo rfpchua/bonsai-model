@@ -384,3 +384,111 @@
   // Retry through the guarded entry point until saved lighting and the quick map have loaded.
   const start=()=>{if(!window.R05?.ready||!document.getElementById('r06-light-map')?.dataset.ready){if(document.getElementById('r05-error')?.hidden)requestAnimationFrame(start);return;}safeInit();};start();
 })();
+
+// Compact responsive UI. Presentation only: no geometry, schedules or light values change.
+(function () {
+  'use strict';
+  function init() {
+    if (!window.BONSAI_INSPECTION?.ready) {
+      if (document.getElementById('r05-error')?.hidden) requestAnimationFrame(init);
+      return;
+    }
+    if (window.BONSAI_UI) return;
+    const $=id=>document.getElementById(id),api=window.R05,body=document.body;
+    const panel=$('r05-panel'),controls=$('r05-controls'),toggle=$('r05-toggle');
+    const inspect=$('r06-inspection'),inspectButton=$('r06-inspect-button'),mapButton=$('r06-light-map');
+    const legend=$('r05-legend'),mode=$('r05-mode');
+    const style=document.createElement('style');style.textContent=`
+      body[data-compact-ui]{--ui-header:76px;--ui-toolbar:56px;--ui-side:0px;--ui-sheet:0px;--ui-key:0px}
+      body[data-compact-ui] #r05-bar{height:auto!important;min-height:64px;box-sizing:border-box;padding:12px 20px!important;gap:12px}
+      body[data-compact-ui] #r05-bar h1{font-size:20px;line-height:1.25;margin:0 0 4px}
+      body[data-compact-ui] #r05-bar p{font-size:12px;line-height:1.4;margin:0}
+      #r06-toolbar{position:fixed;left:var(--ui-side);right:0;top:var(--ui-header);height:var(--ui-toolbar);box-sizing:border-box;z-index:26;display:flex;align-items:center;gap:8px;padding:6px 14px;background:#eaf0ee;border-bottom:1px solid #cedbd4}
+      #r06-toolbar button{position:static!important;display:block!important;width:auto!important;min-height:44px;box-sizing:border-box;margin:0!important;padding:8px 12px!important;font:600 13px/1.2 system-ui!important;white-space:nowrap;border:1px solid #80978c;border-radius:8px;background:#fffefb;color:#234235;box-shadow:none!important;cursor:pointer}
+      #r06-toolbar #r06-light-map{margin-left:auto!important}
+      #r06-toolbar #r05-toggle[aria-expanded=true],#r06-toolbar #r06-inspect-button[aria-expanded=true],#r06-toolbar #r06-light-map[aria-pressed=true]{background:#214b3d;color:white;border-color:#214b3d}
+      body[data-compact-ui] #viewport{left:var(--ui-side)!important;top:calc(var(--ui-header) + var(--ui-toolbar))!important;width:calc(100vw - var(--ui-side))!important;height:calc(100dvh - var(--ui-header) - var(--ui-toolbar) - var(--ui-sheet) - var(--ui-key))!important}
+      body[data-compact-ui] #r05-panel{top:var(--ui-header)!important;bottom:0!important;left:0!important;width:320px!important;height:auto!important;max-height:none!important;box-sizing:border-box;padding:0 16px 16px!important;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;z-index:27;border-top:0!important;border-right:1px solid #cedbd4;border-radius:0!important;box-shadow:none!important}
+      body[data-compact-ui] #r05-panel[data-collapsed=true]{display:none!important}
+      body[data-compact-ui] #r05-panel[data-collapsed=false] #r05-controls{display:block!important}
+      #r06-panel-heading{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;background:#fbfcf9;z-index:2;border-bottom:1px solid #d6dfd9;margin-bottom:10px;font:700 15px system-ui}
+      #r06-close-controls{display:block;min-width:44px;min-height:44px;background:transparent;color:#234235;border:0;border-radius:6px;font:500 25px/1 system-ui;cursor:pointer}
+      body[data-compact-ui] #r05-controls select{font-size:14px;min-height:44px;max-width:100%;box-sizing:border-box}
+      body[data-compact-ui] #r05-controls button{min-height:44px}
+      body[data-compact-ui] #r05-controls label:has(input[type=checkbox]){min-height:44px;display:flex;align-items:center;gap:8px}
+      body[data-compact-ui] #r05-controls input[type=checkbox]{width:18px;height:18px;flex-shrink:0;accent-color:#214b3d}
+      body[data-compact-ui] #r06-inspection{margin:8px 0 12px!important}
+      body[data-compact-ui] #r05-note{display:none!important}
+      body[data-compact-ui] #r05-legend{position:static!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box;font-size:12px!important;padding:10px 0!important;box-shadow:none!important;border:0;background:transparent!important;pointer-events:auto}
+      body[data-compact-ui] #r06-map-metric{display:none!important}
+      #r06-light-settings{margin:14px 0;padding:12px 0;border-top:1px solid #d6dfd9;border-bottom:1px solid #d6dfd9;scroll-margin-top:64px}
+      #r06-light-settings>label{font-weight:700;min-height:0!important;height:auto;margin:0 0 6px}
+      #r06-light-key{position:fixed;left:var(--ui-side);right:0;bottom:var(--ui-sheet);z-index:24;box-sizing:border-box;background:#fbfcf9;border-top:1px solid #cedbd4;padding:6px 14px calc(6px + env(safe-area-inset-bottom,0px));color:#254037}
+      #r06-light-key[hidden]{display:none!important}
+      #r06-key-details{display:block;width:100%;max-width:470px;min-height:52px;margin:auto;padding:0;border:0;background:transparent;text-align:left;color:inherit;cursor:pointer;font:11px/1.3 system-ui}
+      .r06-key-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}
+      #r06-key-title{font-weight:650}.r06-key-action{color:#45645a;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+      #r06-key-gradient{display:block;height:6px;border-radius:2px;margin:5px 0}
+      .r06-key-excluded{display:flex;align-items:center;gap:5px;font-size:10px;color:#4c6057}
+      .r06-key-excluded i{width:9px;height:9px;display:inline-block;border:1px solid #657268;margin-left:3px}
+      .r06-key-excluded i:first-of-type{background:#91979b}.r06-key-excluded i:last-of-type{background:#050505}
+      body[data-compact-ui] :is(button,select,summary,input):focus-visible{outline:3px solid #337f67;outline-offset:2px}
+      body[data-ui-layout=sheet] #r05-bar{padding:10px 12px!important;min-height:64px}
+      body[data-ui-layout=sheet] #r05-bar h1{font-size:17px}
+      body[data-ui-layout=sheet] #r05-bar p{font-size:11px}
+      body[data-ui-layout=sheet] #r05-bar>a{display:none}
+      body[data-ui-layout=sheet] #r06-toolbar{gap:6px;padding:6px 10px}
+      body[data-ui-layout=sheet] #r06-toolbar button{font-size:12px!important;padding:8px 9px!important}
+      body[data-ui-layout=sheet] #r05-panel{top:auto!important;width:100%!important;height:var(--ui-sheet)!important;padding:0 14px calc(12px + env(safe-area-inset-bottom,0px))!important;border-top:1px solid #b6c9be!important;border-right:0}
+      body[data-ui-layout=sheet] #r05-controls select{font-size:16px}
+      body[data-ui-layout=sheet] #r06-panel-heading{min-height:48px}
+      @media(max-height:540px){body[data-compact-ui] #r05-bar{min-height:48px;padding:6px 12px!important}body[data-compact-ui] #r05-bar h1{font-size:16px;margin:0 0 2px}body[data-compact-ui] #r05-bar p{font-size:10px}body[data-compact-ui]{--ui-toolbar:52px}#r06-light-key{padding-top:3px;padding-bottom:3px}#r06-key-details{min-height:46px}}
+    `;document.head.append(style);
+    const toolbar=document.createElement('nav');toolbar.id='r06-toolbar';toolbar.setAttribute('aria-label','Model tools');
+    toolbar.append(toggle,inspectButton,mapButton);body.append(toolbar);
+    toggle.type='button';toggle.setAttribute('aria-controls',panel.id);
+    const heading=document.createElement('div');heading.id='r06-panel-heading';heading.innerHTML='<span>Model controls</span><button type="button" id="r06-close-controls" aria-label="Close model controls" title="Close controls (Escape)">×</button>';panel.prepend(heading);
+    const lightSettings=document.createElement('section');lightSettings.id='r06-light-settings';lightSettings.setAttribute('aria-label','Light map settings');
+    const modeLabel=controls.querySelector('label[for="r05-mode"]');modeLabel.textContent='Display & light map';controls.insertBefore(lightSettings,modeLabel);lightSettings.append(modeLabel,mode,legend);
+    const key=document.createElement('div');key.id='r06-light-key';key.hidden=true;
+    key.innerHTML='<button type="button" id="r06-key-details" aria-controls="r06-light-settings"><span class="r06-key-top"><span id="r06-key-title"></span><span class="r06-key-action">Details ↗</span></span><span id="r06-key-gradient"></span><span class="r06-key-excluded">Excluded: <i></i>near glass <i></i>beyond glass</span></button>';body.append(key);
+    const sheet=()=>innerWidth<=600||(innerWidth<=900&&innerHeight>540);
+    body.dataset.compactUi='compact-ui-v1';let open=inspect.open||!sheet(),wasSheet=sheet(),frame=0;
+    function reflow(){
+      cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{
+        const mobile=sheet();body.dataset.uiLayout=mobile?'sheet':'sidebar';
+        const header=Math.ceil($('r05-bar').getBoundingClientRect().height);
+        const keyHeight=key.hidden?0:Math.ceil(key.getBoundingClientRect().height),toolbarHeight=toolbar.getBoundingClientRect().height;
+        body.style.setProperty('--ui-header',header+'px');body.style.setProperty('--ui-side',!mobile&&open?'320px':'0px');
+        body.style.setProperty('--ui-sheet',mobile&&open?Math.round(Math.min(innerHeight*.43,400,Math.max(150,innerHeight-header-toolbarHeight-keyHeight-180)))+'px':'0px');
+        body.style.setProperty('--ui-key',keyHeight+'px');
+        api.resize();
+      });
+    }
+    function setOpen(value,focus=false){
+      open=value;panel.dataset.collapsed=String(!open);toggle.setAttribute('aria-expanded',String(open));toggle.textContent='Controls';toggle.setAttribute('aria-label',(open?'Hide':'Show')+' model controls');
+      if(!open){inspect.open=false;inspectButton.setAttribute('aria-expanded','false');body.dataset.inspectionOpen='false';if(focus)toggle.focus({preventScroll:true});}
+      reflow();
+    }
+    toggle.onclick=()=>setOpen(!open);
+    $('r06-close-controls').onclick=()=>setOpen(false,true);
+    inspectButton.onclick=()=>{if(open&&inspect.open){setOpen(false,true);return;}inspect.open=true;setOpen(true);panel.scrollTop=0;inspect.querySelector('summary').focus({preventScroll:true});};
+    $('r06-key-details').onclick=()=>{setOpen(true);requestAnimationFrame(()=>{mode.focus({preventScroll:true});panel.scrollTop=lightSettings.offsetTop-heading.offsetHeight-12;});};
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&open){setOpen(false,true);event.preventDefault();}});
+    function syncKey(){
+      key.hidden=legend.hidden;
+      const ppfd=mode.value==='electric',all=api.selected().length===api.data.schedule.fixtures.length;
+      $('r06-key-title').textContent=(ppfd?'PPFD · 0–400+ µmol/m²/s':(mode.value==='dull'?'Dull':'Typical')+' DLI · 0–16+ mol/m²/day')+(all?'':' · selected');
+      $('r06-key-gradient').style.background=legend.querySelector('.r05-gradient').style.background;
+      $('r06-key-details').setAttribute('aria-label', 'Light map details. '+$('r06-key-title').textContent+'. Grey and black foliage is excluded from calculation.');
+      reflow();
+    }
+    document.addEventListener('bonsai:lighting-update',syncKey);
+    window.addEventListener('resize',()=>{const mobile=sheet();if(mobile&&!wasSheet)setOpen(false);wasSheet=mobile;reflow();});
+    new ResizeObserver(reflow).observe($('r05-bar'));
+    new ResizeObserver(reflow).observe(key);
+    setOpen(open);syncKey();
+    window.BONSAI_UI={revision:'compact-ui-v1',setOpen,reflow};
+  }
+  init();
+})();
