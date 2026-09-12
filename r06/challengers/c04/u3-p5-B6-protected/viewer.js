@@ -269,3 +269,118 @@
   }
   initialize();
 })();
+
+// C04 inspection controls: presentation only; saved geometry and dose arrays remain fixed.
+(function () {
+  'use strict';
+  function init() {
+    if (!window.R05?.ready || !document.getElementById('r06-light-map')?.dataset.ready) {
+      if (!document.getElementById('r05-error')?.hidden) return;
+      requestAnimationFrame(init); return;
+    }
+    if (window.BONSAI_INSPECTION) return;
+    const $=id=>document.getElementById(id),api=window.R05,A=window.courtyard,T=window.treePlacement,pose=api.data.pose,P=T.sourceGeometry;
+    const style=document.createElement('style');style.textContent=`
+      #r06-inspect-button{position:fixed;left:326px;top:90px;z-index:24;min-height:44px;padding:10px 13px;background:#fffef9;color:#203d33;border:1px solid #5d786d;border-radius:9px;font:700 14px system-ui;cursor:pointer}
+      #r06-inspect-button[aria-expanded=true]{background:#214b3d;color:#fff}
+      #r06-inspection{border:1px solid #b9cbbb!important;border-radius:8px;padding:10px!important;margin:12px 0!important}
+      #r06-inspection>summary{font-weight:700;font-size:13px;cursor:pointer;min-height:26px}
+      #r06-inspection h3{font-size:13px;margin:16px 0 6px}
+      #r06-inspection label{display:flex;align-items:center;gap:6px;min-height:34px;margin:4px 0}
+      #r06-inspection input[type=checkbox]{width:17px;height:17px;flex-shrink:0}
+      #r06-inspection select{margin:5px 0 8px}
+      #r06-inspection .facts{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;margin:8px 0}
+      #r06-inspection .facts div{padding:7px;background:#edf3eb;border-radius:5px}
+      #r06-inspection .facts b{display:block;color:#294b39;font-size:12px}
+      #r06-inspection .position-track{height:10px;background:#d7e2d9;border-radius:8px;position:relative;margin:12px 5px 7px}
+      #r06-inspection .position-dot{position:absolute;top:-3px;left:0;width:16px;height:16px;border-radius:50%;background:#255a41;border:2px solid white}
+      #r06-inspection .ends{display:flex;justify-content:space-between;font-size:11px}
+      .r06-exclusion-key{font:11px/1.45 system-ui;margin-top:7px;border-top:1px solid #cad6ca;padding-top:6px;color:#253d32}
+      .r06-exclusion-key span{display:block;margin:3px 0}.r06-swatch{display:inline-block;width:12px;height:12px;border:1px solid #627269;margin-right:6px;vertical-align:-2px;background:var(--swatch)}
+      #r06-inspection details{margin-top:7px;padding:7px 0}
+      #r06-inspect-button:focus-visible,#r06-inspection summary:focus-visible{outline:3px solid #368d72;outline-offset:3px}
+      @media(max-width:720px){#r06-inspect-button{left:12px;top:100px;font-size:12px;padding:8px 10px}body[data-inspection-open=true] #r05-note{display:none}#r06-inspection{margin-top:6px!important}}
+    `;document.head.append(style);
+    const panel=document.createElement('details');panel.id='r06-inspection';
+    panel.innerHTML=`<summary>Measurements, pruning &amp; placement</summary>
+      <h3>Measurements</h3><div id="r06-dimension-controls"></div>
+      <p>Dimensions follow the saved geometry. Quoted, estimated and illustrative dimensions keep their qualifications. Drag the model to see labels from another angle.</p>
+      <div class="r05-buttons"><button type="button" id="r06-fit-plan">Plan view</button><button type="button" id="r06-fit-foyer">Foyer view</button></div>
+      <h3>Pruning / glass clearance</h3>
+      <label><input id="r06-pruning" type="checkbox">Show pruning in appearance view</label>
+      <div id="r06-pruning-key" class="r06-exclusion-key"></div>
+      <p id="r06-pruning-counts"></p><p>These samples are already excluded from DLI and canopy shading. This is a glazing-clearance assumption, not a branch-cutting plan. The appearance geometry remains untrimmed.</p>
+      <h3>Saved placement</h3>
+      <p><strong>Best face toward foyer · no additional rotation.</strong><br>Pot at the courtyard-most modeled limit, 9.5 cm toward the courtyard from the well center.</p>
+      <div class="position-track" role="img" aria-label="Pot fixed at courtyard limit; 19 cm modeled travel toward foyer"><i class="position-dot"></i></div><div class="ends"><span>Courtyard limit · current</span><span>Foyer limit</span></div>
+      <p>The modeled travel is 19 cm. No extra gap at the courtyard edge is included. Placement is read-only here so the displayed light results remain valid.</p>
+      <div class="facts"><div><b>12.5 cm</b>Platform above well floor</div><div><b>72 × 90 cm</b>Illustrative platform footprint</div><div><b>3.000 m</b>Deck to balcony underside</div><div><b>65 cm</b>Well below deck</div><div><b>≈2.29 m</b>Tree height above soil</div><div><b>≈2.24 × 1.96 m</b>Working tree width × depth</div></div>
+      <p>Pot reconstruction: about 89.8 cm across flats, 94.0 cm across corners and 48.3 cm high. Platform thickness/folds and tree envelope remain provisional.</p>
+      <details><summary>Reveal architectural layers</summary><div id="r06-fit-layers"></div></details>`;
+    $('r05-controls').insertBefore(panel,$('r05-controls').firstChild);
+    const dimControls=$('r06-dimension-controls'),measure=$('measure'),sets=$('dimension-set');
+    const label=document.createElement('label');label.append(measure,document.createTextNode('Show dimensions'));dimControls.append(label);
+    sets.setAttribute('aria-label','Measurement group');dimControls.append(sets);
+    for (const id of ['show-glazing','show-blinds','show-overhang','show-structure','show-frames']) {
+      const input=$(id);$('r06-fit-layers').append(input.closest('label'));
+      input.addEventListener('input',()=>requestAnimationFrame(()=>api.update()));
+    }
+    const button=document.createElement('button');button.id='r06-inspect-button';button.textContent='Measure & fit';button.type='button';
+    button.setAttribute('aria-controls',panel.id);button.setAttribute('aria-expanded','false');document.body.append(button);
+    let priorCollapsed=false;
+    function openState(){button.setAttribute('aria-expanded',String(panel.open));document.body.dataset.inspectionOpen=String(panel.open);}
+    panel.addEventListener('toggle',openState);
+    button.onclick=()=>{const opening=!panel.open;if(opening)priorCollapsed=$('r05-panel').dataset.collapsed==='true';panel.open=opening;openState();if(panel.open){$('r05-panel').dataset.collapsed='false';$('r05-toggle').setAttribute('aria-expanded','true');$('r05-toggle').textContent='Hide model controls ↓';$('r05-panel').scrollTop=0;panel.querySelector('summary').focus({preventScroll:true});}else if(priorCollapsed){$('r05-panel').dataset.collapsed='true';$('r05-toggle').setAttribute('aria-expanded','false');$('r05-toggle').textContent='Show model controls ↑';}};
+    $('r05-toggle').addEventListener('click',()=>{if($('r05-panel').dataset.collapsed==='true'){panel.open=false;openState();}});
+    $('r06-fit-plan').onclick=()=>api.cameraView('aerial');$('r06-fit-foyer').onclick=()=>api.cameraView('foyer');
+    // Reuse the exact saved pose and the original samples. Never round before classification.
+    const raw=Uint8Array.from(atob(P.leafPositions),c=>c.charCodeAt(0));const local=new Float32Array(raw.buffer);
+    const g=P.space.foyer_glass,origin=pose.tree_origin_render_m,near=[],beyond=[],all=[];
+    for(let i=0;i<local.length;i+=3){
+      const x=origin[0]-local[i],y=origin[1]-local[i+1],z=origin[2]+local[i+2];all.push(x,y,z);
+      if(x>=-g.x[1]&&x<=-g.x[0]&&z>=g.z[0]&&z<=g.z[1]&&y>=pose.glass_plane_y_m-pose.clearance_m){
+        (y>pose.glass_plane_y_m?beyond:near).push(x,y,z);
+      }
+    }
+    if(near.length/3+beyond.length/3!==pose.excluded_points||local.length/3-pose.excluded_points!==api.data.point_count)throw Error('Pruning display does not match saved calculation mask');
+    function points(name,xyz){const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.Float32BufferAttribute(xyz,3));const mesh=new THREE.Points(geom,new THREE.PointsMaterial({color:0x888888,size:.019,sizeAttenuation:true,depthTest:false,depthWrite:false,toneMapped:false}));mesh.name=name;mesh.renderOrder=31;return mesh;}
+    const excluded=new THREE.Group();excluded.name='Excluded foliage — not scored';const nearMesh=points('Within 10 cm of glazing',near),beyondMesh=points('Beyond glazing',beyond);excluded.add(nearMesh,beyondMesh);A.scene.add(excluded);
+    const mapKey=document.createElement('div');mapKey.id='r06-map-exclusions';mapKey.className='r06-exclusion-key';$('r05-legend').append(mapKey);
+    function key(neutral){return `<strong>Excluded from calculation</strong><span><i class="r06-swatch" style="--swatch:${neutral?'#91979b':'#ffca05'}"></i>${neutral?'Grey':'Yellow'}: within 10 cm of glass</span><span><i class="r06-swatch" style="--swatch:${neutral?'#050505':'#ef2515'}"></i>${neutral?'Black':'Red'}: beyond glass</span>`;}
+    $('r06-pruning-counts').textContent=`${near.length/3} near-glass + ${beyond.length/3} beyond-glass samples; ${pose.excluded_points.toLocaleString()} excluded (${(100*pose.excluded_points/(local.length/3)).toFixed(1)}% of samples). These are not percentages of branch mass.`;
+    function sync(){
+      const heat=$('r05-mode').value!=='layout',show=api.lastView!=='mounts'&&(heat||$('r06-pruning').checked);
+      excluded.visible=show;nearMesh.material.color.set(heat?'#91979b':'#ffca05');beyondMesh.material.color.set(heat?'#050505':'#ef2515');
+      T.clearanceUniforms.enabled.value=!heat&&$('r06-pruning').checked&&api.lastView!=='mounts'?1:0;T.clashes.visible=false;
+      $('r06-pruning-key').innerHTML=key(heat);mapKey.innerHTML=key(true);mapKey.hidden=!heat;
+    }
+    $('r06-pruning').onchange=sync;document.addEventListener('bonsai:lighting-update',sync);
+    // Original dimension groups plus current balcony level, pot/platform and fixture bodies.
+    const v=a=>new THREE.Vector3(...a),add=(group,a,b,text)=>A.dimensionLabels.push({group,a:v(a),b:v(b),text});
+    add('overhang',[-1.54,-.8,0],[-1.54,-.8,3],'Balcony underside 3.000 m above deck');
+    add('overhang',[-1.54,-.8,3],[-1.54,-.8,3.23],'Slab 0.230 m · provisional');
+    const addOption=(value,text,parent=sets)=>{const o=document.createElement('option');o.value=value;o.textContent=text;parent.append(o);};
+    addOption('tree','Tree · working foliage envelope');addOption('pot','Pot & platform · saved position');addOption('poles','Poles · assembly limit');
+    const box=new THREE.Box3().setFromBufferAttribute(new THREE.Float32BufferAttribute(all,3)),lo=box.min.toArray(),hi=box.max.toArray();
+    for(let k=0;k<3;k++){const end=[...lo];end[k]=hi[k];add('tree',lo,end,['Foliage width','Foliage depth','Foliage height'][k]+' '+(hi[k]-lo[k]).toFixed(3)+' m · samples');}
+    const px=origin[0],py=pose.actual_pot_y_m,base=P.space.well.z[0]+P.platform_height_default_m;
+    add('pot',[px,py-.45,base],[px,py+.45,base],'Pot depth allowance 0.900 m');
+    add('pot',[px,py,base],[px,py,origin[2]],'Pot height ≈0.483 m');
+    add('pot',[px-.36,py-.45,base],[px+.36,py-.45,base],'Platform width 0.720 m · illustrative');
+    add('pot',[px+.36,py-.45,base],[px+.36,py+.45,base],'Platform depth 0.900 m · illustrative');
+    add('pot',[px+.36,py+.45,-.65],[px+.36,py+.45,base],'Platform height 0.125 m');
+    const axes=new Map();for(const f of api.data.schedule.fixtures.filter(f=>f.role==='pole'))axes.set(JSON.stringify(f.pole_axis_xy_m),f.pole_axis_xy_m);
+    for(const xy of axes.values())add('poles',[...xy,-.65],[...xy,2.35],'Assembly cap 3.000 m above well floor');
+    const optics=document.createElement('optgroup');optics.label='Fixture housing dimensions';sets.append(optics);
+    api.data.schedule.fixtures.forEach((f,i)=>{const group='fixture-'+i;addOption(group,api.data.names[i].split(' · ')[0]+' · '+f.mount_group,optics);
+      const transform=q=>f.body_center_m.map((c,row)=>c+q.reduce((sum,n,col)=>sum+f.rotation_local_to_world[row][col]*n,0));
+      const corner=f.body_dimensions_m.map(n=>-n/2);for(let k=0;k<3;k++){const end=[...corner];end[k]+=f.body_dimensions_m[k];add(group,transform(corner),transform(end),String.fromCharCode(65+i)+' housing '+(f.body_dimensions_m[k]*1000).toFixed(0)+' mm');}
+    });
+    sets.addEventListener('change',()=>{measure.checked=true;measure.dispatchEvent(new Event('change'));});
+    window.BONSAI_INSPECTION={ready:true,revision:'inspection-v1',nearCount:near.length/3,beyondCount:beyond.length/3,excludedCount:pose.excluded_points,nearMesh,beyondMesh,excluded,panel,sync};
+    sync();if(new URLSearchParams(location.search).get('inspect')==='1')button.click();
+  }
+  function safeInit(){try{init();}catch(e){console.error(e);const node=document.getElementById('r05-error');node.hidden=false;node.textContent='Inspection controls could not load: '+e.message;}}
+  // Retry through the guarded entry point until saved lighting and the quick map have loaded.
+  const start=()=>{if(!window.R05?.ready||!document.getElementById('r06-light-map')?.dataset.ready){if(document.getElementById('r05-error')?.hidden)requestAnimationFrame(start);return;}safeInit();};start();
+})();
