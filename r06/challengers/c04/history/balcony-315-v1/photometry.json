@@ -1,0 +1,133 @@
+{
+  "retrieved_at": "2026-09-11",
+  "scope": "Official Signify/Philips UniFlood M G2 photometry and exact product evidence for C04. This folder is self-contained and does not alter the frozen shared inputs.",
+  "manufacturer": "Signify / Philips",
+  "family": "UniFlood M G2 (BVP353)",
+  "exact_150W_variants": [
+    {
+      "order_code": "911401748533",
+      "product_name": "BVP353 72LED 40K 220V L57 30 DMX",
+      "optic_deg": 30,
+      "power_W": 150,
+      "luminous_flux_lm": 13725,
+      "cct_K": 4000,
+      "color": "840 neutral white",
+      "control": "Dynamic DMX/RDM",
+      "dimensions_HxWxD_mm": [
+        149,
+        140,
+        569
+      ],
+      "mass_kg": 6.8,
+      "IP": "IP66",
+      "IK": "IK06",
+      "manufacturer_product_url": "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748533_EU/product",
+      "manufacturer_leaflet_url": "https://www.docs.signify.com/assets/Leaflet/Philips_PROF/FP/en_AA/911401748533_EU.en_AA.PROF.FP.pdf",
+      "files": {
+        "page": {
+          "path": "911401748533-page.html",
+          "sha256": "7ff0352c84a35bbbea32a5a059720b7b07daecc2abf0ddc978d5682e8fd126ed"
+        },
+        "leaflet": {
+          "path": "911401748533-current.pdf",
+          "sha256": "0e4a8a3865ce629b38c4506ce627e7351bff4a287bc783db5c55660e192ebf7d"
+        }
+      },
+      "photometry_status": "EXACT_IES_NOT_FOUND_ON_OFFICIAL_PRODUCT_PAGE",
+      "photometry_evidence": "The retrieved product page's embedded specification state is `photometrics:[]`; its download list contains one Product leaflet plus visual/diagram asset collections, with no IES or LDT item."
+    },
+    {
+      "order_code": "911401748623",
+      "product_name": "BVP353 72LED 40K 220V L57 45 DMX",
+      "optic_deg": 45,
+      "power_W": 150,
+      "luminous_flux_lm": 13250,
+      "cct_K": 4000,
+      "color": "840 neutral white",
+      "control": "Dynamic DMX/RDM",
+      "dimensions_HxWxD_mm": [
+        149,
+        140,
+        569
+      ],
+      "mass_kg": 6.8,
+      "IP": "IP66",
+      "IK": "IK06",
+      "manufacturer_product_url": "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748623_EU/product",
+      "manufacturer_leaflet_url": "https://www.docs.signify.com/assets/Leaflet/Philips_PROF/FP/en_AA/911401748623_EU.en_AA.PROF.FP.pdf",
+      "files": {
+        "page": {
+          "path": "911401748623-page.html",
+          "sha256": "e78ed879c1a43753be42a02a1d0af3d81777e5817f6c35f8879f2b273b1952c4"
+        },
+        "leaflet": {
+          "path": "911401748623-current.pdf",
+          "sha256": "10740b228c91ad0157f51c5a640b23a350e63fbb67e27128fa5191b2694d7f68"
+        }
+      },
+      "photometry_status": "EXACT_IES_NOT_FOUND_ON_OFFICIAL_PRODUCT_PAGE",
+      "photometry_evidence": "The retrieved product page's embedded specification state is `photometrics:[]`; its download list contains one Product leaflet plus visual/diagram asset collections, with no IES or LDT item."
+    }
+  ],
+  "matching_120W_reference": [
+    {
+      "order_code": "911401748173",
+      "product_name": "BVP353 60LED 40K 220V L50 30 DMX",
+      "optic_deg": 30,
+      "power_W": 120,
+      "luminous_flux_lm": 11145,
+      "dimensions_HxWxD_mm": [
+        149,
+        140,
+        486
+      ],
+      "mass_kg": 6.2,
+      "manufacturer_leaflet_url": "https://www.docs.signify.com/assets/Leaflet/Philips_PROF/FP/en_AA/911401748173_EU.en_AA.PROF.FP.pdf",
+      "file": {
+        "path": "911401748173-current.pdf",
+        "sha256": "19c1c110e83dc9df14832c9d65c6b6b47507bed03ca739ef869624bd98c2977f"
+      },
+      "photometry_status": "NO_EXACT_IES_RETRIEVED; prior official-page search in the frozen shared evidence also records NOT_FOUND"
+    },
+    {
+      "order_code": "911401748263",
+      "product_name": "BVP353 60LED 40K 220V L50 45 DMX",
+      "optic_deg": 45,
+      "power_W": 120,
+      "luminous_flux_lm": 10760,
+      "dimensions_HxWxD_mm": [
+        149,
+        140,
+        486
+      ],
+      "mass_kg": 6.2,
+      "manufacturer_leaflet_url": "https://www.docs.signify.com/assets/Leaflet/Philips_PROF/FP/en_AA/911401748263_EU.en_AA.PROF.FP.pdf",
+      "file": {
+        "path": "911401748263-current.pdf",
+        "sha256": "73d8236ce4e84ba1196ba911b63a3efe3d006bcdd2a3e1b9bfd17b6f2858e740"
+      },
+      "photometry_status": "NO_EXACT_IES_RETRIEVED; prior official-page search in the frozen shared evidence also records NOT_FOUND"
+    }
+  ],
+  "existing_80W_carriers": [
+    {
+      "optic_deg": 30,
+      "local_frozen_path": "../../../inputs/evidence/BVP353-36LED-40K-220V-L35-30-DMX.ies",
+      "sha256": "7897103079f06862726711e926c45ee3d54828dbacfbde1faa1903a9a5259f2e",
+      "ies_header": "BVP353 36LED 40K 220V L35 DMX 30",
+      "ies_rated_lumens": 6775,
+      "ies_watts": 80,
+      "status": "OPTIC-ONLY CARRIER; NOT exact 120W/150W photometry"
+    },
+    {
+      "optic_deg": 45,
+      "local_frozen_path": "../../../inputs/evidence/BVP353-36LED-40K-220V-L35-45-DMX.ies",
+      "sha256": "7ab84c7b292f163eab47290ecb0d2cffc48c1438e451eff09b941a89433bbea8",
+      "ies_header": "BVP353 36LED 40K 220V L35 DMX 45",
+      "ies_rated_lumens": 6540,
+      "ies_watts": 80,
+      "status": "OPTIC-ONLY CARRIER; NOT exact 120W/150W photometry"
+    }
+  ],
+  "modeling_constraint": "Do not call an 80W carrier an exact 150W distribution. Any reuse requires an explicit modeling assumption that preserves the 30 or 45 degree optic but has no manufacturer-supplied proof of intensity distribution equivalence across L35/L50/L57 outputs."
+}

@@ -1,0 +1,108 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "case_id": "u0-p6-keep",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 448.5245805306557
+    },
+    {
+      "case_id": "u12-p6-keep",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 445.7173156887392
+    },
+    {
+      "case_id": "u12-p6-relocate",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 445.7173156887392
+    },
+    {
+      "case_id": "u23-p6-remove",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 383.14051101862924
+    },
+    {
+      "case_id": "u13-p5-keep",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 360.826493151245
+    },
+    {
+      "case_id": "u13-p5-relocate",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 360.826493151245
+    },
+    {
+      "case_id": "u12-p5-remove",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 350.9278990029147
+    },
+    {
+      "case_id": "u123-p6-keep",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 358.0950800549026
+    },
+    {
+      "case_id": "u123-p6-relocate",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 358.0950800549026
+    },
+    {
+      "case_id": "u123-p6-remove",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 458.86391863212884
+    },
+    {
+      "case_id": "u123-p5-keep",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 355.9659754983528
+    },
+    {
+      "case_id": "u123-p5-relocate",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 355.9659754983528
+    },
+    {
+      "case_id": "u123-p5-remove",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 351.3427965179357
+    },
+    {
+      "case_id": "u2-p5-B6-protected",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 359.9135581285136
+    },
+    {
+      "case_id": "u3-p5-B6-protected",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 355.0530404756214
+    },
+    {
+      "case_id": "u2-p6-B6-protected",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 355.95381667939347
+    },
+    {
+      "case_id": "u3-p6-B6-protected",
+      "errors": [],
+      "housing_architecture_clashes": [],
+      "max_electric_PPFD": 356.83600699004876
+    }
+  ],
+  "mounts": "Base/yoke/pivots still provisional; housingSAT does not qualify fixing points"
+}

@@ -106,7 +106,8 @@
       "rated_lumens": 13725,
       "mass_kg": 6.8,
       "source_url": "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748533_EU/product",
-      "optical_assumption": "Manufacturer lumen-scaled80W same-optic carrier; exact150W IES unavailable. Full-output relative flux matches frozen120W surrogate method. Body/source offset uses inherited unqualified mount proxy."
+      "optical_assumption": "Manufacturer lumen-scaled80W same-optic carrier; exact150W IES unavailable. Full-output relative flux matches frozen120W surrogate method. Body/source offset uses inherited unqualified mount proxy.",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE"
     },
     {
       "id": "C04-C04-150-C04-local-1-1-d1.0",
@@ -211,7 +212,8 @@
       "rated_lumens": 13725,
       "mass_kg": 6.8,
       "source_url": "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748533_EU/product",
-      "optical_assumption": "Manufacturer lumen-scaled80W same-optic carrier; exact150W IES unavailable. Full-output relative flux matches frozen120W surrogate method. Body/source offset uses inherited unqualified mount proxy."
+      "optical_assumption": "Manufacturer lumen-scaled80W same-optic carrier; exact150W IES unavailable. Full-output relative flux matches frozen120W surrogate method. Body/source offset uses inherited unqualified mount proxy.",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE"
     },
     {
       "id": "C04-C04-150-C04-local-2-37-d1.0",
@@ -225,17 +227,17 @@
       "mount_anchor_m": [
         -0.6,
         -0.85,
-        3.15
+        3.0
       ],
       "source_m": [
         -0.5758810443629536,
         -0.8297617932205732,
-        2.9424800698657694
+        2.7924800698657695
       ],
       "aim_m": [
         0.07160769757117558,
         -0.2864542286722044,
-        1.1298644957924695
+        0.9798644957924696
       ],
       "rotation_local_to_world": [
         [
@@ -265,7 +267,7 @@
       "body_center_m": [
         -0.6,
         -0.85,
-        3.01
+        2.86
       ],
       "body_dimensions_m": [
         0.569,
@@ -276,12 +278,12 @@
         [
           -0.8855910736739085,
           -1.158957289971647,
-          2.8828967915439208
+          2.732896791543921
         ],
         [
           -0.3144089263260914,
           -0.541042710028353,
-          3.137103208456079
+          2.987103208456079
         ]
       ],
       "mounting_status": "UNKNOWN",
@@ -308,8 +310,8 @@
         "ceiling_mount_suitability": "UNKNOWN",
         "service_packing_allowance_m": 0.03
       },
-      "body_clearance_m": 0.9560688994268653,
-      "declared_envelope_clearance_m": 0.8560688994268654,
+      "body_clearance_m": 0.8275019665030007,
+      "declared_envelope_clearance_m": 0.7275019665030007,
       "close_distance_review_required": false,
       "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
       "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
@@ -321,17 +323,17 @@
           [
             -0.6733955556881022,
             -0.9142787609686539,
-            3.15
+            3.0
           ],
           [
             -0.75,
             -0.85,
-            3.15
+            3.0
           ],
           [
             -0.8266044443118978,
             -0.785721239031346,
-            3.15
+            3.0
           ]
         ],
         "minimum_inferred_hole_edge_distance_m": 0.240721239031346,
@@ -339,15 +341,18 @@
         "actual_pivot_offset": "UNKNOWN",
         "anchor_system_edge_requirement": "UNKNOWN",
         "ceiling_mount_approval": "UNKNOWN",
-        "declared_envelope_foliage_gap_m": 0.8494215054791296,
+        "declared_envelope_foliage_gap_m": 0.7275019665030007,
         "body_top_below_underside_m": 0.0428967915439209,
         "body_overhangs_host_plan": false,
-        "minimum_body_pair_gap_after_30mm_allowance_m": 0.7378419264282596
+        "minimum_body_pair_gap_after_30mm_allowance_m": 0.7378419264282596,
+        "status_note": "Legacy fixing/pivot proxies translated with height; not an actual drilling pattern."
       },
       "rated_lumens": 13250,
       "mass_kg": 6.8,
       "source_url": "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748623_EU/product",
-      "optical_assumption": "Manufacturer lumen-scaled80W same-optic carrier; exact150W IES unavailable. Full-output relative flux matches frozen120W surrogate method. Body/source offset uses inherited unqualified mount proxy."
+      "optical_assumption": "Manufacturer lumen-scaled80W same-optic carrier; exact150W IES unavailable. Full-output relative flux matches frozen120W surrogate method. Body/source offset uses inherited unqualified mount proxy.",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE",
+      "height_correction_m": -0.1499999999999999
     },
     {
       "id": "C04-s03-008-d1.0",
@@ -475,11 +480,12 @@
         "actual_pivot_offset": "UNKNOWN",
         "anchor_system_edge_requirement": "UNKNOWN",
         "ceiling_mount_approval": "UNKNOWN",
-        "declared_envelope_foliage_gap_m": 1.7023338627749465,
+        "declared_envelope_foliage_gap_m": 1.6693194369177147,
         "body_top_below_underside_m": 0.0378230701185438,
         "body_overhangs_host_plan": true,
         "minimum_body_pair_gap_after_30mm_allowance_m": 0.06516701386411972
-      }
+      },
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE"
     },
     {
       "id": "C04-local-4-41-d1.0",
@@ -493,17 +499,17 @@
       "mount_anchor_m": [
         -0.05000000000000002,
         -0.7,
-        3.15
+        3.0
       ],
       "source_m": [
         -0.02874699989232869,
         -0.6631887240002463,
-        2.9405087599121913
+        2.7905087599121914
       ],
       "aim_m": [
         0.2802699944826188,
         -0.12795558934061135,
-        1.0383957273218842
+        0.8883957273218843
       ],
       "rotation_local_to_world": [
         [
@@ -533,7 +539,7 @@
       "body_center_m": [
         -0.040257882932795426,
         -0.6831261582663177,
-        3.01136247037618
+        2.86136247037618
       ],
       "body_dimensions_m": [
         0.348,
@@ -544,12 +550,12 @@
         [
           -0.2657441643020849,
           -0.8777183297806324,
-          2.8888775703059446
+          2.7388775703059447
         ],
         [
           0.18522839843649405,
           -0.4885339867520031,
-          3.133847370446415
+          2.9838473704464152
         ]
       ],
       "mounting_status": "UNKNOWN",
@@ -576,8 +582,8 @@
         "ceiling_mount_suitability": "UNKNOWN",
         "service_packing_allowance_m": 0.03
       },
-      "body_clearance_m": 0.8016412022974828,
-      "declared_envelope_clearance_m": 0.7016412022974828,
+      "body_clearance_m": 0.6592068470827883,
+      "declared_envelope_clearance_m": 0.5592068470827883,
       "close_distance_review_required": false,
       "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
       "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
@@ -589,17 +595,17 @@
           [
             -0.25,
             -0.8633974596215561,
-            3.15
+            3.0
           ],
           [
             -0.3,
             -0.95,
-            3.15
+            3.0
           ],
           [
             -0.35,
             -1.0366025403784438,
-            3.15
+            3.0
           ]
         ],
         "minimum_inferred_hole_edge_distance_m": 0.23399999999999999,
@@ -607,12 +613,15 @@
         "actual_pivot_offset": "UNKNOWN",
         "anchor_system_edge_requirement": "UNKNOWN",
         "ceiling_mount_approval": "UNKNOWN",
-        "declared_envelope_foliage_gap_m": 0.8436773981175735,
+        "declared_envelope_foliage_gap_m": 0.5592068470827883,
         "body_top_below_underside_m": 0.05447644996390544,
         "body_overhangs_host_plan": false,
-        "minimum_body_pair_gap_after_30mm_allowance_m": 0.07032106971687918
+        "minimum_body_pair_gap_after_30mm_allowance_m": 0.07032106971687918,
+        "status_note": "Legacy fixing/pivot proxies translated with height; not an actual drilling pattern."
       },
-      "beam_deg": 30
+      "beam_deg": 30,
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE",
+      "height_correction_m": -0.1499999999999999
     },
     {
       "id": "C04-local-9-13-d1.0",
@@ -775,7 +784,10 @@
       "declared_envelope_clearance_m": 0.31967704573137035,
       "close_distance_review_required": true,
       "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
-      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE",
+      "intended_pole_bracket": "Targetti 1E2825, 60 mm pole",
+      "bracket_geometry_status": "UNVERIFIED; schematic hinge rods omitted from revised viewer"
     },
     {
       "id": "C04-local-10-4-d1.0",
@@ -938,7 +950,10 @@
       "declared_envelope_clearance_m": 0.4608978297791655,
       "close_distance_review_required": false,
       "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
-      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE",
+      "intended_pole_bracket": "Targetti 1E2825, 60 mm pole",
+      "bracket_geometry_status": "UNVERIFIED; schematic hinge rods omitted from revised viewer"
     },
     {
       "id": "C04-s05-065-d1.0",
@@ -1101,7 +1116,10 @@
       "declared_envelope_clearance_m": 0.49158548455867523,
       "close_distance_review_required": false,
       "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
-      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE",
+      "intended_pole_bracket": "Targetti 1E2825, 60 mm pole",
+      "bracket_geometry_status": "UNVERIFIED; schematic hinge rods omitted from revised viewer"
     },
     {
       "id": "C04-local-10-22-d1.0",
@@ -1264,7 +1282,10 @@
       "declared_envelope_clearance_m": 0.7203411616654934,
       "close_distance_review_required": false,
       "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
-      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE",
+      "intended_pole_bracket": "Targetti 1E2825, 60 mm pole",
+      "bracket_geometry_status": "UNVERIFIED; schematic hinge rods omitted from revised viewer"
     },
     {
       "id": "C04-local-8-4-d1.0",
@@ -1427,7 +1448,12 @@
       "declared_envelope_clearance_m": 0.46149632350608705,
       "close_distance_review_required": false,
       "screen_status": "DECLARED_GEOMETRY_SCREEN_PASS_COMPLETE_INSTALLATION_UNVERIFIED",
-      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION"
+      "hotspot_evaluation_status": "PENDING_OPTICAL_CALCULATION",
+      "hardware_policy": "STANDARD_MANUFACTURER_BRACKET_DEFAULT; CUSTOM_EXTENSION_REQUIRES_QUANTIFIED_VALUE",
+      "intended_pole_bracket": "Targetti 1E2825, 60 mm pole",
+      "bracket_geometry_status": "UNVERIFIED; schematic hinge rods omitted from revised viewer"
     }
-  ]
+  ],
+  "geometry_revision": "balcony-300-v1",
+  "balcony_underside_above_deck_m": 3.0
 }

@@ -1,0 +1,838 @@
+{
+  "frame": "metres; +x living, +y foyer, +z up",
+  "boxes": [
+    {
+      "name": "well floor",
+      "lo": [
+        -2.14,
+        -0.545,
+        -0.69
+      ],
+      "hi": [
+        2.14,
+        0.545,
+        -0.65
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "well front",
+      "lo": [
+        -2.14,
+        -0.585,
+        -0.65
+      ],
+      "hi": [
+        2.14,
+        -0.545,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "well left",
+      "lo": [
+        2.14,
+        -0.545,
+        -0.65
+      ],
+      "hi": [
+        2.18,
+        0.545,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "well right",
+      "lo": [
+        -2.18,
+        -0.545,
+        -0.65
+      ],
+      "hi": [
+        -2.14,
+        0.545,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "coping (continuity uncertain)",
+      "lo": [
+        -2.14,
+        -0.785,
+        -0.04
+      ],
+      "hi": [
+        2.14,
+        -0.545,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "sill head",
+      "lo": [
+        -2.181225,
+        0.545,
+        0.37
+      ],
+      "hi": [
+        2.181225,
+        1.245,
+        0.57
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "sill return_dining",
+      "lo": [
+        -2.181225,
+        0.545,
+        -0.05
+      ],
+      "hi": [
+        -1.9114,
+        1.245,
+        0.37
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "sill return_living",
+      "lo": [
+        1.9368,
+        0.545,
+        -0.05
+      ],
+      "hi": [
+        2.181225,
+        1.245,
+        0.37
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "sill tiled_retaining_edge",
+      "lo": [
+        -2.181225,
+        0.545,
+        -0.65
+      ],
+      "hi": [
+        2.181225,
+        0.785,
+        -0.05
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "sill foyer_closure",
+      "lo": [
+        -2.181225,
+        1.145,
+        -0.65
+      ],
+      "hi": [
+        2.181225,
+        1.245,
+        0.37
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer walkway",
+      "lo": [
+        -2.181225,
+        1.245,
+        -0.1
+      ],
+      "hi": [
+        2.181225,
+        3.245,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "floor beneath interior bay",
+      "lo": [
+        -2.181225,
+        0.785,
+        -0.1
+      ],
+      "hi": [
+        2.181225,
+        1.245,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer glass",
+      "lo": [
+        -2.181225,
+        0.545,
+        0.57
+      ],
+      "hi": [
+        2.181225,
+        0.555,
+        3.0338
+      ],
+      "glass": true,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer frame",
+      "lo": [
+        2.151225,
+        0.521,
+        0.57
+      ],
+      "hi": [
+        2.2112249999999998,
+        0.569,
+        3.0338
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer frame",
+      "lo": [
+        1.217775,
+        0.521,
+        0.57
+      ],
+      "hi": [
+        1.277775,
+        0.569,
+        3.0338
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer frame",
+      "lo": [
+        -1.277775,
+        0.521,
+        0.57
+      ],
+      "hi": [
+        -1.217775,
+        0.569,
+        3.0338
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer frame",
+      "lo": [
+        -2.2112249999999998,
+        0.521,
+        0.57
+      ],
+      "hi": [
+        -2.151225,
+        0.569,
+        3.0338
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer rail",
+      "lo": [
+        -2.181225,
+        0.521,
+        0.5399999999999999
+      ],
+      "hi": [
+        2.181225,
+        0.569,
+        0.6
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "foyer rail",
+      "lo": [
+        -2.181225,
+        0.521,
+        3.0038
+      ],
+      "hi": [
+        2.181225,
+        0.569,
+        3.0637999999999996
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side sash transom",
+      "lo": [
+        1.247775,
+        0.515,
+        0.8975
+      ],
+      "hi": [
+        2.181225,
+        0.57,
+        0.9424999999999999
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side sash transom",
+      "lo": [
+        -2.181225,
+        0.515,
+        0.8975
+      ],
+      "hi": [
+        -1.247775,
+        0.57,
+        0.9424999999999999
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "dining side glass",
+      "lo": [
+        -2.145,
+        -0.6614999999999999,
+        0
+      ],
+      "hi": [
+        -2.1350000000000002,
+        0.545,
+        2.9845
+      ],
+      "glass": true,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        -2.17,
+        -0.6914999999999999,
+        0
+      ],
+      "hi": [
+        -2.1100000000000003,
+        -0.6314999999999998,
+        2.9845
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        -2.17,
+        0.515,
+        0
+      ],
+      "hi": [
+        -2.1100000000000003,
+        0.5750000000000001,
+        2.9845
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        -2.17,
+        -0.6614999999999999,
+        -0.03
+      ],
+      "hi": [
+        -2.1100000000000003,
+        0.545,
+        0.03
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        -2.17,
+        -0.6614999999999999,
+        2.9545000000000003
+      ],
+      "hi": [
+        -2.1100000000000003,
+        0.545,
+        3.0145
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "soffit_return_dining",
+      "lo": [
+        -2.14,
+        -0.545,
+        3.0338
+      ],
+      "hi": [
+        -1.9114000000000002,
+        0.545,
+        3.2138
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "ledge_dining",
+      "lo": [
+        -2.14,
+        -0.545,
+        -0.035
+      ],
+      "hi": [
+        -1.9114000000000002,
+        0.545,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "living side glass",
+      "lo": [
+        2.1350000000000002,
+        -0.6234000000000001,
+        0
+      ],
+      "hi": [
+        2.145,
+        0.545,
+        2.9845
+      ],
+      "glass": true,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        2.1100000000000003,
+        -0.6534000000000001,
+        0
+      ],
+      "hi": [
+        2.17,
+        -0.5934,
+        2.9845
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        2.1100000000000003,
+        0.515,
+        0
+      ],
+      "hi": [
+        2.17,
+        0.5750000000000001,
+        2.9845
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        2.1100000000000003,
+        -0.6234000000000001,
+        -0.03
+      ],
+      "hi": [
+        2.17,
+        0.545,
+        0.03
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "side frame",
+      "lo": [
+        2.1100000000000003,
+        -0.6234000000000001,
+        2.9545000000000003
+      ],
+      "hi": [
+        2.17,
+        0.545,
+        3.0145
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "soffit_return_living",
+      "lo": [
+        1.9368,
+        -0.545,
+        3.0338
+      ],
+      "hi": [
+        2.14,
+        0.545,
+        3.2138
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "ledge_living",
+      "lo": [
+        1.9368,
+        -0.545,
+        -0.035
+      ],
+      "hi": [
+        2.14,
+        0.545,
+        0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "balcony 1.524 m",
+      "lo": [
+        -1.54,
+        -4,
+        3.0
+      ],
+      "hi": [
+        -0.016,
+        -0.545,
+        3.23
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "plain white deck-side wall",
+      "lo": [
+        1.9368,
+        -4,
+        0
+      ],
+      "hi": [
+        2.0868,
+        -0.545,
+        3.2138
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "dining adjoining courtyard wall",
+      "lo": [
+        -2.14,
+        -0.9409,
+        0
+      ],
+      "hi": [
+        -1.54,
+        -0.6614999999999999,
+        3.2138
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "context left sliding door plane",
+      "lo": [
+        -1.55,
+        -4,
+        0
+      ],
+      "hi": [
+        -1.54,
+        -0.9409,
+        2.9845
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "context left sliding door frame",
+      "lo": [
+        -1.565,
+        -4.03,
+        0
+      ],
+      "hi": [
+        -1.5150000000000001,
+        -3.97,
+        3.0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "context left sliding door frame",
+      "lo": [
+        -1.565,
+        -2.50045,
+        0
+      ],
+      "hi": [
+        -1.5150000000000001,
+        -2.4404500000000002,
+        3.0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "context left sliding door frame",
+      "lo": [
+        -1.565,
+        -0.9709,
+        0
+      ],
+      "hi": [
+        -1.5150000000000001,
+        -0.9108999999999999,
+        3.0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "context left sliding door rail",
+      "lo": [
+        -1.565,
+        -4,
+        -0.03
+      ],
+      "hi": [
+        -1.5150000000000001,
+        -0.9409,
+        0.03
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "context left sliding door rail",
+      "lo": [
+        -1.565,
+        -4,
+        2.94
+      ],
+      "hi": [
+        -1.5150000000000001,
+        -0.9409,
+        3.0
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "surface white trim",
+      "lo": [
+        1.9368,
+        -0.6534,
+        0
+      ],
+      "hi": [
+        2.14,
+        -0.6234,
+        3.0338
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "white head",
+      "lo": [
+        -2.181225,
+        0.515,
+        3.0338
+      ],
+      "hi": [
+        2.181225,
+        0.545,
+        3.2138
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "context deck",
+      "lo": [
+        -2.4,
+        -4,
+        -0.09
+      ],
+      "hi": [
+        2.4,
+        -0.785,
+        -0.01
+      ],
+      "glass": false,
+      "decorative_blind_fold": false
+    },
+    {
+      "name": "blind fold",
+      "lo": [
+        -2.181225,
+        0.697,
+        0.8
+      ],
+      "hi": [
+        2.181225,
+        0.7,
+        0.808
+      ],
+      "glass": false,
+      "decorative_blind_fold": true
+    },
+    {
+      "name": "blind fold",
+      "lo": [
+        -2.181225,
+        0.697,
+        1.12
+      ],
+      "hi": [
+        2.181225,
+        0.7,
+        1.1280000000000001
+      ],
+      "glass": false,
+      "decorative_blind_fold": true
+    },
+    {
+      "name": "blind fold",
+      "lo": [
+        -2.181225,
+        0.697,
+        1.4400000000000002
+      ],
+      "hi": [
+        2.181225,
+        0.7,
+        1.4480000000000002
+      ],
+      "glass": false,
+      "decorative_blind_fold": true
+    },
+    {
+      "name": "blind fold",
+      "lo": [
+        -2.181225,
+        0.697,
+        1.7600000000000002
+      ],
+      "hi": [
+        2.181225,
+        0.7,
+        1.7680000000000002
+      ],
+      "glass": false,
+      "decorative_blind_fold": true
+    },
+    {
+      "name": "blind fold",
+      "lo": [
+        -2.181225,
+        0.697,
+        2.08
+      ],
+      "hi": [
+        2.181225,
+        0.7,
+        2.088
+      ],
+      "glass": false,
+      "decorative_blind_fold": true
+    },
+    {
+      "name": "blind fold",
+      "lo": [
+        -2.181225,
+        0.697,
+        2.4000000000000004
+      ],
+      "hi": [
+        2.181225,
+        0.7,
+        2.4080000000000004
+      ],
+      "glass": false,
+      "decorative_blind_fold": true
+    },
+    {
+      "name": "blind fold",
+      "lo": [
+        -2.181225,
+        0.697,
+        2.7200000000000006
+      ],
+      "hi": [
+        2.181225,
+        0.7,
+        2.7280000000000006
+      ],
+      "glass": false,
+      "decorative_blind_fold": true
+    }
+  ],
+  "well_floor_z_m": -0.65,
+  "glass_tree_face_y_m": 0.545,
+  "pole_axes_xy_m": [
+    [
+      -1.25,
+      0.45
+    ],
+    [
+      1.27,
+      0.45
+    ]
+  ],
+  "pole_axis_status": "owner site premise; fixation and support not structurally qualified",
+  "geometry_revision": "balcony-300-v1",
+  "owner_measurement": {
+    "deck_z_m": 0.0,
+    "balcony_underside_z_m": 3.0,
+    "adjoining_glazing_assembly_head_z_m": 3.0,
+    "well_floor_z_m": -0.65,
+    "slab_thickness_m": 0.23,
+    "slab_thickness_status": "INHERITED_PROVISIONAL_NOT_OWNER_MEASURED",
+    "scope": "Balcony and adjoining sliding-door frame head; other glazing, soffits, tree and poles unchanged."
+  }
+}

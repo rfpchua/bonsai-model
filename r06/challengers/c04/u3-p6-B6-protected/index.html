@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Loading bonsai model</title><style>body{font:17px/1.6 system-ui;background:#f5f7f1;color:#233e33;padding:30px;max-width:650px;margin:auto}a{color:#176b50}</style><h1>Opening the 3D model</h1><p id="status">Downloading the model…</p><p><a href="report.html">Read the lighting report</a> · <a href="full.html">Open the full page directly</a></p><button id="retry" hidden onclick="location.reload()">Retry download</button><script>
+// COMPLETE_MODEL_LOADER — decompress only after the full response is received.
+(async()=>{const status=document.getElementById('status');try{
+ if(!window.DecompressionStream){location.replace('full.html');return;}
+ let data;for(let attempt=0;attempt<2;attempt++){try{const response=await fetch('scene-35d07b806373.html.gz',{cache:attempt?'reload':'default'});if(!response.ok)throw Error('Download '+response.status);data=new Uint8Array(await response.arrayBuffer());break;}catch(e){if(attempt)throw e;status.textContent='Retrying the model download…';}}
+ status.textContent='Preparing the model…';let bytes=data;
+ if(data[0]===31&&data[1]===139)bytes=new Uint8Array(await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
+ const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');if(digest!=='35d07b806373ba4627d3e445cb4c6d0d77d76e8a85a2410cf1ba6864d82a603d')throw Error('Incomplete or changed model download');
+ const html=new TextDecoder().decode(bytes);document.open();document.write(html);document.close();
+ }catch(e){status.textContent='The model could not finish downloading. Please retry, or open the report.';document.getElementById('retry').hidden=false;console.error(e);}})();
+</script></html>

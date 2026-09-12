@@ -1,0 +1,76 @@
+{
+  "retrieved_at": "2026-09-11",
+  "purpose": "Bounded second-pass search for an exact, externally available IES or LDT. Exact means the same BVP353 LED count, L-size, 4000 K, optic and Dynamic DMX/RDM configuration; family membership or an 80 W L35 file is insufficient.",
+  "targets": [
+    {
+      "order_code": "911401748533",
+      "configuration": "BVP353 72LED 40K 220V L57 30 DMX",
+      "watts": 150,
+      "optic_deg": 30
+    },
+    {
+      "order_code": "911401748623",
+      "configuration": "BVP353 72LED 40K 220V L57 45 DMX",
+      "watts": 150,
+      "optic_deg": 45
+    },
+    {
+      "order_code": "911401748173",
+      "configuration": "BVP353 60LED 40K 220V L50 30 DMX",
+      "watts": 120,
+      "optic_deg": 30
+    },
+    {
+      "order_code": "911401748263",
+      "configuration": "BVP353 60LED 40K 220V L50 45 DMX",
+      "watts": 120,
+      "optic_deg": 45
+    }
+  ],
+  "routes_checked": [
+    {
+      "route": "Signify global exact-product pages and their embedded download inventories",
+      "urls": [
+        "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748533_EU/product",
+        "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748623_EU/product",
+        "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/911401748173_EU/product"
+      ],
+      "result": "No exact IES/LDT. The locally preserved 150 W page sources have `photometrics:[]`; their download inventories name a product leaflet and visual/diagram collections only. The 120 W official page search result likewise lists leaflet/visual/diagram downloads, not photometry."
+    },
+    {
+      "route": "Signify global BVP353 family catalogue",
+      "url": "https://www.signify.com/global/prof/outdoor-luminaires/architectural-floodlighting/floodlighting/philips-uniflood-m-g2/LP_CF_BVP353_EU/family",
+      "result": "Confirms the exact 120 W and 150 W configurations are valid family members. The advertised family downloads are leaflet, installation instructions and visual assets; no exact IES/LDT was surfaced."
+    },
+    {
+      "route": "Web search of exact order codes and full configuration strings with IES/LDT/eulumdat/photometric terms",
+      "queries": [
+        "site:signify.com 911401748533 IES",
+        "site:signify.com 911401748623 IES",
+        "\"BVP353 72LED 40K 220V L57 30 DMX\"",
+        "\"BVP353 72LED 40K 220V L57 45 DMX\"",
+        "\"911401748533\" (ies OR ldt OR eulumdat OR photometric)",
+        "\"911401748623\" (ies OR ldt OR eulumdat OR photometric)",
+        "\"911401748173\" (ies OR ldt OR eulumdat OR photometric)",
+        "\"BVP353 60LED 40K 220V L50 30 DMX\" (ies OR ldt)"
+      ],
+      "result": "Returned Signify product/family pages and manufacturer PDF leaflets, but no downloadable IES/LDT for any target."
+    },
+    {
+      "route": "Lighting-data repositories / design-tool catalogues",
+      "queries": [
+        "site:lightingdata.ies \"BVP353\"",
+        "site:lighting.philips.com \"BVP353\" \"ies\"",
+        "site:dialux.com \"BVP353\"",
+        "site:relux.com \"BVP353\""
+      ],
+      "result": "No indexed results for BVP353. No file from a third-party index was accepted because none could be provenance-verified to the exact target."
+    }
+  ],
+  "outcome": {
+    "exact_150W_ies_or_ldt_found": false,
+    "exact_120W_ies_or_ldt_found": false,
+    "closest_official_route": "Ask Signify/Philips or the supplying distributor for a luminaire data package explicitly naming the 12NC/order code, BVP353 LED count, L-size, 4000 K, optic and DMX driver. Validate the returned IES/LDT header and integrated lumens before use.",
+    "rejected_substitute": "Existing BVP353 36LED L35 80 W IES files remain optic-only carriers and must not be relabelled as 120 W/150 W data."
+  }
+}

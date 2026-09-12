@@ -38,7 +38,7 @@
    body.userData.fixtureIndex=i;group.add(body);bodyMeshes.push(body);
    const marker=new THREE.Mesh(new THREE.SphereGeometry(.018,10,8),new THREE.MeshBasicMaterial({color:0xffe8b5}));
    marker.position.fromArray(f.source_m);group.add(marker);
-   if(f.role==='pole'){rod(f.mount_anchor_m,f.hinge_m,.014,0x6a796d,group);rod(f.hinge_m,f.body_center_m,.012,0x6a796d,group);}
+   if(f.role==='pole'){/* Stock Targetti 1E2825 intended. Unverified arm geometry deliberately omitted. */}
    else if(f.role==='wall'||f.role==='soffit'){
     const normal=v(f.mount_plane_normal),u=v(f.mount_u),vv=new THREE.Vector3().crossVectors(normal,u).normalize();
     const plate=new THREE.Mesh(new THREE.BoxGeometry(...f.base_dimensions_m),new THREE.MeshStandardMaterial({color:0x8190a0,roughness:.6}));
