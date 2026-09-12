@@ -90,6 +90,7 @@
    $('r05-legend-scale').textContent=isPPFD?'0 · 25 · 50 · 100 · 150 · 250+':'0 · 1 · 2 · 3 · 4 · 6+';
    $('r05-caption').textContent=cloud.visible?'Calculated dose on 62,246 retained foliage samples. Colours are not photographic brightness.':'Saved positions and aims. Beam outlines are schematic; mounting remains provisional.';
    updateEye();if(window.R05?.lastView==='mounts')setMountCutaway(true);
+    document.dispatchEvent(new Event('bonsai:lighting-update'));
   }
   function cameraView(name){
    const views={foyer:{eye:[-.5,4.5,3.2],target:[0,-.05,1.35],fov:52},courtyard:{eye:[-3,-5,3.1],target:[0,-.15,1.25],fov:50},aerial:{eye:[0,-.001,8.5],target:[0,-.1,0],fov:44},mounts:{eye:[-.5,4.5,3.2],target:[0,-.05,1.35],fov:52}};
@@ -175,6 +176,96 @@
       }
     }
     draw();
+  }
+  initialize();
+})();
+// Independent light-map control: display only, using the saved per-point values.
+(function () {
+  'use strict';
+  function initialize() {
+    if (!window.R05?.ready) {
+      if (!document.getElementById('r05-error')?.hidden) return;
+      requestAnimationFrame(initialize);return;
+    }
+    if (document.getElementById('r06-light-map')) return;
+    const $=id=>document.getElementById(id),api=window.R05,mode=$('r05-mode');
+    const button=document.createElement('button');button.id='r06-light-map';button.type='button';
+    button.setAttribute('aria-controls','r05-legend');button.setAttribute('aria-pressed','false');
+    button.title='Colour the foliage by calculated light intensity';document.body.append(button);
+    const style=document.createElement('style');style.textContent=`
+      #r06-light-map{position:fixed;right:16px;top:90px;z-index:24;min-height:44px;padding:10px 15px;border:1px solid #5d786d;border-radius:9px;background:#fffef9;color:#203d33;font:700 14px system-ui;box-shadow:0 2px 9px #193b2920;cursor:pointer}
+      #r06-light-map[aria-pressed=true]{background:#214b3d;color:white;border-color:#214b3d}
+      #r06-light-map:focus-visible,#r06-map-metric:focus-visible{outline:3px solid #e89725;outline-offset:3px}
+      body[data-light-map=on] #r05-note{justify-content:flex-end}
+      body[data-light-map=on] #r05-caption{display:none}
+      body[data-light-map=on] #r05-legend{pointer-events:auto;width:320px;max-width:calc(100vw - 24px);min-width:0;font-size:12px;padding:10px 12px;background:#fffef9f5}
+      #r06-map-metric{display:block;width:100%;font:600 12px system-ui;min-height:34px;margin:0 0 7px;color:#234235;background:white;border:1px solid #a8b9af;border-radius:5px;padding:4px}
+      #r05-legend-scale{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+      #r06-map-stats{margin-top:7px;font-size:12px;font-weight:650;font-variant-numeric:tabular-nums}
+      #r06-map-explainer{margin-top:4px;font-size:10px;line-height:1.4;color:#56675f}
+      @media(max-width:720px){#r06-light-map{top:100px;right:12px}body[data-light-map=on] #r05-legend{width:270px}}
+    `;document.head.append(style);
+    const legend=$('r05-legend'),metric=document.createElement('select');metric.id='r06-map-metric';
+    metric.setAttribute('aria-label','Light map measurement');
+    for(const [value,label] of [['electric','Electric intensity · PPFD'],['dull','Total DLI · dull day'],['typical','Total DLI · typical day']]){
+      const option=document.createElement('option');option.value=value;option.textContent=label;metric.append(option);
+    }
+    legend.prepend(metric);
+    const stats=document.createElement('div');stats.id='r06-map-stats';legend.append(stats);
+    const explainer=document.createElement('div');explainer.id='r06-map-explainer';
+    explainer.textContent='Blue = less light · red = more. Model estimate, not a burn-risk scale.';legend.append(explainer);
+    const colors=['#183b65','#2b83b6','#45b79a','#c9df67','#fee08b','#f46d43','#a50026'];
+    const rgb=colors.map(c=>new THREE.Color(c));
+    let lastMode='electric',savedGuides=null;
+    function sync() {
+      const active=mode.value!=='layout',visible=active&&api.lastView!=='mounts';
+      document.body.dataset.lightMap=active?'on':'off';
+      button.setAttribute('aria-pressed',String(active));button.textContent='Light map: '+(active?'on':'off');
+      legend.hidden=!visible;
+      if(!active)return;
+      lastMode=mode.value;metric.value=mode.value;
+      const ppfd=mode.value==='electric',stops=ppfd?[0,50,100,150,200,300,400]:[0,2,4,6,8,12,16];
+      const maximum=stops[stops.length-1],values=api.values,attribute=api.cloud.geometry.attributes.color;
+      let sum=0,peak=0;
+      for(let p=0;p<values.length;p++){
+        const value=values[p];sum+=value;peak=Math.max(peak,value);
+        const x=Math.max(0,Math.min(maximum,value));let k=0;
+        while(k<stops.length-2&&x>stops[k+1])k++;
+        const t=(x-stops[k])/(stops[k+1]-stops[k]),a=rgb[k],b=rgb[k+1];
+        attribute.setXYZ(p,a.r+(b.r-a.r)*t,a.g+(b.g-a.g)*t,a.b+(b.b-a.b)*t);
+      }
+      attribute.needsUpdate=true;
+      $('r05-legend-title').textContent=ppfd?'Electric light · µmol/m²/s':'Daylight + electric light · mol/m²/day';
+      legend.querySelector('.r05-gradient').style.background='linear-gradient(90deg,'+colors.map((c,i)=>c+' '+stops[i]/maximum*100+'%').join(',')+')';
+      $('r05-legend-scale').replaceChildren(...(ppfd?[0,100,200,300,'400+']:[0,4,8,12,'16+']).map(x=>{
+        const label=document.createElement('span');label.textContent=x;return label;
+      }));
+      const all=api.selected().length===api.data.schedule.fixtures.length;
+      stats.textContent=(all?'All lights':'Selected lights')+' · mean '+(sum/values.length).toFixed(ppfd?1:2)+' · peak '+peak.toFixed(ppfd?0:2);
+      button.dataset.peak=peak;button.dataset.metric=mode.value;
+    }
+    function change(active) {
+      if(active){
+        savedGuides=[$('r05-beams').checked,$('r05-labels').checked];
+        $('r05-beams').checked=false;$('r05-labels').checked=false;
+        mode.value=lastMode;
+        if(api.lastView==='mounts')api.cameraView('foyer');
+      }else{
+        mode.value='layout';
+        if(savedGuides){[$('r05-beams').checked,$('r05-labels').checked]=savedGuides;savedGuides=null;}
+      }
+      api.update();sync();
+    }
+    button.addEventListener('click',()=>change(mode.value==='layout'));
+    metric.addEventListener('change',()=>{mode.value=metric.value;api.update();sync();});
+    document.addEventListener('bonsai:lighting-update',sync);
+    // Both the existing View menu and the quick button control the same visible map.
+    sync();
+    const requested=new URLSearchParams(location.search).get('lightmap');
+    if(['1','electric','dull','typical'].includes(requested)){
+      lastMode=requested==='1'?'electric':requested;change(true);
+    }
+    button.dataset.ready='true';
   }
   initialize();
 })();

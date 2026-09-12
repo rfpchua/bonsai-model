@@ -2,10 +2,10 @@
 // COMPLETE_MODEL_LOADER — decompress only after the full response is received.
 (async()=>{const status=document.getElementById('status');try{
  if(!window.DecompressionStream){location.replace('full.html');return;}
- let data;for(let attempt=0;attempt<2;attempt++){try{const response=await fetch('scene-d20ef6bccfba.html.gz',{cache:attempt?'reload':'default'});if(!response.ok)throw Error('Download '+response.status);data=new Uint8Array(await response.arrayBuffer());break;}catch(e){if(attempt)throw e;status.textContent='Retrying the model download…';}}
+ let data;for(let attempt=0;attempt<2;attempt++){try{const response=await fetch('scene-bac0e06df5b2.html.gz',{cache:attempt?'reload':'default'});if(!response.ok)throw Error('Download '+response.status);data=new Uint8Array(await response.arrayBuffer());break;}catch(e){if(attempt)throw e;status.textContent='Retrying the model download…';}}
  status.textContent='Preparing the model…';let bytes=data;
  if(data[0]===31&&data[1]===139)bytes=new Uint8Array(await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
- const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');if(digest!=='d20ef6bccfba5b8a1de2b565e4aac9e7490015fb40c7aa9d7ff5541aacd07d6b')throw Error('Incomplete or changed model download');
+ const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');if(digest!=='bac0e06df5b2c5a97602a77689f8fb46a3a1a6e5f785798db1c7ff568228de74')throw Error('Incomplete or changed model download');
  const html=new TextDecoder().decode(bytes);document.open();document.write(html);document.close();
  }catch(e){status.textContent='The model could not finish downloading. Please retry, or open the report.';document.getElementById('retry').hidden=false;console.error(e);}})();
 </script></html>
